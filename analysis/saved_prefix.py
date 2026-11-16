@@ -22,14 +22,25 @@ BUDGETS = (5, 10)
 
 
 def load_run(run_dir: str):
-    """Load predictions.jsonl from a runner output directory."""
+    """Load predictions.jsonl from a runner output directory.
+
+    Duplicate (setting, variant, qid) records are REJECTED before any
+    indexing — silently overwriting them would hide corrupted or merged
+    prediction files from every downstream uniqueness check.
+    """
     path = Path(run_dir) / "predictions.jsonl"
     records = [json.loads(line) for line in
                open(path, encoding="utf-8") if line.strip()]
     groups: Dict[tuple, Dict[str, Dict]] = {}
     for rec in records:
-        groups.setdefault((rec["setting"], rec["variant"]), {})[rec["qid"]] = rec
-    return {k: index_predictions(list(v.values())) for k, v in groups.items()}
+        key = (rec["setting"], rec["variant"])
+        bucket = groups.setdefault(key, {})
+        if rec["qid"] in bucket:
+            raise ValueError(
+                f"duplicate prediction record for ({key[0]}, {key[1]}, "
+                f"{rec['qid']}) in {path}; refusing to collapse duplicates")
+        bucket[rec["qid"]] = rec
+    return groups
 
 
 def load_gold(gold_path: str) -> Dict[str, Dict]:

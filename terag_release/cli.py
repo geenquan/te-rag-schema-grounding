@@ -5,20 +5,25 @@
 Commands
 --------
 validate-data    Check schema/QA/gold/split files against the input contract.
-generate-demo    Generate the bundled synthetic demo dataset (deterministic).
+generate-demo    Generate the synthetic demo dataset into a NEW directory.
 build-gold       Derive full gold (AST) from user QA + schema CSVs.
 make-folds       Build the deterministic question/table fold manifest.
 run-demo         Run the offline demo pipeline end to end (no network).
 run-experiments  Run a method x protocol matrix on user data.
 evaluate         Offline full-gold evaluation of saved predictions.
+statistics       Offline paired statistics (Wilcoxon + cluster bootstrap).
 analyze          Saved-result analyses (saved-prefix budgets, transfer
                  evidence, held-out disagreements, isolation).
-plot             Render result figures from a run directory.
+plot             Render result figures from a run directory (+ statistics).
 benchmark        Fresh timing of the current build (NEW measurement).
 
-Every command writes only to NEW output directories and records a run_meta
-snapshot (resolved config + SHA256, input checksums, environment versions,
-per-unit status/timing). API keys are read from environment variables only.
+Execution commands resolve the layered configuration (base <- dataset <-
+protocol <- method <- experiment <- CLI) into one effective structure whose
+canonical SHA256 is the run's configuration identity; run_meta records the
+resolved configuration, per-unit effective parameters, input checksums,
+environment versions, and per-unit status/timing. Failed units make the
+command exit non-zero; error records keep affected questions in every
+denominator. API keys are read from environment variables only.
 """
 
 import argparse
@@ -28,8 +33,7 @@ from pathlib import Path
 
 from terag_release import reporting
 from terag_release.config import (CONFIG_DIR, REPO_ROOT, config_sha256,
-                                  load_base, load_dataset, load_experiment,
-                                  load_protocol, terag_sections)
+                                  resolve_run)
 
 OFFLINE_METHODS = ["BM25", "TFIDF", "Hybrid", "MetadataMatched",
                    "ExampleRRF", "CooccurRRF",
@@ -46,16 +50,38 @@ def _fail(message: str, code: int = 2):
 
 def cmd_validate_data(args):
     from terag_release.validation import validate_dataset
+    from terag_release import protocols
+    from terag_release.runner import load_gold
+
+    splits_report = {}
+    if args.splits_manifest:
+        import pandas as pd
+        rows = pd.read_csv(args.qa_csv)
+        qids = [f"{args.qid_prefix}{i:03d}" for i in range(len(rows))]
+        try:
+            manifest = protocols.load_manifest(args.splits_manifest)
+            checks = protocols.validate_manifest(manifest, rows,
+                                                 load_gold(args.gold), qids)
+            splits_report = {"revalidated_checks": checks}
+        except protocols.ManifestValidationError as e:
+            splits_report = {"revalidated_checks": None, "errors":
+                             [str(e)]}
 
     report = validate_dataset(
         field_csv=args.field_csv, table_csv=args.table_csv,
         qa_csv=args.qa_csv, gold=args.gold,
-        splits_manifest=args.splits_manifest)
+        splits_manifest=None)  # manifest handled above with revalidation
+    report["splits_manifest"] = splits_report or {
+        "note": "no manifest supplied; folds will be rebuilt at run time"}
+    ok = report["ok"] and splits_report.get("revalidated_checks") is not None \
+        if args.splits_manifest else report["ok"]
+    report["ok"] = ok
     out = reporting.require_new_directory(args.output)
     reporting.write_json_exclusive(out / "validation_report.json", report)
-    ok = report["ok"]
     print(("PASS" if ok else "FAIL") + f" — {report['summary']}")
     for err in report["errors"][:20]:
+        print(f"  error: {err}")
+    for err in splits_report.get("errors", [])[:20]:
         print(f"  error: {err}")
     for warn in report.get("warnings", [])[:20]:
         print(f"  warning: {warn}")
@@ -68,38 +94,33 @@ def cmd_generate_demo(args):
     from demo.generator import generate
 
     out = Path(args.output)
-    if out.exists() and not args.force:
-        _fail(f"output exists: {out} (use --force to regenerate demo data)")
+    if out.exists() and any(out.iterdir()):
+        _fail(f"output directory exists and is not empty: {out} — choose a "
+              f"NEW directory (the bundled demo/data is tracked and is "
+              f"never overwritten; regeneration is always into a fresh "
+              f"directory)")
     generate(out, scale=args.scale)
-    print(f"demo dataset generated under {out} (scale={args.scale})")
+    print(f"demo dataset generated under {out} (scale={args.scale}); "
+          f"build its gold with scripts/build_full_gold.py or point a "
+          f"dataset config at the new directory")
 
 
 def cmd_run_demo(args):
+    dataset_ref = args.dataset
+    resolved = resolve_run(dataset_ref, "demo_offline",
+                           method_names=OFFLINE_METHODS)
+    if resolved["profile"] != "paper":
+        _fail("run-demo always uses the paper profile")
     from terag_release.runner import run_experiments
-
-    dataset = load_dataset("demo")
-    demo_dir = REPO_ROOT / "demo" / "data"
-    if not (demo_dir / "qa_data.csv").exists():
-        _fail("demo data missing; run `python -m terag_release generate-demo` "
-              "first")
-    base = load_base()
-    resolved = {
-        "command": "run-demo",
-        "dataset": dataset,
-        "methods": OFFLINE_METHODS,
-        "protocols": ["question_v1", "table_v2"],
-        "budget": base.get("budget"),
-        "offline_only": True,
-        "note": ("synthetic demo execution; verifies the public code path, "
-                 "NOT a reproduction of paper numbers"),
-    }
-    run_experiments(dataset_cfg=dataset, resolved=resolved,
-                    base_sections=terag_sections(base, dataset),
-                    run_dir=Path(args.output),
-                    variant_names=OFFLINE_METHODS,
-                    protocol_names=["question_v1", "table_v2"],
-                    diagnostics=args.diagnostics)
-    print(f"demo run complete: {args.output}")
+    resolved["execution_note"] = (
+        "synthetic demo execution; verifies the public code path, NOT a "
+        "reproduction of paper numbers")
+    meta = run_experiments(resolved=resolved, run_dir=Path(args.output),
+                           diagnostics=args.diagnostics)
+    status = meta["execution"]["run_status"]
+    print(f"demo run '{status}': {args.output}")
+    if status != "completed":
+        raise SystemExit(1)
 
 
 # ---------------------------------------------------------------- gold/folds
@@ -120,8 +141,8 @@ def cmd_make_folds(args):
     gold = load_gold(args.gold)
     q_folds = protocols.build_question_folds(rows)
     t_v1 = protocols.build_table_folds(rows)
-    ast_folds, exclusions = protocols.apply_ast_exclusion(t_v1, gold,
-                                                          rows["qid"].tolist())
+    ast_folds, exclusions = protocols.apply_ast_exclusion(
+        t_v1, gold, rows["qid"].tolist())
     checks = protocols.verify_splits(rows, q_folds, t_v1)
     manifest = protocols.build_manifest(rows, q_folds, t_v1, ast_folds,
                                         exclusions, checks)
@@ -141,43 +162,44 @@ def cmd_make_folds(args):
 
 def cmd_run_experiments(args):
     from terag_release import variants as variants_mod
+    from terag_release.config import load_experiment
     from terag_release.runner import run_experiments
 
-    dataset = load_dataset(args.dataset)
-    experiment = load_experiment(args.experiment)
-    base = load_base()
-    protocol_names = experiment.get("protocols",
-                                    ["question_v1", "table_v2"])
-    method_names = args.methods or experiment.get("methods",
-                                                  variants_mod.FULL_MATRIX)
-    unknown = [m for m in method_names if m not in variants_mod.VARIANTS]
-    if unknown:
-        _fail(f"unknown methods: {unknown}; available: "
-              f"{sorted(variants_mod.VARIANTS)}")
-
-    network_free = [m for m in method_names
-                    if not variants_mod.method_requires_network(m)]
-    skipped = sorted(set(method_names) - set(network_free))
+    method_names = args.methods
     if args.offline_only:
-        method_names = network_free
-        if skipped:
-            print(f"offline-only: skipping network methods {skipped}")
-    elif skipped and not args.allow_network:
-        _fail(f"methods {skipped} require a model download or the DeepSeek "
-              f"API; pass --allow-network to enable them (never in the demo)")
+        if method_names is None:
+            experiment, _ = load_experiment(args.experiment)
+            method_names = experiment.get("methods",
+                                          variants_mod.FULL_MATRIX)
+        network = {m for m in method_names
+                   if variants_mod.method_requires_network(m)}
+        if network:
+            print(f"offline-only: skipping network methods {sorted(network)}")
+            method_names = [m for m in method_names if m not in network]
+            if not method_names:
+                _fail("offline-only selection is empty after removing "
+                      "network methods")
 
-    resolved = {
-        "command": "run-experiments",
-        "dataset": dataset, "experiment": experiment,
-        "methods": method_names, "protocols": protocol_names,
-        "budget": base.get("budget"), "seed": base.get("terag", {}).get("seed", 42),
-    }
-    run_experiments(dataset_cfg=dataset, resolved=resolved,
-                    base_sections=terag_sections(base, dataset),
-                    run_dir=Path(args.output), variant_names=method_names,
-                    protocol_names=protocol_names,
-                    fold_override=args.fold, diagnostics=args.diagnostics)
-    print(f"run complete: {args.output}")
+    try:
+        resolved = resolve_run(args.dataset, args.experiment,
+                               method_names=method_names,
+                               profile=args.profile)
+    except Exception as e:
+        _fail(str(e))
+    network = {m for m in resolved["experiment"]["methods"]
+               if variants_mod.method_requires_network(m)}
+    if network and not args.allow_network:
+        _fail(f"methods {sorted(network)} require a model download or the "
+              f"DeepSeek API; pass --allow-network to enable them (never in "
+              f"the demo)")
+
+    meta = run_experiments(resolved=resolved, run_dir=Path(args.output),
+                           fold_override=args.fold,
+                           diagnostics=args.diagnostics)
+    status = meta["execution"]["run_status"]
+    print(f"run '{status}': {args.output}")
+    if status in ("completed_with_failures", "failed"):
+        raise SystemExit(1)
 
 
 # ---------------------------------------------------------------- evaluate
@@ -188,6 +210,15 @@ def cmd_evaluate(args):
     result = audit(gold_path=args.gold, budget_path=args.budget,
                    prediction_paths=args.predictions, families=args.families)
     write_audit_result(result, args.output)
+
+
+# ---------------------------------------------------------------- statistics
+
+def cmd_statistics(args):
+    from analysis.statistics import compute_run_statistics
+
+    output = args.output or str(Path(args.run) / "statistics")
+    compute_run_statistics(run_dir=args.run, gold=args.gold, output=output)
 
 
 # ---------------------------------------------------------------- analyze
@@ -206,7 +237,9 @@ def cmd_plot(args):
     from analysis.plots import plot_run
 
     out = reporting.require_new_directory(args.output)
-    plot_run(args.run, out)
+    # plot_run auto-detects <run>/statistics/statistics.json; an explicit
+    # --statistics path is content-verified against the run before use
+    plot_run(args.run, out, statistics_path=args.statistics)
 
 
 # ---------------------------------------------------------------- benchmark
@@ -214,14 +247,13 @@ def cmd_plot(args):
 def cmd_benchmark(args):
     from terag_release.benchmark import benchmark
 
-    dataset = load_dataset(args.dataset)
-    base = load_base()
-    report = benchmark(dataset_cfg=dataset,
-                       base_sections=terag_sections(base, dataset),
-                       variants=args.variants or ["TERAG-Full"],
-                       output=args.output)
+    resolved = resolve_run(args.dataset, "question_only_offline",
+                           method_names=args.variants)
+    report = benchmark(resolved=resolved, output=args.output)
     print(json.dumps(report.get("summary", report), indent=2,
                      ensure_ascii=False, default=str))
+    if report.get("run_status") in ("failed", "completed_with_failures"):
+        raise SystemExit(1)
 
 
 # ---------------------------------------------------------------- parser
@@ -233,24 +265,29 @@ def build_parser() -> argparse.ArgumentParser:
     sub = p.add_subparsers(dest="command", required=True)
 
     v = sub.add_parser("validate-data", help="check input files against the "
-                       "documented contract")
+                       "documented contract (splits manifests are "
+                       "re-validated, cached checks are never trusted)")
     v.add_argument("--field-csv", required=True)
     v.add_argument("--table-csv", required=True)
     v.add_argument("--qa-csv", required=True)
-    v.add_argument("--gold")
+    v.add_argument("--gold", required=True)
     v.add_argument("--splits-manifest")
+    v.add_argument("--qid-prefix", default="q")
     v.add_argument("--output", required=True)
     v.set_defaults(func=cmd_validate_data)
 
     g = sub.add_parser("generate-demo", help="generate the synthetic demo "
-                       "dataset (deterministic)")
-    g.add_argument("--output", default=str(REPO_ROOT / "demo" / "data"))
+                       "dataset into a NEW directory (deterministic)")
+    g.add_argument("--output", required=True,
+                   help="NEW output directory (the bundled demo/data is "
+                        "never overwritten)")
     g.add_argument("--scale", default="small", choices=["small", "full"])
-    g.add_argument("--force", action="store_true")
     g.set_defaults(func=cmd_generate_demo)
 
     d = sub.add_parser("run-demo", help="run the offline synthetic demo "
                        "pipeline (no network, no API)")
+    d.add_argument("--dataset", default="demo",
+                   help="demo dataset config name or path (default: demo)")
     d.add_argument("--output", required=True,
                    help="NEW output directory for the demo run")
     d.add_argument("--diagnostics", action="store_true",
@@ -279,15 +316,20 @@ def build_parser() -> argparse.ArgumentParser:
     r = sub.add_parser("run-experiments", help="run a method x protocol "
                        "matrix on user data")
     r.add_argument("--dataset", required=True,
-                   help="dataset config name under configs/datasets/")
+                   help="dataset config NAME under configs/datasets/ or an "
+                        "explicit YAML file path")
     r.add_argument("--experiment", default="full_matrix",
-                   help="experiment config name under configs/experiments/")
+                   help="experiment config name or path")
     r.add_argument("--methods", nargs="*", help="override method list")
+    r.add_argument("--profile", choices=["paper", "custom"], default=None,
+                   help="paper (default): frozen parameters are enforced; "
+                        "custom: deviations are allowed and recorded")
     r.add_argument("--offline-only", action="store_true",
                    help="skip methods needing model downloads or the API")
     r.add_argument("--allow-network", action="store_true",
                    help="permit model/API methods (never default)")
-    r.add_argument("--fold", type=int, help="run a single fold only")
+    r.add_argument("--fold", type=int, help="run a single fold only "
+                   "(produces a labeled partial run)")
     r.add_argument("--diagnostics", action="store_true")
     r.add_argument("--output", required=True)
     r.set_defaults(func=cmd_run_experiments)
@@ -304,6 +346,15 @@ def build_parser() -> argparse.ArgumentParser:
     e.add_argument("--output", required=True)
     e.set_defaults(func=cmd_evaluate)
 
+    s = sub.add_parser("statistics", help="offline paired statistics "
+                       "(Wilcoxon + cluster bootstrap) for a run directory")
+    s.add_argument("--run", required=True, help="run directory")
+    s.add_argument("--gold", required=True)
+    s.add_argument("--output", default=None,
+                   help="output directory (default: <run>/statistics, which "
+                        "`plot` auto-detects)")
+    s.set_defaults(func=cmd_statistics)
+
     a = sub.add_parser("analyze", help="saved-result analyses")
     a.add_argument("--analysis", required=True,
                    choices=["saved-prefix", "transfer", "heldout",
@@ -316,8 +367,12 @@ def build_parser() -> argparse.ArgumentParser:
     a.add_argument("--output", required=True)
     a.set_defaults(func=cmd_analyze)
 
-    pl = sub.add_parser("plot", help="render figures from a run directory")
+    pl = sub.add_parser("plot", help="render figures from a run directory "
+                       "(CI whiskers need the statistics step's output)")
     pl.add_argument("--run", required=True)
+    pl.add_argument("--statistics", default=None,
+                    help="statistics.json from `terag_release statistics` "
+                         "(auto-detected under <run>/statistics/)")
     pl.add_argument("--output", required=True)
     pl.set_defaults(func=cmd_plot)
 

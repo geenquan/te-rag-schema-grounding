@@ -12,4 +12,4 @@ Modules:
 * cli          — `python -m terag_release <command>`
 """
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"

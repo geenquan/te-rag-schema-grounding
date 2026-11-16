@@ -87,9 +87,10 @@ truth, mirrored in `configs/methods/*.yaml`).
 Execution:
 
 ```sh
-# full matrix on user data (explicit dataset + protocol + methods)
-python -m terag_release run-experiments --dataset configs/datasets/private.yaml \
-    --experiment configs/experiments/full_matrix.yaml --output runs/full_matrix
+# full matrix on user data (config references are NAME-or-PATH:
+# "mydata" resolves under configs/datasets/, or pass an explicit file path)
+python -m terag_release run-experiments --dataset mydata \
+    --experiment full_matrix --output runs/full_matrix
 
 # offline re-evaluation of saved predictions (denominators recomputed)
 python -m terag_release evaluate --gold GOLD.jsonl --budget budget.json \
@@ -158,10 +159,17 @@ Entrance: `python -m terag_release analyze --analysis saved-prefix --run RUN_DIR
   are reported as not computable.
 
 Implementation: `eval/full_gold.py::paired_covered`; family assembly in
-`experiment/audit_saved_predictions.py` (`FAMILIES`). Requires SciPy (optional
-dependency; the CLI reports clearly when unavailable). Demo status: the
-deterministic synthetic generator produces enough records/clusters to exercise
-the flow; results on synthetic data are **not** paper conclusions.
+`experiment/audit_saved_predictions.py` (`FAMILIES`) — imported and reused
+by `analysis/statistics.py` so the two entry points cannot drift. The
+fixed families are Question-Level comparisons; held-out comparisons are
+exploratory. A family-corrected value requires the complete family in the
+run (otherwise `not_computed` with missing members; raw paired values
+remain available for plotting). Requires SciPy (optional dependency; the
+CLI reports clearly when unavailable). Demo status: the deterministic
+synthetic generator produces enough records/clusters to exercise the
+flow; results on synthetic data are **not** paper conclusions. Zero
+difference means identical per-question Covered@5 values, not identical
+retrieval outputs (the paper's Full/noC boundary).
 
 ## 7. Transfer (C) evidence and diagnostics (§3.5, appendix `sec:transfer_audit`)
 
@@ -211,14 +219,25 @@ table.
 Regenerable from saved evaluation outputs: (a) five question-level controls —
 Covered@5 and column P–R/F1; (b) variant-minus-Full Covered@5 differences with
 unadjusted cluster CIs (hollow markers where no CI exists: identical outputs);
-(c) held-out coverage/recal for run methods. Framework diagram
-(Fig. `fig:framework`) is a schematic, not an experiment, and is not
-regenerated.
+(c) held-out Covered@5 versus macro **column recall** for run methods.
+Framework diagram (Fig. `fig:framework`) is a schematic, not an experiment,
+and is not regenerated.
 
-Implementation: `analysis/plots.py`. Entrance:
-`python -m terag_release plot --run RUN_DIR --output FIG_DIR`.
-(The paper embeds vector PDFs rendered from the private results; the scripts
-here re-render equivalent panels from any conforming run directory.)
+Implementation: `analysis/statistics.py` (paired Wilcoxon + cluster bootstrap,
+seed 42, 10,000 resamples, direction variant−Full with consistently flipped
+CI endpoints; families k=6/k=2 kept separate; zero differences carry no
+interval) and `analysis/plots.py`. Entrances:
+
+```sh
+python -m terag_release statistics --run RUN_DIR --gold GOLD.jsonl
+# writes RUN_DIR/statistics/statistics.json (auto-detected by plot)
+python -m terag_release plot --run RUN_DIR --output FIG_DIR
+```
+
+Interval whiskers come only from the statistics file; both steps are purely
+offline over saved predictions. The paper embeds vector PDFs rendered from
+the private results; these scripts re-render equivalent panels from any
+conforming run directory and are not numerical reproductions.
 
 ---
 

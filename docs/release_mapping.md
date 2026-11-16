@@ -49,7 +49,7 @@ it would change runtime behavior.
 | `scripts/build_full_gold.py` | private default paths → required CLI args (`--field-csv/--table-csv/--qa-csv/--output-dir/--qid-prefix/--dialect`) | same computation on any dataset |
 | `scripts/verify_isolation.py` | same parameterization (`--gold/--qa-csv/--qid-prefix/--out-dir`) | same computation on any dataset |
 | `experiment/audit_saved_predictions.py` | an incomplete fixed statistics family is recorded `not_computed` with its missing members instead of raising (the paper's runs always supplied complete families) | no partial family is ever computed or shrunk |
-| `retrievers/linkalign_retriever.py` (DenseDeepSeek) | API key resolution: environment only (the private `config.yaml` fallback is not shipped) | same API behavior; credentials never read from repo files |
+| `retrievers/linkalign_retriever.py` (DenseDeepSeek) | v0.1.0 shipped the tag's original bytes — including its `config.yaml` key fallback, which the v0.1.0 mapping wrongly described as removed (corrected; see the R8 entry in the v0.1.1 section below for the actual removal) | none at v0.1.0; removed in v0.1.1 |
 
 ### Not exported (private or out of paper scope)
 
@@ -78,6 +78,27 @@ it would change runtime behavior.
 validation, benchmark, reporting, cli), `analysis/` (saved_prefix,
 heldout_failures, transfer, plots), `demo/` (generator + committed data),
 `configs/` tree, `tests/`, `docs/`, README, CHANGELOG, THIRD_PARTY_LICENSES.
+
+## v0.1.1 adaptations (independent-review fixes R1–R9)
+
+Beyond the v0.1.0 export rules above, the following public-side changes were
+made after independent review (private tag sources untouched; the algorithm
+identity is unchanged):
+
+| Area | Change | Behavior impact |
+|---|---|---|
+| KaSLA supervision (R1) | `terag_release/variants.py`: KaSLA-Adapted receives `full_sql` training supervision, matching the paper runner (`run_expansion.py` injects before the reviewer loop); LinkAlign correctly stays raw (its fit is schema-only) | classifier labels and capacity estimation now derive from the complete SQL gold, not the original SELECT annotation |
+| Configuration binding (R2) | new `terag_release/paper_profile.py` + rewritten `config.py` resolver: override order paper<-base<-dataset<-protocol<-method<-experiment<-CLI, strict key/parameter validation, name-or-path references, per-unit effective parameters, resolved-config SHA256 covering every consumed value, paper/custom profiles with frozen-parameter enforcement | method/protocol YAMLs now genuinely reach constructors; silent no-op config changes are impossible; deviations require an explicit custom profile |
+| Manifest re-validation (R3) | `protocols.validate_manifest` recomputes every invariant (coverage, exclusivity, dup groups, target-table single-fold membership, exact training membership, AST isolation with current gold, conservative unparseable exclusion) before any fit; cached manifest `checks` never trusted; missing configured manifest is an error; test frames ordered BY qid with per-record question verification | stale/edited/leaky manifests fail before execution; question/qid misalignment is impossible regardless of manifest ordering |
+| Fold-helper parity (R4) | `_norm_tokens` restored to the exact paper semantics (no extra lowercase; large-magnitude CJK numeral not masked); parity pinned against an embedded reference in tests | duplicate grouping matches the paper protocol on boundary inputs |
+| Statistics + figures (R5) | new `analysis/statistics.py` (paired Wilcoxon + cluster bootstrap, direction variant−Full with flipped CI endpoints, families kept separate) and `statistics` CLI; `analysis/plots.py` draws real whiskers from that file, hollow markers for absent intervals, and the held-out Covered@5 vs column-recall panel | the figure pipeline consumes genuine statistical artifacts with input fingerprints; no retrieval re-run |
+| Failure semantics (R7) | runner preflight, planned/executed/skipped units, run_status (completed/partial/completed_with_failures/failed), per-question error records for construct/fit failures (no fabricated timings), coverage validation, non-zero exits, no-overwrite enforcement, benchmark refuses network methods | a failing run can no longer exit 0 or silently drop denominators; metadata always lands on disk |
+| Credential boundary (R8) | `retrievers/linkalign_retriever.py`: the config.yaml key fallback was REMOVED — v0.1.0 shipped the original tag bytes here and the mapping wrongly claimed it was gone; environment variables are the only source | no repository file is ever read for credentials; empty env fails with an environment-pointing error |
+| Environments (R9) | `requirements.txt` corrected to the paper-recorded pins (sqlglot **30.30.0**, pandas 2.0.2, ...); `requirements-verified.txt` records the exact verified environment; wheel packaging includes the pinned third-party sources/licenses and was verified importable outside the source tree | version claims are now accurate; binary distribution carries its licenses |
+
+The runner additionally orders adapted-method API caches under the run
+directory (path parameterization) and `run-demo` defaults to the bundled
+dataset with regeneration always targeting a new directory (R6).
 
 ## Verification performed at release time
 

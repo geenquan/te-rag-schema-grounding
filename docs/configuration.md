@@ -9,19 +9,71 @@ configs/
 ├── datasets/private.example.yaml   template for your data
 ├── protocols/question_level.yaml   question_v1
 ├── protocols/heldout_table.yaml    table_v2
-├── methods/*.yaml            one auditable file per method/ablation (17)
+├── methods/*.yaml            one file per method/ablation (17) — CONSUMED
+│                             by the runner, not documentation-only
 └── experiments/*.yaml        method×protocol bundles (full_matrix, demo_offline, ...)
 ```
 
-Any file may declare `extends: <relative-path>`; children deep-merge over
-parents (method files extend `terag_full.yaml` or `../base.yaml`). The
-loader resolves the whole tree, **rejects credential-shaped values**
-(`api_key: <non-placeholder>` fails; `${ENV_VAR}` / `<placeholder>` / empty
-pass), and every run exports the resolved config plus its SHA256 into
-`run_meta/run_meta.json`.
+Override order (later wins):
+
+```
+paper constants (terag_release/paper_profile.py — the code is the truth)
+  <- base.yaml
+  <- dataset yaml
+  <- protocol yaml (per protocol)
+  <- method yaml (per method)
+  <- experiment yaml
+  <- CLI flags
+```
+
+Every reference accepts a **name** (resolved under `configs/<kind>/`, with
+or without the `.yaml` suffix) or an explicit **file path**; paths are
+never re-suffixed or re-joined onto the config directory. Unknown keys,
+unknown parameters, and YAML values contradicting the code-defined variant
+matrix are hard errors — nothing is silently ignored. The loader
+**rejects credential-shaped values** (`api_key: <non-placeholder>` fails;
+`${ENV_VAR}` / `<placeholder>` / empty pass), and every execution command
+exports the fully resolved configuration plus its canonical SHA256 into
+`run_meta/run_meta.json`. Any value execution actually consumes changing
+changes that hash; per-unit `effective_params` record exactly what each
+constructor received.
 
 Relative dataset paths resolve against the repository root; absolute paths
 pass through.
+
+### Profiles
+
+* `paper` (default): every parameter frozen by the paper (BM25 constants,
+  ranking weights, feature internals, transfer gates/caps, protocol shape,
+  budget) is validated against `paper_profile` after merging — a changed
+  value is a startup error naming the parameter, the paper value, and the
+  configured value. Method `model:` sections are validated against the
+  constants imported from the retriever modules (tests pin the equality).
+* `custom` (`--profile custom`, or `profile: custom` in an experiment or
+  dataset config): deviations of the SUPPORTED surface (retriever
+  parameters k1/b/top_k/tokenizer; terag sections — weights, thresholds,
+  annotation/ablation toggles) are allowed, genuinely reach the
+  retrievers, and are stamped into run_meta.
+
+### Read-only mirrors (validated under EVERY profile)
+
+These fields restate constants fixed in code; execution would silently
+ignore a contradicting YAML value, so any deviation — or an unknown/
+misspelled key inside them — is a hard startup error even under
+`profile=custom`:
+
+| Field | Validated against |
+|---|---|
+| `base.yaml: transfer_defaults` | the actual `TransferConfig` defaults in `retrievers/annotation_transfer.py` (imported at validation time) |
+| method `model:` sections (incl. nested `classifier`) | `paper_profile.PAPER_MODEL_PARAMS`, itself pinned to the module constants by tests |
+| method `api:` sections | fixed environment-variable boundary (`DEEPSEEK_API_KEY` / `DEEPSEEK_BASE_URL` / default base URL) |
+| protocol `folds` / `supervision` | structural constants (5 folds, `full_sql`); the runner is not parameterized for anything else |
+| `budget` (base and per-protocol) | fixed retrieval budget (5 tables / 10 columns per table) |
+
+Protocol references accept a name or a file path, but the file only
+LOCATES the config — the canonical `name` inside it (`question_v1` /
+`table_v2`) is the execution identity, and a config without a recognized
+name is rejected (no more empty-plan surprises from absolute paths).
 
 ## Fixed algorithm parameters (configs/base.yaml — do not change when
 reproducing the paper protocol)

@@ -31,6 +31,7 @@ ALLOWED_DATA_FILES = {
     "tests/test_package_content.py",  # enterprise prefixes it guards against
     "tests/test_protocols.py",      # CJK test inputs (dup-group behavior)
     "tests/test_config.py",         # demo keyword-list values asserted as data
+    "tests/test_paper_fold_parity.py",  # paper-helper regexes + synthetic CJK inputs
     "demo/generator.py",            # the synthetic dataset itself
 }
 

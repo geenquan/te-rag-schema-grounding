@@ -22,7 +22,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict
 
-PUBLIC_RELEASE_VERSION = "0.1.0"
+# Single version source: terag_release.__version__ (pyproject reads
+# it dynamically; keep all three in lockstep).
+from terag_release import __version__ as PUBLIC_RELEASE_VERSION
 
 # Modules whose hashes identify the executed algorithm/runner code.
 CODE_MODULES = [
@@ -37,11 +39,23 @@ CODE_MODULES = [
     "retrievers/hybrid_retriever.py", "retrievers/matched_schema_retriever.py",
     "retrievers/example_rag_retriever.py",
     "retrievers/cooccurrence_retriever.py", "retrievers/dense_retriever.py",
+    "retrievers/linkalign_retriever.py",
+    "retrievers/linkalign_official_retriever.py",
+    "retrievers/kasla_retriever.py",
+    "retrievers/upstream/linkalign_prompts.py",
+    "retrievers/upstream/kasla_utils.py",
     "eval/retrieval_metrics.py", "eval/full_gold.py",
     "datasets/gt_utils.py",
-    "terag_release/config.py", "terag_release/protocols.py",
+    "experiment/audit_saved_predictions.py",
+    "analysis/statistics.py", "analysis/plots.py",
+    "analysis/saved_prefix.py", "analysis/heldout_failures.py",
+    "analysis/transfer.py",
+    "terag_release/config.py", "terag_release/paper_profile.py",
+    "terag_release/protocols.py",
     "terag_release/supervision.py", "terag_release/variants.py",
     "terag_release/runner.py", "terag_release/reporting.py",
+    "terag_release/validation.py", "terag_release/benchmark.py",
+    "terag_release/cli.py",
 ]
 
 
@@ -51,6 +65,10 @@ def sha256_file(path) -> str:
         for chunk in iter(lambda: f.read(1 << 20), b""):
             h.update(chunk)
     return h.hexdigest()
+
+
+def sha256_of_bytes(payload: bytes) -> str:
+    return hashlib.sha256(payload).hexdigest()
 
 
 def json_bytes(value) -> bytes:

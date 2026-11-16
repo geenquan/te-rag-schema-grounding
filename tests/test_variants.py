@@ -96,11 +96,17 @@ class TestMethodIdentity(unittest.TestCase):
                          "TE-RAG-V2")
 
     def test_supervision_targets(self):
-        supervised = {"ExampleRRF", "CooccurRRF", "TERAG-Full", "TERAG-noBC"}
+        supervised = {"ExampleRRF", "CooccurRRF", "TERAG-Full", "TERAG-noBC",
+                      "TERAG-noC", "TERAG-noAnnIdx", "TERAG-noAnnHit",
+                      "TERAG-noGraph", "TERAG-noPattern", "KaSLA-Adapted"}
         for name in supervised:
             self.assertEqual(variants.VARIANTS[name]["supervision"],
-                             "full_sql")
-        for name in ("BM25", "TFIDF", "Hybrid", "MetadataMatched"):
+                             "full_sql",
+                             f"{name} must receive full_sql supervision")
+        # Raw-metadata baselines and the schema-only LinkAlign adapter take
+        # the raw frame, exactly as in the paper runner.
+        for name in ("BM25", "TFIDF", "Hybrid", "MetadataMatched",
+                     "LinkAlign-SingleDB-Adapted"):
             self.assertIsNone(variants.VARIANTS[name]["supervision"])
 
     def test_metadata_matched_has_no_history(self):

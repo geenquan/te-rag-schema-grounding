@@ -45,11 +45,15 @@ def _norm_raw(question: str) -> str:
 def _norm_tokens(question: str) -> Set[str]:
     """Token set with numeric/CJK-numeral constants masked to '#'.
 
-    Dates and quantities should not make two otherwise-identical questions
-    look different, so digits and Chinese numerals are masked before the
-    Jaccard comparison.
+    Faithful re-implementation of the paper protocol helper
+    (experiment/run_p1b.py::_norm_tokens at tag paper-dasfaa2027-v1.0):
+    ASCII digits and the CJK numerals up to "thousand" (see the character
+    class below) are masked; the larger-magnitude numeral is deliberately
+    NOT masked, and the text is NOT lowercased here (case handling belongs
+    to _norm_raw). tests/test_paper_fold_parity.py pins this behavior
+    against the original helper on synthetic boundary inputs.
     """
-    s = re.sub(r"[0-9〇一二三四五六七八九十百千万]+", "#", str(question).lower())
+    s = re.sub(r"[0-9〇一二三四五六七八九十百千]+", "#", str(question))
     return {t for t in re.split(r"[^\w#一-鿿]+", s) if t}
 
 
@@ -281,3 +285,198 @@ def assert_disjoint(train_qids: Sequence[str], test_qids: Sequence[str]):
     overlap = sorted(set(train_qids) & set(test_qids))
     if overlap:
         raise AssertionError(f"train/test overlap: {overlap}")
+
+
+# --------------------------------------------------------------------------
+# Manifest re-validation against the CURRENT data (R3)
+# --------------------------------------------------------------------------
+
+class ManifestValidationError(ValueError):
+    """A loaded split manifest contradicts the current QA rows / gold.
+
+    Raised before any fit/retrieve so a stale, edited, or malicious
+    manifest can never reach execution. Cached ``checks`` booleans inside
+    the manifest are never trusted; every invariant is recomputed.
+    """
+
+
+def validate_manifest(manifest: Dict, rows: pd.DataFrame,
+                      gold: Dict[str, Dict], qids: List[str]) -> Dict:
+    """Recompute every protocol invariant of a manifest on current data.
+
+    Returns the recomputed checks dict (all True) or raises
+    ManifestValidationError with a specific message. Validates:
+
+    * row count and qid identity/order against the QA CSV,
+    * question folds: valid indices, complete and exclusive coverage,
+      duplicate-question groups never crossing folds,
+    * table folds: valid indices, each target table in exactly one fold,
+      complete test coverage, train/test disjointness,
+    * AST isolation (recomputed from CURRENT gold): no training qid's
+      gold tables intersect the fold's held-out targets, and training
+      rows with unparseable SQL are conservatively excluded,
+    * per-question test membership exactly once across each protocol.
+    """
+    errors: List[str] = []
+    n = len(rows)
+    if manifest.get("n_rows") != n:
+        errors.append(f"n_rows {manifest.get('n_rows')} != {n} QA rows")
+
+    q_folds = manifest.get("question_folds")
+    if not q_folds or len(q_folds) != N_FOLDS:
+        raise ManifestValidationError(
+            f"question_folds must contain {N_FOLDS} folds")
+    idx_folds = []
+    for k in range(N_FOLDS):
+        try:
+            idx = [int(i) for i in q_folds[str(k)]]
+        except (KeyError, TypeError, ValueError):
+            errors.append(f"question fold {k}: invalid index list")
+            continue
+        bad = [i for i in idx if not 0 <= i < n]
+        if bad:
+            errors.append(f"question fold {k}: indices out of range {bad[:5]}")
+            continue
+        idx_folds.append(idx)
+    if not errors and len(idx_folds) == N_FOLDS:
+        covered = sorted(i for f in idx_folds for i in f)
+        if covered != list(range(n)):
+            errors.append("question folds do not cover every row exactly once")
+        groups = build_dup_groups(rows["question"].tolist())
+        fold_of = {i: f for f, idx in enumerate(idx_folds) for i in idx}
+        crossing = [g for g in groups
+                    if len({fold_of[i] for i in g if i in fold_of}) > 1]
+        if crossing:
+            errors.append(
+                f"duplicate-question groups cross question folds: "
+                f"{[[qids[i] for i in g] for g in crossing[:3]]}")
+
+    t = manifest.get("ast_refined_table_folds")
+    if not t or len(t) != N_FOLDS:
+        raise ManifestValidationError(
+            f"ast_refined_table_folds must contain {N_FOLDS} folds "
+            f"(rebuild folds with `terag_release make-folds`)")
+    # ---- target-table universe and exact fold/test binding -------------
+    # The held-out target universe is RECOMPUTED from the current QA
+    # annotation (`table` column, last dot-segment). The manifest's
+    # declared targets must reproduce it exactly — an emptied, augmented,
+    # or reshuffled target assignment is a protocol violation even when
+    # train/test sets are internally consistent.
+    def _norm_table(name):
+        return str(name).split(".")[-1].strip().lower()
+
+    orig_target = {}
+    for i, raw in enumerate(rows["table"].tolist()):
+        orig_target.setdefault(_norm_table(raw), []).append(qids[i])
+    target_universe = set(orig_target)
+    manifest_targets = set()
+    for k in range(N_FOLDS):
+        manifest_targets |= {_norm_table(x)
+                             for x in t[str(k)].get("targets") or []}
+    if manifest_targets != target_universe:
+        missing = sorted(target_universe - manifest_targets)[:5]
+        unknown = sorted(manifest_targets - target_universe)[:5]
+        errors.append(
+            "held-out target tables do not match the current QA "
+            f"annotation (missing {missing}, unknown {unknown}; the "
+            f"declared target universe cannot be emptied, extended, or "
+            f"replaced)")
+    seen_targets: Dict[str, int] = {}
+    all_test: List[str] = []
+    for k in range(N_FOLDS):
+        fd = t[str(k)]
+        raw_targets = list(fd["targets"])
+        targets = {_norm_table(x) for x in raw_targets}
+        for tab in targets:
+            if tab in seen_targets and seen_targets[tab] != k:
+                errors.append(f"target table {tab} in folds "
+                              f"{seen_targets[tab]} and {k}")
+            seen_targets[tab] = k
+        train_qids, test_qids = list(fd["train"]), list(fd["test"])
+        if len(set(train_qids)) != len(train_qids):
+            errors.append(f"table fold {k}: duplicate train qids")
+        if len(set(test_qids)) != len(test_qids):
+            errors.append(f"table fold {k}: duplicate test qids")
+        overlap = sorted(set(train_qids) & set(test_qids))
+        if overlap:
+            errors.append(f"table fold {k}: train/test overlap {overlap[:5]}")
+        for qid in train_qids + test_qids:
+            if qid not in gold:
+                errors.append(f"table fold {k}: qid {qid} missing from gold")
+        # Exact fold/test membership: a fold's test set is EXACTLY the
+        # questions whose original target table is among the fold's
+        # declared targets — swapping test sets between folds, stranding a
+        # table's questions in another fold, or declaring targets without
+        # their questions is rejected.
+        expected_test = {q for tab in targets for q in orig_target.get(tab, [])}
+        if set(test_qids) != expected_test:
+            errors.append(
+                f"table fold {k}: test set does not match its declared "
+                f"target tables (missing "
+                f"{sorted(expected_test - set(test_qids))[:5]}, unexpected "
+                f"{sorted(set(test_qids) - expected_test)[:5]})")
+        all_test.extend(test_qids)
+        # Recomputed AST isolation with CURRENT gold — never trust cached
+        # checks. Physical identity follows the data contract (last
+        # dot-segment, case-insensitive); this cannot mask different
+        # physical tables because a single database cannot hold two tables
+        # differing only by case.
+        for qid in train_qids:
+            g = gold.get(qid)
+            if g is None:
+                continue  # reported above
+            if not g.get("ast_parsed"):
+                errors.append(
+                    f"table fold {k}: train qid {qid} has unparseable SQL "
+                    f"(conservative exclusion rule requires removal)")
+                continue
+            refs = {_norm_table(x) for x in (g.get("gold_tables") or [])}
+            hit = sorted(refs & targets)
+            if hit:
+                errors.append(
+                    f"table fold {k}: train qid {qid} references held-out "
+                    f"target table(s) {hit}")
+        # Training membership is fully determined by the protocol: every
+        # qid that is neither this fold's test row nor conservatively
+        # excluded (unparseable SQL, or gold tables intersecting the
+        # targets — both recomputed from CURRENT gold) MUST be present. A
+        # silently dropped training row would shrink supervision; an extra
+        # one would add it.
+        must_exclude = {
+            q for q in qids
+            if q in gold and (
+                not gold[q].get("ast_parsed")
+                or {_norm_table(x) for x in (gold[q].get("gold_tables")
+                                             or [])} & targets)}
+        expected_train = set(qids) - set(test_qids) - must_exclude
+        actual_train = set(train_qids)
+        if actual_train != expected_train:
+            errors.append(
+                f"table fold {k}: training set does not match the protocol "
+                f"membership (missing "
+                f"{sorted(expected_train - actual_train)[:5]}, unexpected "
+                f"{sorted(actual_train - expected_train)[:5]})")
+    if len(all_test) != len(set(all_test)):
+        errors.append("a question is tested in more than one table fold")
+    expected = set(qids)
+    if set(all_test) != expected:
+        errors.append("table folds do not cover every question exactly once "
+                      f"(missing {sorted(expected - set(all_test))[:5]}, "
+                      f"unexpected {sorted(set(all_test) - expected)[:5]})")
+
+    if errors:
+        raise ManifestValidationError(
+            "split manifest failed revalidation on the current data:\n  - "
+            + "\n  - ".join(errors))
+    return {
+        "question_coverage_complete": True,
+        "question_exclusive": True,
+        "dup_groups_no_cross": True,
+        "table_single_fold": True,
+        "table_coverage_complete": True,
+        "table_train_test_exclusive": True,
+        "table_ast_isolation_recomputed": True,
+        "table_target_universe_matches_qa": True,
+        "table_test_sets_match_declared_targets": True,
+        "recomputed_at_load": True,
+    }

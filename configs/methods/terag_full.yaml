@@ -5,7 +5,6 @@
 method: TE-RAG-V2
 family: terag
 variant: TERAG-Full
-extends: ../base.yaml
 terag:
   annotations:
     use_history: true

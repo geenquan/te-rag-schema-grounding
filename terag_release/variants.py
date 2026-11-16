@@ -1,5 +1,5 @@
-"""Method/variant matrix: the single source of truth for how every reported
-method and ablation is constructed.
+"""Method/variant matrix: the single code source of truth for how every
+reported method and ablation is constructed.
 
 Each entry maps a paper variant name to:
 * ``factory``     — registry name in retrievers/retriever_factory.py
@@ -9,32 +9,38 @@ Each entry maps a paper variant name to:
   semantics exactly; see docs/experiment_catalog.md §2)
 * ``protocols``   — protocols the paper formally ran (absent groups must not
   be zero-filled or imputed)
+* ``config``      — the method configuration file (stem under
+  configs/methods/) that documents the method and carries its parameters;
+  the resolver validates the file against this entry (single truth: the
+  code), so YAML and code cannot silently diverge.
 
-The toggle semantics:
-* Full             use_history=True, use_transfer=True, use_annotation_index=True
-* noBC             use_history=False (no B, hence no C)
-* noC              use_transfer=False (B only)
-* noAnnIdx         use_annotation_index=False (B/C kept out of the index)
-* noAnnHit         feature weight annotation_hit = 0.0 (column TERM hit off)
-* noGraph          ablation.use_graph_weight=False (graph scores off; the
-                   graph itself is still built for pattern mining)
-* noPattern        ablation.use_template_mining=False (keyword-pattern channel)
+Supervision notes (verified against experiment/run_expansion.py at tag
+paper-dasfaa2027-v1.0): the paper runner injects ``full_sql`` supervision
+into the training frame BEFORE the reviewer-method loop, and
+KaSLA-Adapted's classifiers/capacity estimation consume that structured
+full gold (all tables/columns the SQL needs) — NOT the original SELECT
+annotation. LinkAlign-SingleDB-Adapted builds only the schema/dense index
+(``fit`` ignores train data), so it correctly takes no supervision.
+ExampleRRF/CooccurRRF and all TE-RAG variants also use ``full_sql``;
+the raw-metadata baselines (BM25/TF-IDF/Hybrid/MetadataMatched) get the
+raw frame, exactly as in the paper runner.
 """
 
 from copy import deepcopy
 
-# Baselines: (variant, factory, fusion_mode, supervision)
+# Baselines: (variant, factory, fusion_mode, supervision, config stem)
 BASELINES = [
-    ("BM25", "BM25", None, None),
-    ("TFIDF", "Vector", None, None),
-    ("Hybrid", "Hybrid", None, None),
-    ("MetadataMatched", "MatchedSchema", None, None),
-    ("ExampleRRF", "ExampleRAG", "rank_equal", "full_sql"),
-    ("CooccurRRF", "Cooccurrence", "rank_equal", "full_sql"),
-    ("Dense", "Dense", None, None),
-    ("DenseDeepSeek", "DenseDeepSeek", None, None),
-    ("LinkAlign-SingleDB-Adapted", "LinkAlign-SingleDB-Adapted", None, None),
-    ("KaSLA-Adapted", "KaSLA-Adapted", None, None),
+    ("BM25", "BM25", None, None, "bm25"),
+    ("TFIDF", "Vector", None, None, "tfidf"),
+    ("Hybrid", "Hybrid", None, None, "hybrid"),
+    ("MetadataMatched", "MatchedSchema", None, None, "metadata_matched"),
+    ("ExampleRRF", "ExampleRAG", "rank_equal", "full_sql", "example_rrf"),
+    ("CooccurRRF", "Cooccurrence", "rank_equal", "full_sql", "cooccur_rrf"),
+    ("Dense", "Dense", None, None, "dense"),
+    ("DenseDeepSeek", "DenseDeepSeek", None, None, "dense_deepseek"),
+    ("LinkAlign-SingleDB-Adapted", "LinkAlign-SingleDB-Adapted", None,
+     None, "linkalign_adapted"),
+    ("KaSLA-Adapted", "KaSLA-Adapted", None, "full_sql", "kasla_adapted"),
 ]
 
 FULL_ANNOTATIONS = {"use_history": True, "use_transfer": True,
@@ -51,45 +57,45 @@ def _terag(mutations=None):
 VARIANTS = {
     "TERAG-Full": {
         "factory": "TE-RAG-V2", "supervision": "full_sql", "terag": _terag(),
-        "protocols": ["question_v1", "table_v2"],
+        "protocols": ["question_v1", "table_v2"], "config": "terag_full",
     },
     "TERAG-noBC": {
         "factory": "TE-RAG-V2", "supervision": "full_sql",
         "terag": _terag({"annotations": {"use_history": False,
                                          "use_transfer": False}}),
-        "protocols": ["question_v1", "table_v2"],
+        "protocols": ["question_v1", "table_v2"], "config": "terag_noBC",
     },
     "TERAG-noC": {
         "factory": "TE-RAG-V2", "supervision": "full_sql",
         "terag": _terag({"annotations": {"use_transfer": False}}),
-        "protocols": ["table_v2"],
+        "protocols": ["table_v2"], "config": "terag_noC",
     },
     "TERAG-noAnnIdx": {
         "factory": "TE-RAG-V2", "supervision": "full_sql",
         "terag": _terag({"annotations": {"use_annotation_index": False}}),
-        "protocols": ["question_v1"],
+        "protocols": ["question_v1"], "config": "terag_noAnnIdx",
     },
     "TERAG-noAnnHit": {
         "factory": "TE-RAG-V2", "supervision": "full_sql",
         "terag": _terag({"feature": {"field_weights": {"annotation_hit": 0.0}}}),
-        "protocols": ["question_v1"],
+        "protocols": ["question_v1"], "config": "terag_noAnnHit",
     },
     "TERAG-noGraph": {
         "factory": "TE-RAG-V2", "supervision": "full_sql",
         "terag": _terag({"ablation": {"use_graph_weight": False}}),
-        "protocols": ["table_v2"],
+        "protocols": ["table_v2"], "config": "terag_noGraph",
     },
     "TERAG-noPattern": {
         "factory": "TE-RAG-V2", "supervision": "full_sql",
         "terag": _terag({"ablation": {"use_template_mining": False}}),
-        "protocols": ["table_v2"],
+        "protocols": ["table_v2"], "config": "terag_noPattern",
     },
 }
 
-for _name, _factory, _fusion, _sup in BASELINES:
+for _name, _factory, _fusion, _sup, _cfg in BASELINES:
     VARIANTS[_name] = {
         "factory": _factory, "supervision": _sup, "fusion_mode": _fusion,
-        "terag": None,
+        "terag": None, "config": _cfg,
         # Dense, DenseDeepSeek and the two adapted methods were run on
         # Question-Level only in the paper (appendix Table 3 shows "--" for
         # their held-out columns); absent groups are never imputed.

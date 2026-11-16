@@ -1,15 +1,16 @@
 """Configuration tests: extends, resolution, secret refusal, fingerprints,
-and preflight of every shipped method/protocol/experiment config."""
-
-import unittest
-
-from terag_release.config import (ConfigError, config_sha256, load_config,
-                                  load_dataset, load_experiment, load_protocol,
-                                  terag_sections, load_base, build_terag_config)
+paper-profile enforcement, and preflight of every shipped config."""
 
 import os
 import tempfile
+import unittest
 from pathlib import Path
+
+from terag_release.config import (ConfigError, config_sha256, load_base,
+                                  load_config, load_dataset, load_experiment,
+                                  load_method, load_protocol, resolve_run,
+                                  build_terag_config)
+from terag_release import paper_profile
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
@@ -29,19 +30,22 @@ class TestLoading(unittest.TestCase):
         self.assertEqual(base["transfer_defaults"]["min_total_sim"], 0.5)
         self.assertEqual(base["transfer_defaults"]["max_texts_per_table"], 8)
 
-    def test_method_extends_chain(self):
-        full = load_config(REPO_ROOT / "configs" / "methods" / "terag_full.yaml")
-        self.assertTrue(full["terag"]["annotations"]["use_history"])
-        noBC = load_config(REPO_ROOT / "configs" / "methods" / "terag_noBC.yaml")
-        self.assertFalse(noBC["terag"]["annotations"]["use_history"])
-        self.assertTrue(noBC["terag"]["annotations"]
-                        ["use_annotation_index"])
+    def test_base_yaml_matches_paper_profile(self):
+        """The YAML mirror may not drift from the code constants."""
+        base_terag = load_base()["terag"]
+        self.assertEqual(paper_profile.diff_against_paper(base_terag), [])
+
+    def test_method_files_parse_and_match_matrix(self):
+        from terag_release import variants
+        for name, spec in variants.VARIANTS.items():
+            cfg, path = load_method(name)  # raises on any contradiction
+            self.assertEqual(path.stem, spec["config"])
 
     def test_dataset_paths_anchored_to_repo(self):
-        demo = load_dataset("demo")
-        self.assertTrue(demo["data"]["field_csv"].startswith(str(REPO_ROOT)))
-        self.assertTrue(os.path.exists(demo["data"]["field_csv"]))
-        self.assertTrue(os.path.exists(demo["data"]["gold"]))
+        dataset, _ = load_dataset("demo")
+        self.assertTrue(dataset["data"]["field_csv"].startswith(str(REPO_ROOT)))
+        self.assertTrue(os.path.exists(dataset["data"]["field_csv"]))
+        self.assertTrue(os.path.exists(dataset["data"]["gold"]))
 
     def test_secret_refusal(self):
         with tempfile.NamedTemporaryFile("w", suffix=".yaml",
@@ -65,13 +69,15 @@ class TestLoading(unittest.TestCase):
             os.unlink(path)
 
     def test_fingerprint_stable_and_sensitive(self):
-        cfg = load_config(REPO_ROOT / "configs" / "methods" / "terag_full.yaml")
-        self.assertEqual(config_sha256(cfg), config_sha256(cfg))
-        cfg["terag"]["annotations"]["use_transfer"] = False
-        self.assertNotEqual(
-            config_sha256(cfg),
-            config_sha256(load_config(
-                REPO_ROOT / "configs" / "methods" / "terag_full.yaml")))
+        resolved_a = resolve_run("demo", "demo_offline",
+                                 method_names=["BM25"])
+        resolved_b = resolve_run("demo", "demo_offline",
+                                 method_names=["BM25"])
+        self.assertEqual(config_sha256(resolved_a), config_sha256(resolved_b))
+        resolved_b["methods"]["BM25"]["effective"]["retriever_params"]["k1"] \
+            = 2.0
+        self.assertNotEqual(config_sha256(resolved_a),
+                            config_sha256(resolved_b))
 
 
 class TestPreflightAllConfigs(unittest.TestCase):
@@ -85,16 +91,13 @@ class TestPreflightAllConfigs(unittest.TestCase):
         self.assertGreaterEqual(len(files), 17)
         for path in files:
             cfg = load_config(path)
-            # Baseline configs name the factory/registry implementation;
-            # TE-RAG configs additionally carry the paper variant name.
-            self.assertIn(cfg.get("method"), factories | set(variants.VARIANTS),
-                          f"{path.name}: unknown method {cfg.get('method')}")
-            if "variant" in cfg:
-                self.assertIn(cfg["variant"], variants.VARIANTS)
+            declared = cfg.get("method")
+            self.assertIn(declared, factories | set(variants.VARIANTS),
+                          f"{path.name}: unknown method {declared}")
 
     def test_protocol_configs(self):
         for name in ("question_level", "heldout_table"):
-            cfg = load_protocol(name)
+            cfg, _ = load_protocol(name)
             self.assertEqual(cfg["folds"], 5)
             self.assertEqual(cfg["supervision"], "full_sql")
             self.assertEqual(cfg["budget"]["max_tables"], 5)
@@ -104,18 +107,30 @@ class TestPreflightAllConfigs(unittest.TestCase):
         from terag_release import variants
         for name in ("full_matrix", "demo_offline",
                      "question_only_offline"):
-            cfg = load_experiment(name)
+            cfg, _ = load_experiment(name)
             for method in cfg["methods"]:
                 self.assertIn(method, variants.VARIANTS)
 
+    def test_full_resolution_preflight(self):
+        from terag_release import variants
+        resolved = resolve_run("demo", "full_matrix")
+        self.assertEqual(resolved["profile"], "paper")
+        for variant in variants.FULL_MATRIX:
+            if variant in resolved["methods"]:
+                self.assertIn("effective", resolved["methods"][variant])
+        # network methods are resolvable but never runnable without the flag
+        self.assertIn("Dense", resolved["methods"])
+
     def test_terag_config_build(self):
-        base, dataset = load_base(), load_dataset("demo")
-        sections = terag_sections(base, dataset)
+        resolved = resolve_run("demo", "demo_offline",
+                               method_names=["TERAG-Full"])
+        sections = resolved["methods"]["TERAG-Full"]["effective"][
+            "terag_sections"]
         cfg = build_terag_config(
-            sections, dataset["data"],
+            sections, resolved["dataset"]["data"],
             artifacts_dir=tempfile.mkdtemp(prefix="terag_test_art_"))
         self.assertEqual(cfg.index.bm25.k1, 1.5)
-        self.assertEqual(cfg.annotations.use_history, False)  # base default
+        self.assertTrue(cfg.annotations.use_history)
         self.assertEqual(cfg.pattern_mining.entity_keywords[:2],
                          ["仓库", "网点"])
         self.assertTrue(os.path.isabs(cfg.data.field_csv))

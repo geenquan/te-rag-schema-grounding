@@ -116,11 +116,8 @@ transfer_defaults:
   max_texts_per_table: 8        # cap kappa_t distinct C texts per table
 
 # Output budget used by every protocol (paper: 5 tables, 10 columns/table).
+# This is a read-only mirror: the retrieval budget is fixed in code
+# (validated at startup; deviations are rejected under every profile).
 budget:
   max_tables: 5
   max_columns_per_table: 10
-
-runtime:
-  # New output directories are always required; runs never overwrite.
-  forbid_overwrite: true
-  record_config_sha256: true

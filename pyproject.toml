@@ -4,10 +4,10 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "terag-public"
-version = "0.1.0"
 description = "TE-RAG: Historical Domain Annotations for Enterprise Schema Grounding — public release of the implementation and evaluation protocols"
 readme = "README.md"
 requires-python = ">=3.10"
+dynamic = ["version"]
 license = {text = "TBD — see LICENSE and NOTICE before the license is finalized"}  # placeholder until the owner decides
 dependencies = [
     "numpy>=1.24",
@@ -29,5 +29,13 @@ plots = ["matplotlib>=3.7"]
 [project.scripts]
 terag-release = "terag_release.cli:main"
 
+[tool.setuptools.dynamic]
+version = {attr = "terag_release.__version__"}
+
 [tool.setuptools]
 packages = ["terag", "terag_release", "retrievers", "eval", "datasets", "analysis", "experiment"]
+
+[tool.setuptools.package-data]
+# Pinned third-party sources and their MIT licenses must ship with any
+# binary distribution (retrievers/upstream is a namespace package).
+retrievers = ["upstream/*", "README.md"]

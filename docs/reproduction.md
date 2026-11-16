@@ -51,8 +51,12 @@ synthetic metrics as results misrepresents what was run.
 6. **Evaluate offline** — `evaluate --families both` recomputes every
    metric from saved predictions; later prediction files replace earlier
    *complete* method/protocol groups (never per-question patching).
-7. **Analyze** — `analyze --analysis saved-prefix|heldout|transfer|isolation`;
-   `plot`; `benchmark` (new measurements).
+7. **Statistics** — `statistics --run ... --gold ...` writes the paired
+   variant−Full differences (Wilcoxon + cluster bootstrap, seed 42,
+   families separate) that the figure step consumes.
+8. **Analyze and plot** — `analyze --analysis saved-prefix|heldout|transfer|
+   isolation`; `plot` (auto-detects the statistics output for whiskers);
+   `benchmark` (new measurements).
 
 ## What is explicitly NOT recoverable
 

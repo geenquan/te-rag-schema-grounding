@@ -138,28 +138,22 @@ class LinkAlignRetriever(BaseRetriever):
         self._current_fold = None
 
     def _init_client(self):
-        """Initialize the OpenAI-compatible client at runtime. The API key
-        is never printed or logged."""
+        """Initialize the OpenAI-compatible client at runtime.
+
+        Credentials come from the environment ONLY (DEEPSEEK_API_KEY,
+        optional DEEPSEEK_BASE_URL). The public release deliberately has no
+        file-based key fallback: no project configuration file is read for
+        secrets, and the key is never printed or logged."""
         if self._client is None:
             from openai import OpenAI
             api_key = os.environ.get('DEEPSEEK_API_KEY', '')
-            base_url = os.environ.get('DEEPSEEK_BASE_URL', 'https://api.deepseek.com')
-            if not api_key:
-                cfg_path = os.path.join(
-                    os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-                    'config.yaml')
-                try:
-                    import yaml
-                    with open(cfg_path, encoding='utf-8') as f:
-                        cfg = yaml.safe_load(f)
-                    api_key = cfg.get('DEEPSEEK_API_KEY', '')
-                    base_url = cfg.get('DEEPSEEK_BASE_URL', base_url)
-                except Exception:
-                    pass
+            base_url = os.environ.get('DEEPSEEK_BASE_URL',
+                                      'https://api.deepseek.com')
             if not api_key:
                 raise ValueError(
-                    'No DeepSeek API key. Set DEEPSEEK_API_KEY env var '
-                    'or add DEEPSEEK_API_KEY to config.yaml')
+                    'No DeepSeek API key. Set the DEEPSEEK_API_KEY '
+                    'environment variable (see docs/configuration.md); '
+                    'credentials are never read from repository files')
             self._client = OpenAI(api_key=api_key, base_url=base_url,
                                   timeout=REQUEST_TIMEOUT,
                                   max_retries=0)  # disable SDK-internal retries; retrying is controlled by the outer layer
