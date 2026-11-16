@@ -1,0 +1,6 @@
+# Hybrid lexical/sparse combination baseline (repository-specific).
+method: Hybrid
+family: baseline
+retriever:
+  use_chinese_tokenizer: true
+requires_network: false

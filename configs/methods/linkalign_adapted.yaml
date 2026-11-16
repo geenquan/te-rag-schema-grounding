@@ -1,0 +1,23 @@
+# LinkAlign-SingleDB-Adapted: upstream pipeline prompts (enhancement ->
+# non-repeating second-round retrieval -> isolation -> extraction) with
+# declared replacements: multilingual MiniLM for BGE, DeepSeek for Qwen,
+# direct transformers for llama-index. Single known database (no
+# database-identity selection). 24-column chunks, 256-token embeddings,
+# 20 question chunks + 20 rewrite chunks. Question-Level protocol only.
+method: LinkAlign-SingleDB-Adapted
+family: adapted
+model:
+  request_model: deepseek-chat
+  temperature: 0.1
+  max_tokens_isolation: 32768
+  max_tokens_other: 8192
+  embedding: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
+  chunk_columns: 24
+  chunk_max_tokens: 256
+  retrieve_chunks: 20
+api:
+  key_env: DEEPSEEK_API_KEY
+  base_url_env: DEEPSEEK_BASE_URL
+  base_url_default: https://api.deepseek.com
+protocols: [question_v1]        # paper ran this method on Q only
+requires_network: true

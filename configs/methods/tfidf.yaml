@@ -1,0 +1,7 @@
+# TF-IDF baseline. Registry name is `Vector` (legacy class VectorRetriever is
+# TF-IDF, NOT a pretrained dense encoder).
+method: Vector
+family: baseline
+retriever:
+  use_chinese_tokenizer: true
+requires_network: false

@@ -1,0 +1,16 @@
+# TE-RAG Full: the complete method (annotations B + constrained transfer C,
+# annotation-enhanced index, bipartite graph votes, independent keyword
+# patterns, column TERM hits), all fixed parameters from configs/base.yaml.
+# Algorithm identity: transfer_v3_target_cap.
+method: TE-RAG-V2
+family: terag
+variant: TERAG-Full
+extends: ../base.yaml
+terag:
+  annotations:
+    use_history: true
+    use_transfer: true
+    use_annotation_index: true
+  graph:
+    parse_mode: ast
+requires_network: false

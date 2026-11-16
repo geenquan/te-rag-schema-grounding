@@ -1,0 +1,8 @@
+# BM25 lexical baseline over raw schema metadata (name + comment texts).
+method: BM25                     # registry name in retrievers/retriever_factory.py
+family: baseline
+retriever:
+  k1: 1.5
+  b: 0.75
+  use_chinese_tokenizer: true    # dataset language drives this; see dataset config
+requires_network: false

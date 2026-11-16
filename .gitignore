@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+
+# Run outputs (never commit run artifacts)
+runs/
+demo/runs/
+benchmark/
+
+# Generated demo data is intentionally committed EXCEPT transient gold/splits
+# regeneration by-products
+demo/data/*.bak
+
+# Environments / secrets — never commit credentials
+.env
+*.env
+secrets/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/

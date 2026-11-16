@@ -1,0 +1,18 @@
+# Question-Level protocol (paper setting `question_v1`).
+#
+# Five fixed folds over the question set; every question is tested exactly
+# once. Training supervision injects the full training-fold SQL (structural
+# supervision `full_sql`): the SQL text is attached to each training row and
+# consumed by the AST parser, direct annotation miner, and graph builder.
+# Test SQL is used ONLY for gold/isolation auditing, never for fit/retrieve.
+
+name: question_v1
+folds: 5
+seed: 42
+supervision: full_sql
+budget:
+  max_tables: 5
+  max_columns_per_table: 10
+isolation:
+  # No target-table holdout in this protocol; the split is question-based.
+  mode: question

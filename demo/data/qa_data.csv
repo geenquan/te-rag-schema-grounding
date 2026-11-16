@@ -1,0 +1,50 @@
+question,sql,table,field
+2024年1月各仓库的入库件数,"SELECT o.warehouse_code, SUM(l.qty) AS 入库件数 FROM wms_in_lines l JOIN wms_in_orders o ON l.order_no = o.order_no WHERE o.inbound_date BETWEEN '2024-01-01' AND '2024-01-31' GROUP BY o.warehouse_code",wms_in_lines,warehouse_code|qty
+上个月入库金额最高的供应商,"SELECT o.supplier_id, SUM(l.line_amount) AS 入库金额 FROM wms_in_lines l JOIN wms_in_orders o ON l.order_no = o.order_no WHERE o.inbound_date >= '2024-05-01' AND o.inbound_date < '2024-06-01' GROUP BY o.supplier_id ORDER BY SUM(l.line_amount) DESC LIMIT 1",wms_in_orders,supplier_id|line_amount
+尚未关闭的入库单有多少,SELECT COUNT(*) AS 单据数量 FROM wms_in_orders WHERE order_status <> 'CLOSED',wms_in_orders,order_status
+2024年二季度每张入库单的明细行数,"SELECT l.order_no, COUNT(*) AS 行数 FROM wms_in_lines l JOIN wms_in_orders o ON l.order_no = o.order_no WHERE o.inbound_date BETWEEN '2024-04-01' AND '2024-06-30' GROUP BY l.order_no",wms_in_lines,order_no
+各供应商的平均入库单价,"SELECT o.supplier_id, AVG(l.unit_price) AS 平均单价 FROM wms_in_lines l JOIN wms_in_orders o ON l.order_no = o.order_no GROUP BY o.supplier_id",wms_in_lines,supplier_id|unit_price
+2024年3月入库量按日汇总,"SELECT o.inbound_date, SUM(l.qty) AS 入库量 FROM wms_in_lines l JOIN wms_in_orders o ON l.order_no = o.order_no WHERE o.inbound_date BETWEEN '2024-03-01' AND '2024-03-31' GROUP BY o.inbound_date",wms_in_lines,inbound_date|qty
+2024年6月各仓库的出库件数,"SELECT o.warehouse_code, SUM(l.qty) AS 出库件数 FROM wms_out_lines l JOIN wms_out_orders o ON l.order_no = o.order_no WHERE o.outbound_date BETWEEN '2024-06-01' AND '2024-06-30' GROUP BY o.warehouse_code",wms_out_lines,warehouse_code|qty
+客户C001上季度的出库单列表,"SELECT order_no, outbound_date FROM wms_out_orders WHERE customer_id = 'C001' AND outbound_date BETWEEN '2024-04-01' AND '2024-06-30'",wms_out_orders,order_no|outbound_date
+出库明细的平均毛重,SELECT AVG(weight_kg) AS 平均毛重 FROM wms_out_lines,wms_out_lines,weight_kg
+2024年上半年出库量前五的仓库,"SELECT o.warehouse_code, SUM(l.qty) AS 出库量 FROM wms_out_lines l JOIN wms_out_orders o ON l.order_no = o.order_no WHERE o.outbound_date BETWEEN '2024-01-01' AND '2024-06-30' GROUP BY o.warehouse_code ORDER BY SUM(l.qty) DESC LIMIT 5",wms_out_lines,warehouse_code|qty
+状态为待拣货的出库单,"SELECT order_no, customer_id FROM wms_out_orders WHERE order_status = 'PICKING'",wms_out_orders,order_no|customer_id
+仓库WH01当前的可用库存件数,"SELECT sku_id, stock_qty FROM wms_stock WHERE warehouse_code = 'WH01'",wms_stock,sku_id|stock_qty
+锁定件数超过一千的商品,"SELECT warehouse_code, sku_id, locked_qty FROM wms_stock WHERE locked_qty > 1000",wms_stock,warehouse_code|sku_id|locked_qty
+2024年5月的库存变动流水,"SELECT move_id, move_type, qty FROM wms_stock_moves WHERE move_date BETWEEN '2024-05-01' AND '2024-05-31'",wms_stock_moves,move_id|move_type|qty
+各仓库最近的库存更新时间,"SELECT warehouse_code, MAX(updated_at) AS 最近更新 FROM wms_stock GROUP BY warehouse_code",wms_stock,warehouse_code|updated_at
+盘点类型变动的总件数,SELECT SUM(qty) AS 盘点件数 FROM wms_stock_moves WHERE move_type = 'COUNT',wms_stock_moves,qty|move_type
+华东大区有哪些仓库,"SELECT warehouse_code, warehouse_name FROM base_warehouse WHERE region = '华东'",base_warehouse,warehouse_code|warehouse_name
+库容板位数最大的仓库,"SELECT warehouse_code, capacity_pallet FROM base_warehouse ORDER BY capacity_pallet DESC LIMIT 1",base_warehouse,warehouse_code|capacity_pallet
+VIP客户名单,"SELECT customer_id, customer_name FROM base_customer WHERE level = 'VIP'",base_customer,customer_id|customer_name
+杭州的客户数量,SELECT COUNT(*) AS 客户数量 FROM base_customer WHERE city = '杭州',base_customer,city
+上海的供应商有哪些,"SELECT supplier_id, supplier_name FROM base_supplier WHERE city = '上海'",base_supplier,supplier_id|supplier_name
+零食大类的商品列表,"SELECT sku_id, sku_name FROM base_sku WHERE category = '零食'",base_sku,sku_id|sku_name
+以箱为单位计量的商品种数,SELECT COUNT(*) AS 商品种数 FROM base_sku WHERE unit = '箱',base_sku,unit
+2024年6月发往北京的运单件数,SELECT SUM(pieces) AS 运单件数 FROM tms_shipment WHERE dest_city = '北京' AND ship_date BETWEEN '2024-06-01' AND '2024-06-30',tms_shipment,pieces|dest_city
+客户C002去年的运费总额,SELECT SUM(freight) AS 运费 FROM tms_shipment WHERE customer_id = 'C002' AND ship_date BETWEEN '2023-01-01' AND '2023-12-31',tms_shipment,customer_id|freight
+从仓库WH02发货的运单号,SELECT shipment_no FROM tms_shipment WHERE orig_warehouse = 'WH02',tms_shipment,shipment_no|orig_warehouse
+单票运费超过五千的运单,"SELECT shipment_no, freight FROM tms_shipment WHERE freight > 5000",tms_shipment,shipment_no|freight
+上周已签收的运单,"SELECT d.shipment_no, d.signer FROM tms_delivery d WHERE d.sign_status = 'SIGNED' AND d.sign_time >= '2024-06-10'",tms_delivery,shipment_no|signer
+签收人张三经手的签收记录,"SELECT delivery_id, sign_time FROM tms_delivery WHERE signer = '张三'",tms_delivery,delivery_id|sign_time
+拒收状态的运单号,SELECT shipment_no FROM tms_delivery WHERE sign_status = 'REJECTED',tms_delivery,shipment_no|sign_status
+2024年5月的运费结算金额,SELECT SUM(settle_amount) AS 结算金额 FROM fin_freight_bill WHERE settle_date BETWEEN '2024-05-01' AND '2024-05-31',fin_freight_bill,settle_amount|settle_date
+未结算的运费单,"SELECT bill_no, shipment_no FROM fin_freight_bill WHERE settle_status = 'OPEN'",fin_freight_bill,bill_no|shipment_no
+客户C003四月的应收金额,SELECT ar_amount FROM fin_receivable WHERE customer_id = 'C003' AND bill_month = '2024-04',fin_receivable,customer_id|ar_amount
+账期内未收齐的应收账款,"SELECT ar_id, ar_amount, received_amt FROM fin_receivable WHERE received_amt < ar_amount",fin_receivable,ar_id|ar_amount|received_amt
+昨日各仓库的库存日报,"SELECT warehouse_code, total_qty FROM rpt_daily_stock WHERE stat_date = '2024-06-19'",rpt_daily_stock,warehouse_code|total_qty
+上月的仓别库存明细,"SELECT warehouse_code AS 仓别, total_qty AS 存量 FROM rpt_daily_stock WHERE stat_date >= '2024-05-01' AND stat_date < '2024-06-01'",rpt_daily_stock,warehouse_code|total_qty
+2024年5月各仓库的库存件数,"SELECT warehouse_code, total_qty FROM rpt_daily_stock WHERE stat_date BETWEEN '2024-05-01' AND '2024-05-31'",rpt_daily_stock,warehouse_code|total_qty
+2024年6月各仓库的库存件数,"SELECT warehouse_code, total_qty FROM rpt_weekly_stock WHERE week_start BETWEEN '2024-06-03' AND '2024-06-30'",rpt_weekly_stock,warehouse_code|total_qty
+第25周各仓库的在库商品种数,"SELECT warehouse_code, sku_count FROM rpt_weekly_stock WHERE week_start BETWEEN '2024-06-17' AND '2024-06-23'",rpt_weekly_stock,warehouse_code|sku_count
+在库商品种数最多的仓库,"SELECT warehouse_code, sku_count FROM rpt_daily_stock ORDER BY sku_count DESC LIMIT 1",rpt_daily_stock,warehouse_code|sku_count
+2024年5月各城市的运费收入,"SELECT city, freight_income FROM rpt_monthly_revenue WHERE month = '2024-05'",rpt_monthly_revenue,city|freight_income
+营收超过一百万的城市,"SELECT city, revenue FROM rpt_monthly_revenue WHERE revenue > 1000000",rpt_monthly_revenue,city|revenue
+客户C001的运单及签收情况,"SELECT s.shipment_no, d.sign_status FROM tms_shipment s JOIN tms_delivery d ON s.shipment_no = d.shipment_no WHERE s.customer_id = 'C001'",tms_shipment,shipment_no|sign_status
+各城市客户的应收总额,"SELECT c.city, SUM(r.ar_amount) AS 应收总额 FROM fin_receivable r JOIN base_customer c ON r.customer_id = c.customer_id GROUP BY c.city",fin_receivable,city|ar_amount
+仓库名称与库存件数,"SELECT w.warehouse_name, s.total_qty FROM rpt_daily_stock s JOIN base_warehouse w ON s.warehouse_code = w.warehouse_code WHERE s.stat_date = '2024-06-19'",rpt_daily_stock,warehouse_name|total_qty
+运费收入与实际结算的差额,"SELECT s.shipment_no, s.freight, b.settle_amount FROM tms_shipment s JOIN fin_freight_bill b ON s.shipment_no = b.shipment_no",fin_freight_bill,shipment_no|freight|settle_amount
+2024年1月各仓库的出库件数,"SELECT o.warehouse_code, SUM(l.qty) AS 出库件数 FROM wms_out_lines l JOIN wms_out_orders o ON l.order_no = o.order_no WHERE o.outbound_date BETWEEN '2024-01-01' AND '2024-01-31' GROUP BY o.warehouse_code",wms_out_lines,warehouse_code|qty
+2024年2月各仓库的出库件数,"SELECT o.warehouse_code, SUM(l.qty) AS 出库件数 FROM wms_out_lines l JOIN wms_out_orders o ON l.order_no = o.order_no WHERE o.outbound_date BETWEEN '2024-02-01' AND '2024-02-29' GROUP BY o.warehouse_code",wms_out_lines,warehouse_code|qty
+各仓库的体积使用率,"SELECT warehouse_code, used_volume FROM rpt_daily_stock",rpt_daily_stock,warehouse_code|used_volume

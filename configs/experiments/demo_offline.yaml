@@ -1,0 +1,19 @@
+# Offline demo matrix: the bundled synthetic dataset, no network, no API.
+# Runs the same production code path as the full matrix.
+dataset: demo
+protocols: [question_v1, table_v2]
+methods:
+  - BM25
+  - TFIDF
+  - Hybrid
+  - MetadataMatched
+  - ExampleRRF
+  - CooccurRRF
+  - TERAG-Full
+  - TERAG-noBC
+  - TERAG-noAnnIdx
+  - TERAG-noAnnHit
+note: >
+  Demo execution: verifies that the public code runs end to end on synthetic
+  data. Metrics on this dataset are NOT paper numbers and must not be
+  reported as such.

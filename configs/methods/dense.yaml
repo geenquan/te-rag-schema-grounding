@@ -1,0 +1,11 @@
+# Dense retrieval, multilingual MiniLM (384-d), mean pooling + L2 norm,
+# cosine ranking. Table doc = name/description + first 30 column names;
+# 256-token truncation. Requires optional deps: torch, transformers; the
+# encoder is downloaded on first use (network) unless cached.
+method: Dense
+family: dense
+model:
+  name: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
+  max_tokens: 256
+  table_column_limit: 30
+requires_network: true          # model download only; no API calls

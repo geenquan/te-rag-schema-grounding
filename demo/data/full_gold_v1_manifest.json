@@ -1,0 +1,23 @@
+{
+  "built_at": "2026-11-16T17:05:27",
+  "inputs": {
+    "demo/data/field_schema.csv": "d8c4cc9add2291743980998c6c1cc646c0d4376f0f096cdc927522b264fdefac",
+    "demo/data/table_schema.csv": "f2d2a770c8b175f91d902fe757b4334adb39659c5e06ffd21c60e557d865722e",
+    "demo/data/qa_data.csv": "8703965e39d893ae52179144c70510c6557a544d850262f1fd600a9d4cfdb3d5"
+  },
+  "parser": "terag.sql_role_parser.SQLRoleParser (sqlglot 30.31.0)",
+  "sqlglot_available": true,
+  "dialect_chain": "mysql → hive → mysql (regex fallback does not count as success)",
+  "output": {
+    "file": "demo/data/full_gold_v2.jsonl",
+    "sha256": "873d5f3a808b9d25e7b3c1181f81eb2185b2cb221636299f4c09e58ed8e13b31"
+  },
+  "status_counts": {
+    "verified_complete": 48,
+    "needs_review": 1,
+    "parse_failed": 0
+  },
+  "n_records": 49,
+  "schema_tables_missing_from_field_csv": [],
+  "rules": "gold_columns = all locatable physical table columns the SQL needs (union of the per-clause roles); unresolved/ambiguous/out-of-schema references are not written into gold, only recorded; original_fields keeps the original SELECT annotation as a separate accounting"
+}

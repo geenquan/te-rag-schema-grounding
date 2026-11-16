@@ -1,0 +1,16 @@
+# Optional dependency groups (install what you actually run):
+#
+#   statistics        — paired Wilcoxon + cluster bootstrap (evaluate --families)
+#   dense             — Dense baseline (encoder download on first use)
+#   api               — DenseDeepSeek / LinkAlign-SingleDB-Adapted / KaSLA-Adapted
+#                       (billed API; needs DEEPSEEK_API_KEY)
+#
+# sci-family used by the private runs: scipy 1.11.x; openai SDK as recorded.
+scipy>=1.11,<2
+
+# dense
+torch>=2.0
+transformers>=4.30
+
+# api
+openai>=1.30

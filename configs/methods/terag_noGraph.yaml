@@ -1,0 +1,9 @@
+# Ablation noGraph: explicit table/column graph SCORES disabled
+# (use_graph_weight=false). The bipartite graph is still built — pattern
+# mining consumes it — so this is NOT "graph never constructed".
+# Held-Out-Table protocol only in the paper matrix.
+extends: terag_full.yaml
+variant: TERAG-noGraph
+terag:
+  ablation:
+    use_graph_weight: false

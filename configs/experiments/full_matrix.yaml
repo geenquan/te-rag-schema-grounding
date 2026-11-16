@@ -1,0 +1,27 @@
+# The paper's formal 25-group matrix (14 Question-Level + 11 Held-Out-Table).
+# Network methods (Dense, DenseDeepSeek, LinkAlign-*, KaSLA-*) need model
+# downloads or the DeepSeek API; run them only with --allow-network.
+dataset: private        # override with --dataset <your dataset config name>
+protocols: [question_v1, table_v2]
+methods:
+  - BM25
+  - TFIDF
+  - Hybrid
+  - MetadataMatched
+  - ExampleRRF
+  - CooccurRRF
+  - Dense
+  - DenseDeepSeek
+  - LinkAlign-SingleDB-Adapted
+  - KaSLA-Adapted
+  - TERAG-Full
+  - TERAG-noBC        # Q + H
+  - TERAG-noAnnIdx    # Q only
+  - TERAG-noAnnHit    # Q only
+  - TERAG-noC         # H only
+  - TERAG-noGraph     # H only
+  - TERAG-noPattern   # H only
+note: >
+  Protocol membership is enforced by terag_release.variants (adapted methods
+  and Q-only ablations are skipped on table_v2 automatically; absent groups
+  are never zero-filled).

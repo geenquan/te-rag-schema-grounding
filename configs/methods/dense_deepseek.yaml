@@ -1,0 +1,18 @@
+# DenseDeepSeek: CUSTOM baseline — Dense top-20 candidate tables + per-table
+# top-10 displayed columns + LLM selection. NOT LinkAlign. Undisplayed
+# references are rejected; selections project onto the shared 5x10 budget.
+method: DenseDeepSeek
+family: llm-assisted
+model:
+  request_model: deepseek-chat  # saved responses may name a server-side alias
+  temperature: 0.1
+  max_tokens: 2000
+  timeout_s: 60
+  max_retries: 1                # transient-error retries only; no fallback
+  candidate_tables: 20
+  displayed_columns_per_table: 10
+api:
+  key_env: DEEPSEEK_API_KEY
+  base_url_env: DEEPSEEK_BASE_URL
+  base_url_default: https://api.deepseek.com
+requires_network: true

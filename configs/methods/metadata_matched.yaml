@@ -1,0 +1,5 @@
+# MetadataMatched control: TE-RAG's comment-enriched schema index WITHOUT any
+# historical signal (no B/C, no graph votes, no patterns from history).
+method: MatchedSchema
+family: control
+requires_network: false

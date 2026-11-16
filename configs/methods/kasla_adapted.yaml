@@ -1,0 +1,25 @@
+# KaSLA-Adapted: upstream relevance/weight functions and hierarchical
+# table/column knapsack DP retained; DeepSeek (upstream prompt prefix)
+# replaces the fine-tuned binary LLM; per-fold L2 logistic classifiers
+# (C=1.0, max_iter=300, seed 42) replace CodeS probabilities. Character
+# TF-IDF features from metadata only. Binary linking sees 20 classifier-ranked
+# tables and 20 columns/table; capacity = max gold-element cost among the 30
+# most similar training questions (never test gold). Question-Level only.
+method: KaSLA-Adapted
+family: adapted
+model:
+  request_model: deepseek-chat
+  temperature: 0.1
+  classifier:
+    C: 1.0
+    max_iter: 300
+    random_state: 42
+  neighbors_for_capacity: 30
+  shown_tables: 20
+  shown_columns_per_table: 20
+api:
+  key_env: DEEPSEEK_API_KEY
+  base_url_env: DEEPSEEK_BASE_URL
+  base_url_default: https://api.deepseek.com
+protocols: [question_v1]        # paper ran this method on Q only
+requires_network: true

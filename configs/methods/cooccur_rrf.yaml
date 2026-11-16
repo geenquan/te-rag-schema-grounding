@@ -1,0 +1,5 @@
+# CooccurRRF: token-element co-occurrence from training data fused with
+# raw-schema BM25 via reciprocal-rank fusion.
+method: Cooccurrence
+family: history-baseline
+requires_network: false

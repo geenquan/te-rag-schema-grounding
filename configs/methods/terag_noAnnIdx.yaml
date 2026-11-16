@@ -1,0 +1,11 @@
+# Ablation noAnnIdx: B/C texts kept OUT of the schema index (index texts =
+# schema descriptions only); extraction and column TERM lookup retained.
+# Not equivalent to use_enhanced_index=false. Question-Level only in the
+# paper matrix.
+extends: terag_full.yaml
+variant: TERAG-noAnnIdx
+terag:
+  annotations:
+    use_history: true
+    use_transfer: true
+    use_annotation_index: false

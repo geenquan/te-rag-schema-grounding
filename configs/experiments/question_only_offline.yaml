@@ -1,0 +1,15 @@
+# Question-Level protocol only, offline methods (fastest meaningful run on
+# user data; also the protocol the k=6 statistics family needs).
+dataset: private
+protocols: [question_v1]
+methods:
+  - BM25
+  - TFIDF
+  - Hybrid
+  - MetadataMatched
+  - ExampleRRF
+  - CooccurRRF
+  - TERAG-Full
+  - TERAG-noBC
+  - TERAG-noAnnIdx
+  - TERAG-noAnnHit

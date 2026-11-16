@@ -1,0 +1,8 @@
+# Ablation noC: one-hop transfer disabled; direct annotations B retained.
+# Held-Out-Table protocol only in the paper matrix.
+extends: terag_full.yaml
+variant: TERAG-noC
+terag:
+  annotations:
+    use_history: true
+    use_transfer: false

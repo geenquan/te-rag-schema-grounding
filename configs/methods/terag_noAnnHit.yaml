@@ -1,0 +1,9 @@
+# Ablation noAnnHit: column TERM hit feature weight set to 0 (index channel
+# untouched). In the paper this variant's outputs matched Full exactly.
+# Question-Level only in the paper matrix.
+extends: terag_full.yaml
+variant: TERAG-noAnnHit
+terag:
+  feature:
+    field_weights:
+      annotation_hit: 0.0

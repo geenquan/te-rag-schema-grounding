@@ -1,0 +1,8 @@
+# Ablation noPattern: independent keyword-pattern channel disabled
+# (use_template_mining=false). Distinct from B's TEMPLATE annotations.
+# Held-Out-Table protocol only in the paper matrix.
+extends: terag_full.yaml
+variant: TERAG-noPattern
+terag:
+  ablation:
+    use_template_mining: false

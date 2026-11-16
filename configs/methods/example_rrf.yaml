@@ -1,0 +1,7 @@
+# ExampleRRF: retrieves historical training questions (TF-IDF), votes with
+# their gold schema elements, fuses with raw-schema BM25 via reciprocal-rank
+# fusion. Column display order = historical vote, then lexical overlap, then
+# field name (displayed sums are not the sort key).
+method: ExampleRAG
+family: history-baseline
+requires_network: false

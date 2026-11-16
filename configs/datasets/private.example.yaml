@@ -1,0 +1,30 @@
+# TEMPLATE for running the full paper protocol on YOUR OWN authorized data.
+# Copy to e.g. configs/datasets/mydata.yaml and fill in real paths.
+# Never commit real credentials; API keys come from environment variables.
+
+name: my-dataset
+
+data:
+  # Required inputs (formats in docs/data_format.md):
+  field_csv: /path/to/field_schema.csv     # columns: table, field_name, field_name_desc, field_type
+  table_csv: /path/to/table_schema.csv     # columns: table, table_desc
+  qa_csv: /path/to/qa_data.csv             # question, sql, table, field (original annotation)
+  gold: /path/to/derived/full_gold_v2.jsonl  # built with scripts/build_full_gold.py
+
+terag:
+  tokenizer:
+    # chinese = jieba, english = regex. Must match your question language.
+    default: chinese
+  pattern_mining:
+    mode: keywords
+    # Supply YOUR domain vocabulary (algorithm input data, not comments):
+    entity_keywords: []      # e.g. business actor nouns
+    attribute_keywords: []   # e.g. business metric nouns
+    aggregation_keywords: {}
+    time_patterns: []
+
+sql:
+  dialect: mysql             # AST parse dialect chain starts here
+
+# Optional external model/API settings are documented in
+# docs/configuration.md; API keys are read from DEEPSEEK_API_KEY only.

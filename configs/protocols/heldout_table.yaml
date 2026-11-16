@@ -1,0 +1,20 @@
+# Held-Out-Table protocol (paper setting `table_v2`).
+#
+# Five target-table folds. For each fold the held-out TARGET tables never
+# appear in training SQL references; training questions whose SQL references
+# a held-out target table (per the AST full gold) are EXCLUDED from training,
+# and questions whose SQL cannot be AST-parsed are conservatively excluded as
+# well. The runner re-asserts zero target-table leakage per fold before fit.
+# Auxiliary (non-target) tables may legitimately remain visible; target-table
+# isolation does not imply auxiliary-table isolation (paper Sec. 4.1).
+
+name: table_v2
+folds: 5
+seed: 42
+supervision: full_sql
+budget:
+  max_tables: 5
+  max_columns_per_table: 10
+isolation:
+  mode: target_table_ast
+  exclude_unparseable_train_sql: true

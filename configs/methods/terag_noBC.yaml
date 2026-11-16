@@ -1,0 +1,8 @@
+# Ablation noBC: B and C annotation channels fully disabled (schema-only
+# knowledge; graph/patterns from training SQL remain).
+extends: terag_full.yaml
+variant: TERAG-noBC
+terag:
+  annotations:
+    use_history: false
+    use_transfer: false

@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "terag-public"
+version = "0.1.0"
+description = "TE-RAG: Historical Domain Annotations for Enterprise Schema Grounding — public release of the implementation and evaluation protocols"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "TBD — see LICENSE and NOTICE before the license is finalized"}  # placeholder until the owner decides
+dependencies = [
+    "numpy>=1.24",
+    "pandas>=2.0",
+    "networkx>=3.0",
+    "jieba>=0.42",
+    "scikit-learn>=1.3",
+    "PyYAML>=6.0",
+    "sqlglot>=25.0",
+    "matplotlib>=3.7",
+]
+
+[project.optional-dependencies]
+statistics = ["scipy>=1.11"]
+dense = ["torch>=2.0", "transformers>=4.30"]
+api = ["openai>=1.30"]
+plots = ["matplotlib>=3.7"]
+
+[project.scripts]
+terag-release = "terag_release.cli:main"
+
+[tool.setuptools]
+packages = ["terag", "terag_release", "retrievers", "eval", "datasets", "analysis", "experiment"]
