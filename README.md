@@ -98,9 +98,12 @@ Python ≥ 3.10. The supported installation is a **source checkout**
 (editable or plain) — the CLI reads `configs/`, `demo/`, and `scripts/`
 from the repository root.
 
+Download the source ZIP from this repository page and extract it. For
+anonymous review, use the download option on the anonymous repository
+page. Open a terminal in the extracted directory containing
+`pyproject.toml`, then run:
+
 ```sh
-git clone https://github.com/geenquan/te-rag-schema-grounding.git
-cd te-rag-schema-grounding
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt          # paper-run pins (verified)
 pip install -e .                         # terag-release CLI + packages
