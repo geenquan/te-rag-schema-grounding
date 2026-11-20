@@ -64,13 +64,24 @@ new question ──► BM25 + graph votes + pattern match (tables)
              ──► direct match + graph + pattern + training-rec + TERM hit (columns)
 ```
 
-All ranking weights, thresholds, and caps are **fixed** (see
-`configs/base.yaml` and `terag_release/paper_profile.py`); nothing is
-trained. Four annotation types are mined: TERM (business expression →
-column), TEMPLATE (slot-normalized question templates), PREDICATE (typed
-WHERE conditions), ROLE (historical SQL roles). Transfer C is one-hop only,
-gated by similarity/typing/context constraints, capped per physical target
-column (≤3 acceptances) and per table (≤8 texts).
+**Parameter status, by profile.** For the ORIGINAL paper baseline profile
+(`paper-dasfaa2027-v1.0` / `transfer_v3_target_cap`, the 25-group matrix
+below): all ranking weights, thresholds, and caps were fixed before
+evaluation (see `configs/base.yaml` and `terag_release/paper_profile.py`)
+and no parameter was tuned. For the FINAL paper profile
+(`paper_final_20261120`, the BIRD/grid paths in this README): parameters
+WERE selected on held-out development splits during the research
+(development-set selection, recorded in
+`configs/paper/final_20261120/*`); this repository REPLAYS those frozen
+selections and never re-runs the search. Training partitions are still
+consumed at fit time to build history features (graph, patterns, B/C
+annotations, KaSLA's fold-trained logistic classifiers) — "no parameter
+tuning at reproduction time" does not mean "nothing is fit". Four
+annotation types are mined: TERM (business expression → column), TEMPLATE
+(slot-normalized question templates), PREDICATE (typed WHERE conditions),
+ROLE (historical SQL roles). Transfer C is one-hop only, gated by
+similarity/typing/context constraints, capped per physical target column
+(≤3 acceptances) and per table (≤8 texts).
 
 ## Supported methods and protocol matrix
 
@@ -141,11 +152,14 @@ pip install 'scipy>=1.11'                # paired statistics (quoted!)
 pip install -r requirements-optional.txt # dense (torch/transformers) + api (openai)
 ```
 
-A standard wheel also builds (`pip wheel .`); it ships the Python packages
-plus the pinned third-party sources/licenses and supports library use and
-the input-validation/evaluation commands anywhere. The configuration-tree
-commands (`run-experiments`, `run-demo`, `benchmark`) resolve configs from
-the repository root and therefore need the checkout.
+A standard wheel also builds (`pip wheel .`); package discovery includes
+the frozen engine subpackages (`terag.engines.*`, verified importable
+outside the source tree) plus the pinned third-party sources/licenses, and
+supports library use and the input-validation/evaluation commands
+anywhere. The configuration-tree commands (`run-experiments`, `run-demo`,
+`run-bird`, `run-grid-replay`, `benchmark`) resolve configs, frozen
+parameter tables, and `data/bird` from the repository root and therefore
+need the checkout; the wheel deliberately ships no datasets.
 
 ## Quick start — bundled demo (offline, no network, no API)
 
@@ -284,6 +298,31 @@ provenance block (code hashes, frozen-config SHA256, data identity, planned
 and executed units, statuses, timings). Failed questions become error
 records that stay in the denominator and make the run exit non-zero.
 
+### Expected frozen failures (33 error records — disclosed, not hidden)
+
+The frozen final evaluation contains **33 error records** (2 questions ×
+methods whose candidate-detail list was empty, so the frozen `field_rerank`
+layer returned the record without its applied-marker and the unified entry
+then hard-errored `field_rerank declared but apply produced no marker`):
+`superhero::821` (25 method/protocol groups) and
+`debit_card_specializing::1486` (8 groups; the Q-protocol noGraph/
+noTableGraph members and their H-protocol crossovers — the H-selected
+`full_href_1_8` track itself has none). They exist identically in the
+shipped reference predictions and in the research frozen evaluation, and
+stay in every denominator as zero-scored error records.
+
+* The machine-readable list is
+  `results/reference/bird/EXPECTED_FROZEN_FAILURES.json` (33 entries, by
+  protocol/method/qid).
+* A `run-bird` command that reproduces any listed method therefore ends
+  with `run_status=completed_with_failures` and **exits non-zero** — that
+  is the documented frozen behavior, not a migration regression.
+* `evaluate-bird-reference` reconciles the live error records against the
+  list: the 33 expected failures are disclosed as such; any OTHER error
+  record (and any disappearance of an expected one) is reported as a
+  problem. Errors are never ignored wholesale, deleted, rewritten to
+  success, or excluded from the denominators.
+
 ### Optional Dense and API baselines (network, your cost)
 
 ```sh
@@ -352,6 +391,60 @@ python -m terag_release run-experiments --dataset mydata \
 To reuse a frozen split manifest, set `data.splits_manifest` in your
 dataset config (it is re-validated before anything runs; a configured but
 missing manifest is an error, never a silent rebuild).
+
+### Final grid engine replay (profile `paper_final_20261120`)
+
+The commands above run the ORIGINAL 25-group matrix through the legacy
+runner. The FINAL paper profile's grid engine
+(`terag.engines.grid.GridEngine`, accepted scoring identity
+`graph_casefold_ids_v1+pattern_consumer_casefold_v1`) has its own runnable
+entry and replays the frozen per-fold parameters of
+`configs/paper/final_20261120/grid_selected_configurations.csv` — no
+parameter search is executed. On your authorized data (same input format as
+above: schema CSVs, QA CSV, full gold, make-folds manifest):
+
+```sh
+# 0-3. prepare + validate inputs exactly as above (build-gold, make-folds,
+#      validate-data), with a dataset config pointing at your data
+
+# 4. final Full (frozen per-fold parameters)
+python -m terag_release run-grid-replay --dataset mydata \
+    --splits-manifest derived/folds/splits_manifest.json \
+    --track full --output runs/grid_full
+
+# 5. fixed-configuration ablation: the SAME per-fold Full parameters with
+#    one module switch off (params identical, only the engine variant)
+python -m terag_release run-grid-replay --dataset mydata \
+    --splits-manifest derived/folds/splits_manifest.json \
+    --track fixed --member noBIndex --output runs/grid_fixed_noBIndex
+#    (member: noBIndex noBHit noB noTableGraph noFieldGraph noGraph
+#     noPattern noC)
+
+# 6. independently optimized configuration replay: the variant's OWN frozen
+#    parameters for each fold (direct replay of the recorded selection)
+python -m terag_release run-grid-replay --dataset mydata \
+    --splits-manifest derived/folds/splits_manifest.json \
+    --track optimized --member noBIndex --output runs/grid_opt_noBIndex
+```
+
+Each run writes per-cell `predictions.jsonl` (the common record shape:
+qid/setting/fold/method/variant/status/retrieved_tables/
+retrieved_column_keys/retrieved_columns_detail), per-cell
+`per_question_metrics.json` recomputed from the final records against your
+gold, `cell.json` with the effective parameters and their source (the
+frozen table's `chosen` config id), and `run_meta/run_meta.json` provenance
+(parameter-table SHA256, manifest SHA256, input checksums, statuses,
+timings). `--settings question_v1` / `--settings table_v2` and `--fold N`
+narrow the replay. `--qid-prefix` sets the positional qid prefix when the
+QA csv has no qid column (documented default `q`).
+
+Numerical identity note: against the authorized research inputs, this
+entry reproduced the frozen accepted outer predictions EXACTLY (10/10
+folds, 1584 question-level comparisons, tables and columns identical — see
+docs/release_mapping.md). The enterprise inputs themselves are not
+redistributed, so grid numbers on public data do not exist; the legacy
+25-group commands above remain the historical profile and are never
+presented as the final engine.
 
 ### Profiles: paper vs custom — and what is a read-only mirror
 

@@ -174,13 +174,21 @@ run:
 * `configs/experiments/bird_*.yaml` — method selections for `run-bird`
   (`methods` + `protocols`; unknown names are hard errors; engine methods
   run through the unified entry, baselines through the frozen adapters).
+* `configs/paper/final_20261120/grid_selected_configurations.csv` — the
+  frozen per-(setting, fold, variant) grid parameters consumed by
+  `run-grid-replay` (tracks full / fixed / optimized; read-only, SHA
+  recorded in run_meta).
 
 API method boundaries (enforced in code, mirrored here): credentials from
 `DEEPSEEK_API_KEY`/`DEEPSEEK_BASE_URL` environment variables only (no file
 fallback exists); the model is `deepseek-flash` with thinking disabled; the
 budget cap is **always user-set** for the current run
-(`--budget-cap-cny` / `TERAG_BIRD_BUDGET_CNY`) — no historical cap is
-reused; evidence, ledger and HTTP cache live under the current run
+(`--budget-cap-cny` / `TERAG_BIRD_BUDGET_CNY`) and must be a **finite
+positive number** — NaN, ±inf, zero, negative, and boolean values are
+rejected at every entry point (CLI, environment variable, `configure()`,
+the runtime property, `require_budget_cap()`, and direct `BudgetBroker`
+construction) before any network request or reservation; no historical cap
+is reused; evidence, ledger and HTTP cache live under the current run
 directory; the MiniLM encoder is pinned to revision
 `e8f8c211226b894fcb81acc59f3b34ba3efd5f42` with an optional
 `--minilm-cache-dir` and downloads only under `--allow-network`.

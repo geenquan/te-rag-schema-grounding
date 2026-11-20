@@ -57,9 +57,15 @@ def actual_cost_cny(prompt_tokens, completion_tokens, bucket):
 
 class BudgetBroker:
     """PUBLIC-PORT: the cap is always caller-supplied (RUNTIME carries the
-    user-set value); the research default of a fixed CNY cap is removed."""
+    user-set value); the research default of a fixed CNY cap is removed.
+
+    The cap must be a finite positive number (validate_budget_cap): NaN or
+    infinite caps make every comparison in ``reserve`` false and would
+    silently disable the invariant, so they are rejected here, before any
+    reservation can be made."""
 
     def __init__(self, cap_cny=None, evidence_dir=None):
+        from terag.engines.api.config import validate_budget_cap
         if cap_cny is None:
             cap_cny = RUNTIME.budget_cap_cny
         if cap_cny is None:
@@ -67,7 +73,7 @@ class BudgetBroker:
                 'BudgetBroker requires an explicit cap for this run '
                 '(terag.engines.api.config.RUNTIME.budget_cap_cny); the '
                 'historical research budget is never reused silently')
-        self.cap = float(cap_cny)
+        self.cap = validate_budget_cap(cap_cny, 'BudgetBroker cap_cny')
         self.dir = Path(evidence_dir) if evidence_dir else RUNTIME.api_evidence_dir
         self.ledger_path = self.dir / 'budget_ledger.json'
         self.lock_path = self.dir / 'budget_ledger.lock'

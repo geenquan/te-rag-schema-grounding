@@ -34,7 +34,10 @@ experiments support full numerical reproduction offline (below).
    matrix). Engines are rebuilt from the frozen inputs (PYTHONHASHSEED=0 is
    enforced); each question carries execution evidence for the declared
    mechanisms; a declared-but-not-executed `field_rerank`/`hg` layer is a
-   hard error.
+   hard error. Note the 33 EXPECTED frozen failures
+   (results/reference/bird/EXPECTED_FROZEN_FAILURES.json): reproducing a
+   listed method ends `completed_with_failures` with a non-zero exit — the
+   documented frozen behavior, matched one-for-one with the reference.
 4. **Statistics** — `python -m terag_release bird-statistics --run RUN
    --output OUT` recomputes the db-cluster exact sign-flip / bootstrap over
    the frozen declared families (Bonferroni over the declared K; Delta =
@@ -51,6 +54,17 @@ independently optimized BIRD Full−noBIndex comparison is negative (−0.51pp,
 p=0.031); C shows no verifiable independent gain; H-opt's edge over the
 metadata baselines does not survive declared correction; empty H folds are
 recorded as empty, never fabricated.
+
+## Grid replay on authorized data (final engine)
+
+The final grid engine runs through `python -m terag_release
+run-grid-replay` (tracks `full` / `fixed --member <switch>` / `optimized
+--member <switch>`) over a dataset config + a make-folds manifest,
+replaying the frozen per-fold parameters of
+`configs/paper/final_20261120/grid_selected_configurations.csv` — see the
+README section "Final grid engine replay" for the full commands. The
+legacy 25-group `run-experiments` path remains the historical profile and
+is never presented as the final engine.
 
 ## Grid: what the paper's numbers are tied to
 

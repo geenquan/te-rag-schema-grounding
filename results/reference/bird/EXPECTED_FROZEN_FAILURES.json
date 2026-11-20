@@ -1,0 +1,238 @@
+{
+ "description": "Machine-readable list of the 33 error records that exist in the frozen final BIRD evaluation and therefore in the shipped reference predictions. Root cause: with an empty candidate-detail list the frozen field_rerank layer returns the record unchanged WITHOUT its applied-marker, and the unified entry then hard-errors \"field_rerank declared but apply produced no marker\". These are inherited frozen-boundary failures, verified one-for-one against the frozen research evaluation (same qid/method/protocol sets in the reference predictions and in the full public rerun). They stay in the denominator as zero-scored error records exactly as in the paper run.",
+ "consequence_for_commands": "run-bird reproducing any method listed here finishes with run_status=completed_with_failures and exits non-zero; the affected cells are labeled completed_with_errors. This is the documented frozen behavior, not a migration regression. evaluate-bird-reference reconciles live error records against this list: the 33 expected failures are disclosed, any OTHER error (and any disappearance of an expected one) is reported as a problem.",
+ "counts": {
+  "total": 33,
+  "by_qid": {
+   "superhero::821": 25,
+   "debit_card_specializing::1486": 8
+  },
+  "by_group": {
+   "heldout:optimized_Q_noB": 1,
+   "heldout:optimized_Q_noBHit": 1,
+   "heldout:optimized_Q_noBIndex": 1,
+   "heldout:optimized_Q_noC": 1,
+   "heldout:optimized_Q_noFieldGraph": 1,
+   "heldout:optimized_Q_noGraph": 2,
+   "heldout:optimized_Q_noPattern": 1,
+   "heldout:optimized_Q_noTableGraph": 2,
+   "heldout:optimized_full_Q": 1,
+   "heldout:qB_field_filter_alone": 1,
+   "heldout:qB_rerank_gate_v1": 1,
+   "heldout:qB_rerank_gate_v1-field_filter_gate_off": 1,
+   "heldout:qB_rerank_gate_v1-noB": 1,
+   "heldout:qB_rerank_gate_v1-noBHit": 1,
+   "heldout:qB_rerank_gate_v1-noBIndex": 1,
+   "heldout:qB_rerank_gate_v1-noC": 1,
+   "heldout:qB_rerank_gate_v1-noFieldGraph": 1,
+   "heldout:qB_rerank_gate_v1-noGraph": 2,
+   "heldout:qB_rerank_gate_v1-noPattern": 1,
+   "heldout:qB_rerank_gate_v1-noTableGraph": 2,
+   "heldout:qB_rerank_ratio_gate_v1": 1,
+   "question:optimized_Q_noGraph": 2,
+   "question:optimized_Q_noTableGraph": 2,
+   "question:qB_rerank_gate_v1-noGraph": 2,
+   "question:qB_rerank_gate_v1-noTableGraph": 2
+  }
+ },
+ "failures": [
+  {
+   "protocol": "heldout",
+   "method": "optimized_Q_noB",
+   "qid": "superhero::821",
+   "status": "error"
+  },
+  {
+   "protocol": "heldout",
+   "method": "optimized_Q_noBHit",
+   "qid": "superhero::821",
+   "status": "error"
+  },
+  {
+   "protocol": "heldout",
+   "method": "optimized_Q_noBIndex",
+   "qid": "superhero::821",
+   "status": "error"
+  },
+  {
+   "protocol": "heldout",
+   "method": "optimized_Q_noC",
+   "qid": "superhero::821",
+   "status": "error"
+  },
+  {
+   "protocol": "heldout",
+   "method": "optimized_Q_noFieldGraph",
+   "qid": "superhero::821",
+   "status": "error"
+  },
+  {
+   "protocol": "heldout",
+   "method": "optimized_Q_noGraph",
+   "qid": "debit_card_specializing::1486",
+   "status": "error"
+  },
+  {
+   "protocol": "heldout",
+   "method": "optimized_Q_noGraph",
+   "qid": "superhero::821",
+   "status": "error"
+  },
+  {
+   "protocol": "heldout",
+   "method": "optimized_Q_noPattern",
+   "qid": "superhero::821",
+   "status": "error"
+  },
+  {
+   "protocol": "heldout",
+   "method": "optimized_Q_noTableGraph",
+   "qid": "debit_card_specializing::1486",
+   "status": "error"
+  },
+  {
+   "protocol": "heldout",
+   "method": "optimized_Q_noTableGraph",
+   "qid": "superhero::821",
+   "status": "error"
+  },
+  {
+   "protocol": "heldout",
+   "method": "optimized_full_Q",
+   "qid": "superhero::821",
+   "status": "error"
+  },
+  {
+   "protocol": "heldout",
+   "method": "qB_field_filter_alone",
+   "qid": "superhero::821",
+   "status": "error"
+  },
+  {
+   "protocol": "heldout",
+   "method": "qB_rerank_gate_v1",
+   "qid": "superhero::821",
+   "status": "error"
+  },
+  {
+   "protocol": "heldout",
+   "method": "qB_rerank_gate_v1-field_filter_gate_off",
+   "qid": "superhero::821",
+   "status": "error"
+  },
+  {
+   "protocol": "heldout",
+   "method": "qB_rerank_gate_v1-noB",
+   "qid": "superhero::821",
+   "status": "error"
+  },
+  {
+   "protocol": "heldout",
+   "method": "qB_rerank_gate_v1-noBHit",
+   "qid": "superhero::821",
+   "status": "error"
+  },
+  {
+   "protocol": "heldout",
+   "method": "qB_rerank_gate_v1-noBIndex",
+   "qid": "superhero::821",
+   "status": "error"
+  },
+  {
+   "protocol": "heldout",
+   "method": "qB_rerank_gate_v1-noC",
+   "qid": "superhero::821",
+   "status": "error"
+  },
+  {
+   "protocol": "heldout",
+   "method": "qB_rerank_gate_v1-noFieldGraph",
+   "qid": "superhero::821",
+   "status": "error"
+  },
+  {
+   "protocol": "heldout",
+   "method": "qB_rerank_gate_v1-noGraph",
+   "qid": "debit_card_specializing::1486",
+   "status": "error"
+  },
+  {
+   "protocol": "heldout",
+   "method": "qB_rerank_gate_v1-noGraph",
+   "qid": "superhero::821",
+   "status": "error"
+  },
+  {
+   "protocol": "heldout",
+   "method": "qB_rerank_gate_v1-noPattern",
+   "qid": "superhero::821",
+   "status": "error"
+  },
+  {
+   "protocol": "heldout",
+   "method": "qB_rerank_gate_v1-noTableGraph",
+   "qid": "debit_card_specializing::1486",
+   "status": "error"
+  },
+  {
+   "protocol": "heldout",
+   "method": "qB_rerank_gate_v1-noTableGraph",
+   "qid": "superhero::821",
+   "status": "error"
+  },
+  {
+   "protocol": "heldout",
+   "method": "qB_rerank_ratio_gate_v1",
+   "qid": "superhero::821",
+   "status": "error"
+  },
+  {
+   "protocol": "question",
+   "method": "optimized_Q_noGraph",
+   "qid": "debit_card_specializing::1486",
+   "status": "error"
+  },
+  {
+   "protocol": "question",
+   "method": "optimized_Q_noGraph",
+   "qid": "superhero::821",
+   "status": "error"
+  },
+  {
+   "protocol": "question",
+   "method": "optimized_Q_noTableGraph",
+   "qid": "debit_card_specializing::1486",
+   "status": "error"
+  },
+  {
+   "protocol": "question",
+   "method": "optimized_Q_noTableGraph",
+   "qid": "superhero::821",
+   "status": "error"
+  },
+  {
+   "protocol": "question",
+   "method": "qB_rerank_gate_v1-noGraph",
+   "qid": "debit_card_specializing::1486",
+   "status": "error"
+  },
+  {
+   "protocol": "question",
+   "method": "qB_rerank_gate_v1-noGraph",
+   "qid": "superhero::821",
+   "status": "error"
+  },
+  {
+   "protocol": "question",
+   "method": "qB_rerank_gate_v1-noTableGraph",
+   "qid": "debit_card_specializing::1486",
+   "status": "error"
+  },
+  {
+   "protocol": "question",
+   "method": "qB_rerank_gate_v1-noTableGraph",
+   "qid": "superhero::821",
+   "status": "error"
+  }
+ ]
+}

@@ -1,5 +1,51 @@
 # Changelog
 
+## unreleased (2026-11-21): hardening + final grid replay wiring
+
+Limited repair round on top of the migration commit (independent review
+4334610); no algorithm change, no parameter search, no new experiments.
+
+* **API budget-cap validation (all entry points)** — the cap must be a
+  finite positive number; NaN/±inf/zero/negative/boolean/invalid-string
+  values are rejected at the CLI flag, the TERAG_BIRD_BUDGET_CNY variable,
+  `configure()`, the `RUNTIME.budget_cap_cny` property,
+  `require_budget_cap()`, and direct `BudgetBroker` construction — before
+  any network request or reservation (NaN previously compared False against
+  everything and could silently disable the limit). Valid caps keep the
+  original reservation/settlement semantics.
+* **BIRD statistics / reference input guards** — duplicate qids are
+  rejected before any dict is built (no silent last-write winner); formal
+  statistics require the EXACT frozen OOF population per protocol (a
+  common truncation of both methods now yields explicit
+  `incomplete_population` rows without p-values or CIs, not a "computed"
+  statistic); metric values must be finite and within [0, 1];
+  `evaluate-bird-reference` additionally verifies the MANIFEST per-file
+  SHA256, exact populations, and legal statuses instead of trusting record
+  counts. Valid complete inputs produce the identical numbers.
+* **Final grid engine runnable entry** — `terag_release run-grid-replay`
+  (dataset config + make-folds manifest + the frozen parameter table):
+  `--track full`, `--track fixed --member <switch>` (the per-fold Full
+  parameters with one module off), and `--track optimized --member <switch>`
+  (the variant's own frozen selection, replayed — never re-searched);
+  writes predictions, per-cell metrics, effective parameters with their
+  frozen source id, and run_meta provenance. Verified end-to-end on a
+  synthetic fixture (construction, fit, predict, evaluation, all three
+  tracks); the legacy 25-group path is unchanged and stays separately
+  identifiable.
+* **33 expected frozen failures disclosed** — machine-readable
+  `results/reference/bird/EXPECTED_FROZEN_FAILURES.json` (2 questions ×
+  method/protocol groups; unified-entry hard error on the frozen
+  empty-candidate field_rerank boundary); `evaluate-bird-reference`
+  reconciles live errors against it (expected = disclosed, any other =
+  reported regression); README documents the non-zero exit semantics.
+* **Docs corrected** — parameter-status text now distinguishes the
+  historical fixed-parameter profile from the final profile's frozen
+  development-set selections (training partitions still build history
+  features at fit time); appendix-table command mapping fixed (A4 needs
+  `bird_baselines_offline` + `bird_h_opt`; A6 = optimized replay);
+  wheel package discovery includes `terag.engines.*` (out-of-tree import
+  verified).
+
 ## unreleased (2026-11-20): final-paper reproduction with BIRD (profile `paper_final_20261120`)
 
 Complete reproduction package for the submitted paper's experiments; the

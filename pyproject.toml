@@ -32,8 +32,13 @@ terag-release = "terag_release.cli:main"
 [tool.setuptools.dynamic]
 version = {attr = "terag_release.__version__"}
 
-[tool.setuptools]
-packages = ["terag", "terag_release", "retrievers", "eval", "datasets", "analysis", "experiment"]
+[tool.setuptools.packages.find]
+# Discovery (not a fixed list) so subpackages — in particular the frozen
+# final-paper engine tree terag.engines.* — ship with the wheel; the legacy
+# top-level packages and the pinned third-party snapshot under
+# retrievers/upstream (a namespace dir without __init__) are included via
+# the patterns below.
+include = ["terag*", "terag_release*", "retrievers*", "eval*", "datasets*", "analysis*", "experiment*"]
 
 [tool.setuptools.package-data]
 # Pinned third-party sources and their MIT licenses must ship with any

@@ -6,7 +6,13 @@ run's per-question metric CSVs (`<run>/metrics/<method>/<protocol>
 _per_question.csv`, written by `run-bird`):
 
 * pairing: per-question differences on the frozen Dev OOF population; the
-  qid sets of the two methods must be IDENTICAL (population identity);
+  qid sets of BOTH methods must equal the EXACT frozen population of the
+  protocol (verified against the shipped manifests — equality of the two
+  methods with each other is NOT sufficient, a common truncation of both
+  must never produce formal statistics);
+* duplicate qids in any input file are rejected before any dictionary is
+  built (no silent last-write winner); metric values must be finite and
+  within [0, 1];
 * cluster = database (from the qid prefix before ``::``);
 * test: db-cluster EXACT sign-flip (the accepted prior-round
   implementation, ported verbatim in ``terag.engines.evalkit.stats_core``);
@@ -22,14 +28,23 @@ _per_question.csv`, written by `run-bird`):
   extra_exploratory for the fixed-vs-reoptimized track;
 * direction convention: Delta = Full − Ablation (A − B where A is the
   declared left side).
+
+Partial inputs are never silently completed: a method whose population
+does not exactly match the frozen OOF set gets explicit
+``incomplete_population``/``unexpected_population`` rows WITHOUT p-values
+or CIs for every comparison it takes part in, and the run summary counts
+them. ``populations`` (tests only) injects a small legitimate population
+per protocol instead of the shipped manifests.
 """
-import csv
 import json
 from pathlib import Path
 
 from terag_release import reporting
 from terag_release.bird_runner import (FROZEN_FAMILIES_PATH,
                                        FROZEN_FAMILIES_SHA)
+from terag_release.input_guards import (expected_population,
+                                        load_metric_rows,
+                                        population_problems)
 
 METRICS = ('colf1', 'covered@5')
 LABEL_CONFIRMATORY = 'confirmatory'
@@ -49,38 +64,43 @@ def verify_families():
     return json.loads(data.decode('utf-8')), sha
 
 
-def _load_per_question(run_dir, method, protocol):
-    path = (Path(run_dir) / 'metrics' / method
-            / f'{protocol}_per_question.csv')
-    if not path.is_file():
-        return None
-    out = {}
-    with path.open(encoding='utf-8') as f:
-        for row in csv.DictReader(f):
-            out[row['qid']] = row
-    return out
-
-
 def _db_of(qid):
     return qid.split('::', 1)[0]
 
 
-def _comparison(a_rows, b_rows, metric, label):
-    """Paired A − B differences, db clusters, sign-flip + bootstrap."""
+def _comparison(a_rows, b_rows, metric, label, expected_qids):
+    """Paired A − B differences over the FULL expected population.
+
+    Population gate first: both methods must cover exactly ``expected_qids``
+    (the frozen OOF population of the protocol). A common truncation or an
+    unexpected qid set returns a ``population_mismatch`` /
+    ``incomplete_population`` row WITHOUT p-value or CI — never a formal
+    full-population statistic over the surviving subset.
+    """
     from terag.engines.evalkit.stats_core import (classify_difference,
                                                   cluster_bootstrap_ci,
                                                   sign_flip)
     import numpy as np
-    common = sorted(set(a_rows) & set(b_rows))
-    if not common:
-        return {'status': 'missing_population', 'label': label,
-                'metric': metric, 'n': 0}
-    if set(a_rows) != set(b_rows):
+    a_set, b_set = set(a_rows), set(b_rows)
+    expected = set(expected_qids)
+    if a_set != expected or b_set != expected:
+        if a_set == b_set:
+            missing = sorted(expected - a_set)
+            return {'status': 'incomplete_population', 'label': label,
+                    'metric': metric, 'n': len(a_set),
+                    'n_missing_from_frozen_population': len(missing),
+                    'missing_examples': missing[:5],
+                    'note': ('both methods cover the same truncated subset '
+                             'of the frozen population; formal full-'
+                             'population statistics are refused')}
         return {'status': 'population_mismatch', 'label': label,
-                'metric': metric, 'n': len(common)}
+                'metric': metric, 'n': len(a_set & b_set),
+                'note': ('the two methods cover different qid sets; '
+                         'pairing is refused')}
+    qids = sorted(expected)
     diffs = np.array([float(a_rows[q][metric]) - float(b_rows[q][metric])
-                      for q in common])
-    clusters = [_db_of(q) for q in common]
+                      for q in qids])
+    clusters = [_db_of(q) for q in qids]
     by = {}
     for d, c in zip(diffs, clusters):
         by.setdefault(c, []).append(float(d))
@@ -92,7 +112,7 @@ def _comparison(a_rows, b_rows, metric, label):
         p, test = sign_flip(sums)
     ci, _ = cluster_bootstrap_ci(diffs, clusters)
     return {'status': taxonomy, 'label': label, 'metric': metric,
-            'n': len(common), 'n_clusters': len(names),
+            'n': len(qids), 'n_clusters': len(names),
             'mean_diff_pp': float(diffs.mean() * 100),
             'positive_questions': int((diffs > 0).sum()),
             'negative_questions': int((diffs < 0).sum()),
@@ -103,7 +123,7 @@ def _comparison(a_rows, b_rows, metric, label):
             'ci95_bootstrap_pp': [v * 100 for v in ci]}
 
 
-def run_statistics(run_dir, output):
+def run_statistics(run_dir, output, populations=None):
     families, sha = verify_families()
     run_dir = Path(run_dir)
     out = reporting.require_new_directory(Path(output))
@@ -113,21 +133,34 @@ def run_statistics(run_dir, output):
                          .resolve()).read_text(encoding='utf-8'))
 
     rows = []
-    for protocol in ('question', 'heldout'):
+    population_flags = []
+    # with injected populations (tests), iterate exactly the injected
+    # protocols; production always covers both frozen protocols
+    protocols = (sorted(populations) if populations is not None
+                 else ['question', 'heldout'])
+    for protocol in protocols:
+        expected = expected_population(protocol, populations)
         spec = families['protocols'][protocol]
         selected_name = frozen['selected'][protocol]['name']
-        selected = _load_per_question(run_dir, selected_name, protocol)
 
-        def ensure(method, label):
-            rows_local = _load_per_question(run_dir, method, protocol)
-            if rows_local is None:
-                rows.append({'protocol': protocol, 'family': 'missing',
-                             'comparison': f'{selected_name} - {method}',
-                             'metric': None, 'n': 0, 'status': 'missing',
-                             'label': label,
-                             'note': 'per-question metrics not in this run'})
-                return None
-            return rows_local
+        loaded = {}   # method -> rows (guarded; population-verified lazily)
+        incomplete = {}   # method -> problems (population != frozen)
+
+        def load(method):
+            """Guarded load + population verification; records problems."""
+            if method in loaded or method in incomplete:
+                return
+            path = (run_dir / 'metrics' / method
+                    / f'{protocol}_per_question.csv')
+            if not path.is_file():
+                return
+            rows_m = load_metric_rows(path)   # duplicates/NaN rejected
+            problems = population_problems(rows_m, protocol, populations,
+                                           label=f'{protocol}/{method}')
+            if problems:
+                incomplete[method] = problems
+            else:
+                loaded[method] = rows_m
 
         # ---- main family ------------------------------------------------
         fam = spec['main']
@@ -138,27 +171,41 @@ def run_statistics(run_dir, output):
             label = (LABEL_POST_HOC if opp in fam.get('post_hoc_opponents',
                                                       [])
                      else LABEL_CONFIRMATORY)
-            opp_rows = ensure(method, label)
-            if opp_rows is None or selected is None:
-                continue
-            for metric in METRICS:
-                r = _comparison(selected, opp_rows, metric, label)
-                r.update(protocol=protocol, family='main',
-                         comparison=f'{selected_name} - {method}',
-                         K_family=fam['K'])
-                r['p_bonferroni'] = (min(1.0, r['p_sign_flip_raw']
-                                         * fam['K'])
-                                     if r.get('p_sign_flip_raw') is not None
-                                     else None)
-                rows.append(r)
+            for left, right in ((selected_name, method),):
+                load(left)
+                load(right)
+                absent = [m for m in (left, right)
+                          if m not in loaded and m not in incomplete]
+                bad_population = [m for m in (left, right)
+                                  if m in incomplete]
+                if absent or bad_population:
+                    if bad_population:
+                        status = 'incomplete_population'
+                        note = (incomplete.get(bad_population[0])
+                                or incomplete.get(bad_population[1]))
+                    else:
+                        status = 'missing'
+                        note = ['per-question metrics not in this run: '
+                                + ', '.join(absent)]
+                    rows.append({'protocol': protocol, 'family': 'main',
+                                 'comparison': f'{left} - {right}',
+                                 'metric': None, 'n': 0, 'status': status,
+                                 'label': label, 'K_family': fam['K'],
+                                 'note': note})
+                    continue
+                for metric in METRICS:
+                    r = _comparison(loaded[left], loaded[right], metric,
+                                    label, expected)
+                    r.update(protocol=protocol, family='main',
+                             comparison=f'{left} - {right}',
+                             K_family=fam['K'])
+                    r['p_bonferroni'] = (min(1.0, r['p_sign_flip_raw']
+                                             * fam['K'])
+                                         if r.get('p_sign_flip_raw')
+                                         is not None else None)
+                    rows.append(r)
 
         # ---- ablation tracks --------------------------------------------
-        # T1 members = the 8 declared stock switches PLUS every mechanism
-        # off-switch appended at freeze time (entries of the frozen configs'
-        # fixed_ablation_members named <selected>-X with X not a stock
-        # switch, e.g. field_filter_gate_off / hg_gate_off). Per the
-        # declaration's vnext_extension_slots rule each appended member
-        # adds 2 to the family's Bonferroni K (16 -> 18 with one member).
         stock = spec['fixed_ablation']['members']
         frozen_fixed = [e['name'] for e in frozen.get(
             'fixed_ablation_members') or []]
@@ -190,18 +237,30 @@ def run_statistics(run_dir, output):
                 left = (left_name.format(member) if '{' in left_name
                         else left_name)
                 right = right_of(member)
-                a = _load_per_question(run_dir, left, protocol)
-                b = _load_per_question(run_dir, right, protocol)
-                if a is None or b is None:
+                load(left)
+                load(right)
+                absent = [m for m in (left, right)
+                          if m not in loaded and m not in incomplete]
+                bad_population = [m for m in (left, right)
+                                  if m in incomplete]
+                if absent or bad_population:
+                    if bad_population:
+                        status = 'incomplete_population'
+                        note = (incomplete.get(bad_population[0])
+                                or incomplete.get(bad_population[1]))
+                    else:
+                        status = 'missing'
+                        note = ['per-question metrics not in this run: '
+                                + ', '.join(absent)]
                     rows.append({'protocol': protocol, 'family': family,
                                  'comparison': f'{left} - {right}',
-                                 'metric': None, 'n': 0, 'status': 'missing',
+                                 'metric': None, 'n': 0, 'status': status,
                                  'label': label, 'K_family': fam_k,
-                                 'note': 'per-question metrics not in this '
-                                         'run'})
+                                 'note': note})
                     continue
                 for metric in METRICS:
-                    r = _comparison(a, b, metric, label)
+                    r = _comparison(loaded[left], loaded[right], metric,
+                                    label, expected)
                     r.update(protocol=protocol, family=family,
                              comparison=f'{left} - {right}',
                              K_family=fam_k)
@@ -210,6 +269,10 @@ def run_statistics(run_dir, output):
                                          if r.get('p_sign_flip_raw')
                                          is not None else None)
                     rows.append(r)
+
+        for method, problems in sorted(incomplete.items()):
+            population_flags.append({'protocol': protocol, 'method': method,
+                                     'problems': problems})
 
     # CSV output
     cols = ['protocol', 'family', 'comparison', 'metric', 'n', 'n_clusters',
@@ -229,8 +292,15 @@ def run_statistics(run_dir, output):
             'direction_convention': 'Delta = left - right (Full - Ablation '
                                     'for ablation tracks)',
             'n_comparisons': len(rows),
-            'missing': sum(1 for r in rows if r['status'] == 'missing')}
+            'missing': sum(1 for r in rows if r['status'] == 'missing'),
+            'incomplete_population': sum(1 for r in rows
+                                         if r['status']
+                                         in ('incomplete_population',
+                                             'population_mismatch')),
+            'population_flags': population_flags}
     reporting.write_json_exclusive(out / 'statistics_meta.json', meta)
     print(f"bird statistics: {len(rows)} comparison rows "
-          f"({meta['missing']} missing members) -> {out}")
+          f"({meta['missing']} missing, "
+          f"{meta['incomplete_population']} non-computable population "
+          f"rows) -> {out}")
     return out

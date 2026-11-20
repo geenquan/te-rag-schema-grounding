@@ -35,17 +35,17 @@ complete).
 | Paper item | What it is | Reproduce with |
 |---|---|---|
 | Table 1 (datasets) | Power-grid / BIRD population counts | grid: private data (documented); BIRD: `data/bird/` counts verified by `tests/test_bird_data.py` |
-| Table 2 `tab:qoverall` — Q overall (both datasets) | 11 power-grid methods + 12 BIRD methods, Covered@5/ColP/ColR/ColF1/FGCS | BIRD: `run-bird --experiment bird_full_matrix` (+ `bird_dense`/`bird_api` for the last three baselines, or read `results/reference/bird/aggregates/question_summary.csv`); grid: baselines via `run-experiments` on authorized data, Full via the grid engine replay |
+| Table 2 `tab:qoverall` — Q overall (both datasets) | 11 power-grid methods + 12 BIRD methods, Covered@5/ColP/ColR/ColF1/FGCS | BIRD: `run-bird --experiment bird_full_matrix` (+ `bird_dense`/`bird_api` for the last three baselines, or read `results/reference/bird/aggregates/question_summary.csv`); grid: baselines via `run-experiments` on authorized data, Full via `run-grid-replay --track full` |
 | Figure 3 `fig:overall-performance` | Covered@5 vs column F1 scatter, 23 points (11 grid + 12 BIRD) | computed from the same aggregate files (no experiments run by the figure) |
-| Table 3 `tab:qfixed` — Q fixed-config ablations | Grid fixed ablations (per-fold params) + BIRD `qB_rerank_gate_v1-no*` nine rows | BIRD: `run-bird --experiment bird_q_fixed_ablation`; grid: grid engine with `grid_selected_configurations.csv` |
+| Table 3 `tab:qfixed` — Q fixed-config ablations | Grid fixed ablations (per-fold params) + BIRD `qB_rerank_gate_v1-no*` nine rows | BIRD: `run-bird --experiment bird_q_fixed_ablation`; grid: `run-grid-replay --track fixed --member <switch>` per row |
 | Figure 4 `fig:ablation-heatmap` | 8 ablations × 3 metrics × 2 datasets, direction **Ablation − Full** (opposite of the statistics convention) | same inputs as Table 3 |
 | Table 4 `tab:gate` — BIRD Q field decomposition | Core / Rerank only / Gate (P/R/F1, FGCS, Avg. columns) | `run-bird --experiment bird_q_three_stage` |
 | A1 `tab:qoverallpr` | Q overall P/R detail | `aggregates/question_summary.csv` (colp/colrec columns) |
 | A2 `tab:qfixedpr` | Q fixed ablation P/R detail | `metrics/question/<method>_per_question.csv` |
 | A3 `tab:qindependent` | Independently optimized Full and no* tracks (BIRD 29.02/29.53 identity) | `run-bird --experiment bird_optimized_replay` |
-| A4 `tab:hall` | H overall (core 76.54/21.99/51.70; H-opt 82.29/22.98/57.97) | `run-bird --experiment bird_h_opt` (Core + `full_href_1_8`) |
-| A5 `tab:hfixed` | H fixed ablations | same experiment, `full_href_1_8-no*` rows |
-| A6 `tab:hindependent` | H independently optimized track | `bird_optimized_replay` (optimized_full_H / optimized_H_no*) |
+| A4 `tab:hall` | H overall: 6 baselines + core (76.54/21.99/51.70) + H-opt (82.29/22.98/57.97) | baselines: `run-bird --experiment bird_baselines_offline` (its heldout-protocol rows); core + H-opt: `run-bird --experiment bird_h_opt` — BOTH commands are needed for the full table |
+| A5 `tab:hfixed` | H fixed ablations | `run-bird --experiment bird_h_opt` (`full_href_1_8-no*` rows) |
+| A6 `tab:hindependent` | H independently optimized track | `run-bird --experiment bird_optimized_replay` (`optimized_full_H` / `optimized_H_no*` rows — the replay of frozen selections, not a new search) |
 | Efficiency table | original-run timings | `benchmark` produces NEW measurements only |
 | Selector API cost (≈ CNY 30) | historical spend | documented boundary; never reused — online reruns use your own cap |
 
@@ -53,16 +53,24 @@ Statistical statements (Q gate +1.91pp F1 corrected p=0.0352; optimized
 Full−noBIndex = −0.51pp p=0.031; noFieldGraph +0.59pp p=0.035) come from the
 db-cluster exact sign-flip / bootstrap over the frozen declared families
 (`configs/paper/final_20261120/bird_families.json`):
-`python -m terag_release bird-statistics --run RUN --output OUT`. The
-declared-family Bonferroni K is never shrunk; zero/cancel members keep
-their slot; comparisons against `route*` rows are labeled post-hoc
-exploratory. Direction convention: **Delta = Full − Ablation**; Figure 4's
-heatmap is the opposite direction (Ablation − Full) and is labeled so in the
-paper.
+`python -m terag_release bird-statistics --run RUN --output OUT`. Inputs
+are guarded: duplicate qids are rejected per file, every method must cover
+the EXACT frozen OOF population of its protocol (a common truncation of
+both sides yields explicit `incomplete_population` rows without p-values —
+never a formal statistic over the surviving subset), and metric values
+must be finite and within [0, 1]. The declared-family Bonferroni K is
+never shrunk; zero/cancel members keep their slot; comparisons against
+`route*` rows are labeled post-hoc exploratory. Direction convention:
+**Delta = Full − Ablation**; Figure 4's heatmap is the opposite direction
+(Ablation − Full) and is labeled so in the paper.
 
 BIRD reference predictions (`results/reference/bird/`) allow every value
 above to be recomputed without running anything:
 `python -m terag_release evaluate-bird-reference --output runs/refcheck`.
+The reference contains 33 disclosed frozen error records
+(`EXPECTED_FROZEN_FAILURES.json`); recomputation reconciles live errors
+against that list — expected failures are disclosed, any other error is a
+reported problem.
 
 ---
 

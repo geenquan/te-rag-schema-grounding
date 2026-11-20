@@ -11,6 +11,7 @@ make-folds       Build the deterministic question/table fold manifest.
 run-demo         Run the offline demo pipeline end to end (no network).
 run-experiments  Run a method x protocol matrix on user data.
 run-bird         Run final-paper BIRD methods on the frozen Dev five-fold.
+run-grid-replay  Run the final grid engine on private data (frozen params).
 evaluate         Offline full-gold evaluation of saved predictions.
 evaluate-bird-reference  Recompute the shipped BIRD reference results.
 bird-statistics  BIRD paired statistics (db-cluster sign-flip/bootstrap).
@@ -223,7 +224,15 @@ def cmd_run_bird(args):
     budget = args.budget_cap_cny
     if budget is None:
         env = os.environ.get('TERAG_BIRD_BUDGET_CNY', '').strip()
-        budget = float(env) if env else None
+        budget = env if env else None
+    if budget is not None:
+        from terag.engines.api.config import InvalidBudgetCap
+        try:
+            from terag.engines.api.config import validate_budget_cap
+            budget = validate_budget_cap(budget, '--budget-cap-cny/'
+                                         'TERAG_BIRD_BUDGET_CNY')
+        except InvalidBudgetCap as exc:
+            _fail(f'invalid API budget cap: {exc}')
     try:
         meta = run_bird(methods=args.methods,
                         experiment_methods=experiment_methods,
@@ -250,6 +259,26 @@ def cmd_bird_statistics(args):
     from terag_release.bird_stats import run_statistics
 
     run_statistics(run_dir=args.run, output=args.output)
+
+
+# ---------------------------------------------------------------- grid replay
+
+def cmd_run_grid_replay(args):
+    from terag_release.grid_runner import run_grid_replay
+
+    try:
+        meta = run_grid_replay(dataset=args.dataset,
+                               splits_manifest=args.splits_manifest,
+                               track=args.track, member=args.member,
+                               settings=args.settings, fold=args.fold,
+                               output=args.output,
+                               qid_prefix=args.qid_prefix)
+    except Exception as e:
+        _fail(str(e))
+    status = meta['run_status']
+    print(f"run '{status}': {args.output}")
+    if status in ('completed_with_failures', 'failed'):
+        raise SystemExit(1)
 
 
 # ---------------------------------------------------------------- evaluate
@@ -418,6 +447,38 @@ def build_parser() -> argparse.ArgumentParser:
                          "the shipped metric files")
     ebr.add_argument("--output", required=True)
     ebr.set_defaults(func=cmd_evaluate_bird_reference)
+
+    rg = sub.add_parser("run-grid-replay",
+                        help="run the FINAL grid engine on authorized "
+                             "private data with the frozen per-fold "
+                             "parameters (profile paper_final_20261120)")
+    rg.add_argument("--dataset", required=True,
+                    help="dataset config NAME under configs/datasets/ or a "
+                         "YAML path (data.field_csv/table_csv/qa_csv/gold)")
+    rg.add_argument("--splits-manifest", required=True,
+                    help="frozen splits manifest from `terag_release "
+                         "make-folds` (question_folds + "
+                         "ast_refined_table_folds)")
+    rg.add_argument("--track", required=True,
+                    choices=["full", "fixed", "optimized"],
+                    help="full: frozen Full parameters; fixed: Full "
+                         "parameters with one module switch off; "
+                         "optimized: the variant's own frozen parameters "
+                         "(replay, no search)")
+    rg.add_argument("--member",
+                    help="ablation switch for --track fixed/optimized "
+                         f"(one of noBIndex/noBHit/noB/noTableGraph/"
+                         "noFieldGraph/noGraph/noPattern/noC)")
+    rg.add_argument("--settings", nargs="+",
+                    choices=["question_v1", "table_v2"], default=None,
+                    help="settings to run (default: both)")
+    rg.add_argument("--fold", type=int,
+                    help="run a single fold only (labeled partial run)")
+    rg.add_argument("--qid-prefix", default="q",
+                    help="positional qid prefix when the QA csv carries no "
+                         "qid column (documented default: q)")
+    rg.add_argument("--output", required=True)
+    rg.set_defaults(func=cmd_run_grid_replay)
 
     bs = sub.add_parser("bird-statistics",
                         help="BIRD paired statistics (db-cluster exact "
