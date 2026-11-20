@@ -1,0 +1,72 @@
+table,db,field_name,field_name_desc,field_type
+callcenterlogs,retail_complains,Complaint ID,unique id number representing each complaint [format: text] [primary key],text
+callcenterlogs,retail_complains,Date received,complaint date [format: date],date
+callcenterlogs,retail_complains,call_id,id number identifying the call [format: integer],integer
+callcenterlogs,retail_complains,outcome,the outcome of processing of complaints [format: text],text
+callcenterlogs,retail_complains,phonefinal,final phone number [format: text],text
+callcenterlogs,retail_complains,priority,"priority of the complaint [format: integer] Value: 0, 1, 2, 
+null: not available,
+higher: -> higher priority,
+-> more serious/urgent complaint",integer
+callcenterlogs,retail_complains,rand client,client id [format: text] [foreign key -> client.client_id],text
+callcenterlogs,retail_complains,ser_exit,server exit time [format: text],text
+callcenterlogs,retail_complains,ser_start,server start time [format: text] Value: HH:MM:SS,text
+callcenterlogs,retail_complains,ser_time,"server time [format: text] Value: commonsense evidence:
+longer server time referring to more verbose/longer complaint",text
+callcenterlogs,retail_complains,server,server [format: text],text
+callcenterlogs,retail_complains,type,type of complaint [format: text],text
+callcenterlogs,retail_complains,vru+line,voice response unit line [format: text],text
+client,retail_complains,address_1,address 1 [format: text],text
+client,retail_complains,address_2,"address 2 [format: text] Value: entire address = (address_1, address_2)",text
+client,retail_complains,age,"age [format: integer] Value: teenager: 13-19
+adult: 19-65
+elder: > 65",integer
+client,retail_complains,city,city [format: text],text
+client,retail_complains,client_id,unique id client number [format: text] [primary key],text
+client,retail_complains,day,day of the birthday [format: integer],integer
+client,retail_complains,district_id,district id number [format: integer] [foreign key -> district.district_id],integer
+client,retail_complains,email,"email [format: text] Value: commonsense evidence:
+google email / account: @gamil.com
+microsoft email / account: xxx@outlook.com",text
+client,retail_complains,first,first name [format: text],text
+client,retail_complains,last,last name [format: text],text
+client,retail_complains,middle,middle name [format: text],text
+client,retail_complains,month,month of the birthday [format: integer],integer
+client,retail_complains,phone,phone number [format: text],text
+client,retail_complains,sex,sex of client [format: text],text
+client,retail_complains,social,social number [format: text] Value: ssn: us id number for each person,text
+client,retail_complains,state,state code [format: text],text
+client,retail_complains,year,year when is born [format: integer],integer
+client,retail_complains,zipcode,zipcode [format: integer],integer
+district,retail_complains,city,city [format: text],text
+district,retail_complains,district_id,unique id number representing district [format: integer] [primary key],integer
+district,retail_complains,division,division [format: text],text
+district,retail_complains,state_abbrev,state abbreviated code [format: text] [foreign key -> state.StateCode],text
+events,retail_complains,Client_ID,id number indicating which client [format: text] [primary key] [foreign key -> client.client_id],text
+events,retail_complains,Company response to consumer,Company response to consumer [format: text],text
+events,retail_complains,Complaint ID,id number indicating which complaint [format: text] [primary key] [foreign key -> callcenterlogs.Complaint ID],text
+events,retail_complains,Consumer complaint narrative,Consumer complaint narrative [format: text],text
+events,retail_complains,Consumer consent provided?,"whether the tags labeled under permission of the clients [format: text] Value: commonsense evidence:
+ null, 'N/A' or empty value: indicating that the company didn't get the permission of consent.
+ if the value is not empty: customers provide the consent for this tag.",text
+events,retail_complains,Consumer disputed?,whether the consumer dispute about the response from the company. [format: text],text
+events,retail_complains,Date received,Date received [format: date],date
+events,retail_complains,Date sent to company,"Date sent to company [format: text] Value: commonsense evidence:
+delay of the complaints = 'Date sent to company'",text
+events,retail_complains,Issue,problems leading to this complaints [format: text],text
+events,retail_complains,Product,complaining about which product [format: text],text
+events,retail_complains,Sub-issue,"sub problems leading to this complaints if exists [format: text] Value: commonsense evidence:
+more detailed issue",text
+events,retail_complains,Sub-product,"sub product if exists [format: text] Value: commonsense evidence:
+detailed product",text
+events,retail_complains,Submitted via,Submitted via [format: text],text
+events,retail_complains,Tags,tags of client [format: text],text
+events,retail_complains,Timely response?,whether the response of the company is timely [format: text],text
+reviews,retail_complains,Date,[format: date] [primary key],date
+reviews,retail_complains,Product,[format: text],text
+reviews,retail_complains,Reviews,[format: text],text
+reviews,retail_complains,Stars,[format: integer],integer
+reviews,retail_complains,district_id,[format: integer] [foreign key -> district.district_id],integer
+state,retail_complains,Region,[format: text],text
+state,retail_complains,State,[format: text],text
+state,retail_complains,StateCode,[format: text] [primary key],text

@@ -1,0 +1,12 @@
+table,db,field_name,field_name_desc,field_type
+beers,craftbeer,abv,alcohol by volume [format: text] Value: Alcohol by VolumeABV is the most common measurement of alcohol content in beer; it simply indicates how much of the total volume of liquid in a beer is made up of alcohol.,real
+beers,craftbeer,brewery_id,id number of the breweries [format: integer],integer
+beers,craftbeer,ibu,"International Bitterness Units [format: real] Value: IBU stands for International Bitterness Units, a scale to gauge the level of a beer's bitterness. More specifically, IBUs measure the parts per million of is humulone from hops in a beer, which gives beer bitterness.",real
+beers,craftbeer,id,unique id number of beers [format: integer] [primary key],integer
+beers,craftbeer,name,name of beers [format: text],text
+beers,craftbeer,ounces,ounces [format: real],real
+beers,craftbeer,style,style / sorts of beers [format: text],text
+breweries,craftbeer,city,city [format: text],text
+breweries,craftbeer,id,unique ID of the breweries [format: integer] [primary key],integer
+breweries,craftbeer,name,name of the breweries [format: text],text
+breweries,craftbeer,state,state [format: text],text

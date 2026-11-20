@@ -1,0 +1,49 @@
+table,db,field_name,field_name_desc,field_type
+relation,sales_in_weather,station_nbr,the id of weather stations [format: integer] [foreign key -> weather.station_nbr],integer
+relation,sales_in_weather,store_nbr,the id of stores [format: integer] [primary key] [foreign key -> sales_in_weather.store_nbr],integer
+sales_in_weather,sales_in_weather,date,the date of sales [format: date] [primary key],date
+sales_in_weather,sales_in_weather,item_nbr,item / product number [format: integer] [primary key],integer
+sales_in_weather,sales_in_weather,store_nbr,store number [format: integer] [primary key],integer
+sales_in_weather,sales_in_weather,units,the quantity sold of an item on a given day [format: integer],integer
+weather,sales_in_weather,avgspeed,"average wind speed [format: real] Value: commonsense evidence:
+if avgspeed is larger: much more wind",real
+weather,sales_in_weather,codesum,"code summarization for the weather [format: text] Value: â¢ PY SPRAY 
+â¢ SQ SQUALL 
+â¢ DR LOW DRIFTING 
+â¢ SH SHOWER 
+â¢ FZ FREEZING 
+â¢ MI SHALLOW 
+â¢ PR PARTIAL 
+â¢ BC PATCHES 
+â¢ BL BLOWING 
+â¢ VC VICINITY 
+â¢ - LIGHT 
+â¢ + HEAVY 
+â¢ ""NO SIGN"" MODERATE",text
+weather,sales_in_weather,cool,calculated cooling degree [format: integer],integer
+weather,sales_in_weather,date,date [format: date] [primary key],date
+weather,sales_in_weather,depart,"[format: integer] Value: Temperature departure from the normal indicates if the dekadal average temperatures were above or below the 30-year normal.
+commonsense evidence:
+â¢ if null: the temperature is 30-year normal
+â¢ if the value is positive: the temperature is above the 30-year normal, 
+â¢ if the value is negative: the temperature is below the 30-year normal,",integer
+weather,sales_in_weather,dewpoint,"[format: integer] Value: commonsense evidence:
+The dew point is the temperature to which air must be cooled to become saturated with water vapor, assuming constant air pressure and water content.",integer
+weather,sales_in_weather,heat,calculated heating degree [format: integer],integer
+weather,sales_in_weather,preciptotal,precipitation total [format: real] Value: inches (240hr period ending at indicated local standard time),real
+weather,sales_in_weather,resultdir,resultant wind direction [format: integer] Value: who degree,integer
+weather,sales_in_weather,resultspeed,resultant wind speed [format: real],real
+weather,sales_in_weather,sealevel,sea level [format: real],real
+weather,sales_in_weather,snowfall,snowfall [format: real] Value: snowfall (inches AND tenths),real
+weather,sales_in_weather,station_nbr,the id of weather stations [format: integer] [primary key],integer
+weather,sales_in_weather,stnpressure,station pressure [format: real],real
+weather,sales_in_weather,sunrise,calculated sunrise [format: text],text
+weather,sales_in_weather,sunset,calculated sunset [format: text],text
+weather,sales_in_weather,tavg,average temperature [format: integer],integer
+weather,sales_in_weather,tmax,max temperature [format: integer],integer
+weather,sales_in_weather,tmin,"min temperature [format: integer] Value: commonsense evidence:
+temperature range / difference = tmax - tmin",integer
+weather,sales_in_weather,wetbulb,"[format: integer] Value: commonsense evidence:
+â¢ The wet-bulb temperature (WBT) is the temperature read by a thermometer covered in water-soaked (water at ambient temperature) cloth (a wet-bulb thermometer) over which air is passed.
+â¢ At 100% relative humidity, the wet-bulb temperature is equal to the air temperature (dry-bulb temperature); 
+â¢ at lower humidity the wet-bulb temperature is lower than dry-bulb temperature because of evaporative cooling.",integer

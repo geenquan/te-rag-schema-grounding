@@ -1,0 +1,58 @@
+table,db,field_name,field_name_desc,field_type
+Award,simpson_episodes,award,the name of the award [format: text],text
+Award,simpson_episodes,award_category,the category of the award [format: text],text
+Award,simpson_episodes,award_id,the unique id for the award [format: integer] [primary key],integer
+Award,simpson_episodes,episode_id,S stands for 'Season' and E stands for 'Episode' [format: text] [foreign key -> Episode.episode_id],text
+Award,simpson_episodes,organization,the organization that holds the award [format: text],text
+Award,simpson_episodes,person,the person who gets the award [format: text] [foreign key -> Person.name],text
+Award,simpson_episodes,result,"the final award result [format: text] Value: commonsense evidence:
+ Nominee: the prospective recipient of the award. The nominee are people who were nominated but didn't win the award. 
+ Winner: the people who finally won the award",text
+Award,simpson_episodes,role,the role of the honoree [format: text],text
+Award,simpson_episodes,season,the season of the awarded work [format: text],text
+Award,simpson_episodes,song,the theme song of the awarded work [format: text],text
+Award,simpson_episodes,year,year of award [format: integer],integer
+Character_Award,simpson_episodes,award_id,A unique identifier for the award [format: integer] [foreign key -> Award.award_id],integer
+Character_Award,simpson_episodes,character,the name of the awarded character [format: text],text
+Credit,simpson_episodes,category,the category of the credit [format: text],text
+Credit,simpson_episodes,credited,"whether the person is credited [format: text] Value: true/ false
+commonsense evidence:
+ true: The person is included in the credit list
+ false: The person isn't included in the credit list",text
+Credit,simpson_episodes,episode_id,A unique identifier for episodes [format: text] [foreign key -> Episode.episode_id],text
+Credit,simpson_episodes,person,the name of cast and crew members [format: text] [foreign key -> Person.name],text
+Credit,simpson_episodes,role,the role of the person [format: text],text
+Episode,simpson_episodes,air_date,the air date of the episode [format: text] Value: YYYY-MM-DD,text
+Episode,simpson_episodes,episode,the episode number of the episode [format: integer],integer
+Episode,simpson_episodes,episode_id,A unique identifier for episodes [format: text] [primary key],text
+Episode,simpson_episodes,episode_image,the image of episode [format: text],text
+Episode,simpson_episodes,number_in_series,the number in series [format: integer],integer
+Episode,simpson_episodes,rating,"the rating of episode [format: real] Value: 0.0 - 10.0
+commonsense evidence:
+Higher ratings mean higher quality and better response.
+ excellent: 7.0 < rating <= 10.0
+ average: 5.0 < rating <= 7.0 
+ bad: 0.0 < rating <= 5.0
+not bad: average, excellent",real
+Episode,simpson_episodes,season,the season of the episode [format: integer],integer
+Episode,simpson_episodes,summary,the summary of the episode [format: text],text
+Episode,simpson_episodes,title,the title of the episode [format: text],text
+Episode,simpson_episodes,votes,"the votes of episode [format: integer] Value: commonsense evidence:
+Higher votes mean more audience supports (or popular).",integer
+Keyword,simpson_episodes,episode_id,A unique identifier for episodes [format: text] [primary key] [foreign key -> Episode.episode_id],text
+Keyword,simpson_episodes,keyword,the keywords of episode [format: text] [primary key],text
+Person,simpson_episodes,birth_country,the birth country of the crew [format: text],text
+Person,simpson_episodes,birth_name,the birth name of the crew [format: text],text
+Person,simpson_episodes,birth_place,the birth place of the crew [format: text],text
+Person,simpson_episodes,birth_region,the birth region of the crew [format: text],text
+Person,simpson_episodes,birthdate,the birth date of the crew [format: text] Value: YYYY-MM-DD,text
+Person,simpson_episodes,height_meters,the height of the crew [format: real] Value: the unit is meter,real
+Person,simpson_episodes,name,the name of the crew [format: text] [primary key],text
+Person,simpson_episodes,nickname,the nickname of the crew [format: text],text
+Vote,simpson_episodes,episode_id,A unique identifier for episodes [format: text] [foreign key -> Episode.episode_id],text
+Vote,simpson_episodes,percent,"the percent of the vote number of the star score [format: real] Value: commonsense evidence:
+percent = the number of votes for the star / the total amount of votes for all stars",real
+Vote,simpson_episodes,stars,"the star score of the episode [format: integer] Value: 1-10
+commonsense evidence:
+Star classification is a type of rating scale. The lowest star is 1 which means the worst, and the highest star is 10 which means the best.",integer
+Vote,simpson_episodes,votes,the number of votes of the star score [format: integer],integer

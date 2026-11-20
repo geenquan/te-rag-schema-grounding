@@ -1,0 +1,71 @@
+table,db,table_desc,field,schema
+callcenterlogs,retail_complains,callcenterlogs,Complaint ID|Date received|call_id|outcome|phonefinal|priority|rand client|ser_exit|ser_start|ser_time|server|type|vru+line,"CREATE TABLE callcenterlogs (
+  Complaint ID,
+  Date received,
+  call_id,
+  outcome,
+  phonefinal,
+  priority,
+  rand client,
+  ser_exit,
+  ser_start,
+  ser_time,
+  server,
+  type,
+  vru+line
+);"
+client,retail_complains,client,address_1|address_2|age|city|client_id|day|district_id|email|first|last|middle|month|phone|sex|social|state|year|zipcode,"CREATE TABLE client (
+  address_1,
+  address_2,
+  age,
+  city,
+  client_id,
+  day,
+  district_id,
+  email,
+  first,
+  last,
+  middle,
+  month,
+  phone,
+  sex,
+  social,
+  state,
+  year,
+  zipcode
+);"
+district,retail_complains,district,city|district_id|division|state_abbrev,"CREATE TABLE district (
+  city,
+  district_id,
+  division,
+  state_abbrev
+);"
+events,retail_complains,events,Client_ID|Company response to consumer|Complaint ID|Consumer complaint narrative|Consumer consent provided?|Consumer disputed?|Date received|Date sent to company|Issue|Product|Sub-issue|Sub-product|Submitted via|Tags|Timely response?,"CREATE TABLE events (
+  Client_ID,
+  Company response to consumer,
+  Complaint ID,
+  Consumer complaint narrative,
+  Consumer consent provided?,
+  Consumer disputed?,
+  Date received,
+  Date sent to company,
+  Issue,
+  Product,
+  Sub-issue,
+  Sub-product,
+  Submitted via,
+  Tags,
+  Timely response?
+);"
+reviews,retail_complains,reviews,Date|Product|Reviews|Stars|district_id,"CREATE TABLE reviews (
+  Date,
+  Product,
+  Reviews,
+  Stars,
+  district_id
+);"
+state,retail_complains,state,Region|State|StateCode,"CREATE TABLE state (
+  Region,
+  State,
+  StateCode
+);"

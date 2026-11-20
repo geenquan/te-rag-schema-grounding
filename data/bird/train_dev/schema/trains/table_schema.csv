@@ -1,0 +1,17 @@
+table,db,table_desc,field,schema
+cars,trains,cars,id|len|load_num|load_shape|position|roof|shape|sides|train_id|wheels,"CREATE TABLE cars (
+  id,
+  len,
+  load_num,
+  load_shape,
+  position,
+  roof,
+  shape,
+  sides,
+  train_id,
+  wheels
+);"
+trains,trains,trains,direction|id,"CREATE TABLE trains (
+  direction,
+  id
+);"

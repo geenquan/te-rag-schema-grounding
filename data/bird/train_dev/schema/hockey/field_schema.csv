@@ -1,0 +1,361 @@
+table,db,field_name,field_name_desc,field_type
+AwardsCoaches,hockey,award,awards that the coach achieve [format: text],text
+AwardsCoaches,hockey,coachID,string ID of the coach [format: text] [foreign key -> Coaches.coachID],text
+AwardsCoaches,hockey,lgID,league abbreviated name [format: text],text
+AwardsCoaches,hockey,note,[format: text],text
+AwardsCoaches,hockey,year,year of award [format: integer],integer
+AwardsMisc,hockey,ID,"id number of players or coaches, etc. [format: text]",text
+AwardsMisc,hockey,award,awarder [format: text] Value: not useful,text
+AwardsMisc,hockey,lgID,league abbreviated name [format: text],text
+AwardsMisc,hockey,name,unique name of awards [format: text] Value: unique name of awards [primary key],text
+AwardsMisc,hockey,note,"note if needed [format: text] Value: commonsense evidence: 
+noted information",text
+AwardsMisc,hockey,year,year of the award [format: integer],integer
+AwardsPlayers,hockey,award,award name [format: text] [primary key],text
+AwardsPlayers,hockey,lgID,league abbreviated name [format: text],text
+AwardsPlayers,hockey,note,note if needed [format: text],text
+AwardsPlayers,hockey,playerID,string ID of players [format: text] Value: unique string ID of the player [primary key] [foreign key -> Master.playerID],text
+AwardsPlayers,hockey,pos,"position of players [format: text] Value: commonsense evidence: 
+LW: left winger
+RW: right winger
+C: center
+G: goalie
+D: defenseman
+W: winger
+F: forward
+
+the player with W (winger) means he can play the role as both LW (left winger) and RW (right winger)",text
+AwardsPlayers,hockey,year,year of award [format: integer] [primary key],integer
+Coaches,hockey,coachID,number identifying coaches [format: text] Value: number identifying coaches [primary key],text
+Coaches,hockey,g,number of games [format: integer],integer
+Coaches,hockey,l,number of loses [format: integer],integer
+Coaches,hockey,lgID,league abbreviated name [format: text],text
+Coaches,hockey,notes,"note if needed [format: text] Value: commonsense evidence: 
+noted information",text
+Coaches,hockey,postg,number of post-season games [format: text],text
+Coaches,hockey,postl,number of post-season loses [format: text],text
+Coaches,hockey,postt,number of post-season ties [format: text],text
+Coaches,hockey,postw,number of post-season wins [format: text],text
+Coaches,hockey,stint,stint [format: integer] [primary key],integer
+Coaches,hockey,t,number of ties [format: integer],integer
+Coaches,hockey,tmID,team abbreviated name [format: text] [primary key] [foreign key -> Teams.tmID],text
+Coaches,hockey,w,"number of wins [format: integer] Value: commonsense evidence: 
+winning rates = wins / (wins + loses)",integer
+Coaches,hockey,year,In which year did the coach teach this team [format: integer] [primary key] [foreign key -> Teams.year],integer
+CombinedShutouts,hockey,IDgoalie1,ID of first goalie [format: text] [foreign key -> Master.playerID],text
+CombinedShutouts,hockey,IDgoalie2,ID of second goalie [format: text] [foreign key -> Master.playerID],text
+CombinedShutouts,hockey,R/P,"regular / postseason [format: text] Value: R"" for regular season, or ""P"" for postseason",text
+CombinedShutouts,hockey,date,"day [format: integer] Value: commonsense evidence: 
+the entire date in this table is ""year"" / ""month"" / ""date""",integer
+CombinedShutouts,hockey,month,month [format: integer],integer
+CombinedShutouts,hockey,oppID,Team ID of opponent [format: text],text
+CombinedShutouts,hockey,tmID,team abbreviated name [format: text],text
+CombinedShutouts,hockey,year,year [format: integer],integer
+Goalies,hockey,ENG,"Empty net goals [format: text] Value: commonsense evidence: 
+An empty net goal happens when a team scores against their opponent who has pulled their goalie. Since there is no goalie in the net, the net is considered “empty""",text
+Goalies,hockey,GA,"Goals against [format: text] Value: commonsense evidence: 
+“Goals Against” are the number of goals recorded while the goalie is on the ice. Include all goals against during regulation and overtime play.",text
+Goalies,hockey,GP,Games played [format: text],text
+Goalies,hockey,L,loses [format: text],text
+Goalies,hockey,Min,Minutes of appearance [format: text],text
+Goalies,hockey,PostENG,"Postseason empty net goals [format: text] Value: commonsense evidence: 
+An empty net goal happens when a team scores against their opponent who has pulled their goalie. Since there is no goalie in the net, the net is considered “empty""",text
+Goalies,hockey,PostGA,"Postseason Goals against [format: text] Value: commonsense evidence: 
+“Goals Against” are the number of goals recorded while the goalie is on the ice. Include all goals against during regulation and overtime play.",text
+Goalies,hockey,PostGP,Postseason games played [format: text],text
+Goalies,hockey,PostL,Postseason loses [format: text],text
+Goalies,hockey,PostMin,Postseason minutes [format: text],text
+Goalies,hockey,PostSA,"Postseason Shots against [format: text] Value: commonsense evidence: 
+“Shot Against” are the number of shots recorded while the goalie is on the ice.",text
+Goalies,hockey,PostSHO,"Postseason Shutouts [format: text] Value: commonsense evidence: 
+In ice hockey, a shutout (SHO) is credited to a goaltender who successfully stops the other team from scoring during the entire game.",text
+Goalies,hockey,PostT,Postseason ties [format: text],text
+Goalies,hockey,PostW,Postseason wins [format: text],text
+Goalies,hockey,SA,"Shots against [format: text] Value: commonsense evidence: 
+“Shot Against” are the number of shots recorded while the goalie is on the ice",text
+Goalies,hockey,SHO,"Shutouts [format: text] Value: commonsense evidence: 
+In ice hockey, a shutout (SHO) is credited to a goaltender who successfully stops the other team from scoring during the entire game.",text
+Goalies,hockey,T/OL,Ties / overtime losses [format: text],text
+Goalies,hockey,W,wins [format: text],text
+Goalies,hockey,lgID,league abbreviated name [format: text],text
+Goalies,hockey,playerID,id number identifying the player [format: text] Value: number identifying players [primary key] [foreign key -> Master.playerID],text
+Goalies,hockey,stint,"order of appearance in a season [format: integer] Value: commonsense evidence: 
+the entire date in this table is ""year"" / ""month"" / ""date"" [primary key]",integer
+Goalies,hockey,tmID,team abbreviated name [format: text] [foreign key -> Teams.tmID],text
+Goalies,hockey,year,"year [format: integer] Value: 2005-06 listed as ""2005"" [primary key] [foreign key -> Teams.year]",integer
+GoaliesSC,hockey,GA,"Goals against [format: integer] Value: commonsense evidence:
+“Goals Against” are the number of goals recorded while the goalie is on the ice. Include all goals against during regulation and overtime play.",integer
+GoaliesSC,hockey,GP,Games played [format: integer],integer
+GoaliesSC,hockey,L,Loses [format: integer],integer
+GoaliesSC,hockey,Min,Minutes of appearance [format: integer],integer
+GoaliesSC,hockey,SHO,"Shutouts [format: integer] Value: commonsense evidence:
+In ice hockey, a shutout (SHO) is credited to a goaltender who successfully stops the other team from scoring during the entire game.",integer
+GoaliesSC,hockey,T,Ties [format: integer],integer
+GoaliesSC,hockey,W,Wins [format: integer],integer
+GoaliesSC,hockey,lgID,league abbreviated name [format: text],text
+GoaliesSC,hockey,playerID,id number identifying the player [format: text] Value: number identifying players [primary key] [foreign key -> Master.playerID],text
+GoaliesSC,hockey,tmID,team abbreviated name [format: text] [foreign key -> Teams.tmID],text
+GoaliesSC,hockey,year,"year [format: integer] Value: 2005-06 listed as ""2005"" [primary key] [foreign key -> Teams.year]",integer
+GoaliesShootout,hockey,GA,"Goals against [format: integer] Value: commonsense evidence: 
+“Goals Against” are the number of goals recorded while the goalie is on the ice. Include all goals against during regulation and overtime play.",integer
+GoaliesShootout,hockey,L,Loses [format: integer],integer
+GoaliesShootout,hockey,SA,"Shots against [format: integer] Value: commonsense evidence: 
+“Shot Against” are the number of shots recorded while the goalie is on the ice.",integer
+GoaliesShootout,hockey,W,Wins [format: integer],integer
+GoaliesShootout,hockey,playerID,[format: integer] [foreign key -> Master.playerID],text
+GoaliesShootout,hockey,stint,stint [format: text],integer
+GoaliesShootout,hockey,tmID,team abbreviated name [format: integer] [foreign key -> Teams.tmID],text
+GoaliesShootout,hockey,year,"year [format: integer] Value: 2005-06 listed as ""2005"" [foreign key -> Teams.year]",integer
+HOF,hockey,category,category [format: text],text
+HOF,hockey,hofID,hall of fame id [format: text] [primary key],text
+HOF,hockey,name,name [format: text],text
+HOF,hockey,year,year of hall of fame [format: integer],integer
+Master,hockey,birthCity,birth city [format: text],text
+Master,hockey,birthCountry,birth Country [format: text],text
+Master,hockey,birthDay,"birth Day [format: text] Value: commonsense evidence:
+the entire / detail birth date in this table is ""year"" / ""month"" / ""date""",text
+Master,hockey,birthMon,birth Month [format: text],text
+Master,hockey,birthState,birth State [format: text],text
+Master,hockey,birthYear,birth Year [format: text],text
+Master,hockey,coachID,"coach id number [format: text] Value: commonsense evidence:
+if a person has both playerID and coachID, it means this person becomes coach after retirement. [foreign key -> Coaches.coachID]",text
+Master,hockey,deathCity,death city [format: text],text
+Master,hockey,deathCountry,death country [format: text],text
+Master,hockey,deathDay,death day [format: text],text
+Master,hockey,deathMon,death month [format: text],text
+Master,hockey,deathState,death state [format: text],text
+Master,hockey,deathYear,death year [format: text],text
+Master,hockey,firstNHL,First NHL season [format: text],text
+Master,hockey,firstName,first name [format: text],text
+Master,hockey,firstWHA,First WHA season [format: text],text
+Master,hockey,height,height [format: text],text
+Master,hockey,hofID,hall of fame id [format: text],text
+Master,hockey,hrefID,ID at Hockey-Reference.com [format: text],text
+Master,hockey,ihdbID,ID at the Internet Hockey Database [format: text],text
+Master,hockey,lastNHL,Last NHL season [format: text],text
+Master,hockey,lastName,last name [format: text],text
+Master,hockey,lastWHA,Last WHA season [format: text],text
+Master,hockey,legendsID,ID at Legends Of Hockey [format: text],text
+Master,hockey,nameGiven,Given name [format: text],text
+Master,hockey,nameNick,"Nickname [format: text] Value: (multiple entries separated by ""/"")",text
+Master,hockey,nameNote,note about name [format: text],text
+Master,hockey,playerID,id number identifying the player [format: text],text
+Master,hockey,pos,"[format: text] Value: commonsense evidence:
+LW: left winger
+RW: right winger
+C: center
+G: goalie
+D: defenseman
+W: winger
+F: forward
+the player with W (winger) means he can play the role as both LW (left winger) and RW (right winger)
+some players have two positions, which will be shown as ""L/D"". It means that LW + D --> left winger and defenseman",text
+Master,hockey,shootCatch,"Shooting hand (or catching hand for goalies) [format: text] Value: commonsense evidence: 
+Shooting hand (or catching hand for goalies)
+L: left hand
+R: right hand
+if null or 'empty', it means this player is good at both left and right hand",text
+Master,hockey,weight,weight [format: text],text
+Scoring,hockey,+/-,"Plus / minus [format: text] Value: commonsense evidence:
+The plus minus stat is used to determine how often a player is on the ice when a goal is scored for the team versus against the team. A positive plus minus means that the player has been on for more goals scored than against, while a negative number means they have been on for more against.
+In another words, higher ""+ / -"" means more importance to the team, lower means less importance",text
+Scoring,hockey,A,assists [format: integer],integer
+Scoring,hockey,G,goals [format: integer],integer
+Scoring,hockey,GP,game played [format: integer],integer
+Scoring,hockey,GTG,Game-tying goals [format: text] Value: A game-tying goal (GWG) is the goal scored to put the winning team in the ties of the losing team's final score,text
+Scoring,hockey,GWG,"Game-winning goals [format: text] Value: commonsense evidence: 
+A game-winning goal (GWG) is the goal scored to put the winning team in excess of the losing team's final score.
+commonsense evidence:
+if a player gets more GWG, it means this player is more trustworthy in the critical moment.",text
+Scoring,hockey,PIM,Penalty minutes [format: integer],integer
+Scoring,hockey,PPA,Power play assists [format: text],text
+Scoring,hockey,PPG,"Power play goals [format: text] Value: commonsense evidence:
+When a team with more players on the ice scores a goal it is known as a power play goal. Many goals are scored in power play situations as the team is able to keep possession of the puck and have more scoring chances.",text
+Scoring,hockey,Post+/-,Postseason Plus / minus [format: text],text
+Scoring,hockey,PostA,Postseason assists [format: text],text
+Scoring,hockey,PostG,Postseason goals [format: text],text
+Scoring,hockey,PostGP,Postseason games played [format: text],text
+Scoring,hockey,PostGWG,Postseason game-winning goals [format: text],text
+Scoring,hockey,PostPIM,Postseason penalty minutes [format: text],text
+Scoring,hockey,PostPPA,Postseason power play assists [format: text],text
+Scoring,hockey,PostPPG,Postseason power play goals [format: text],text
+Scoring,hockey,PostPts,Postseason points [format: text],text
+Scoring,hockey,PostSHA,Postseason Shorthanded assists [format: text],text
+Scoring,hockey,PostSHG,Postseason Shorthanded goals [format: text],text
+Scoring,hockey,PostSOG,Postseason shots on goal [format: text],text
+Scoring,hockey,Pts,points [format: integer],integer
+Scoring,hockey,SHA,Shorthanded assists [format: text],text
+Scoring,hockey,SHG,"Shorthanded goals [format: text] Value: commonsense evidence: 
+Sometimes the team with fewer players on the ice known as the short-handed team will score a goal.",text
+Scoring,hockey,SOG,"Shots on goal [format: text] Value: commonsense evidence:
+a shot that enters the goal or would have entered the goal if it had not been blocked by the goalkeeper or another defensive player.",text
+Scoring,hockey,lgID,league id [format: text],text
+Scoring,hockey,playerID,player ID [format: text] [foreign key -> Master.playerID],text
+Scoring,hockey,pos,"position [format: text] Value: commonsense evidence:
+LW: left winger
+RW: right winger
+C: center
+G: goalie
+D: defenseman
+W: winger
+F: forward
+the player with W (winger) means he can play the role as both LW (left winger) and RW (right winger)
+some players have two positions, which will be shown as ""L/D"". It means that LW + D --> left winger and defenseman",text
+Scoring,hockey,stint,Stint (order of appearance in a season) [format: integer],integer
+Scoring,hockey,tmID,team id [format: text] [foreign key -> Teams.tmID],text
+Scoring,hockey,year,play year [format: integer] [foreign key -> Teams.year],integer
+ScoringSC,hockey,A,assists [format: integer],integer
+ScoringSC,hockey,G,goals [format: integer],integer
+ScoringSC,hockey,GP,Games played [format: integer],integer
+ScoringSC,hockey,PIM,Penalty minutes [format: integer],integer
+ScoringSC,hockey,Pts,points [format: integer],integer
+ScoringSC,hockey,lgID,league abbreviated name [format: text],text
+ScoringSC,hockey,playerID,id number identifying the player [format: text] Value: number identifying the player [foreign key -> Master.playerID],text
+ScoringSC,hockey,pos,position [format: text],text
+ScoringSC,hockey,tmID,team abbreviated name [format: text] [foreign key -> Teams.tmID],text
+ScoringSC,hockey,year,"year [format: integer] Value: 2005-06 listed as ""2005"" [foreign key -> Teams.year]",integer
+ScoringShootout,hockey,G,goals [format: integer],integer
+ScoringShootout,hockey,GDG,game deciding goals [format: integer],integer
+ScoringShootout,hockey,S,shots [format: integer],integer
+ScoringShootout,hockey,playerID,id number identifying the player [format: text] Value: number identifying the player [foreign key -> Master.playerID],text
+ScoringShootout,hockey,stint,stint [format: integer],integer
+ScoringShootout,hockey,tmID,team abbreviated name [format: text] [foreign key -> Teams.tmID],text
+ScoringShootout,hockey,year,"year [format: integer] Value: 2005-06 listed as ""2005"" [foreign key -> Teams.year]",integer
+ScoringSup,hockey,PPA,Power play assists [format: text],text
+ScoringSup,hockey,SHA,Shorthanded assists [format: text],text
+ScoringSup,hockey,playerID,string ID of players [format: text] Value: unique string ID of the player [foreign key -> Master.playerID],text
+ScoringSup,hockey,year,,integer
+SeriesPost,hockey,GoalsLoser,goals for loser [format: integer],integer
+SeriesPost,hockey,GoalsWinner,goals for winner [format: integer],integer
+SeriesPost,hockey,L,loses [format: integer],integer
+SeriesPost,hockey,T,ties [format: integer],integer
+SeriesPost,hockey,W,wins [format: integer],integer
+SeriesPost,hockey,lgIDLoser,league id of loser [format: text],text
+SeriesPost,hockey,lgIDWinner,League ID of winner [format: text],text
+SeriesPost,hockey,note,"note [format: note] Value: Note: EX = exhibition, ND = no decision, TG = total-goals series",text
+SeriesPost,hockey,round,round [format: text] Value: see abbrev.csv for details,text
+SeriesPost,hockey,series,series [format: text] Value: used for the NHL designations,text
+SeriesPost,hockey,tmIDLoser,Team ID of winner [format: text] [foreign key -> Teams.tmID],text
+SeriesPost,hockey,tmIDWinner,Team ID of winner [format: text] [foreign key -> Teams.tmID],text
+SeriesPost,hockey,year,year [format: integer] [foreign key -> Teams.year],integer
+TeamSplits,hockey,AprL,April loses [format: text],text
+TeamSplits,hockey,AprOL,April overtime loses [format: text],text
+TeamSplits,hockey,AprT,April ties [format: text],text
+TeamSplits,hockey,AprW,April wins [format: text],text
+TeamSplits,hockey,DecL,December loses [format: text],text
+TeamSplits,hockey,DecOL,December overtime loses [format: text],text
+TeamSplits,hockey,DecT,December ties [format: text],text
+TeamSplits,hockey,DecW,December wins [format: text],text
+TeamSplits,hockey,FebL,February loses [format: integer],integer
+TeamSplits,hockey,FebOL,February overtime loses [format: text],text
+TeamSplits,hockey,FebT,February ties [format: integer],integer
+TeamSplits,hockey,FebW,February wins [format: integer],integer
+TeamSplits,hockey,JanL,January loses [format: integer],integer
+TeamSplits,hockey,JanOL,January overtime loses [format: text],text
+TeamSplits,hockey,JanT,January ties [format: integer],integer
+TeamSplits,hockey,JanW,January wins [format: integer],integer
+TeamSplits,hockey,MarL,March loses [format: text],text
+TeamSplits,hockey,MarOL,March overtime loses [format: text],text
+TeamSplits,hockey,MarT,March ties [format: text],text
+TeamSplits,hockey,MarW,March wins [format: text],text
+TeamSplits,hockey,NovL,November loses [format: text],text
+TeamSplits,hockey,NovOL,November overtime loses [format: text],text
+TeamSplits,hockey,NovT,November ties [format: text],text
+TeamSplits,hockey,NovW,November wins [format: text],text
+TeamSplits,hockey,OctL,October loses [format: text],text
+TeamSplits,hockey,OctOL,October overtime loses [format: text],text
+TeamSplits,hockey,OctT,October ties [format: text],text
+TeamSplits,hockey,OctW,October wins [format: text],text
+TeamSplits,hockey,SepL,September loses [format: text],text
+TeamSplits,hockey,SepOL,September overtime loses [format: text],text
+TeamSplits,hockey,SepT,September ties [format: text],text
+TeamSplits,hockey,SepW,September wins [format: text],text
+TeamSplits,hockey,hL,home loses [format: integer],integer
+TeamSplits,hockey,hOTL,Home overtime losses [format: text],text
+TeamSplits,hockey,hT,home ties [format: integer],integer
+TeamSplits,hockey,hW,home wins [format: integer],integer
+TeamSplits,hockey,lgID,league ID number [format: text],text
+TeamSplits,hockey,rL,Road loses [format: integer],integer
+TeamSplits,hockey,rOTL,road overtime loses [format: text],text
+TeamSplits,hockey,rT,Road ties [format: integer],integer
+TeamSplits,hockey,rW,Road wins [format: integer],integer
+TeamSplits,hockey,tmID,team ID [format: text] [primary key] [foreign key -> Teams.tmID],text
+TeamSplits,hockey,year,year [format: integer] [primary key] [foreign key -> Teams.year],integer
+TeamVsTeam,hockey,L,loses [format: integer],integer
+TeamVsTeam,hockey,OTL,overtime loses [format: text],text
+TeamVsTeam,hockey,T,ties [format: integer],integer
+TeamVsTeam,hockey,W,wins [format: integer],integer
+TeamVsTeam,hockey,lgID,league ID number [format: text],text
+TeamVsTeam,hockey,oppID,opponent ID [format: text] [primary key] [foreign key -> Teams.tmID],text
+TeamVsTeam,hockey,tmID,team ID [format: text] [primary key] [foreign key -> Teams.tmID],text
+TeamVsTeam,hockey,year,year [format: integer] [primary key] [foreign key -> Teams.year],integer
+Teams,hockey,BenchMinor,"Bench minors (minutes) [format: text] Value: commonsense evidence: 
+A bench minor penalty is a minor penalty committed by a player or coach that is not on the ice. It is like a minor penalty in that it calls for the offending player to serve two minutes in the penalty box.",text
+Teams,hockey,G,games [format: integer],integer
+Teams,hockey,GA,goals against [format: integer],integer
+Teams,hockey,GF,Goals for [format: integer],integer
+Teams,hockey,L,loses [format: integer],integer
+Teams,hockey,OTL,Overtime losses [format: text],text
+Teams,hockey,PIM,Penalty minutes [format: text],text
+Teams,hockey,PKC,Penalty kill chances [format: text],text
+Teams,hockey,PKG,Power play goals against [format: text],text
+Teams,hockey,PPC,"Power play chances [format: text] Value: commonsense evidence: 
+power play percentage (PP%) = PPG / PPC",text
+Teams,hockey,PPG,Power play goals [format: text],text
+Teams,hockey,Pts,points [format: integer],integer
+Teams,hockey,SHA,Shorthanded goals against [format: text],text
+Teams,hockey,SHF,Shorthanded goals for [format: text],text
+Teams,hockey,SoL,Shootout loses [format: text],text
+Teams,hockey,SoW,Shootout wins [format: text],text
+Teams,hockey,T,ties [format: integer],integer
+Teams,hockey,W,wins [format: integer],integer
+Teams,hockey,confID,Conference ID [format: text] Value: see abbrev.csv for details,text
+Teams,hockey,divID,Division ID [format: text] Value: see abbrev.csv for details,text
+Teams,hockey,franchID,Franchise ID [format: text],text
+Teams,hockey,lgID,league ID number [format: text],text
+Teams,hockey,name,Full team name [format: text],text
+Teams,hockey,playoff,playoff results [format: text],text
+Teams,hockey,rank,Final standing [format: integer],integer
+Teams,hockey,tmID,team ID [format: text] [primary key],text
+Teams,hockey,year,year [format: integer] [primary key],integer
+TeamsHalf,hockey,G,Games [format: integer],integer
+TeamsHalf,hockey,GA,goal against [format: integer],integer
+TeamsHalf,hockey,GF,goals for [format: integer],integer
+TeamsHalf,hockey,L,loses [format: integer],integer
+TeamsHalf,hockey,T,ties [format: integer],integer
+TeamsHalf,hockey,W,wins [format: integer],integer
+TeamsHalf,hockey,half,First or second half of season [format: integer] [primary key],integer
+TeamsHalf,hockey,lgID,league ID number [format: text],text
+TeamsHalf,hockey,rank,Final standing for the half [format: integer],integer
+TeamsHalf,hockey,tmID,team ID [format: text] [primary key] [foreign key -> Teams.tmID],text
+TeamsHalf,hockey,year,year [format: integer] [primary key] [foreign key -> Teams.year],integer
+TeamsPost,hockey,BenchMinor,Bench minors (minutes) [format: text],text
+TeamsPost,hockey,G,Games [format: integer],integer
+TeamsPost,hockey,GA,goals against [format: integer],integer
+TeamsPost,hockey,GF,goals for [format: integer],integer
+TeamsPost,hockey,L,loses [format: integer],integer
+TeamsPost,hockey,PIM,penalty minutes [format: text],text
+TeamsPost,hockey,PKC,Penalty kill chances [format: text],text
+TeamsPost,hockey,PKG,Power play goals against [format: text],text
+TeamsPost,hockey,PPC,Power play chances [format: text],text
+TeamsPost,hockey,PPG,Power play goals [format: text],text
+TeamsPost,hockey,SHA,Shorthanded goals against [format: text],text
+TeamsPost,hockey,SHF,Shorthanded goals for [format: text],text
+TeamsPost,hockey,T,ties [format: integer],integer
+TeamsPost,hockey,W,wins [format: integer],integer
+TeamsPost,hockey,lgID,league ID number [format: text],text
+TeamsPost,hockey,tmID,team ID [format: text] [primary key] [foreign key -> Teams.tmID],text
+TeamsPost,hockey,year,year [format: integer] [primary key] [foreign key -> Teams.year],integer
+TeamsSC,hockey,G,Games [format: integer],integer
+TeamsSC,hockey,GA,goals against [format: integer],integer
+TeamsSC,hockey,GF,goals for [format: integer],integer
+TeamsSC,hockey,L,loses [format: integer],integer
+TeamsSC,hockey,PIM,penalty minutes [format: text],text
+TeamsSC,hockey,T,ties [format: integer],integer
+TeamsSC,hockey,W,wins [format: integer],integer
+TeamsSC,hockey,lgID,league ID number [format: text],text
+TeamsSC,hockey,tmID,team ID [format: text] [primary key] [foreign key -> Teams.tmID],text
+TeamsSC,hockey,year,year [format: integer] [primary key] [foreign key -> Teams.year],integer
+abbrev,hockey,Code,abbreviated codes [format: text] [primary key],text
+abbrev,hockey,Fullname,full names of code [format: text],text
+abbrev,hockey,Type,type of hockey games [format: text] [primary key],text

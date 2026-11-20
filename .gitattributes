@@ -1,0 +1,12 @@
+# Frozen BIRD inputs and pinned third-party snapshots keep their exact
+# source bytes in the repository: several schema CSVs carry CRLF line
+# endings from the frozen extraction, and line-ending normalization would
+# break the recorded per-file SHA256 identities (data/bird/train_dev/
+# BUILD_MANIFEST.json, data/bird/SOURCES.md).
+data/bird/** -text
+# The pinned LinkAlign/KaSLA snapshot inside the frozen BIRD runtime keeps
+# the workspace bytes (the legacy copy under retrievers/upstream is already
+# stored normalized; both contents are identical after normalization).
+terag/engines/bird_runtime/retrievers/upstream/** -text
+# The frozen grid selected-configurations CSV keeps its source bytes too.
+configs/paper/final_20261120/grid_selected_configurations.csv -text

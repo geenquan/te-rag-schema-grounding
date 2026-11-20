@@ -232,3 +232,62 @@ def actual_transfer_defaults():
     from retrievers.annotation_transfer import TransferConfig
     cfg = TransferConfig()
     return {key: getattr(cfg, key) for key in TRANSFER_MIRROR_KEYS}
+
+
+# --------------------------------------------------------------------------
+# Final-paper profile (2026-11-20)
+# --------------------------------------------------------------------------
+# The paper reported at DASFAA 2027 with appendix runs beyond the original
+# `paper-dasfaa2027-v1.0` identity above. Its frozen identities live as
+# FILES whose SHA256 is verified before every execution (the BIRD engine
+# parameters are the frozen JSON's entries; the grid per-fold parameters are
+# the selected-configurations CSV). The old profile above remains the
+# identity of the synthetic-demo/enterprise-protocol path and is unchanged.
+
+PAPER_FINAL_PROFILE = "paper_final_20261120"
+
+PAPER_FINAL_FILES = {
+    "bird_frozen_configs":
+        "configs/paper/final_20261120/bird_final_configs.json",
+    "bird_families":
+        "configs/paper/final_20261120/bird_families.json",
+    "grid_selected_configurations":
+        "configs/paper/final_20261120/grid_selected_configurations.csv",
+    "bird_reference_predictions_manifest":
+        "results/reference/bird/MANIFEST.json",
+}
+
+# The paper-with-appendix PDF shipped for review (docs/paper_with_appendix.pdf).
+PAPER_FINAL_PDF_SHA256 = ("552083ea328ec5adc7e4cef4baeca17af981e91da727f8f3"
+                          "5ddabfd5d15d279a")
+
+PAPER_FINAL_SUMMARY = {
+    "grid": ("final engine terag.engines.grid.GridEngine (accepted scoring "
+             "identity graph_casefold_ids_v1+pattern_consumer_casefold_v1); "
+             "per-fold Q/H parameters from grid_selected_configurations.csv"),
+    "bird": ("frozen engines terag.engines.bird (BirdEngine/VnextEngine) "
+             "executed through the unified entry (core -> H-reliability "
+             "gating -> Q field rerank/gate -> budget -> final metrics); "
+             "parameters from bird_final_configs.json; Core = DEFAULT "
+             "parameter vector"),
+    "baselines": ("frozen workspace retrievers via terag.engines."
+                  "bird.baselines; API methods use deepseek-flash with "
+                  "thinking disabled, env-only credentials and a user-set "
+                  "budget cap"),
+}
+
+
+def paper_final_identity():
+    """{logical name: (path, sha256)} of the final-paper frozen files."""
+    import hashlib
+    from pathlib import Path
+    from terag_release.config import REPO_ROOT
+    out = {}
+    for name, rel in PAPER_FINAL_FILES.items():
+        path = Path(REPO_ROOT) / rel
+        h = hashlib.sha256()
+        with open(path, "rb") as f:
+            for chunk in iter(lambda: f.read(1 << 20), b""):
+                h.update(chunk)
+        out[name] = {"path": rel, "sha256": h.hexdigest()}
+    return out

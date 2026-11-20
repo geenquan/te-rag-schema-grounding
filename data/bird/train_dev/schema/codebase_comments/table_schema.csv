@@ -1,0 +1,34 @@
+table,db,table_desc,field,schema
+Method,codebase_comments,Method,ApiCalls|CommentIsXml|FullComment|Id|Lang|Name|NameTokenized|SampledAt|SolutionId|Summary,"CREATE TABLE Method (
+  ApiCalls,
+  CommentIsXml,
+  FullComment,
+  Id,
+  Lang,
+  Name,
+  NameTokenized,
+  SampledAt,
+  SolutionId,
+  Summary
+);"
+MethodParameter,codebase_comments,MethodParameter,Id|MethodId|Name|Type,"CREATE TABLE MethodParameter (
+  Id,
+  MethodId,
+  Name,
+  Type
+);"
+Repo,codebase_comments,Repo,Forks|Id|ProcessedTime|Stars|Url|Watchers,"CREATE TABLE Repo (
+  Forks,
+  Id,
+  ProcessedTime,
+  Stars,
+  Url,
+  Watchers
+);"
+Solution,codebase_comments,Solution,Id|Path|ProcessedTime|RepoId|WasCompiled,"CREATE TABLE Solution (
+  Id,
+  Path,
+  ProcessedTime,
+  RepoId,
+  WasCompiled
+);"

@@ -1,0 +1,21 @@
+table,db,field_name,field_name_desc,field_type
+country,university,country_name,the name of the country [format: text],text
+country,university,id,unique id number identifying country [format: integer] [primary key],integer
+ranking_criteria,university,criteria_name,name of the criteria [format: text],text
+ranking_criteria,university,id,unique id number identifying ranking criteria [format: integer] [primary key],integer
+ranking_criteria,university,ranking_system_id,id number identifying ranking system [format: integer] [foreign key -> ranking_system.id],integer
+ranking_system,university,id,unique id number identifying ranking system [format: integer] [primary key],integer
+ranking_system,university,system_name,id number identifying ranking system [format: text],text
+university,university,country_id,the country where the university locates [format: text] [foreign key -> country.id],integer
+university,university,id,unique id number identifying university [format: integer] [primary key],integer
+university,university,university_name,name of the university [format: text],text
+university_ranking_year,university,ranking_criteria_id,the id of the ranking criteria [format: integer] [foreign key -> ranking_criteria.id],integer
+university_ranking_year,university,score,ranking score [format: integer],integer
+university_ranking_year,university,university_id,the id of the university [format: integer] [foreign key -> university.id],integer
+university_ranking_year,university,year,ranking year [format: integer],integer
+university_year,university,num_students,the total number of students for the year [format: integer],integer
+university_year,university,pct_female_students,the percentage of female students [format: real] Value: commonsense evidence: pct_female_students = number of female students / number of students,integer
+university_year,university,pct_international_students,the percentage of international students among all students [format: real] Value: commonsense evidence: pct_international_student = number of interbational students / number of students,integer
+university_year,university,student_staff_ratio,[format: real] Value: commonsense evidence: student_staff_ratio = number of students / number of staff,real
+university_year,university,university_id,id of the university [format: integer] [foreign key -> university.id],integer
+university_year,university,year,[format: integer],integer

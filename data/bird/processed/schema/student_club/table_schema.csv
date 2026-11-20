@@ -1,0 +1,65 @@
+table,db,table_desc,field,schema
+attendance,student_club,Attendance,link_to_event|link_to_member,"CREATE TABLE attendance (
+  link_to_event,
+  link_to_member
+);"
+budget,student_club,Budget,amount|budget_id|category|event_status|link_to_event|remaining|spent,"CREATE TABLE budget (
+  amount,
+  budget_id,
+  category,
+  event_status,
+  link_to_event,
+  remaining,
+  spent
+);"
+event,student_club,Event,event_date|event_id|event_name|location|notes|status|type,"CREATE TABLE event (
+  event_date,
+  event_id,
+  event_name,
+  location,
+  notes,
+  status,
+  type
+);"
+expense,student_club,Expense,approved|cost|expense_date|expense_description|expense_id|link_to_budget|link_to_member,"CREATE TABLE expense (
+  approved,
+  cost,
+  expense_date,
+  expense_description,
+  expense_id,
+  link_to_budget,
+  link_to_member
+);"
+income,student_club,Income,amount|date_received|income_id|link_to_member|notes|source,"CREATE TABLE income (
+  amount,
+  date_received,
+  income_id,
+  link_to_member,
+  notes,
+  source
+);"
+major,student_club,Major,college|department|major_id|major_name,"CREATE TABLE major (
+  college,
+  department,
+  major_id,
+  major_name
+);"
+member,student_club,Member,email|first_name|last_name|link_to_major|member_id|phone|position|t_shirt_size|zip,"CREATE TABLE member (
+  email,
+  first_name,
+  last_name,
+  link_to_major,
+  member_id,
+  phone,
+  position,
+  t_shirt_size,
+  zip
+);"
+zip_code,student_club,Zip Code,city|county|short_state|state|type|zip_code,"CREATE TABLE zip_code (
+  city,
+  county,
+  short_state,
+  state,
+  type,
+  zip_code
+);"

@@ -1,0 +1,62 @@
+table,db,field_name,field_name_desc,field_type
+employee,food_inspection_2,address,physical street address of the employee [format: text],text
+employee,food_inspection_2,city,city of the employee's address [format: text],text
+employee,food_inspection_2,employee_id,the unique id for the employee [format: integer] [primary key],integer
+employee,food_inspection_2,first_name,first name of the employee [format: text],text
+employee,food_inspection_2,last_name,last name of the employee [format: text] Value: commonsense evidence: full name: first name + last_name,text
+employee,food_inspection_2,phone,telephone number to reach the customer [format: text],text
+employee,food_inspection_2,salary,"the salary of the employee [format: integer] Value: us dollars / year
+commonsense evidence: monthly salary: salary / 12",integer
+employee,food_inspection_2,state,state of the customer's address [format: text],text
+employee,food_inspection_2,supervisor,the employee id of the employee's supervisor [format: integer] [foreign key -> employee.employee_id],integer
+employee,food_inspection_2,title,"career title of the employee [format: text] Value:  Sanitarian 
+ Supervisor 
+ Division Manager",text
+employee,food_inspection_2,zip,postal code of the employee's address [format: integer],integer
+establishment,food_inspection_2,address,physical street address of the facility [format: text],text
+establishment,food_inspection_2,aka_name,the aka name of the facility [format: text] Value: commonsense evidence: the aka name is used to indicate another name that a person or thing has or uses,text
+establishment,food_inspection_2,city,city of the facility's address [format: text],text
+establishment,food_inspection_2,dba_name,"the dba name of the facility [format: text] Value: commonsense evidence: DBA stands for doing business as. It's also referred to as your business's assumed, trade or fictitious name.",text
+establishment,food_inspection_2,facility_type,"the facility type [format: text] Value: commonsense evidence: can ask some questions about its categories, for i.e.:  
+ ""Restaurant"" and ""Cafeteria"" refers to restaurants 
+ PASTRY school and ""CULINARY ARTS SCHOOL"" belongs to ""Education"" or ""School"". Please design this and mention your evidence in the commonsense part of questions, thanks",text
+establishment,food_inspection_2,latitude,the latitude of the facility [format: real],real
+establishment,food_inspection_2,license_no,the license number of the facility [format: integer] [primary key],integer
+establishment,food_inspection_2,longitude,"the longitude of the facility [format: real] Value: commonsense evidence: location = POINT(latitude, longitude)",real
+establishment,food_inspection_2,risk_level,the risk level of the facility [format: integer] Value: commonsense evidence: Facilities with higher risk level have more serious food safety issues,integer
+establishment,food_inspection_2,state,state of the facility's address [format: text],text
+establishment,food_inspection_2,ward,"the ward number of the facility [format: integer] Value: commonsense evidence: Ward number is the number assigned by the local authorities to identify the population count in each town, village and district usually for electoral purposes or to extract property and locality details",integer
+establishment,food_inspection_2,zip,postal code of the facility's address [format: integer],integer
+inspection,food_inspection_2,employee_id,the id of the employee who is responsible for the inspection [format: integer] [foreign key -> employee.employee_id],integer
+inspection,food_inspection_2,followup_to,"the id of inspections that this inspection is following up [format: integer] Value: commonsense evidence: 'No data' means the inspection has no followup.
+if followup_to has value: 
+ it's the parent inspection id, and this value represents child inspection id  
+ the entire inspection: followup_to + inspection_id [foreign key -> inspection.inspection_id]",integer
+inspection,food_inspection_2,inspection_date,the date of the inspection [format: date] Value: yyyy-mm-dd,date
+inspection,food_inspection_2,inspection_id,the unique id for the inspection [format: integer] [primary key],integer
+inspection,food_inspection_2,inspection_type,the type of the inspection [format: text  s],text
+inspection,food_inspection_2,license_no,the license number of the facility that is inspected [format: integer] [foreign key -> establishment.license_no],integer
+inspection,food_inspection_2,results,"the inspection results [format: text] Value:  Pass 
+ Pass w/ Conditions 
+ Fail 
+ Out of Business 
+ Business Not Located 
+ No Entry 
+ Not Ready 
+commonsense evidence: the quality is verified: Pass + Pass w/ Conditions",text
+inspection_point,food_inspection_2,Description,the specific description of the inspection results [format: text],text
+inspection_point,food_inspection_2,category,the inspection category [format: text],text
+inspection_point,food_inspection_2,code,the sanitary operating requirement code [format: text] Value: commonsense evidence: Each code stands for an operating requirement,text
+inspection_point,food_inspection_2,fine,"the fines for food safety problems [format: integer] Value: commonsense evidence: The fine of more serious food safety problems will be higher. 
+ Minor: 100 
+ Serious: 250 
+ Critical: 500",integer
+inspection_point,food_inspection_2,point_id,the unique id for the inspection point [format: integer] [primary key],integer
+inspection_point,food_inspection_2,point_level,point level [format: text] Value: Critical / Serious/ Minor,text
+violation,food_inspection_2,fine,"the fine of the violation [format: integer] Value: commonsense evidence: The fine of more serious food safety problems will be higher. 
+ Minor: 100 
+ Serious: 250 
+ Critical: 500",integer
+violation,food_inspection_2,inspection_id,the unique id for the inspection [format: integer] [primary key] [foreign key -> inspection.inspection_id],integer
+violation,food_inspection_2,inspector_comment,the comment of the inspector [format: text],text
+violation,food_inspection_2,point_id,the inspection point id [format: integer] [primary key] [foreign key -> inspection_point.point_id],integer

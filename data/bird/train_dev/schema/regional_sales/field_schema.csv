@@ -1,0 +1,62 @@
+table,db,field_name,field_name_desc,field_type
+Customers,regional_sales,Customer Names,the name of the customer [format: text],text
+Customers,regional_sales,CustomerID,unique id number indicating which customer [format: integer] [primary key],integer
+Products,regional_sales,Product Name,name of the product [format: text],text
+Products,regional_sales,ProductID,unique id number representing each product [format: integer] [primary key],integer
+Regions,regional_sales,Region,the region where the state is located in [format: text],text
+Regions,regional_sales,State,full state name [format: text],text
+Regions,regional_sales,StateCode,the unique code identifying the state [format: text] [primary key],text
+Sales Orders,regional_sales,CurrencyCode,Currency Code [format: text] Value: USD,text
+Sales Orders,regional_sales,DeliveryDate,"Delivery Date [format: text] Value: commonsense evidence:
+the difference ""DeliveryDate - OrderDate"" is smaller, it means faster delivery",text
+Sales Orders,regional_sales,Discount Applied,"Discount Applied [format: real] Value: commonsense evidence:
+0.2: 20% discount",real
+Sales Orders,regional_sales,Order Quantity,"Order Quantity [format: integer] Value: commonsense evidence:
+1 - 8:
+higher means order quantity is higher or customer needs more",integer
+Sales Orders,regional_sales,OrderDate,Order Date [format: text],text
+Sales Orders,regional_sales,OrderNumber,the unique number identifying the order [format: text] [primary key],text
+Sales Orders,regional_sales,ProcuredDate,"Procured Date [format: text] Value: commonsense evidence:
+date: month/date/year, 17--> 2017",text
+Sales Orders,regional_sales,Sales Channel,"Sales Channel [format: text] Value:  In-Store
+ Online
+ Distributor
+ Wholesale",text
+Sales Orders,regional_sales,ShipDate,Ship Date [format: text],text
+Sales Orders,regional_sales,Unit Cost,"[format: text] Value: commonsense evidence:
+net profit = Unit Price - Unit Cost",text
+Sales Orders,regional_sales,Unit Price,[format: text],text
+Sales Orders,regional_sales,WarehouseCode,"Warehouse Code [format: text] Value: commonsense evidence:
+if the warehouse code is the same, it means this product is shipped from the same ware house",text
+Sales Orders,regional_sales,_CustomerID,_Customer ID [format: integer] [foreign key -> Customers.CustomerID],integer
+Sales Orders,regional_sales,_ProductID,_Product ID [format: integer] [foreign key -> Products.ProductID],integer
+Sales Orders,regional_sales,_SalesTeamID,Sales Team ID [format: integer] [foreign key -> Sales Team.SalesTeamID],integer
+Sales Orders,regional_sales,_StoreID,_Store ID [format: integer] [foreign key -> Store Locations.StoreID],integer
+Sales Team,regional_sales,Region,the region where the state is located in [format: text],text
+Sales Team,regional_sales,Sales Team,sales team names [format: text],text
+Sales Team,regional_sales,SalesTeamID,unique sales team id [format: integer] [primary key],integer
+Store Locations,regional_sales,AreaCode,[format: integer],integer
+Store Locations,regional_sales,City Name,City Name [format: text],text
+Store Locations,regional_sales,County,full county name [format: text],text
+Store Locations,regional_sales,Household Income,Household Income [format: integer],integer
+Store Locations,regional_sales,Land Area,Land Area [format: integer],integer
+Store Locations,regional_sales,Latitude,Latitude [format: real],real
+Store Locations,regional_sales,Longitude,"Longitude [format: real] Value: commonsense evidence:
+coordinates or detailed position: (Latitude, Longitude)",real
+Store Locations,regional_sales,Median Income,Median Income [format: integer],integer
+Store Locations,regional_sales,Population,Population [format: integer],integer
+Store Locations,regional_sales,State,full state name [format: text],text
+Store Locations,regional_sales,StateCode,state code [format: text] [foreign key -> Regions.StateCode],text
+Store Locations,regional_sales,StoreID,unique store id [format: integer] [primary key],integer
+Store Locations,regional_sales,Time Zone,Time Zone [format: text],text
+Store Locations,regional_sales,Type,"type of the store [format: text] Value: City
+Town
+CDP (customer data platform)
+Unified Government
+Consolidated Government
+Other
+Township
+Urban County 
+Borough
+Metropolitan Government",text
+Store Locations,regional_sales,Water Area,Water Area [format: integer],integer

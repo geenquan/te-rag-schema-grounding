@@ -1,0 +1,4 @@
+# Dense baseline (question protocol): downloads the pinned MiniLM revision
+# on first use; pass --allow-network (offline reuse via --minilm-cache-dir).
+methods: [Dense]
+protocols: [question]

@@ -1,0 +1,25 @@
+table,db,field_name,field_name_desc,field_type
+incidents,shooting,case_number,case number [format: text] [primary key],text
+incidents,shooting,date,date [format: date],date
+incidents,shooting,location,location [format: text],text
+incidents,shooting,officers,officers [format: text],text
+incidents,shooting,subject_count,subject_count [format: integer],integer
+incidents,shooting,subject_statuses,statuses of the victims [format: text],text
+incidents,shooting,subject_weapon,subject weapon [format: text],text
+incidents,shooting,subjects,subjects [format: text],text
+officers,shooting,case_number,case number [format: text] [foreign key -> incidents.case_number],text
+officers,shooting,first_name,first name [format: text],text
+officers,shooting,full_name,full name [format: text],text
+officers,shooting,gender,"gender [format: text] Value: M: male;
+
+F: female",text
+officers,shooting,last_name,last name [format: text],text
+officers,shooting,race,race [format: text],text
+subjects,shooting,case_number,case number [format: text] [foreign key -> incidents.case_number],text
+subjects,shooting,first_name,first name [format: text],text
+subjects,shooting,full_name,full name [format: text],text
+subjects,shooting,gender,"gender [format: text] Value: M: male;
+
+F: female",text
+subjects,shooting,last_name,last name [format: text],text
+subjects,shooting,race,race [format: text],text

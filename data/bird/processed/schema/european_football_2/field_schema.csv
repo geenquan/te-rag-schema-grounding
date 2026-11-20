@@ -1,0 +1,244 @@
+table,db,field_name,field_name_desc,field_type
+Country,european_football_2,id,the unique id for countries [format: integer] [primary key],integer
+Country,european_football_2,name,country name [format: text],text
+League,european_football_2,country_id,the unique id for countries [format: integer] [foreign key -> Country.id],integer
+League,european_football_2,id,the unique id for leagues [format: integer] [primary key],integer
+League,european_football_2,name,league name [format: text],text
+Match,european_football_2,B365A,,real
+Match,european_football_2,B365D,,real
+Match,european_football_2,B365H,,real
+Match,european_football_2,BSA,,real
+Match,european_football_2,BSD,,real
+Match,european_football_2,BSH,,real
+Match,european_football_2,BWA,,real
+Match,european_football_2,BWD,,real
+Match,european_football_2,BWH,,real
+Match,european_football_2,GBA,,real
+Match,european_football_2,GBD,,real
+Match,european_football_2,GBH,,real
+Match,european_football_2,IWA,,real
+Match,european_football_2,IWD,,real
+Match,european_football_2,IWH,,real
+Match,european_football_2,LBA,,real
+Match,european_football_2,LBD,,real
+Match,european_football_2,LBH,,real
+Match,european_football_2,PSA,,real
+Match,european_football_2,PSD,,real
+Match,european_football_2,PSH,,real
+Match,european_football_2,SJA,,real
+Match,european_football_2,SJD,,real
+Match,european_football_2,SJH,,real
+Match,european_football_2,VCA,,real
+Match,european_football_2,VCD,,real
+Match,european_football_2,VCH,,real
+Match,european_football_2,WHA,,real
+Match,european_football_2,WHD,,real
+Match,european_football_2,WHH,,real
+Match,european_football_2,away_player_1,[foreign key -> Player.player_api_id],integer
+Match,european_football_2,away_player_10,[foreign key -> Player.player_api_id],integer
+Match,european_football_2,away_player_11,[foreign key -> Player.player_api_id],integer
+Match,european_football_2,away_player_2,[foreign key -> Player.player_api_id],integer
+Match,european_football_2,away_player_3,[foreign key -> Player.player_api_id],integer
+Match,european_football_2,away_player_4,[foreign key -> Player.player_api_id],integer
+Match,european_football_2,away_player_5,[foreign key -> Player.player_api_id],integer
+Match,european_football_2,away_player_6,[foreign key -> Player.player_api_id],integer
+Match,european_football_2,away_player_7,[foreign key -> Player.player_api_id],integer
+Match,european_football_2,away_player_8,[foreign key -> Player.player_api_id],integer
+Match,european_football_2,away_player_9,[foreign key -> Player.player_api_id],integer
+Match,european_football_2,away_player_X1,,integer
+Match,european_football_2,away_player_X10,,integer
+Match,european_football_2,away_player_X11,,integer
+Match,european_football_2,away_player_X2,,integer
+Match,european_football_2,away_player_X3,,integer
+Match,european_football_2,away_player_X4,,integer
+Match,european_football_2,away_player_X5,,integer
+Match,european_football_2,away_player_X6,,integer
+Match,european_football_2,away_player_X7,,integer
+Match,european_football_2,away_player_X8,,integer
+Match,european_football_2,away_player_X9,,integer
+Match,european_football_2,away_player_Y1,,integer
+Match,european_football_2,away_player_Y10,,integer
+Match,european_football_2,away_player_Y11,,integer
+Match,european_football_2,away_player_Y2,,integer
+Match,european_football_2,away_player_Y3,,integer
+Match,european_football_2,away_player_Y4,,integer
+Match,european_football_2,away_player_Y5,,integer
+Match,european_football_2,away_player_Y6,,integer
+Match,european_football_2,away_player_Y7,,integer
+Match,european_football_2,away_player_Y8,,integer
+Match,european_football_2,away_player_Y9,,integer
+Match,european_football_2,away_team_api_id,the id of the away team api [format: integer] [foreign key -> Team.team_api_id],integer
+Match,european_football_2,away_team_goal,the goal of the away team [format: integer],integer
+Match,european_football_2,card,the cards given in the match [format: text],text
+Match,european_football_2,corner,Ball goes out of play for a corner kick in the match [format: text],text
+Match,european_football_2,country_id,country id [format: integer],integer
+Match,european_football_2,cross,Balls sent into the opposition team's area from a wide position in the match [format: text],text
+Match,european_football_2,date,the date of the match [format: text] Value: e.g. 2008-08-17 00:00:00,text
+Match,european_football_2,foulcommit,the fouls occurred in the match [format: text],text
+Match,european_football_2,goal,the goal of the match [format: text],text
+Match,european_football_2,home_player_1,[foreign key -> Player.player_api_id],integer
+Match,european_football_2,home_player_10,[foreign key -> Player.player_api_id],integer
+Match,european_football_2,home_player_11,[foreign key -> Player.player_api_id],integer
+Match,european_football_2,home_player_2,[foreign key -> Player.player_api_id],integer
+Match,european_football_2,home_player_3,[foreign key -> Player.player_api_id],integer
+Match,european_football_2,home_player_4,[foreign key -> Player.player_api_id],integer
+Match,european_football_2,home_player_5,[foreign key -> Player.player_api_id],integer
+Match,european_football_2,home_player_6,[foreign key -> Player.player_api_id],integer
+Match,european_football_2,home_player_7,[foreign key -> Player.player_api_id],integer
+Match,european_football_2,home_player_8,[foreign key -> Player.player_api_id],integer
+Match,european_football_2,home_player_9,[foreign key -> Player.player_api_id],integer
+Match,european_football_2,home_player_X1,,integer
+Match,european_football_2,home_player_X10,,integer
+Match,european_football_2,home_player_X11,,integer
+Match,european_football_2,home_player_X2,,integer
+Match,european_football_2,home_player_X3,,integer
+Match,european_football_2,home_player_X4,,integer
+Match,european_football_2,home_player_X5,,integer
+Match,european_football_2,home_player_X6,,integer
+Match,european_football_2,home_player_X7,,integer
+Match,european_football_2,home_player_X8,,integer
+Match,european_football_2,home_player_X9,,integer
+Match,european_football_2,home_player_Y1,,integer
+Match,european_football_2,home_player_Y10,,integer
+Match,european_football_2,home_player_Y11,,integer
+Match,european_football_2,home_player_Y2,,integer
+Match,european_football_2,home_player_Y3,,integer
+Match,european_football_2,home_player_Y4,,integer
+Match,european_football_2,home_player_Y5,,integer
+Match,european_football_2,home_player_Y6,,integer
+Match,european_football_2,home_player_Y7,,integer
+Match,european_football_2,home_player_Y8,,integer
+Match,european_football_2,home_player_Y9,,integer
+Match,european_football_2,home_team_api_id,the id of the home team api [format: integer] [foreign key -> Team.team_api_id],integer
+Match,european_football_2,home_team_goal,the goal of the home team [format: integer],integer
+Match,european_football_2,id,the unique id for matches [format: integer] [primary key],integer
+Match,european_football_2,league_id,league id [format: integer],integer
+Match,european_football_2,match_api_id,the id of the match api [format: integer],integer
+Match,european_football_2,possession,The duration from a player taking over the ball in the match [format: text],text
+Match,european_football_2,season,the season of the match [format: text],text
+Match,european_football_2,shotoff,"the shot off goal of the match, which is the opposite of shot on [format: text]",text
+Match,european_football_2,shoton,"the shot on goal of the match [format: text] Value: commonsense reasoning: 
+A shot on goal is a shot that enters the goal or would have entered the goal if it had not been blocked by the goalkeeper or another defensive player.",text
+Match,european_football_2,stage,the stage of the match [format: integer],integer
+Player,european_football_2,birthday,"the player's birthday [format: text] Value: e.g. 1992-02-29 00:00:00 
+commonsense reasoning: 
+Player A is older than player B means that A's birthday is earlier than B's",text
+Player,european_football_2,height,the player's height [format: integer],integer
+Player,european_football_2,id,the unique id for players [format: integer] [primary key],integer
+Player,european_football_2,player_api_id,the id of the player api [format: integer],integer
+Player,european_football_2,player_fifa_api_id,the id of the player fifa api [format: integer],integer
+Player,european_football_2,player_name,player name [format: text],text
+Player,european_football_2,weight,the player's weight [format: integer],integer
+Player_Attributes,european_football_2,acceleration,the player's acceleration score [format: integer] Value: 0-100 which is calculated by FIFA,integer
+Player_Attributes,european_football_2,aggression,the player's aggression score [format: integer] Value: 0-100 which is calculated by FIFA,integer
+Player_Attributes,european_football_2,agility,the player's agility [format: integer] Value: 0-100 which is calculated by FIFA,integer
+Player_Attributes,european_football_2,attacking_work_rate,"the player's attacking work rate [format: text] Value: commonsense reasoning: 
+• high: implies that the player is going to be in all of your attack moves
+• medium: implies that the player will select the attack actions he will join in
+• low: remain in his position while the team attacks",text
+Player_Attributes,european_football_2,balance,the player's balance score [format: integer] Value: 0-100 which is calculated by FIFA,integer
+Player_Attributes,european_football_2,ball_control,the player's ball control score [format: integer] Value: 0-100 which is calculated by FIFA,integer
+Player_Attributes,european_football_2,crossing,"the player's crossing score [format: integer] Value: commonsense reasoning: 
+Cross is a long pass into the opponent's goal towards the header of sixth-yard teammate.
+ The crossing score is between 0-100 which measures the tendency/frequency of crosses in the box.
+ Higher potential score means that the player performs better in crossing actions.",integer
+Player_Attributes,european_football_2,curve,the player's curve score [format: integer] Value: 0-100 which is calculated by FIFA,integer
+Player_Attributes,european_football_2,date,date [format: text] Value: e.g. 2016-02-18 00:00:00,text
+Player_Attributes,european_football_2,defensive_work_rate,"the player's defensive work rate [format: text] Value: commonsense reasoning: 
+• high: remain in his position and defense while the team attacks 
+• medium: implies that the player will select the defensive actions he will join in
+• low: implies that the player is going to be in all of your attack moves instead of defensing",text
+Player_Attributes,european_football_2,dribbling,the player's dribbling score [format: integer] Value: 0-100 which is calculated by FIFA,integer
+Player_Attributes,european_football_2,finishing,the player's finishing rate [format: integer] Value: 0-100 which is calculated by FIFA,integer
+Player_Attributes,european_football_2,free_kick_accuracy,the player's free kick accuracy [format: integer] Value: 0-100 which is calculated by FIFA,integer
+Player_Attributes,european_football_2,gk_diving,the player's goalkeep diving score [format: integer] Value: 0-100 which is calculated by FIFA,integer
+Player_Attributes,european_football_2,gk_handling,the player's goalkeep diving score [format: integer] Value: 0-100 which is calculated by FIFA,integer
+Player_Attributes,european_football_2,gk_kicking,the player's goalkeep kicking score [format: integer] Value: 0-100 which is calculated by FIFA,integer
+Player_Attributes,european_football_2,gk_positioning,the player's goalkeep positioning score [format: integer] Value: 0-100 which is calculated by FIFA,integer
+Player_Attributes,european_football_2,gk_reflexes,the player's goalkeep reflexes score [format: integer] Value: 0-100 which is calculated by FIFA,integer
+Player_Attributes,european_football_2,heading_accuracy,the player's heading accuracy [format: integer] Value: 0-100 which is calculated by FIFA,integer
+Player_Attributes,european_football_2,id,the unique id for players [format: integer] [primary key],integer
+Player_Attributes,european_football_2,interceptions,the player's interceptions score [format: integer] Value: 0-100 which is calculated by FIFA,integer
+Player_Attributes,european_football_2,jumping,the player's jumping score [format: integer] Value: 0-100 which is calculated by FIFA,integer
+Player_Attributes,european_football_2,long_passing,the player's long passing score [format: integer] Value: 0-100 which is calculated by FIFA,integer
+Player_Attributes,european_football_2,long_shots,the player's long shots score [format: integer] Value: 0-100 which is calculated by FIFA,integer
+Player_Attributes,european_football_2,marking,the player's markingscore [format: integer] Value: 0-100 which is calculated by FIFA,integer
+Player_Attributes,european_football_2,overall_rating,"the overall rating of the player [format: integer] Value: commonsense reasoning: 
+The rating is between 0-100 which is calculated by FIFA.
+ Higher overall rating means the player has a stronger overall strength.",integer
+Player_Attributes,european_football_2,penalties,the player's penalties score [format: integer] Value: 0-100 which is calculated by FIFA,integer
+Player_Attributes,european_football_2,player_api_id,the id of the player api [format: integer] [foreign key -> Player.player_api_id],integer
+Player_Attributes,european_football_2,player_fifa_api_id,the id of the player fifa api [format: integer] [foreign key -> Player.player_fifa_api_id],integer
+Player_Attributes,european_football_2,positioning,"the player's 
+positioning score [format: integer] Value: 0-100 which is calculated by FIFA",integer
+Player_Attributes,european_football_2,potential,"potential of the player [format: integer] Value: commonsense reasoning: 
+The potential score is between 0-100 which is calculated by FIFA.
+ Higher potential score means that the player has more potential",integer
+Player_Attributes,european_football_2,preferred_foot,the player's preferred foot when attacking [format: text] Value: right/ left,text
+Player_Attributes,european_football_2,reactions,the player's reactions score [format: integer] Value: 0-100 which is calculated by FIFA,integer
+Player_Attributes,european_football_2,short_passing,the player's short passing score [format: integer] Value: 0-100 which is calculated by FIFA,integer
+Player_Attributes,european_football_2,shot_power,the player's shot power [format: integer] Value: 0-100 which is calculated by FIFA,integer
+Player_Attributes,european_football_2,sliding_tackle,the player's sliding tackle score [format: integer] Value: 0-100 which is calculated by FIFA,integer
+Player_Attributes,european_football_2,sprint_speed,the player's sprint speed [format: integer] Value: 0-100 which is calculated by FIFA,integer
+Player_Attributes,european_football_2,stamina,the player's stamina score [format: integer] Value: 0-100 which is calculated by FIFA,integer
+Player_Attributes,european_football_2,standing_tackle,the player's standing tackle score [format: integer] Value: 0-100 which is calculated by FIFA,integer
+Player_Attributes,european_football_2,strength,the player's strength score [format: integer] Value: 0-100 which is calculated by FIFA,integer
+Player_Attributes,european_football_2,vision,the player's vision score [format: integer] Value: 0-100 which is calculated by FIFA,integer
+Player_Attributes,european_football_2,volleys,the player's volley score [format: integer] Value: 0-100 which is calculated by FIFA,integer
+Team,european_football_2,id,the unique id for teams [format: integer] [primary key],integer
+Team,european_football_2,team_api_id,the id of the team api [format: integer],integer
+Team,european_football_2,team_fifa_api_id,the id of the team fifa api [format: integer],integer
+Team,european_football_2,team_long_name,the team's long name [format: text],text
+Team,european_football_2,team_short_name,the team's short name [format: text],text
+Team_Attributes,european_football_2,buildUpPlayDribbling,the tendency/ frequency of dribbling [format: integer],integer
+Team_Attributes,european_football_2,buildUpPlayDribblingClass,"the dribbling class [format: text] Value: commonsense reasoning: 
+• Little: 1-33
+• Normal: 34-66
+• Lots: 66-100",text
+Team_Attributes,european_football_2,buildUpPlayPassing,affects passing distance and support from teammates [format: integer],integer
+Team_Attributes,european_football_2,buildUpPlayPassingClass,"the passing class [format: text] Value: commonsense reasoning: 
+• Short: 1-33
+• Mixed: 34-66
+• Long: 66-100",text
+Team_Attributes,european_football_2,buildUpPlayPositioningClass,A team's freedom of movement in the 1st two thirds of the pitch [format: text] Value: Organised / Free Form,text
+Team_Attributes,european_football_2,buildUpPlaySpeed,the speed in which attacks are put together [format: integer] Value: the score which is between 1-00 to measure the team's attack speed,integer
+Team_Attributes,european_football_2,buildUpPlaySpeedClass,"the speed class [format: text] Value: commonsense reasoning: 
+• Slow: 1-33
+• Balanced: 34-66
+• Fast: 66-100",text
+Team_Attributes,european_football_2,chanceCreationCrossing,The tendency / frequency of crosses into the box [format: integer],integer
+Team_Attributes,european_football_2,chanceCreationCrossingClass,"the chance creation crossing class [format: text] Value: commonsense reasoning: 
+• Little: 1-33
+• Normal: 34-66
+• Lots: 66-100",text
+Team_Attributes,european_football_2,chanceCreationPassing,Amount of risk in pass decision and run support [format: integer],integer
+Team_Attributes,european_football_2,chanceCreationPassingClass,"the chance creation passing class [format: text] Value: commonsense reasoning: 
+• Safe: 1-33
+• Normal: 34-66
+• Risky: 66-100",text
+Team_Attributes,european_football_2,chanceCreationPositioningClass,A team’s freedom of movement in the final third of the pitch [format: text] Value: Organised / Free Form,text
+Team_Attributes,european_football_2,chanceCreationShooting,The tendency / frequency of shots taken [format: integer],integer
+Team_Attributes,european_football_2,chanceCreationShootingClass,"the chance creation shooting class [format: text] Value: commonsense reasoning: 
+• Little: 1-33
+• Normal: 34-66
+• Lots: 66-100",text
+Team_Attributes,european_football_2,date,Date [format: text] Value: e.g. 2010-02-22 00:00:00,text
+Team_Attributes,european_football_2,defenceAggression,Affect the team’s approach to tackling the ball possessor [format: integer],integer
+Team_Attributes,european_football_2,defenceAggressionClass,"the defence aggression class [format: text] Value: commonsense reasoning: 
+• Contain: 1-33
+• Press: 34-66
+• Double: 66-100",text
+Team_Attributes,european_football_2,defenceDefenderLineClass,Affects the shape and strategy of the defence [format: text] Value: Cover/ Offside Trap,text
+Team_Attributes,european_football_2,defencePressure,Affects how high up the pitch the team will start pressuring [format: integer],integer
+Team_Attributes,european_football_2,defencePressureClass,"the defence pressure class [format: text] Value: commonsense reasoning: 
+• Deep: 1-33
+• Medium: 34-66
+• High: 66-100",text
+Team_Attributes,european_football_2,defenceTeamWidth,Affects how much the team will shift to the ball side [format: integer],integer
+Team_Attributes,european_football_2,defenceTeamWidthClass,"the defence team width class [format: text] Value: commonsense reasoning: 
+• Narrow: 1-33
+• Normal: 34-66
+• Wide: 66-100",text
+Team_Attributes,european_football_2,id,the unique id for teams [format: integer] [primary key],integer
+Team_Attributes,european_football_2,team_api_id,the id of the team api [format: integer] [foreign key -> Team.team_api_id],integer
+Team_Attributes,european_football_2,team_fifa_api_id,the id of the team fifa api [format: integer] [foreign key -> Team.team_fifa_api_id],integer

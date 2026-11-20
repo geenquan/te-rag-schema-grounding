@@ -1,0 +1,59 @@
+table,db,table_desc,field,schema
+Categories,retail_world,Categories,CategoryID|CategoryName|Description,"CREATE TABLE Categories (
+  CategoryID,
+  CategoryName,
+  Description
+);"
+Customers,retail_world,Customers,Address|City|ContactName|Country|CustomerID|CustomerName|PostalCode,"CREATE TABLE Customers (
+  Address,
+  City,
+  ContactName,
+  Country,
+  CustomerID,
+  CustomerName,
+  PostalCode
+);"
+Employees,retail_world,Employees,BirthDate|EmployeeID|FirstName|LastName|Notes|Photo,"CREATE TABLE Employees (
+  BirthDate,
+  EmployeeID,
+  FirstName,
+  LastName,
+  Notes,
+  Photo
+);"
+OrderDetails,retail_world,OrderDetails,OrderDetailID|OrderID|ProductID|Quantity,"CREATE TABLE OrderDetails (
+  OrderDetailID,
+  OrderID,
+  ProductID,
+  Quantity
+);"
+Orders,retail_world,Orders,CustomerID|EmployeeID|OrderDate|OrderID|ShipperID,"CREATE TABLE Orders (
+  CustomerID,
+  EmployeeID,
+  OrderDate,
+  OrderID,
+  ShipperID
+);"
+Products,retail_world,Products,CategoryID|Price|ProductID|ProductName|SupplierID|Unit,"CREATE TABLE Products (
+  CategoryID,
+  Price,
+  ProductID,
+  ProductName,
+  SupplierID,
+  Unit
+);"
+Shippers,retail_world,Shippers,Phone|ShipperID|ShipperName,"CREATE TABLE Shippers (
+  Phone,
+  ShipperID,
+  ShipperName
+);"
+Suppliers,retail_world,Suppliers,Address|City|ContactName|Country|Phone|PostalCode|SupplierID|SupplierName,"CREATE TABLE Suppliers (
+  Address,
+  City,
+  ContactName,
+  Country,
+  Phone,
+  PostalCode,
+  SupplierID,
+  SupplierName
+);"

@@ -1,0 +1,146 @@
+table,db,field_name,field_name_desc,field_type
+borders,mondial_geo,Country1,a country code [format: text] [primary key],text
+borders,mondial_geo,Country2,a country code [format: text] [primary key],text
+borders,mondial_geo,Length,length of the border between country1 and country2 [format: real],real
+city,mondial_geo,Country,the code of the country where it belongs to [format: text],text
+city,mondial_geo,Latitude,geographic latitude [format: real],real
+city,mondial_geo,Longitude,geographic longitude [format: real],real
+city,mondial_geo,Name,name of city [format: text] [primary key],text
+city,mondial_geo,Population,population of the city [format: integer],integer
+city,mondial_geo,Province,the name of the province where it belongs to [format: text] [primary key],text
+continent,mondial_geo,Area,total area of the continent. [format: real],real
+continent,mondial_geo,Name,name of the continent [format: text] [primary key],text
+country,mondial_geo,Area,"the total area, [format: real]",real
+country,mondial_geo,Capital,"the name of the capital, [format: text]",text
+country,mondial_geo,Code,country code [format: text] [primary key],text
+country,mondial_geo,Name,the country name [format: text],text
+country,mondial_geo,Population,the population number. [format: integer],integer
+country,mondial_geo,Province,"the province where the capital belongs to, [format: text]",text
+desert,mondial_geo,Area,the total area of the desert [format: real],real
+desert,mondial_geo,Latitude,"Latitude [format: real] Value: commonsense evidence:
+
+coordinate: (Longitude, Latitude)",real
+desert,mondial_geo,Longitude,Longitude [format: real],real
+desert,mondial_geo,Name,the name of the desert [format: text] [primary key],text
+economy,mondial_geo,Agriculture,percentage of agriculture of the GDP [format: real],real
+economy,mondial_geo,Country,the country code [format: text] [primary key],text
+economy,mondial_geo,GDP,gross domestic product [format: real],real
+economy,mondial_geo,Industry,percentage of industry of the GDP [format: real],real
+economy,mondial_geo,Inflation,"inflation rate (per annum), [format: real]",real
+economy,mondial_geo,Service,"percentage of services of the GDP, [format: real]",real
+encompasses,mondial_geo,Continent,the continent name. [format: text] [primary key],text
+encompasses,mondial_geo,Country,a country code [format: text] [primary key],text
+encompasses,mondial_geo,Percentage,how much of the area of a country belongs to the continent [format: real] Value: %,real
+ethnicGroup,mondial_geo,Country,the country code [format: text] [primary key],text
+ethnicGroup,mondial_geo,Name,name of the language [format: text] [primary key],text
+ethnicGroup,mondial_geo,Percentage,percentage of the language in this country. [format: real] Value: %,real
+geo_desert,mondial_geo,Country,the country code where it is located [format: text] [primary key],text
+geo_desert,mondial_geo,Desert,the name of the desert [format: text] [primary key],text
+geo_desert,mondial_geo,Province,the province of this country [format: text] [primary key],text
+geo_estuary,mondial_geo,Country,the country code where it is located [format: text] [primary key],text
+geo_estuary,mondial_geo,Province,the province of this country [format: text] [primary key],text
+geo_estuary,mondial_geo,River,the name of the river [format: text] [primary key],text
+geo_island,mondial_geo,Country,the country code where it is located [format: text] [primary key],text
+geo_island,mondial_geo,Island,the name of the island [format: text] [primary key],text
+geo_island,mondial_geo,Province,the province of this country [format: text] [primary key],text
+geo_lake,mondial_geo,Country,the country code where it is located [format: text] [primary key],text
+geo_lake,mondial_geo,Lake,the name of the lake [format: text] [primary key],text
+geo_lake,mondial_geo,Province,the province of this country [format: text] [primary key],text
+geo_mountain,mondial_geo,Country,the country code where it is located [format: text] [primary key],text
+geo_mountain,mondial_geo,Mountain,the name of the mountain [format: text] [primary key],text
+geo_mountain,mondial_geo,Province,the province of this country [format: text] [primary key],text
+geo_river,mondial_geo,Country,the country code where it is located [format: text] [primary key],text
+geo_river,mondial_geo,Province,the province of this country [format: text] [primary key],text
+geo_river,mondial_geo,River,the name of the river [format: text] [primary key],text
+geo_sea,mondial_geo,Country,the country code where it is located [format: text] [primary key],text
+geo_sea,mondial_geo,Province,the province of this country [format: text] [primary key],text
+geo_sea,mondial_geo,Sea,the name of the sea [format: text] [primary key],text
+geo_source,mondial_geo,Country,the country code where it is located [format: text] [primary key],text
+geo_source,mondial_geo,Province,the province of this country [format: text] [primary key],text
+geo_source,mondial_geo,River,the name of the river [format: text] [primary key],text
+isMember,mondial_geo,Country,[format: text] [primary key],text
+isMember,mondial_geo,Organization,[format: text] [primary key],text
+isMember,mondial_geo,Type,[format: text],text
+island,mondial_geo,Area,the area of the island [format: real],real
+island,mondial_geo,Height,the maximal elevation of the island [format: real],real
+island,mondial_geo,Islands,the group of islands where it belongs to [format: text],text
+island,mondial_geo,Latitude,Latitude [format: real],real
+island,mondial_geo,Longitude,Longitude [format: real],real
+island,mondial_geo,Name,the name of the island [format: text] [primary key],text
+island,mondial_geo,Type,the type of the island [format: text],text
+islandIn,mondial_geo,Island,[format: text],text
+islandIn,mondial_geo,Lake,[format: text],text
+islandIn,mondial_geo,River,[format: text],text
+islandIn,mondial_geo,Sea,[format: text],text
+lake,mondial_geo,Altitude,the altitude (above sea level) of the lake [format: real],real
+lake,mondial_geo,Area,the total area of the lake [format: real],real
+lake,mondial_geo,Depth,the depth of the lake [format: real],real
+lake,mondial_geo,Latitude,latitude of lake [format: real],real
+lake,mondial_geo,Longitude,longitude of lake [format: real],real
+lake,mondial_geo,Name,the name of the lake [format: text] [primary key],text
+lake,mondial_geo,River,the river that flows out of the lake [format: text],text
+lake,mondial_geo,Type,the type of the lake [format: text],text
+language,mondial_geo,Country,the country code [format: text] [primary key],text
+language,mondial_geo,Name,name of the language [format: text] [primary key],text
+language,mondial_geo,Percentage,percentage of the language in this country [format: real] Value: %,real
+located,mondial_geo,City,the name of the city [format: text],text
+located,mondial_geo,Country,the country code where the city belongs to [format: text],text
+located,mondial_geo,Lake,the lake where it is located at [format: text],text
+located,mondial_geo,Province,the province where the city belongs to [format: text],text
+located,mondial_geo,River,the river where it is located at [format: text],text
+located,mondial_geo,Sea,"the sea where it is located at [format: text] Value: Note that for a given city, there can be several lakes/seas/rivers where it is located at.",text
+locatedOn,mondial_geo,City,the name of the city [format: text] [primary key],text
+locatedOn,mondial_geo,Country,the country code where the city belongs to [format: text] [primary key],text
+locatedOn,mondial_geo,Island,the island it is (maybe only partially) located on [format: text] [primary key],text
+locatedOn,mondial_geo,Province,the province where the city belongs to [format: text] [primary key],text
+mergesWith,mondial_geo,Sea1,the name of the mountain [format: text] [primary key],text
+mergesWith,mondial_geo,Sea2,the country code where it is located [format: text] [primary key],text
+mountain,mondial_geo,Height,the maximal elevation of the summit of the mountain [format: real],real
+mountain,mondial_geo,Latitude,the longitude of its source [format: real],real
+mountain,mondial_geo,Longitude,the length of the river [format: real],real
+mountain,mondial_geo,Mountains,the mountains where it belongs to [format: text],text
+mountain,mondial_geo,Name,the name of the mountain [format: text] [primary key],text
+mountain,mondial_geo,Type,"the sea where it finally flows to [format: text] Value: (note that at most one out of {river,lake,sea} can be non-null",text
+mountainOnIsland,mondial_geo,Island,the name of the island [format: text] [primary key],text
+mountainOnIsland,mondial_geo,Mountain,the name of the mountain [format: text] [primary key],text
+organization,mondial_geo,Abbreviation,its abbreviation [format: text] [primary key],text
+organization,mondial_geo,City,the city where the headquarters are located [format: text],text
+organization,mondial_geo,Country,the code of the country where the headquarters are located [format: text],text
+organization,mondial_geo,Established,date of establishment [format: date],date
+organization,mondial_geo,Name,the full name of the organization [format: text],text
+organization,mondial_geo,Province,"the name of the province where the headquarters are located, [format: text]",text
+politics,mondial_geo,Country,the country code [format: text] [primary key],text
+politics,mondial_geo,Dependent,the country code where the area belongs to [format: text],text
+politics,mondial_geo,Government,type of government [format: text],text
+politics,mondial_geo,Independence,"date of independence [format: date] Value: Commonsense evidence:
+
+if the value is null or empty, it means this country is not independent",date
+population,mondial_geo,Country,the country code [format: text] [primary key],text
+population,mondial_geo,Infant_Mortality,infant mortality [format: real] Value: per thousand,real
+population,mondial_geo,Population_Growth,population growth rate [format: real] Value: per annum,real
+province,mondial_geo,Area,"the total area of the province, [format: integer]",real
+province,mondial_geo,CapProv,"the name of the province where the capital belongs to [format: text] Value: commonsense evidence:
+
+note that capprov is not necessarily equal to name",text
+province,mondial_geo,Capital,"the name of the capital [format: text] Value: if null, doesn't have capital",text
+province,mondial_geo,Country,the country code where it belongs to [format: text] [primary key],text
+province,mondial_geo,Name,the name of the administrative division [format: text] [primary key],text
+province,mondial_geo,Population,the population of the province [format: real],integer
+religion,mondial_geo,Country,the country code [format: text] [primary key],text
+religion,mondial_geo,Name,name of the religion [format: text] [primary key],text
+religion,mondial_geo,Percentage,percentage of the language in this country [format: real] Value: %,real
+river,mondial_geo,EstuaryLatitude,the latitude of its estuary [format: real],real
+river,mondial_geo,EstuaryLongitude,the coordinates of its estuary [format: real],real
+river,mondial_geo,Lake,the lake where it finally flows to [format: text],text
+river,mondial_geo,Length,the length of the river [format: real],real
+river,mondial_geo,Mountains,the mountains where its source is located [format: text],text
+river,mondial_geo,Name,the name of the river [format: text] [primary key],text
+river,mondial_geo,River,the river where it finally flows to [format: text],text
+river,mondial_geo,Sea,"the sea where it finally flows to [format: text] Value: (note that at most one out of {river,lake,sea} can be non-null",text
+river,mondial_geo,SourceAltitude,the elevation (above sea level) of its source [format: real],real
+river,mondial_geo,SourceLatitude,the latitude of its source [format: real],real
+river,mondial_geo,SourceLongitude,the longitude of its source [format: real],real
+sea,mondial_geo,Depth,the maximal depth of the sea [format: real],real
+sea,mondial_geo,Name,the name of the sea [format: text] [primary key],text
+target,mondial_geo,Country,[format: text] [primary key],text
+target,mondial_geo,Target,[format: real],text

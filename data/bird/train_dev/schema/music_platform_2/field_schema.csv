@@ -1,0 +1,25 @@
+table,db,field_name,field_name_desc,field_type
+categories,music_platform_2,category,"category of the podcast [format: text] Value: commonsense evidence: 
+This usually represents the topic of the podcast. [primary key]",text
+categories,music_platform_2,podcast_id,The unique id of the podcast [format: text] [primary key],text
+podcasts,music_platform_2,itunes_id,The unique id of the itunes. [format: integer],integer
+podcasts,music_platform_2,itunes_url,"The iTunes url of the podcast. [format: text] Value: commonsense evidence: 
+Can visit the webpage of the podcast by clicking the itunes_url.",text
+podcasts,music_platform_2,podcast_id,The unique id of the podcast [format: text] [primary key],text
+podcasts,music_platform_2,slug,"The slug of the podcast. [format: text] Value: commonsense evidence: 
+It usually has the same name with the ""title"" column.",text
+podcasts,music_platform_2,title,"The title of the podcast. [format: text] Value: commonsense evidence: 
+It usually has a very similar name to the ""slug"" column.",text
+reviews,music_platform_2,author_id,The author id of the podcast review. [format: text],text
+reviews,music_platform_2,content,"The content of the podcast review. [format: text] Value: commonsense evidence: 
+This usually is the detailed explanation of the podcast review title.",text
+reviews,music_platform_2,created_at,"The date and time of the podcast review creation. [format: text] Value: In the format of ""Date time"". e.g., 2018-05-09T18:14:32-07:00",text
+reviews,music_platform_2,podcast_id,The unique id of the podcast [format: text],text
+reviews,music_platform_2,rating,"The rating of the podcast review. [format: integer] Value: commonsense evidence: 
+Allowed values: 0 to 5. 
+This rating is highly related with ""title"" and ""content"".",integer
+reviews,music_platform_2,title,"The title of the podcast review. [format: text] Value: commonsense evidence: 
+This usually is the abstract of the whole review.",text
+runs,music_platform_2,max_rowid,The id of max row of this run. [format: integer],integer
+runs,music_platform_2,reviews_added,The number of reviews added in this run. [format: integer],integer
+runs,music_platform_2,run_at,The date and time of the podcast review creation. [format: text],text

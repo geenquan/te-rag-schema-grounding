@@ -1,0 +1,59 @@
+table,db,field_name,field_name_desc,field_type
+Dish,menu,description,description of the dish [format: text] Value: (no value),text
+Dish,menu,first_appeared,"the year that this dish appears first [format: integer] Value: commonsense evidence:
+1.	the year outside of [1851, 2012], it means this data is not correct 
+2.	if this dish lasts longer (last_appeared - first_appeard), it means its history is long or historical / classical",integer
+Dish,menu,highest_price,the highest price of the dish [format: real],real
+Dish,menu,id,unique id number indicating the dishes [format: integer] [primary key],integer
+Dish,menu,last_appeared,"the year that this dish appears the last time [format: integer] Value: commonsense evidence:
+1.	the year outside of [1851, 2012], it means this data is not correct
+2.	if this dish lasts longer (last_appeared - first_appeard), it means its history is long or historical / classical",integer
+Dish,menu,lowest_price,"the lowest price of the dish [format: real] Value: commonsense evidence:
+0: for free",real
+Dish,menu,menus_appeared,how many menus have this dish [format: integer],integer
+Dish,menu,name,the name of the dish [format: text],text
+Dish,menu,times_appeared,"how many times this dish appears in the menu [format: integer] Value: commonsense evidence:
+if times_appeared > menus_appeard: this dish appeared in a menu more than once",integer
+Menu,menu,call_number,"call number [format: text] Value: commonsense evidence:
+if null: not support for taking out or booking in advance",text
+Menu,menu,currency,the currency that the menu was used [format: text],text
+Menu,menu,currency_symbol,the currency symbol [format: text],text
+Menu,menu,date,the date that this menu was created [format: date],date
+Menu,menu,dish_count,the number of dishes of this menu [format: integer],integer
+Menu,menu,event,the event that the menu was created for [format: text],text
+Menu,menu,id,the unique number identifying the menu [format: integer] [primary key],integer
+Menu,menu,keywords,keywords [format: text] Value: not useful,text
+Menu,menu,language,language [format: text] Value: not useful,text
+Menu,menu,location,the location that the menu was used [format: text],text
+Menu,menu,location_type,[format: text] Value: not useful,text
+Menu,menu,name,"the name of the menu [format: text] Value: commonsense evidence:
+
+if the value is not null or empty, it means this menu has special dishes.
+
+otherwise, this menu is general and nothing special",text
+Menu,menu,notes,notes [format: text],text
+Menu,menu,occasion,occasion of the menu [format: text],text
+Menu,menu,page_count,the number of pages of this menu [format: integer],integer
+Menu,menu,physical_description,physical description of the menu [format: text],text
+Menu,menu,place,the location that the menu was used [format: text] Value: the location that the menu was used,text
+Menu,menu,sponsor,"the sponsor of this menu [format: text] Value: commonsense evidence:
+
+if the value is null or empyt, it means this meanu is DIY by the restaurant.",text
+Menu,menu,status,status of the menu [format: text],text
+Menu,menu,venue,the venue that the menu was created for [format: text],text
+MenuItem,menu,created_at,the dates when the item was created [format: text],text
+MenuItem,menu,dish_id,the id of the dish [format: integer] [foreign key -> Dish.id],integer
+MenuItem,menu,high_price,high price of this dish [format: real],real
+MenuItem,menu,id,the unique id representing the menu item [format: integer] [primary key],integer
+MenuItem,menu,menu_page_id,the id of menu page [format: integer] [foreign key -> MenuPage.id],integer
+MenuItem,menu,price,the price of this dish (menu item) [format: real],real
+MenuItem,menu,updated_at,the dates when the item was updated [format: text],text
+MenuItem,menu,xpos,x-axis position of the dish in this menu page [format: real],real
+MenuItem,menu,ypos,y-axis position of the dish in this menu page [format: real],real
+MenuPage,menu,full_height,full height of the menu page [format: integer] Value: (mm),integer
+MenuPage,menu,full_width,full width of the menu page [format: integer] Value: (mm),integer
+MenuPage,menu,id,the unique id number indentifying the menupage [format: integer] [primary key],integer
+MenuPage,menu,image_id,the id of the image [format: real],real
+MenuPage,menu,menu_id,the id of the menu [format: integer] [foreign key -> Menu.id],integer
+MenuPage,menu,page_number,the page number [format: integer],integer
+MenuPage,menu,uuid,[format: text],text

@@ -1,0 +1,484 @@
+table,db,field_name,field_name_desc,field_type
+Address,works_cycles,AddressID,Unique id number identifying the address. [format: integer] Value: Primary key for Address records. Identity / Auto increment column. [primary key],integer
+Address,works_cycles,AddressLine1,First street address line. [format: text],text
+Address,works_cycles,AddressLine2,"Second street address line. [format: text] Value: commonsense evidence:
+1. total address = (AddressLine1+AddressLine2) 
+2. if AddressLine2 is not null, it means the address is too long",text
+Address,works_cycles,City,Name of the city. [format: text],text
+Address,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+Address,works_cycles,PostalCode,Postal code for the street address. [format: text],text
+Address,works_cycles,SpatialLocation,Latitude and longitude of this address. [format: text],text
+Address,works_cycles,StateProvinceID,Identification number for the state or province. [format: integer],integer
+Address,works_cycles,rowguid,Uniquely identifying the record. Used to support a merge replication sample. [format: text] Value: Default: newid(),text
+AddressType,works_cycles,AddressTypeID,Unique numbers identifying address type records. [format: integer] Value: Primary key for AddressType records. Identity / Auto increment column. [primary key],integer
+AddressType,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+AddressType,works_cycles,Name,Address type description. [format: text],text
+AddressType,works_cycles,rowguid,Uniquely identifying the record. Used to support a merge replication sample. [format: text] Value: Default: newid(),text
+BillOfMaterials,works_cycles,BOMLevel,Indicates the depth the component is from its parent (column2)(AssemblyID). [format: integer],integer
+BillOfMaterials,works_cycles,BillOfMaterialsID,The unique number identifying bill of materials. [format: integer] Value: Primary key for BillOfMaterials records. Identity / Auto increment column. [primary key],integer
+BillOfMaterials,works_cycles,ComponentID,Component identification number. [format: integer],integer
+BillOfMaterials,works_cycles,EndDate,"Date the component stopped being used in the assembly item. [format: datetime] Value: commonsense evidence:
+1. assembly item duration = (EndDate - StartDate) 
+2. if EndDate is null, it means the assembly item doesn't finish (still going on).",datetime
+BillOfMaterials,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+BillOfMaterials,works_cycles,PerAssemblyQty,Quantity of the component needed to create the assembly. [format: real],real
+BillOfMaterials,works_cycles,ProductAssemblyID,Parent product identification number. [format: integer],integer
+BillOfMaterials,works_cycles,StartDate,Date the component started being used in the assembly item. [format: datetime],datetime
+BillOfMaterials,works_cycles,UnitMeasureCode,Standard code identifying the unit of measure for the quantity. [format: text],text
+BusinessEntity,works_cycles,BusinessEntityID,"Unique number of identifying business entity. [format: integer] Value: Primary key for all customers, vendors, and employees. Identity / Auto increment column [primary key]",integer
+BusinessEntity,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+BusinessEntity,works_cycles,rowguid,Uniquely identifying the record. Used to support a merge replication sample. [format: text] Value: Default: newid(),text
+BusinessEntityAddress,works_cycles,AddressID,Number identifying the address. [format: integer] [primary key] [foreign key -> Address.AddressID],integer
+BusinessEntityAddress,works_cycles,AddressTypeID,Number identifying the address type. [format: integer] [primary key] [foreign key -> AddressType.AddressTypeID],integer
+BusinessEntityAddress,works_cycles,BusinessEntityID,Number identifying the business entity. [format: integer] [primary key] [foreign key -> BusinessEntity.BusinessEntityID],integer
+BusinessEntityAddress,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+BusinessEntityAddress,works_cycles,rowguid,Uniquely identifying the record. Used to support a merge replication sample. [format: text] Value: Default: newid(),text
+BusinessEntityContact,works_cycles,BusinessEntityID,The id number identifying the Business Entity ID. [format: integer] [primary key] [foreign key -> BusinessEntity.BusinessEntityID],integer
+BusinessEntityContact,works_cycles,ContactTypeID,The id number identifying the contact type ID. [format: integer] [primary key] [foreign key -> ContactType.ContactTypeID],integer
+BusinessEntityContact,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+BusinessEntityContact,works_cycles,PersonID,The id number identifying the Person ID. [format: integer] [primary key] [foreign key -> Person.BusinessEntityID],integer
+BusinessEntityContact,works_cycles,rowguid,Uniquely identifying the record. Used to support a merge replication sample. [format: text] Value: Default: newid(),text
+ContactType,works_cycles,ContactTypeID,The unique id number identifying the contact type ID. [format: integer] [primary key],integer
+ContactType,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+ContactType,works_cycles,Name,Contact type description. [format: text],text
+CountryRegion,works_cycles,CountryRegionCode,The unique id number identifying Country Region ISO standard code for countries and regions. [format: text] [primary key],text
+CountryRegion,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+CountryRegion,works_cycles,Name,Country or region name. [format: text],text
+CountryRegionCurrency,works_cycles,CountryRegionCode,The id number identifying Country Region ISO standard code for countries and regions. [format: text] [primary key] [foreign key -> CountryRegion.CountryRegionCode],text
+CountryRegionCurrency,works_cycles,CurrencyCode,ISO standard currency code. [format: text] [primary key] [foreign key -> Currency.CurrencyCode],text
+CountryRegionCurrency,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+CreditCard,works_cycles,CardNumber,Credit card number. [format: text],text
+CreditCard,works_cycles,CardType,Credit card name. [format: text],text
+CreditCard,works_cycles,CreditCardID,The unique id number identifying the credit card. [format: integer] [primary key],integer
+CreditCard,works_cycles,ExpMonth,Credit card expiration month. [format: integer],integer
+CreditCard,works_cycles,ExpYear,Credit card expiration year. [format: integer],integer
+CreditCard,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+Culture,works_cycles,CultureID,The unique id string identifying the language in which AdventrueWorks data is stored. [format: text] [primary key],text
+Culture,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+Culture,works_cycles,Name,Name of the language. [format: text],text
+Currency,works_cycles,CurrencyCode,The unique id string identifying the currency. [format: text] [primary key],text
+Currency,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+Currency,works_cycles,Name,Currency name. [format: text],text
+CurrencyRate,works_cycles,AverageRate,Average exchange rate for the day. [format: real],real
+CurrencyRate,works_cycles,CurrencyRateDate,Date and time the exchange rate was obtained. [format: datetime],datetime
+CurrencyRate,works_cycles,CurrencyRateID,The unique id number identifying the currency rate record. [format: integer] [primary key],integer
+CurrencyRate,works_cycles,EndOfDayRate,Final exchange rate for the day. [format: real],real
+CurrencyRate,works_cycles,FromCurrencyCode,Exchange rate was converted from this currency code. [format: text],text
+CurrencyRate,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+CurrencyRate,works_cycles,ToCurrencyCode,Exchange rate was converted to this currency code. [format: text],text
+Customer,works_cycles,AccountNumber,"Unique number identifying the customer assigned by the accounting system. [format: text] Value: Computed: isnull('AW'+[ufnLeadingZeros]([CustomerID]),'')",text
+Customer,works_cycles,CustomerID,The unique id number identifying the customer. [format: integer] [primary key],integer
+Customer,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+Customer,works_cycles,PersonID,The id number identifying the person. [format: integer] [foreign key -> Person.BusinessEntityID],integer
+Customer,works_cycles,StoreID,The id number identifying the store / bussiness entity. [format: integer] [foreign key -> Store.BusinessEntityID],integer
+Customer,works_cycles,TerritoryID,ID of the territory in which the customer is located. [format: integer] [foreign key -> SalesTerritory.TerritoryID],integer
+Customer,works_cycles,rowguid,Uniquely identifying the record. Used to support a merge replication sample. [format: text] Value: Default: newid(),text
+Department,works_cycles,DepartmentID,The unique id number identifying the department. [format: integer] [primary key],integer
+Department,works_cycles,GroupName,Name of the group to which the department belongs. [format: text],text
+Department,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+Department,works_cycles,Name,Name of the department. [format: text],text
+Document,works_cycles,ChangeNumber,Engineering change approval number. [format: integer],integer
+Document,works_cycles,Document,Complete document. [format: blob],blob
+Document,works_cycles,DocumentLevel,Depth in the document hierarchy. [format: integer] Value: Computed: [DocumentNode].[GetLevel](),integer
+Document,works_cycles,DocumentNode,The unique hierarchy id identifying the document nodes. [format: text] [primary key],text
+Document,works_cycles,DocumentSummary,"Document abstract. [format: text] Value: commonsense evidence:
+if no document Summary: it means this document is private",text
+Document,works_cycles,FileExtension,File extension indicating the document type. [format: text],text
+Document,works_cycles,FileName,Uniquely identifying the record. Used to support a merge replication sample. [format: text] Value: File name of the document,text
+Document,works_cycles,FolderFlag,"The type of the folders. [format: integer] Value: 0 = This is a folder, 1 = This is a document. Default: 0",integer
+Document,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+Document,works_cycles,Owner,Employee who controls the document. [format: integer],integer
+Document,works_cycles,Revision,Revision number of the document. [format: text],text
+Document,works_cycles,Status,"Status of document processing. [format: integer] Value: 1 = Pending approval, 2 = Approved, 3 = Obsolete",integer
+Document,works_cycles,Title,Title of the document. [format: text],text
+Document,works_cycles,rowguid,Uniquely identifying the record. Used to support a merge replication sample. [format: text] Value: Default: newid(),text
+EmailAddress,works_cycles,BusinessEntityID,The id number identifying the person associated with this email address. [format: integer] [primary key] [foreign key -> Person.BusinessEntityID],integer
+EmailAddress,works_cycles,EmailAddress,The E-mail address for the person. [format: text],text
+EmailAddress,works_cycles,EmailAddressID,The ID of this email address. [format: integer] [primary key],integer
+EmailAddress,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+EmailAddress,works_cycles,rowguid,Uniquely identifying the record. Used to support a merge replication sample. [format: text] Value: Default: newid(),text
+Employee,works_cycles,BirthDate,Date of birth. [format: date],date
+Employee,works_cycles,BusinessEntityID,The id number identifying the employee. [format: integer] [primary key] [foreign key -> Person.BusinessEntityID],integer
+Employee,works_cycles,CurrentFlag,"Whether this employee is active or not [format: integer] Value: 0 = Inactive, 1 = Active",integer
+Employee,works_cycles,Gender,"The gender of this employee. [format: text] Value: M = Male, F = Female",text
+Employee,works_cycles,HireDate,The employee was hired on this date. [format: date],date
+Employee,works_cycles,JobTitle,Work title such as Buyer or Sales Representative. [format: text],text
+Employee,works_cycles,LoginID,Network login. [format: text],text
+Employee,works_cycles,MaritalStatus,"Whether this employee is married or not. [format: text] Value: M = Married, S = Single",text
+Employee,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+Employee,works_cycles,NationalIDNumber,The national identification number such as a social security number. [format: text],text
+Employee,works_cycles,OrganizationLevel,The depth of the employee in the corporate hierarchy. [format: integer] Value: Computed: [OrganizationNode].[GetLevel](),integer
+Employee,works_cycles,OrganizationNode,Where the employee is located in corporate hierarchy. [format: text] Value: Default: newid(),text
+Employee,works_cycles,SalariedFlag,"Job classification. [format: integer] Value: 0 = Hourly, not exempt from collective bargaining. 1 = Salaried, exempt from collective bargaining.",integer
+Employee,works_cycles,SickLeaveHours,The number of available sick leave hours. [format: integer],integer
+Employee,works_cycles,VacationHours,The number of available vacation hours. [format: integer],integer
+Employee,works_cycles,rowguid,Uniquely identifying the record. Used to support a merge replication sample. [format: text] Value: Default: newid(),text
+EmployeeDepartmentHistory,works_cycles,BusinessEntityID,Employee identification number. [format: integer] [primary key],integer
+EmployeeDepartmentHistory,works_cycles,DepartmentID,Department in which the employee worked including currently. [format: integer] [primary key],integer
+EmployeeDepartmentHistory,works_cycles,EndDate,Date the employee ended working in the department. [format: date],date
+EmployeeDepartmentHistory,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+EmployeeDepartmentHistory,works_cycles,ShiftID,Identifies which 8-hour shift the employee works. [format: integer] [primary key],integer
+EmployeeDepartmentHistory,works_cycles,StartDate,Date the employee started working in the department. [format: date] [primary key],date
+EmployeePayHistory,works_cycles,BusinessEntityID,Employee identification number. [format: integer] [primary key],integer
+EmployeePayHistory,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+EmployeePayHistory,works_cycles,PayFrequency,"Pay Frequency. [format: integer] Value: 1 = Salary received monthly, 2 = Salary received biweekly",integer
+EmployeePayHistory,works_cycles,Rate,Salary hourly rate. [format: real],real
+EmployeePayHistory,works_cycles,RateChangeDate,Date the change in pay is effective. [format: datetime] [primary key],datetime
+JobCandidate,works_cycles,BusinessEntityID,Employee identification number if applicant was hired. [format: integer],integer
+JobCandidate,works_cycles,JobCandidateID,The unique id number identifying the job candidates. [format: integer] [primary key],integer
+JobCandidate,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+JobCandidate,works_cycles,Resume,Résumé in XML format. [format: text],text
+Location,works_cycles,Availability,Work capacity (in hours) of the manufacturing location. [format: real] Value: Default: 0.00,real
+Location,works_cycles,CostRate,Standard hourly cost of the manufacturing location. [format: real] Value: Default: 0.00,real
+Location,works_cycles,LocationID,The unique id number identifying the job candidates. [format: integer] [primary key],integer
+Location,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+Location,works_cycles,Name,Location description. [format: text],text
+Password,works_cycles,BusinessEntityID,The unique id number identifying the person. [format: integer] [primary key] [foreign key -> Person.BusinessEntityID],integer
+Password,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+Password,works_cycles,PasswordHash,Password for the e-mail account. [format: text],text
+Password,works_cycles,PasswordSalt,Random value concatenated with the password string before the password is hashed. [format: text],text
+Password,works_cycles,rowguid,Uniquely identifying the record. Used to support a merge replication sample. [format: text] Value: Default: newid(),text
+Person,works_cycles,AdditionalContactInfo,Additional contact information about the person stored in xml format. [format: text],text
+Person,works_cycles,BusinessEntityID,The unique id number identifying the person. [format: integer] [primary key] [foreign key -> BusinessEntity.BusinessEntityID],integer
+Person,works_cycles,Demographics,"Personal information such as hobbies, and income collected from online shoppers. Used for sales analysis. [format: text]",text
+Person,works_cycles,EmailPromotion,"Email Promotion. [format: integer] Value: 0 = Contact does not wish to receive e-mail promotions, 1 = Contact does wish to receive e-mail promotions from AdventureWorks, 2 = Contact does wish to receive e-mail promotions from AdventureWorks and selected partners. Default: 0",integer
+Person,works_cycles,FirstName,First name of the person. [format: text] Value: Default: getdate(),text
+Person,works_cycles,LastName,Last name of the person. [format: text],text
+Person,works_cycles,MiddleName,Middle name or middle initial of the person. [format: text],text
+Person,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+Person,works_cycles,NameStyle,"Name Style. [format: integer] Value: 0 = The data in FirstName and LastName are stored in western style (first name, last name) order. 1 = Eastern style (last name, first name) order. Default: 0",integer
+Person,works_cycles,PersonType,"The type of person. [format: text] Value: Primary type of person: SC = Store Contact, IN = Individual (retail) customer, SP = Sales person, EM = Employee (non-sales), VC = Vendor contact, GC = General contact",text
+Person,works_cycles,Suffix,Surname suffix. [format: text],text
+Person,works_cycles,Title,A courtesy title. [format: text],text
+Person,works_cycles,rowguid,Uniquely identifying the record. Used to support a merge replication sample. [format: text] Value: Default: newid(),text
+PersonCreditCard,works_cycles,BusinessEntityID,The id number identifying the person. [format: integer] [primary key] [foreign key -> Person.BusinessEntityID],integer
+PersonCreditCard,works_cycles,CreditCardID,Credit card identification number. [format: integer] [primary key] [foreign key -> CreditCard.CreditCardID],integer
+PersonCreditCard,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+PhoneNumberType,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+PhoneNumberType,works_cycles,Name,Name of the telephone number type. [format: text],text
+PhoneNumberType,works_cycles,PhoneNumberTypeID,The id number identifying the telephone number type records. [format: integer] [primary key],integer
+Product,works_cycles,Class,"Product quality class [format: text] Value: H = High, M = Medium, L = Low",text
+Product,works_cycles,Color,Color [format: text] Value: Product color.,text
+Product,works_cycles,DaysToManufacture,Number of days required to manufacture the product. [format: integer],integer
+Product,works_cycles,DiscontinuedDate,Date the product was discontinued. [format: datetime],datetime
+Product,works_cycles,FinishedGoodsFlag,Whether the product is salable or not. [format: integer] Value: 0 = Product is not a salable item. 1 = Product is salable. Default: 1,integer
+Product,works_cycles,ListPrice,"Selling price [format: real] Value: commonsense evidence: 
+profit = ListPrice - StandardCost",real
+Product,works_cycles,MakeFlag,"The source of product make. [format: integer] Value: 0 = Product is purchased, 1 = Product is manufactured in-house. Default: 1",integer
+Product,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+Product,works_cycles,Name,Name of the product. [format: text],text
+Product,works_cycles,ProductID,The unique id number identifying the product. [format: integer] [primary key],integer
+Product,works_cycles,ProductLine,"Product Routine [format: text] Value: R = Road, M = Mountain, T = Touring, S = Standard",text
+Product,works_cycles,ProductModelID,Product is a member of this product model. [format: integer],integer
+Product,works_cycles,ProductNumber,The unique product identification number. [format: text],text
+Product,works_cycles,ProductSubcategoryID,Product is a member of this product subcategory. [format: integer],integer
+Product,works_cycles,ReorderPoint,Inventory level that triggers a purchase order or work order. [format: integer],integer
+Product,works_cycles,SafetyStockLevel,The minimum inventory quantity. [format: integer],integer
+Product,works_cycles,SellEndDate,Date the product was no longer available for sale. [format: datetime],datetime
+Product,works_cycles,SellStartDate,Date the product was available for sale. [format: datetime],datetime
+Product,works_cycles,Size,Product size [format: text],text
+Product,works_cycles,SizeUnitMeasureCode,Unit of measure for Size column. [format: text],text
+Product,works_cycles,StandardCost,Standard cost of the product. [format: real],real
+Product,works_cycles,Style,"Style [format: text] Value: W = Womens, M = Mens, U = Universal",text
+Product,works_cycles,Weight,Product weight [format: real],real
+Product,works_cycles,WeightUnitMeasureCode,Unit of measure for Weight column. [format: text],text
+Product,works_cycles,rowguid,Uniquely identifying the record. Used to support a merge replication sample. [format: text] Value: Default: newid(),text
+ProductCategory,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+ProductCategory,works_cycles,Name,Category description [format: text],text
+ProductCategory,works_cycles,ProductCategoryID,The unique id number identifying the product category. [format: integer] [primary key],integer
+ProductCategory,works_cycles,rowguid,Uniquely identifying the record. Used to support a merge replication sample. [format: text] Value: Default: newid(),text
+ProductCostHistory,works_cycles,EndDate,Product cost end date [format: date],date
+ProductCostHistory,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+ProductCostHistory,works_cycles,ProductID,The id number identifying the product. [format: integer] [primary key] [foreign key -> Product.ProductID],integer
+ProductCostHistory,works_cycles,StandardCost,Standard cost of the product. [format: real],real
+ProductCostHistory,works_cycles,StartDate,Product cost start date [format: date] [primary key],date
+ProductDescription,works_cycles,Description,Description of the product. [format: text],text
+ProductDescription,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+ProductDescription,works_cycles,ProductDescriptionID,The unique id number identifying the product description. [format: integer] [primary key],integer
+ProductDescription,works_cycles,rowguid,Uniquely identifying the record. Used to support a merge replication sample. [format: text] Value: Default: newid(),text
+ProductDocument,works_cycles,DocumentNode,The hierarchy id number identifying the Document node. [format: text] Value: Document identification number [primary key] [foreign key -> Document.DocumentNode],text
+ProductDocument,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+ProductDocument,works_cycles,ProductID,The id number identifying the product. [format: integer] [primary key] [foreign key -> Product.ProductID],integer
+ProductInventory,works_cycles,Bin,Storage container on a shelf in an inventory location. [format: integer],integer
+ProductInventory,works_cycles,LocationID,Inventory location identification number. [format: integer] Value: Document identification number [primary key] [foreign key -> Location.LocationID],integer
+ProductInventory,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+ProductInventory,works_cycles,ProductID,Product identification number. [format: integer] [primary key] [foreign key -> Product.ProductID],integer
+ProductInventory,works_cycles,Quantity,Quantity of products in the inventory location. [format: integer] Value: Default: 0,integer
+ProductInventory,works_cycles,Shelf,Storage compartment within an inventory location. [format: text],text
+ProductInventory,works_cycles,rowguid,Uniquely identifying the record. Used to support a merge replication sample. [format: text] Value: Default: newid(),text
+ProductListPriceHistory,works_cycles,EndDate,List price end date. [format: date],date
+ProductListPriceHistory,works_cycles,ListPrice,Product list price. [format: real],real
+ProductListPriceHistory,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+ProductListPriceHistory,works_cycles,ProductID,Product identification number. [format: integer] [primary key] [foreign key -> Product.ProductID],integer
+ProductListPriceHistory,works_cycles,StartDate,List price start date. [format: date] [primary key],date
+ProductModel,works_cycles,CatalogDescription,Detailed product catalog information in xml format. [format: text],text
+ProductModel,works_cycles,Instructions,Manufacturing instructions in xml format. [format: text],text
+ProductModel,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+ProductModel,works_cycles,Name,Product model description. [format: text],text
+ProductModel,works_cycles,ProductModelID,The unique id number identifying the product model. [format: integer] [primary key],integer
+ProductModel,works_cycles,rowguid,Uniquely identifying the record. Used to support a merge replication sample. [format: text] Value: Default: newid(),text
+ProductModelProductDescriptionCulture,works_cycles,CultureID,Culture identification number. [format: text] [primary key] [foreign key -> Culture.CultureID],text
+ProductModelProductDescriptionCulture,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+ProductModelProductDescriptionCulture,works_cycles,ProductDescriptionID,Product description identification number. [format: integer] [primary key] [foreign key -> ProductDescription.ProductDescriptionID],integer
+ProductModelProductDescriptionCulture,works_cycles,ProductModelID,The id number identifying the product model. [format: integer] [primary key] [foreign key -> ProductModel.ProductModelID],integer
+ProductPhoto,works_cycles,LargePhoto,Large image of the product. [format: blob],blob
+ProductPhoto,works_cycles,LargePhotoFileName,"Large image file name. [format: text] Value: commonsense evidence:
+similar to ThumbNailPhoto",text
+ProductPhoto,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime],datetime
+ProductPhoto,works_cycles,ProductPhotoID,unique id number identifying the products [format: integer] [primary key],integer
+ProductPhoto,works_cycles,ThumbNailPhoto,"Small image of the product. [format: blob] Value: The size of small images.
+commonsense evidence:
+""80x49 GIF image 3.07 kB"". ""3.07"" represents the size of images, ""GIF"" refers to type of images like JPEG, GIF, etc.",blob
+ProductPhoto,works_cycles,ThumbnailPhotoFileName,Small image file name [format: text],text
+ProductProductPhoto,works_cycles,ModifiedDate,[format: datetime],datetime
+ProductProductPhoto,works_cycles,Primary,"Whether this photo is the principal image or not. [format: integer] Value: 0 = Photo is not the principal image. 
+1 = Photo is the principal image. 
+commonsense evidence:
+staff can mention ""principal"" in the question in order to make the question more realistic.",integer
+ProductProductPhoto,works_cycles,ProductID,Product identification number. [format: integer] [primary key] [foreign key -> Product.ProductID],integer
+ProductProductPhoto,works_cycles,ProductPhotoID,Product photo identification number. [format: integer] [primary key] [foreign key -> ProductPhoto.ProductPhotoID],integer
+ProductReview,works_cycles,Comments,,text
+ProductReview,works_cycles,EmailAddress,Reviewer's e-mail address. [format: text],text
+ProductReview,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+ProductReview,works_cycles,ProductID,Product identification number. [format: integer] [foreign key -> Product.ProductID],integer
+ProductReview,works_cycles,ProductReviewID,The unique id numbers identifying product reviews. [format: integer] [primary key],integer
+ProductReview,works_cycles,Rating,"Product rating given by the reviewer. [format: integer] Value: commonsense evidence:
+Scale is 1 to 5 with 5 as the highest rating.",integer
+ProductReview,works_cycles,ReviewDate,Date review was submitted. [format: datetime] Value: Default: getdate(),datetime
+ProductReview,works_cycles,ReviewerName,The name of reviewer. [format: text],text
+ProductSubcategory,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+ProductSubcategory,works_cycles,Name,Subcategory description. [format: text],text
+ProductSubcategory,works_cycles,ProductCategoryID,Product category identification number. [format: integer] [foreign key -> ProductCategory.ProductCategoryID],integer
+ProductSubcategory,works_cycles,ProductSubcategoryID,Unique id number identifying the subcategory of products. [format: integer] [primary key],integer
+ProductSubcategory,works_cycles,rowguid,Uniquely identifying the record. Used to support a merge replication sample. [format: text] Value: Default: newid(),text
+ProductVendor,works_cycles,AverageLeadTime,The average span of time between placing an order with the vendor and receiving the purchased product. [format: integer] Value: in days,integer
+ProductVendor,works_cycles,BusinessEntityID,The id number identifying the business entities. [format: integer] [primary key] [foreign key -> Vendor.BusinessEntityID],integer
+ProductVendor,works_cycles,LastReceiptCost,"The selling price when last purchased. [format: real] Value: commonsense evidence:
+profit on net can be computed by LastReceiptCost - StandardPrice",real
+ProductVendor,works_cycles,LastReceiptDate,Date the product was last received by the vendor. [format: datetime],datetime
+ProductVendor,works_cycles,MaxOrderQty,The minimum quantity that should be ordered. [format: integer],integer
+ProductVendor,works_cycles,MinOrderQty,The maximum quantity that should be ordered. [format: integer],integer
+ProductVendor,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+ProductVendor,works_cycles,OnOrderQty,"The quantity currently on order. [format: integer] Value: if it's equal to 0, it means ""out of stock""",integer
+ProductVendor,works_cycles,ProductID,The id number identifying the products. [format: integer] [primary key] [foreign key -> Product.ProductID],integer
+ProductVendor,works_cycles,StandardPrice,The vendor's usual selling price. [format: real],real
+ProductVendor,works_cycles,UnitMeasureCode,The product's unit of measure. [format: text] [foreign key -> UnitMeasure.UnitMeasureCode],text
+PurchaseOrderDetail,works_cycles,DueDate,Date the product is expected to be received. [format: datetime],datetime
+PurchaseOrderDetail,works_cycles,LineTotal,"Per product subtotal [format: real] Value: Computed as OrderQty * UnitPrice. Computed: isnull([OrderQty]*[UnitPrice],(0.00))",real
+PurchaseOrderDetail,works_cycles,ModifiedDate,,datetime
+PurchaseOrderDetail,works_cycles,OrderQty,Quantity ordered. [format: integer],integer
+PurchaseOrderDetail,works_cycles,ProductID,The id number identifying products. [format: integer] [foreign key -> Product.ProductID],integer
+PurchaseOrderDetail,works_cycles,PurchaseOrderDetailID,Unique purchase detail order. [format: integer] [primary key],integer
+PurchaseOrderDetail,works_cycles,PurchaseOrderID,Purchase order number. [format: integer] [foreign key -> PurchaseOrderHeader.PurchaseOrderID],integer
+PurchaseOrderDetail,works_cycles,ReceivedQty,Quantity actually received from the vendor. [format: real],real
+PurchaseOrderDetail,works_cycles,RejectedQty,,real
+PurchaseOrderDetail,works_cycles,StockedQty,,real
+PurchaseOrderDetail,works_cycles,UnitPrice,Vendor's selling price of a single product. [format: real],real
+PurchaseOrderHeader,works_cycles,EmployeeID,Employee who created the purchase order. [format: integer] [foreign key -> Employee.BusinessEntityID],integer
+PurchaseOrderHeader,works_cycles,Freight,Shipping cost [format: real],real
+PurchaseOrderHeader,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+PurchaseOrderHeader,works_cycles,OrderDate,Purchase order creation date [format: datetime] Value: Default: getdate(),datetime
+PurchaseOrderHeader,works_cycles,PurchaseOrderID,The unique id number identifying purchase order. [format: integer] [primary key],integer
+PurchaseOrderHeader,works_cycles,RevisionNumber,Incremental number to track changes to the purchase order over time. [format: integer],integer
+PurchaseOrderHeader,works_cycles,ShipDate,Estimated shipment date from the vendor. [format: datetime],datetime
+PurchaseOrderHeader,works_cycles,ShipMethodID,Shipping method [format: integer] [foreign key -> ShipMethod.ShipMethodID],integer
+PurchaseOrderHeader,works_cycles,Status,Order current status. [format: integer] Value: 1 = Pending; 2 = Approved; 3 = Rejected; 4 = Complete Default: 1,integer
+PurchaseOrderHeader,works_cycles,SubTotal,Purchase order subtotal [format: real] Value: Computed as SUM (PurchaseOrderDetail.LineTotal)for the appropriate PurchaseOrderID,real
+PurchaseOrderHeader,works_cycles,TaxAmt,Tax amount [format: real],real
+PurchaseOrderHeader,works_cycles,TotalDue,"Total due to vendor [format: real] Value: Computed as Subtotal + TaxAmt + Freight. Computed: isnull(([SubTotal]+[TaxAmt])+[Freight],(0))",real
+PurchaseOrderHeader,works_cycles,VendorID,Vendor with whom the purchase order is placed. [format: integer] [foreign key -> Vendor.BusinessEntityID],integer
+SalesOrderDetail,works_cycles,CarrierTrackingNumber,[format: text],text
+SalesOrderDetail,works_cycles,LineTotal,[format: real],real
+SalesOrderDetail,works_cycles,ModifiedDate,modified date [format: datetime] Value: Date and time the record was last updated.,datetime
+SalesOrderDetail,works_cycles,OrderQty,[format: integer],integer
+SalesOrderDetail,works_cycles,ProductID,[format: integer] [foreign key -> SpecialOfferProduct.ProductID],integer
+SalesOrderDetail,works_cycles,SalesOrderDetailID,[format: integer] [primary key],integer
+SalesOrderDetail,works_cycles,SalesOrderID,[format: integer] [foreign key -> SalesOrderHeader.SalesOrderID],integer
+SalesOrderDetail,works_cycles,SpecialOfferID,[format: integer] [foreign key -> SpecialOfferProduct.SpecialOfferID],integer
+SalesOrderDetail,works_cycles,UnitPrice,[format: real],real
+SalesOrderDetail,works_cycles,UnitPriceDiscount,[format: real],real
+SalesOrderDetail,works_cycles,rowguid,[format: text],text
+SalesOrderHeader,works_cycles,AccountNumber,[format: text],text
+SalesOrderHeader,works_cycles,BillToAddressID,[format: integer],integer
+SalesOrderHeader,works_cycles,Comment,[format: text],text
+SalesOrderHeader,works_cycles,CreditCardApprovalCode,[format: text],text
+SalesOrderHeader,works_cycles,CreditCardID,[format: integer],integer
+SalesOrderHeader,works_cycles,CurrencyRateID,[format: integer],integer
+SalesOrderHeader,works_cycles,CustomerID,[format: integer],integer
+SalesOrderHeader,works_cycles,DueDate,[format: datetime],datetime
+SalesOrderHeader,works_cycles,Freight,Shipping cost [format: real],real
+SalesOrderHeader,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+SalesOrderHeader,works_cycles,OnlineOrderFlag,[format: integer],integer
+SalesOrderHeader,works_cycles,OrderDate,[format: datetime],datetime
+SalesOrderHeader,works_cycles,PurchaseOrderNumber,[format: text],text
+SalesOrderHeader,works_cycles,RevisionNumber,[format: integer],integer
+SalesOrderHeader,works_cycles,SalesOrderID,The id number of sales order. [format: integer] [primary key],integer
+SalesOrderHeader,works_cycles,SalesOrderNumber,[format: text],text
+SalesOrderHeader,works_cycles,SalesPersonID,[format: integer],integer
+SalesOrderHeader,works_cycles,ShipDate,Estimated shipment date from the vendor [format: datetime],datetime
+SalesOrderHeader,works_cycles,ShipMethodID,Shipping method [format: integer],integer
+SalesOrderHeader,works_cycles,ShipToAddressID,[format: integer],integer
+SalesOrderHeader,works_cycles,Status,Order current status [format: integer] Value: 1 = Pending; 2 = Approved; 3 = Rejected; 4 = Complete Default: 1,integer
+SalesOrderHeader,works_cycles,SubTotal,[format: real],real
+SalesOrderHeader,works_cycles,TaxAmt,Tax amount [format: real],real
+SalesOrderHeader,works_cycles,TerritoryID,[format: integer],integer
+SalesOrderHeader,works_cycles,TotalDue,Total due to vendor [format: real],real
+SalesOrderHeader,works_cycles,rowguid,[format: text],text
+SalesOrderHeaderSalesReason,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+SalesOrderHeaderSalesReason,works_cycles,SalesOrderID,The id number of sales order. [format: integer] [primary key] [foreign key -> SalesOrderHeader.SalesOrderID],integer
+SalesOrderHeaderSalesReason,works_cycles,SalesReasonID,The id number for sales reasons. [format: integer] [primary key] [foreign key -> SalesReason.SalesReasonID],integer
+SalesPerson,works_cycles,Bonus,"Bonus due if quota is met. [format: real] Value: commonsense evidence:
+if bonus is equal to 0, it means this salesperson doesn't meet quota. vice versa.",real
+SalesPerson,works_cycles,BusinessEntityID,The unique id number identifying the business entity. [format: integer] [primary key] [foreign key -> Employee.BusinessEntityID],integer
+SalesPerson,works_cycles,CommissionPct,[format: real] Value: Commission percent received per sale,real
+SalesPerson,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+SalesPerson,works_cycles,SalesLastYear,Sales total of previous year. [format: real],real
+SalesPerson,works_cycles,SalesQuota,Projected yearly sales [format: real],real
+SalesPerson,works_cycles,SalesYTD,Sales total year to date [format: real],real
+SalesPerson,works_cycles,TerritoryID,Territory currently assigned to. [format: integer] [foreign key -> SalesTerritory.TerritoryID],integer
+SalesPerson,works_cycles,rowguid,Uniquely identifying the record. Used to support a merge replication sample. [format: text] Value: Default: newid(),text
+SalesPersonQuotaHistory,works_cycles,BusinessEntityID,Sales person identification number [format: integer] [primary key] [foreign key -> SalesPerson.BusinessEntityID],integer
+SalesPersonQuotaHistory,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+SalesPersonQuotaHistory,works_cycles,QuotaDate,Sales quota date [format: datetime] [primary key],datetime
+SalesPersonQuotaHistory,works_cycles,SalesQuota,Sales quota amount [format: real],real
+SalesPersonQuotaHistory,works_cycles,rowguid,Uniquely identifying the record. Used to support a merge replication sample. [format: text] Value: Default: newid(),text
+SalesReason,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+SalesReason,works_cycles,Name,Sales reason description [format: text],text
+SalesReason,works_cycles,ReasonType,Category the sales reason belongs to. [format: text],text
+SalesReason,works_cycles,SalesReasonID,The unique number identifying SalesReason records. [format: integer] [primary key],integer
+SalesTaxRate,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+SalesTaxRate,works_cycles,Name,"Tax rate description [format: text] Value: commonsense evidence:
+if there's ""+"" in the value, it means this sales are charged by multiple types of tax.",text
+SalesTaxRate,works_cycles,SalesTaxRateID,Unique id number identifying sales tax records. [format: integer] [primary key],integer
+SalesTaxRate,works_cycles,StateProvinceID,id number identifying state province. [format: integer] [foreign key -> StateProvince.StateProvinceID],integer
+SalesTaxRate,works_cycles,TaxRate,Tax rate amount [format: real],real
+SalesTaxRate,works_cycles,TaxType,"Tax Type [format: integer] Value: 1 = Tax applied to retail transactions, 2 = Tax applied to wholesale transactions, 3 = Tax applied to all sales (retail and wholesale) transactions",integer
+SalesTaxRate,works_cycles,rowguid,Uniquely identifying the record. Used to support a merge replication sample. [format: text] Value: Default: newid(),text
+SalesTerritory,works_cycles,CostLastYear,Business costs in the territory the previous year. [format: real],real
+SalesTerritory,works_cycles,CostYTD,Business costs in the territory year to date. [format: real],real
+SalesTerritory,works_cycles,CountryRegionCode,ISO standard country or region code. [format: text] [foreign key -> CountryRegion.CountryRegionCode],text
+SalesTerritory,works_cycles,Group,Geographic area to which the sales territory belong. [format: text],text
+SalesTerritory,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+SalesTerritory,works_cycles,Name,Sales territory description. [format: text],text
+SalesTerritory,works_cycles,SalesLastYear,Sales in the territory the previous year. [format: real],real
+SalesTerritory,works_cycles,SalesYTD,Sales in the territory year to date. [format: real],real
+SalesTerritory,works_cycles,TerritoryID,The unique id number for SalesTerritory records. [format: integer] [primary key],integer
+SalesTerritory,works_cycles,rowguid,Uniquely identifying the record. Used to support a merge replication sample. [format: text] Value: Default: newid(),text
+SalesTerritoryHistory,works_cycles,BusinessEntityID,The sales representative. [format: integer] [primary key] [foreign key -> SalesPerson.BusinessEntityID],integer
+SalesTerritoryHistory,works_cycles,EndDate,Date the sales representative left work in the territory. [format: datetime],datetime
+SalesTerritoryHistory,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+SalesTerritoryHistory,works_cycles,StartDate,Date the sales representive started work in the territory. [format: datetime] [primary key],datetime
+SalesTerritoryHistory,works_cycles,TerritoryID,Territory identification number. [format: integer] [primary key] [foreign key -> SalesTerritory.TerritoryID],integer
+SalesTerritoryHistory,works_cycles,rowguid,Uniquely identifying the record. Used to support a merge replication sample. [format: text] Value: Default: newid(),text
+ScrapReason,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+ScrapReason,works_cycles,Name,Failure description. [format: text],text
+ScrapReason,works_cycles,ScrapReasonID,The unique number identifying for ScrapReason records. [format: integer] [primary key],integer
+Shift,works_cycles,EndTime,Shift end time. [format: text],text
+Shift,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+Shift,works_cycles,Name,Shift description. [format: text],text
+Shift,works_cycles,ShiftID,The unique number identifying the shift. [format: integer] [primary key],integer
+Shift,works_cycles,StartTime,Shift start time. [format: text],text
+ShipMethod,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+ShipMethod,works_cycles,Name,Shipping company name. [format: text],text
+ShipMethod,works_cycles,ShipBase,Minimum shipping charge. [format: real],real
+ShipMethod,works_cycles,ShipMethodID,The unique number for ShipMethod records. [format: integer] [primary key],integer
+ShipMethod,works_cycles,ShipRate,Shipping charge per pound. [format: real],real
+ShipMethod,works_cycles,rowguid,Uniquely identifying the record. Used to support a merge replication sample. [format: text] Value: Default: newid(),text
+ShoppingCartItem,works_cycles,DateCreated,Date the time the record was created. [format: datetime] Value: Default: getdate(),datetime
+ShoppingCartItem,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+ShoppingCartItem,works_cycles,ProductID,Product ordered. [format: integer] [foreign key -> Product.ProductID],integer
+ShoppingCartItem,works_cycles,Quantity,Product quantity ordered. [format: integer] Value: Default: 1,integer
+ShoppingCartItem,works_cycles,ShoppingCartID,Shopping cart identification number. [format: text],text
+ShoppingCartItem,works_cycles,ShoppingCartItemID,The unique id number identifying the shopping cart item records. [format: integer] [primary key],integer
+SpecialOffer,works_cycles,Category,Group the discount applies to such as Reseller or Customer. [format: text],text
+SpecialOffer,works_cycles,Description,Discount description. [format: text],text
+SpecialOffer,works_cycles,DiscountPct,Discount percentage. [format: real],real
+SpecialOffer,works_cycles,EndDate,"Discount end date. [format: datetime] Value: commonsense evidence:
+promotion date = EndDate - StartDate",datetime
+SpecialOffer,works_cycles,MaxQty,Maximum discount percent allowed. [format: integer],integer
+SpecialOffer,works_cycles,MinQty,Minimum discount percent allowed. [format: integer],integer
+SpecialOffer,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+SpecialOffer,works_cycles,SpecialOfferID,The unique id number identifying the special offer. [format: integer] [primary key],integer
+SpecialOffer,works_cycles,StartDate,Discount start date. [format: datetime],datetime
+SpecialOffer,works_cycles,Type,Discount type category. [format: text],text
+SpecialOffer,works_cycles,rowguid,Uniquely identifying the record. Used to support a merge replication sample. [format: text] Value: Default: newid(),text
+SpecialOfferProduct,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+SpecialOfferProduct,works_cycles,ProductID,Product identification number. [format: integer] [primary key] [foreign key -> Product.ProductID],integer
+SpecialOfferProduct,works_cycles,SpecialOfferID,The id for SpecialOfferProduct records [format: integer] [primary key] [foreign key -> SpecialOffer.SpecialOfferID],integer
+SpecialOfferProduct,works_cycles,rowguid,Uniquely identifying the record. Used to support a merge replication sample. [format: text] Value: Default: newid(),text
+StateProvince,works_cycles,CountryRegionCode,ISO standard country or region code. [format: text],text
+StateProvince,works_cycles,IsOnlyStateProvinceFlag,"[format: integer] Value: 0 = StateProvinceCode exists. 
+1 = StateProvinceCode unavailable, using CountryRegionCode. 
+Default: 1. 
+commonsense evidence:
+To ask whether the StateProvinceCode exists or not.",integer
+StateProvince,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+StateProvince,works_cycles,Name,State or province description. [format: text],text
+StateProvince,works_cycles,StateProvinceCode,ISO standard state or province code. [format: text],text
+StateProvince,works_cycles,StateProvinceID,The unique number for StateProvince records. [format: integer] [primary key],integer
+StateProvince,works_cycles,TerritoryID,ID of the territory in which the state or province is located. [format: integer],integer
+StateProvince,works_cycles,rowguid,Uniquely identifying the record. Used to support a merge replication sample. [format: text] Value: Default: newid(),text
+Store,works_cycles,BusinessEntityID,The unique number identifying business entity. [format: integer] [primary key] [foreign key -> BusinessEntity.BusinessEntityID],integer
+Store,works_cycles,Demographics,"Demographic information about the store such as the number of employees, annual sales and store type. [format: text]",text
+Store,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+Store,works_cycles,Name,Name of the store. [format: text],text
+Store,works_cycles,SalesPersonID,ID of the sales person assigned to the customer. [format: integer] [foreign key -> SalesPerson.BusinessEntityID],integer
+Store,works_cycles,rowguid,Uniquely identifying the record. Used to support a merge replication sample. [format: text] Value: Default: newid(),text
+TransactionHistory,works_cycles,ActualCost,Product cost. [format: real],real
+TransactionHistory,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+TransactionHistory,works_cycles,ProductID,Product identification number. [format: integer] [foreign key -> Product.ProductID],integer
+TransactionHistory,works_cycles,Quantity,Product quantity. [format: integer],integer
+TransactionHistory,works_cycles,ReferenceOrderID,"Purchase order, sales order, or work order identification number. [format: integer]",integer
+TransactionHistory,works_cycles,ReferenceOrderLineID,"Line number associated with the purchase order, sales order, or work order. [format: integer]",integer
+TransactionHistory,works_cycles,TransactionDate,Date and time of the transaction. [format: datetime],datetime
+TransactionHistory,works_cycles,TransactionID,The unique id number identifying TransactionHistory records. [format: integer] [primary key],integer
+TransactionHistory,works_cycles,TransactionType,"Type of transaction records. [format: text] Value: commonsense evidence:
+W = WorkOrder, S = SalesOrder, P = PurchaseOrder",text
+TransactionHistoryArchive,works_cycles,ActualCost,Product cost. [format: real],real
+TransactionHistoryArchive,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+TransactionHistoryArchive,works_cycles,ProductID,Product identification number. [format: integer],integer
+TransactionHistoryArchive,works_cycles,Quantity,Product quantity. [format: integer],integer
+TransactionHistoryArchive,works_cycles,ReferenceOrderID,"Purchase order, sales order, or work order identification number. [format: integer]",integer
+TransactionHistoryArchive,works_cycles,ReferenceOrderLineID,"Line number associated with the purchase order, sales order, or work order. [format: integer]",integer
+TransactionHistoryArchive,works_cycles,TransactionDate,Date and time of the transaction. [format: datetime],datetime
+TransactionHistoryArchive,works_cycles,TransactionID,The unique id number identifying TransactionHistory records. [format: integer] [primary key],integer
+TransactionHistoryArchive,works_cycles,TransactionType,"Type of transaction records. [format: text] Value: commonsense evidence: 
+W = WorkOrder, S = SalesOrder, P = PurchaseOrder",text
+UnitMeasure,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+UnitMeasure,works_cycles,Name,Unit of measure description. [format: text],text
+UnitMeasure,works_cycles,UnitMeasureCode,The unique identifying numbers for measure. [format: text] [primary key],text
+Vendor,works_cycles,AccountNumber,Vendor account (identification) number. [format: text],text
+Vendor,works_cycles,ActiveFlag,"Vendor URL [format: integer] Value: commonsense evidence:
+0 = Vendor no longer used. 1 = Vendor is actively used. Default: 1",integer
+Vendor,works_cycles,BusinessEntityID,The unique number identifying Vendor records. [format: integer] [primary key] [foreign key -> BusinessEntity.BusinessEntityID],integer
+Vendor,works_cycles,CreditRating,"Rating of credit. [format: integer] Value: commonsense evidence: 
+1 = Superior, 2 = Excellent, 3 = Above average, 4 = Average, 5 = Below average. 
+commonsense evidence:
+1, 2, 3 can represent good credit, 4 is average credit, 5 is bad credit.",integer
+Vendor,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+Vendor,works_cycles,Name,Company name. [format: text],text
+Vendor,works_cycles,PreferredVendorStatus,"Preferred Vendor Status [format: integer] Value: commonsense evidence: 
+0 = Do not use if another vendor is available. 1 = Preferred over other vendors supplying the same product.",integer
+Vendor,works_cycles,PurchasingWebServiceURL,Purchasing Web Service URL [format: text],text
+WorkOrder,works_cycles,DueDate,Work order due date. [format: datetime],datetime
+WorkOrder,works_cycles,EndDate,Work order end date. [format: datetime],datetime
+WorkOrder,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+WorkOrder,works_cycles,OrderQty,Product quantity to build. [format: integer],integer
+WorkOrder,works_cycles,ProductID,Product identification number. [format: integer] [foreign key -> Product.ProductID],integer
+WorkOrder,works_cycles,ScrapReasonID,Reason for inspection failure. [format: integer] [foreign key -> ScrapReason.ScrapReasonID],integer
+WorkOrder,works_cycles,ScrappedQty,Quantity that failed inspection. [format: integer],integer
+WorkOrder,works_cycles,StartDate,Work order start date. [format: datetime],datetime
+WorkOrder,works_cycles,StockedQty,"Quantity built and put in inventory. [format: integer] Value: Computed: isnull([OrderQty]-[ScrappedQty],(0))",integer
+WorkOrder,works_cycles,WorkOrderID,The unique id number identifying work order. [format: integer] [primary key],integer
+WorkOrderRouting,works_cycles,ActualCost,Actual manufacturing cost. [format: real],real
+WorkOrderRouting,works_cycles,ActualEndDate,Actual end date. [format: datetime],datetime
+WorkOrderRouting,works_cycles,ActualResourceHrs,Number of manufacturing hours used. [format: real],real
+WorkOrderRouting,works_cycles,ActualStartDate,Actual start date. [format: datetime],datetime
+WorkOrderRouting,works_cycles,LocationID,Manufacturing location where the part is processed. [format: integer] [foreign key -> Location.LocationID],integer
+WorkOrderRouting,works_cycles,ModifiedDate,Date and time the record was last updated. [format: datetime] Value: Default: getdate(),datetime
+WorkOrderRouting,works_cycles,OperationSequence,Indicates the manufacturing process sequence. [format: integer] [primary key],integer
+WorkOrderRouting,works_cycles,PlannedCost,Estimated manufacturing cost. [format: real],real
+WorkOrderRouting,works_cycles,ProductID,The id number identifying products. [format: integer] [primary key],integer
+WorkOrderRouting,works_cycles,ScheduledEndDate,Planned manufacturing end date. [format: datetime],datetime
+WorkOrderRouting,works_cycles,ScheduledStartDate,Planned manufacturing start date. [format: datetime],datetime
+WorkOrderRouting,works_cycles,WorkOrderID,The id number of work order. [format: integer] [primary key] [foreign key -> WorkOrder.WorkOrderID],integer

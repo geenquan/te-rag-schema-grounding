@@ -1,0 +1,55 @@
+table,db,table_desc,field,schema
+station,bike_share_1,station,city|dock_count|id|installation_date|lat|long|name,"CREATE TABLE station (
+  city,
+  dock_count,
+  id,
+  installation_date,
+  lat,
+  long,
+  name
+);"
+status,bike_share_1,status,bikes_available|docks_available|station_id|time,"CREATE TABLE status (
+  bikes_available,
+  docks_available,
+  station_id,
+  time
+);"
+trip,bike_share_1,trip,bike_id|duration|end_date|end_station_id|end_station_name|id|start_date|start_station_id|start_station_name|subscription_type|zip_code,"CREATE TABLE trip (
+  bike_id,
+  duration,
+  end_date,
+  end_station_id,
+  end_station_name,
+  id,
+  start_date,
+  start_station_id,
+  start_station_name,
+  subscription_type,
+  zip_code
+);"
+weather,bike_share_1,weather,cloud_cover|date|events|max_dew_point_f|max_gust_speed_mph|max_humidity|max_sea_level_pressure_inches|max_temperature_f|max_visibility_miles|max_wind_Speed_mph|mean_dew_point_f|mean_humidity|mean_sea_level_pressure_inches|mean_temperature_f|mean_visibility_miles|mean_wind_speed_mph|min_dew_point_f|min_humidity|min_sea_level_pressure_inches|min_temperature_f|min_visibility_miles|precipitation_inches|wind_dir_degrees|zip_code,"CREATE TABLE weather (
+  cloud_cover,
+  date,
+  events,
+  max_dew_point_f,
+  max_gust_speed_mph,
+  max_humidity,
+  max_sea_level_pressure_inches,
+  max_temperature_f,
+  max_visibility_miles,
+  max_wind_Speed_mph,
+  mean_dew_point_f,
+  mean_humidity,
+  mean_sea_level_pressure_inches,
+  mean_temperature_f,
+  mean_visibility_miles,
+  mean_wind_speed_mph,
+  min_dew_point_f,
+  min_humidity,
+  min_sea_level_pressure_inches,
+  min_temperature_f,
+  min_visibility_miles,
+  precipitation_inches,
+  wind_dir_degrees,
+  zip_code
+);"

@@ -1,0 +1,44 @@
+table,db,field_name,field_name_desc,field_type
+Categories,retail_world,CategoryID,the unique id for the category [format: integer] [primary key],integer
+Categories,retail_world,CategoryName,the category name [format: text],text
+Categories,retail_world,Description,the detailed description of the category [format: text],text
+Customers,retail_world,Address,the address of the customer [format: text],text
+Customers,retail_world,City,the city where the customer is located [format: text],text
+Customers,retail_world,ContactName,the contact person's name representing the company [format: text],text
+Customers,retail_world,Country,the country [format: text],text
+Customers,retail_world,CustomerID,the unique id for customers [format: text] [primary key],integer
+Customers,retail_world,CustomerName,the customer name [format: text],text
+Customers,retail_world,PostalCode,the postal code [format: text],text
+Employees,retail_world,BirthDate,the birth date of the employee [format: datetime],date
+Employees,retail_world,EmployeeID,the unique id for employees [format: integer] [primary key],integer
+Employees,retail_world,FirstName,"the employee's first name [format: text] Value: commonsense evidence:
+the employee's full name is 'first_name last_name'.",text
+Employees,retail_world,LastName,the employee's last name [format: text],text
+Employees,retail_world,Notes,some additional information of the employee [format: text],text
+Employees,retail_world,Photo,the photo of the employee [format: blob],text
+OrderDetails,retail_world,OrderDetailID,id of the order detail [format: text] [primary key],integer
+OrderDetails,retail_world,OrderID,the unique id for orders [format: integer] [foreign key -> Orders.OrderID],integer
+OrderDetails,retail_world,ProductID,the unique id for products [format: integer] [foreign key -> Products.ProductID],integer
+OrderDetails,retail_world,Quantity,the quantity of the ordered products [format: integer],integer
+Orders,retail_world,CustomerID,the unique id for customers [format: text] [foreign key -> Customers.CustomerID],integer
+Orders,retail_world,EmployeeID,the unique id for employees [format: integer] [foreign key -> Employees.EmployeeID],integer
+Orders,retail_world,OrderDate,the order date [format: datetime],datetime
+Orders,retail_world,OrderID,the unique id for orders [format: integer] [primary key],integer
+Orders,retail_world,ShipperID,the id of the shipper [format: integer] [foreign key -> Shippers.ShipperID],integer
+Products,retail_world,CategoryID,the unique id for the product category [format: integer] [foreign key -> Categories.CategoryID],integer
+Products,retail_world,Price,the price [format: real],real
+Products,retail_world,ProductID,the unique id for products [format: integer] [primary key],integer
+Products,retail_world,ProductName,the name of the product [format: text],text
+Products,retail_world,SupplierID,the unique id for supplier [format: integer] [foreign key -> Suppliers.SupplierID],integer
+Products,retail_world,Unit,the unit of the product [format: text],text
+Shippers,retail_world,Phone,the phone of the company [format: text],text
+Shippers,retail_world,ShipperID,the unique id for shippers [format: integer] [primary key],integer
+Shippers,retail_world,ShipperName,the shipped company name [format: text],text
+Suppliers,retail_world,Address,the address of the supplier [format: text],text
+Suppliers,retail_world,City,the city where the supplier is located [format: text],text
+Suppliers,retail_world,ContactName,the contact person's name representing the company [format: text],text
+Suppliers,retail_world,Country,the country [format: text],text
+Suppliers,retail_world,Phone,the phone number [format: text],text
+Suppliers,retail_world,PostalCode,the postal code [format: text],text
+Suppliers,retail_world,SupplierID,the unique id for suppliers [format: integer] [primary key],integer
+Suppliers,retail_world,SupplierName,the supplier name [format: text],text

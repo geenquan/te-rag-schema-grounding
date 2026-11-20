@@ -1,0 +1,23 @@
+table,db,field_name,field_name_desc,field_type
+employee,human_resources,firstname,"employee's first name [format: text] Value: commonsense evidence:
+employee's full name is firstname lastname .",text
+employee,human_resources,gender,employee's gender [format: text],text
+employee,human_resources,hiredate,employee's hire date [format: text] Value: yyyy-mm-dd,text
+employee,human_resources,lastname,employee's last name [format: text],text
+employee,human_resources,locationID,the unique id for location [format: integer] [foreign key -> location.locationID],integer
+employee,human_resources,performance,employee's performance [format: text] Value: Good / Average/ Poor,text
+employee,human_resources,positionID,the unique id for position [format: integer] [foreign key -> position.positionID],integer
+employee,human_resources,salary,employee's salary [format: text] Value: the unit is dollar per year,text
+employee,human_resources,ssn,employee's ssn [format: text] [primary key],text
+location,human_resources,address,the detailed address of the location [format: text],text
+location,human_resources,locationID,the unique id for location [format: integer] [primary key],integer
+location,human_resources,locationcity,the location city [format: text],text
+location,human_resources,officephone,the office phone number of the location [format: text],text
+location,human_resources,state,the state abbreviation [format: text],text
+location,human_resources,zipcode,zip code of the location [format: integer],integer
+position,human_resources,educationrequired,"the required education year [format: text] Value: commonsense evidence:
+Generally, more complex work requires more education year.",text
+position,human_resources,maxsalary,maximum salary of this position [format: text],text
+position,human_resources,minsalary,minimum salary of this position [format: text],text
+position,human_resources,positionID,the unique id for position [format: integer] [primary key],integer
+position,human_resources,positiontitle,the position title [format: text],text

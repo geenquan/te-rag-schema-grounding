@@ -1,0 +1,309 @@
+table,db,field_name,field_name_desc,field_type
+awards_coaches,professional_basketball,award,"the award names [format: text] Value: mainly categories: ""NBA"" & ""ABA""",text
+awards_coaches,professional_basketball,coachID,id number of the coaches [format: text] [foreign key -> coaches.coachID],text
+awards_coaches,professional_basketball,id,id of this row of data [format: integer] [primary key],integer
+awards_coaches,professional_basketball,lgID,"the name of the league [format: text] Value: mainly categories: ""NBA"" & ""ABA""",text
+awards_coaches,professional_basketball,note,"special notification [format: text] Value: ”null“ refers to that no special things
+”tie“ represents that coaches are tied for some awards",text
+awards_coaches,professional_basketball,year,which year did the coach receive the honor? [format: integer] [foreign key -> coaches.year],integer
+awards_players,professional_basketball,award,the name of the award [format: text] [primary key],text
+awards_players,professional_basketball,lgID,"the name of the league [format: text] Value: mainly categories: ""NBA"" & ""ABA""",text
+awards_players,professional_basketball,note,"notification [format: text] Value: ”null“ refers to that no special things
+”tie“ represents that coaches are tied for some awards",text
+awards_players,professional_basketball,playerID,ID number identifying the unique number of the player [format: text] [primary key] [foreign key -> players.playerID],text
+awards_players,professional_basketball,pos,"the position of the player [format: text] Value: C: Center
+F: Forward
+G: Guard",text
+awards_players,professional_basketball,year,the time of this award [format: integer] [primary key],integer
+coaches,professional_basketball,coachID,ID number identifying the unique number of the coach [format: text] [primary key],text
+coaches,professional_basketball,lgID,"league name [format: text] Value: mainly categories: ""NBA"" & ""ABA""",text
+coaches,professional_basketball,lost,the number of lost games [format: integer] Value: 0: win all the games,integer
+coaches,professional_basketball,post_losses,"the number of games lost in the post-season (playoffs) games [format: integer] Value: 0: win all the games
+
+commonsense evidence:
+
+If the team's post-season wins and losses are all zero, it implies that the team did not participate in the post-season (playoffs) that year.",integer
+coaches,professional_basketball,post_wins,"the number of games won in the post-season (playoffs) games [format: integer] Value: 0: no wins
+
+commonsense evidence:
+
+If the team's post-season wins and losses are all zero, it implies that the team did not participate in the post-season (playoffs) that year.",integer
+coaches,professional_basketball,stint,the period of the time coaching this team [format: integer] [primary key],integer
+coaches,professional_basketball,tmID,team name [format: text] Value: abbreviated name [primary key] [foreign key -> teams.tmID],text
+coaches,professional_basketball,won,the number of won games [format: integer] Value: 0: no wins,integer
+coaches,professional_basketball,year,[format: integer] [primary key] [foreign key -> teams.year],integer
+draft,professional_basketball,draftFrom,the university that the drafted players come from [format: text] Value: the name of the university,text
+draft,professional_basketball,draftOverall,The player's overall draft position for the year [format: integer] Value: this is the overall draft rank of the player.,integer
+draft,professional_basketball,draftRound,"the Round number of this draft [format: integer] Value: If the value is 0, it means that there is no draft in this year
+
+1 refers that this player was picked in the first round",integer
+draft,professional_basketball,draftSelection,"the position that the player was picked [format: integer] Value: 0：This signifies that it doesn't contain the draft information of this player
+
+7：this player was selected in the 7th position in this round
+
+commonsense evidence:
+
+draftRound: 1; 
+draftSelection: 7 
+represents: this player was selected in the round 1, 7th position.",integer
+draft,professional_basketball,draftYear,which year does this draft happens [format: integer] [foreign key -> teams.year],integer
+draft,professional_basketball,firstName,the first name of the player [format: text],text
+draft,professional_basketball,id,the unique number to determine one row of the data [format: integer] [primary key],integer
+draft,professional_basketball,lastName,the last name of the player [format: text],text
+draft,professional_basketball,lgID,"the league name [format: text] Value: mainly categories: ""NBA"" & ""ABA""",text
+draft,professional_basketball,playerID,ID number identifying the unique number of the player [format: text],text
+draft,professional_basketball,suffixName,the suffix name of the player [format: text],text
+draft,professional_basketball,tmID,team name [format: text] Value: abbreviated name [foreign key -> teams.tmID],text
+player_allstar,professional_basketball,assists,"assistants [format: integer] Value: null or empty refers to none
+
+2: 2 assistants",integer
+player_allstar,professional_basketball,blocks,"blocks [format: integer] Value: null or empty refers to none
+
+2: 2 blocks",integer
+player_allstar,professional_basketball,conference,which conference that players belong to [format: text] Value: two categories: west; east,text
+player_allstar,professional_basketball,d_rebounds,"defense rebounds [format: integer] Value: empty or null refers to none defense rebounds，
+
+1: one defense rebound",integer
+player_allstar,professional_basketball,fg_attempted,"field goal attempted [format: integer] Value: null or empty refers to none
+
+2: 2 field goal attempts",integer
+player_allstar,professional_basketball,fg_made,"field goal made [format: integer] Value: null or empty refers to none
+
+2: 2 field goal made",integer
+player_allstar,professional_basketball,first_name,the first name of the player [format: text],text
+player_allstar,professional_basketball,ft_attempted,"free throw attempted [format: integer] Value: null or empty refers to none
+
+2: 2 free throw attempts",integer
+player_allstar,professional_basketball,ft_made,"free throw made [format: integer] Value: null or empty refers to none
+
+2: 2 free throw made",integer
+player_allstar,professional_basketball,games_played,how many all star games that this player played in this season [format: integer] Value: mostly it's 1,integer
+player_allstar,professional_basketball,last_name,the last name of the player [format: text],text
+player_allstar,professional_basketball,league_id,the league name [format: text] Value: two categories: NBA; ABA,text
+player_allstar,professional_basketball,minutes,minutes of attendance [format: integer] Value: 18：played in 18 minutes,integer
+player_allstar,professional_basketball,o_rebounds,"offense rebounds [format: integer] Value: empty or null refers to none offense rebounds，
+
+1: one offense rebound",integer
+player_allstar,professional_basketball,personal_fouls,"personal fouls [format: integer] Value: null or empty refers to none
+
+2: 2 personal fouls",integer
+player_allstar,professional_basketball,playerID,ID number identifying the unique number of the player [format: text] [primary key] [foreign key -> players.playerID],text
+player_allstar,professional_basketball,points,"points [format: integer] Value: 19: get 19 points；
+
+null --> doesn't get points",integer
+player_allstar,professional_basketball,rebounds,"total rebounds [format: integer] Value: empty or null refers to none total rebounds，
+
+3: totally gets 3 rebounds including offence and defense rebounds
+
+commensense evidence:
+
+total rebounds = offense rebounds + defense rebounds",integer
+player_allstar,professional_basketball,season_id,the id number of the season [format: integer] [primary key],integer
+player_allstar,professional_basketball,steals,"steals [format: integer] Value: null or empty refers to none
+
+2: 2 steals",integer
+player_allstar,professional_basketball,three_attempted,"three point attempted [format: integer] Value: null or empty refers to none
+
+2: 2 three point attempts",integer
+player_allstar,professional_basketball,three_made,"three point made [format: integer] Value: null or empty refers to none
+
+2: 2 three point made",integer
+player_allstar,professional_basketball,turnovers,"turnovers [format: integer] Value: null or empty refers to none
+
+2: 2 turnovers",integer
+players,professional_basketball,birthCity,birthcity [format: text] Value: null / empty refers to not recorded,text
+players,professional_basketball,birthCountry,birth country [format: text],text
+players,professional_basketball,birthDate,birthdate [format: date],date
+players,professional_basketball,birthState,birth state [format: text],text
+players,professional_basketball,college,"college [format: text] Value: null or empty means it doesn't have this information
+
+which colledge does this player graduate from",text
+players,professional_basketball,collegeOther,"the college that transferred from [format: text] Value: commonsense evidence:
+
+some players may have the record of transferring from other colleges",text
+players,professional_basketball,deathDate,"deathdate [format: date] Value: 0000-00-00 means this player is still alive
+
+within clear date：
+2011-11-10, which means this guy was died on ""2011-11-10""",date
+players,professional_basketball,firstName,the first name of the player [format: text],text
+players,professional_basketball,firstseason,[format: integer] Value: nothing special,integer
+players,professional_basketball,fullGivenName,[format: text] Value: not useful,text
+players,professional_basketball,height,inch [format: real] Value: inch,real
+players,professional_basketball,highSchool,high school [format: text] Value: null / empty refers to not recorded,text
+players,professional_basketball,hsCity,high school city [format: text] Value: null / empty refers to not recorded,text
+players,professional_basketball,hsCountry,high school country [format: text] Value: null / empty refers to not recorded,text
+players,professional_basketball,hsState,high school state [format: text] Value: null / empty refers to not recorded,text
+players,professional_basketball,lastName,the last name of the player [format: text],text
+players,professional_basketball,lastseason,[format: integer] Value: nothing special,integer
+players,professional_basketball,middleName,the middle name of the player [format: text],text
+players,professional_basketball,nameGiven,[format: text] Value: not useful,text
+players,professional_basketball,nameNick,[format: text],text
+players,professional_basketball,nameSuffix,the suffix name of the player [format: text],text
+players,professional_basketball,playerID,ID number identifying the unique number of the player [format: text] [primary key],text
+players,professional_basketball,pos,"the position of the player [format: text] Value: C: Center
+
+F: Forward
+
+G: Guard 
+
+commonsense evidence:
+some player can have two positions simultaneously",text
+players,professional_basketball,race,"[format: text] Value: B：black,
+W: white
+
+null or empty: nothing",text
+players,professional_basketball,useFirst,[format: text] Value: not useful,text
+players,professional_basketball,weight,lb [format: integer] Value: null or empty means it doesn't have this information,integer
+players_teams,professional_basketball,GP,"game presentatons (attendance) [format: integer] Value: min: 0, max: 82
+
+commonsense evidence:
+
+if this number is equal to 82, means full attendance",integer
+players_teams,professional_basketball,GS,"game starting Value: min: 0, max: 82,
+
+commonsense evidence:
+
+when GP = GS, it means that this player plays as the stating lineup fully.",integer
+players_teams,professional_basketball,PF,"personal fouls [format: integer] Value: null or empty refers to none
+
+2: 2 personal fouls",integer
+players_teams,professional_basketball,PostAssists,"[format: integer] Value: null or empty refers to none
+
+1: 1 assistance in the post season",integer
+players_teams,professional_basketball,PostBlocks,"[format: integer] Value: null or empty refers to none
+
+1: 1 block in the post season",integer
+players_teams,professional_basketball,PostGP,post season game presentations [format: integer] Value: 0: this player doesn't present in the post season (playoffs),integer
+players_teams,professional_basketball,PostGS,post season game starting [format: integer],integer
+players_teams,professional_basketball,PostMinutes,post season minutes [format: integer],integer
+players_teams,professional_basketball,PostPF,"[format: integer] Value: null or empty refers to none
+
+1: 2 personal fouls in the post season",integer
+players_teams,professional_basketball,PostPoints,post season points [format: integer],integer
+players_teams,professional_basketball,PostRebounds,"post season defense rebounds [format: integer] Value: null or empty refers to none
+
+3: 3 rebounds in the post season totally",integer
+players_teams,professional_basketball,PostSteals,"[format: integer] Value: null or empty refers to none
+
+1: 1 offense steals in the post season",integer
+players_teams,professional_basketball,PostTurnovers,"[format: integer] Value: null or empty refers to none
+
+1: 1 turnover in the post season",integer
+players_teams,professional_basketball,PostdRebounds,"post season defense rebounds [format: integer] Value: null or empty refers to none
+
+1: 1 defense rebounds in the post season",integer
+players_teams,professional_basketball,PostfgAttempted,"[format: integer] Value: null or empty refers to none
+
+1: 1 field goal attempts in the post season",integer
+players_teams,professional_basketball,PostfgMade,"[format: integer] Value: null or empty refers to none
+
+1: 1 field goal made in the post season",integer
+players_teams,professional_basketball,PostftAttempted,"[format: integer] Value: null or empty refers to none
+
+1: 1 free throw attempts in the post season",integer
+players_teams,professional_basketball,PostftMade,"[format: integer] Value: null or empty refers to none
+
+1: 1 free throw made in the post season",integer
+players_teams,professional_basketball,PostoRebounds,"post season offense rebounds [format: integer] Value: null or empty refers to none
+
+1: 1 offense rebounds in the post season",integer
+players_teams,professional_basketball,PostthreeAttempted,"[format: integer] Value: null or empty refers to none
+
+1: 1 three point attempts in the post season",integer
+players_teams,professional_basketball,PostthreeMade,"[format: integer] Value: null or empty refers to none
+
+1: 1 three point made in the post season",integer
+players_teams,professional_basketball,assists,"assistants [format: integer] Value: null or empty refers to none
+
+2: 2 assistants",integer
+players_teams,professional_basketball,blocks,"blocks [format: integer] Value: null or empty refers to none
+
+2: 2 blocks",integer
+players_teams,professional_basketball,dRebounds,"defense rebounds [format: integer] Value: empty or null refers to none defense rebounds，
+
+1: one defense rebound",integer
+players_teams,professional_basketball,fgAttempted,"field goal attempted [format: integer] Value: null or empty refers to none
+
+2: 2 field goal attempts",integer
+players_teams,professional_basketball,fgMade,"field goal made [format: integer] Value: null or empty refers to none
+
+2: 2 field goal made",integer
+players_teams,professional_basketball,ftAttempted,"free throw attempted [format: integer] Value: null or empty refers to none
+
+2: 2 free throw attempts",integer
+players_teams,professional_basketball,ftMade,"free throw made [format: integer] Value: null or empty refers to none
+
+2: 2 free throw made",integer
+players_teams,professional_basketball,id,the unique number to identify this record [format: integer] [primary key],integer
+players_teams,professional_basketball,lgID,,text
+players_teams,professional_basketball,minutes,minutes [format: integer],integer
+players_teams,professional_basketball,note,,text
+players_teams,professional_basketball,oRebounds,"offense rebounds [format: integer] Value: empty or null refers to none offense rebounds，
+
+1: one offense rebound",integer
+players_teams,professional_basketball,playerID,ID number identifying the unique number of the player [format: text],text
+players_teams,professional_basketball,points,points [format: integer],integer
+players_teams,professional_basketball,rebounds,"total rebounds [format: integer] Value: empty or null refers to none total rebounds，
+
+3: totally gets 3 rebounds including offense and defense rebounds
+
+commensense evidence:
+
+total rebounds = offense rebounds + defense rebounds",integer
+players_teams,professional_basketball,steals,"steals [format: integer] Value: null or empty refers to none
+
+2: 2 steals",integer
+players_teams,professional_basketball,stint,the period of the time player spent played for this team [format: integer],integer
+players_teams,professional_basketball,threeAttempted,"three point attempted [format: integer] Value: null or empty refers to none
+
+2: 2 three point attempts",integer
+players_teams,professional_basketball,threeMade,"three point made [format: integer] Value: null or empty refers to none
+
+2: 2 three point made",integer
+players_teams,professional_basketball,tmID,team name [format: text] Value: abbreviated name [foreign key -> teams.tmID],text
+players_teams,professional_basketball,turnovers,"turnovers [format: integer] Value: null or empty refers to none
+
+2: 2 turnovers",integer
+players_teams,professional_basketball,year,year [format: integer] [foreign key -> teams.year],integer
+series_post,professional_basketball,L,loses [format: integer],integer
+series_post,professional_basketball,W,wins [format: integer],integer
+series_post,professional_basketball,id,unique number of this record [format: integer] [primary key],integer
+series_post,professional_basketball,lgIDLoser,league id loser [format: text],text
+series_post,professional_basketball,lgIDWinner,league id winner [format: text],text
+series_post,professional_basketball,round,"round [format: text] Value: known abbreviations：
+
+F：final 
+SF: semi-final 
+
+QF：quater-final 1/4
+
+DF：division-final 
+
+DSF：division semi-final",text
+series_post,professional_basketball,series,[format: text] Value: not useful,text
+series_post,professional_basketball,tmIDLoser,team id loser [format: text] [foreign key -> teams.tmID],text
+series_post,professional_basketball,tmIDWinner,team id winner [format: text] [foreign key -> teams.tmID],text
+series_post,professional_basketball,year,year [format: integer] [foreign key -> teams.year],integer
+teams,professional_basketball,arena,"arena [format: text] Value: null or empty refers to the fact that this team doesn't have individual arenas, otherwise, it has individual arenas",text
+teams,professional_basketball,awayLost,loses in the away [format: integer],integer
+teams,professional_basketball,awayWon,wins in the away [format: integer],integer
+teams,professional_basketball,confID,[format: text] Value: not useful,text
+teams,professional_basketball,confRank,Value: not useful,integer
+teams,professional_basketball,d_pts,defense points [format: integer],integer
+teams,professional_basketball,divID,division ID [format: text],text
+teams,professional_basketball,franchID,[format: text] Value: not useful,text
+teams,professional_basketball,games,[format: integer] Value: total number of games that this team played in this year (season),integer
+teams,professional_basketball,homeLost,loses in the home [format: integer],integer
+teams,professional_basketball,homeWon,wins in the home [format: integer],integer
+teams,professional_basketball,lgID,"league name [format: text] Value: main categories:
+NBA, ABA",text
+teams,professional_basketball,lost,[format: integer] Value: total losts of this team in this year.,integer
+teams,professional_basketball,name,full name of the team [format: text],text
+teams,professional_basketball,o_fgm,how many offense field goal made by this team in this season [format: integer],integer
+teams,professional_basketball,o_ftm,how many offense free throw made by this team in this season [format: integer],integer
+teams,professional_basketball,o_pts,offense points [format: integer],integer
+teams,professional_basketball,playoff,"another name: post season [format: text] Value: for brevity, if the value is not null or empty, it means this team attends the playoffs, otherwise, means not attend",text
+teams,professional_basketball,rank,rank [format: integer] Value: less is better,integer
+teams,professional_basketball,tmID,team id [format: text] Value: abbreviated name [primary key],text
+teams,professional_basketball,won,[format: integer] Value: total wins of this team in this year.,integer
+teams,professional_basketball,year,year [format: integer] [primary key],integer

@@ -1,0 +1,110 @@
+table,db,field_name,field_name_desc,field_type
+actor,movie_3,actor_id,unique id number identifying the actor [format: integer] [primary key],integer
+actor,movie_3,first_name,First name of the actor [format: text],text
+actor,movie_3,last_name,Last name of the actor [format: text],text
+actor,movie_3,last_update,The time of the latest update [format: datetime],datetime
+address,movie_3,address,The first address line [format: text],text
+address,movie_3,address2,"the second address line [format: text] Value: commonsense evidence:
+address2 is the additional address if any",text
+address,movie_3,address_id,unique id number identifying the address [format: integer] [primary key],integer
+address,movie_3,city_id,[format: integer unsigned],integer
+address,movie_3,district,[format: text],text
+address,movie_3,last_update,The time of the latest update [format: datetime],datetime
+address,movie_3,phone,phone number [format: text],text
+address,movie_3,postal_code,"[format: text] Value: a postal code is a series of letters or digits or both, sometimes including spaces or punctuation, included in a postal address for the purpose of sorting mail.",text
+category,movie_3,category_id,unique id number identifying the category [format: integer] [primary key],integer
+category,movie_3,last_update,The time of the latest update [format: datetime],datetime
+category,movie_3,name,name of the category [format: text],text
+city,movie_3,city,name of the city [format: text],text
+city,movie_3,city_id,unique id number identifying the city [format: integer] [primary key],integer
+city,movie_3,country_id,number identifying the country which the city belongs to [format: integer],integer
+city,movie_3,last_update,The time of the latest update [format: datetime],datetime
+country,movie_3,country,"number identifying the country [format: text] Value: commonsense evidence:
+ Africa: (Algeria, Angola, Cameroon, Chad, Congo, The Democratic Republic of the, Egypt, Ethiopia, Gambia...)
+ Asia: (Afghanistan, Armenia, Azerbaijan, 
+Bahrain, Bangladesh, Brunei, Cambodia, China, Hong Kong, India, Indonesia, Iran, Iraq, Israel...)
+ Oceania (American Samoa, Australia, French Polynesia...)
+ North America (Anguilla, Canada, Dominican Republic, Ecuador, Greenland...)
+ South America (Argentina, Bolivia, Brazil, Chile, 
+Colombia, Ecuador, French Guiana....)
+ Europe (Austria, Belarus, Bulgaria, Czech Republic, Estonia, Faroe Islands, Finland, France, Germany, Greece, Holy See (Vatican City State), Hungary, Italy...)
+details: https://worldpopulationreview.com/country-rankings/list-of-countries-by-continent
+question can mention i.e., Europe instead of Austria, etc.",text
+country,movie_3,country_id,unique id number identifying the country [format: integer] [primary key],integer
+country,movie_3,last_update,The time of the latest update [format: datetime],datetime
+customer,movie_3,active,"Wether the customer is active or not. [format: integer] Value: 1: active
+0: not active",integer
+customer,movie_3,address_id,Address id number of the customer. [format: integer],integer
+customer,movie_3,create_date,The date when the record is created. [format: datetime],datetime
+customer,movie_3,customer_id,unique id number identifying the country [format: integer] [primary key],integer
+customer,movie_3,email,Email address of the customer [format: text],text
+customer,movie_3,first_name,First name of the customer [format: text],text
+customer,movie_3,last_name,Last name of the customer [format: text],text
+customer,movie_3,last_update,The time of the latest update [format: datetime],datetime
+customer,movie_3,store_id,unique id number identifying the store [format: integer],integer
+film,movie_3,description,main content of the film [format: text],text
+film,movie_3,film_id,unique id number identifying the film [format: integer] [primary key],integer
+film,movie_3,language_id,the language id of the film [format: integer],integer
+film,movie_3,last_update,The time of the latest update [format: datetime],datetime
+film,movie_3,length,Duration time of the film screening [format: integer] Value: minutes,integer
+film,movie_3,original_language_id,the original language id of the film [format: integer],integer
+film,movie_3,rating,"The Motion Picture Association film rating [format: text] Value: commonsense evidence:
+G ?General Audiences
+PG ? Parental Guidance Suggested
+PG-13 ? Parents Strongly Cautioned
+R ? Restricted
+NC-17 ? Adults Only",text
+film,movie_3,release_year,the year when the film is released [format: text],text
+film,movie_3,rental_duration,"how long this film can be rent at once [format: integer] Value: commonsense evidence:
+days
+price / day = rental_rate / retal_duration",integer
+film,movie_3,rental_rate,the rate of renting this film [format: real] Value: higher -> expensive,real
+film,movie_3,replacement_cost,cost of replacing this film [format: real],real
+film,movie_3,special_features,features of this film [format: text],text
+film,movie_3,title,title of the film [format: text],text
+film_actor,movie_3,actor_id,unique id number identifying the actor [format: integer] [primary key],integer
+film_actor,movie_3,film_id,id number identifying the film [format: integer] [primary key],integer
+film_actor,movie_3,last_update,The time of the latest update [format: datetime],datetime
+film_category,movie_3,category_id,id number identifying the category [format: integer] [primary key],integer
+film_category,movie_3,film_id,unique id number identifying the film [format: integer] [primary key],integer
+film_category,movie_3,last_update,The time of the latest update [format: datetime],datetime
+film_text,movie_3,description,main content of the film [format: text],text
+film_text,movie_3,film_id,unique id number identifying the film [format: integer] [primary key],integer
+film_text,movie_3,title,title of the film [format: text],text
+inventory,movie_3,film_id,unique id number identifying the film [format: integer],integer
+inventory,movie_3,inventory_id,unique id number identifying the inventory [format: integer] [primary key],integer
+inventory,movie_3,last_update,the last update time of the film [format: datetime],datetime
+inventory,movie_3,store_id,id of the store [format: integer],integer
+language,movie_3,language_id,unique id number identifying the language [format: integer] [primary key],integer
+language,movie_3,last_update,The time of the latest update [format: datetime],datetime
+language,movie_3,name,name of the language [format: text],text
+payment,movie_3,amount,unique id number identifying the amount [format: real],real
+payment,movie_3,customer_id,unique id number identifying the customer [format: integer],integer
+payment,movie_3,last_update,The time of the latest update [format: datetime],datetime
+payment,movie_3,payment_date,the date when the payment ocurs [format: datetime],datetime
+payment,movie_3,payment_id,unique id number identifying the payment [format: integer] [primary key],integer
+payment,movie_3,rental_id,unique id number identifying the rental [format: integer],integer
+payment,movie_3,staff_id,unique id number identifying the staff [format: integer],integer
+rental,movie_3,customer_id,id number identifying the customer [format: integer],integer
+rental,movie_3,inventory_id,id number identifying the inventory [format: integer],integer
+rental,movie_3,last_update,The time of the latest update [format: datetime],datetime
+rental,movie_3,rental_date,date when the rental occurs [format: datetime],datetime
+rental,movie_3,rental_id,unique id number identifying the rental [format: integer] [primary key],integer
+rental,movie_3,return_date,date when the rental returns [format: datetime],datetime
+rental,movie_3,staff_id,id number identifying the staff [format: integer],integer
+staff,movie_3,active,"Whether the staff is active or not. [format: integer] Value: 1: active
+0: not active",integer
+staff,movie_3,address_id,id number identifying the address [format: integer],integer
+staff,movie_3,email,[format: text],text
+staff,movie_3,first_name,First name of the actor [format: text],text
+staff,movie_3,last_name,"Last name of the actor [format: text] Value: full name = (first name, last name)",text
+staff,movie_3,last_update,The time of the latest update [format: datetime],datetime
+staff,movie_3,password,password to login the staff [format: text],text
+staff,movie_3,picture,[format: blob],blob
+staff,movie_3,staff_id,unique id number identifying the staff [format: integer] [primary key],integer
+staff,movie_3,store_id,id number identifying the store [format: integer],integer
+staff,movie_3,username,username to login the staff [format: text],text
+store,movie_3,address_id,id number identifying the address [format: integer],integer
+store,movie_3,last_update,The time of the latest update [format: datetime],datetime
+store,movie_3,manager_staff_id,id number identifying the manager staff [format: integer],integer
+store,movie_3,store_id,unique id number identifying the store [format: integer] [primary key],integer

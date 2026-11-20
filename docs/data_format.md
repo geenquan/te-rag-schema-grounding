@@ -135,3 +135,41 @@ recomputes and cross-validates it against the gold):
  "n_verified": 44, "n_feasible": 44, "infeasible_qids": [],
  "per_question": [{"qid": "q000", "n_gold_tables": 1, "max_cols_per_table": 2, "budget_feasible": true}]}
 ```
+
+---
+
+## The BIRD data tree (`data/bird/`)
+
+Public BIRD inputs (CC BY-SA 4.0; provenance, hashes, and the derivation
+chain in `data/bird/SOURCES.md`; license text in
+`data/bird/LICENSE-BIRD-DATA.txt`):
+
+```
+data/bird/
+├── raw/train/{train.json,train_tables.json}   # official Train split: 9428 questions / 69 databases
+├── raw/dev/{dev.json,dev_tables.json}         # official Dev split (2024-06-27): 1534 questions / 11 databases
+├── processed/                                  # frozen Dev five-fold evaluation inputs
+│   ├── gold/gold.json                          # derived gold, 1534 entries (1530 verified; db-local views)
+│   ├── q5_manifest.json / h5_manifest.json     # question / heldout five-fold manifests (55 / 50 applicable cells,
+│   │                                           #   per-cell train/test qids, heldout tables, unverified records)
+│   ├── schema/<db>/{field_schema.csv,table_schema.csv}   # 11 Dev databases
+│   └── train/{question,heldout}_f<fold>_<db>.jsonl       # per-cell supervised training rows
+├── train_dev/                                  # frozen Train development inputs
+│   ├── opt_gold.json / opt_manifest.json       # 9428 questions, 9068 verified, duplicate-group 80/20 split
+│   ├── schema/<db>/...                         # 69 Train databases
+│   ├── train_rows/<db>/{opt_train,opt_dev}.jsonl
+│   └── h_splits/h_manifest.json (+train_rows)  # Train-H development split: 55/69 databases, 4387 dev questions
+```
+
+* Dev main evaluation population = the **1530 verified** questions; the 4
+  unverified questions are kept in `gold.json` and excluded by the
+  manifests (recorded per database; never deleted silently).
+* Train population = **9068 verified** of 9428 raw; the 360 unverified are
+  excluded from every development split by `opt_manifest.json`.
+* Train row records carry `qid, question, sql, db_id, gold_tables,
+  gold_fields` (full-SQL supervision; the same injection semantics as the
+  grid protocol).
+* Manifests are **re-validated** at run time (`terag_release.bird_data`)
+  and never rebuilt; a mismatch with the shipped data is a hard error.
+* SQLite database archives are not shipped and not required (SQL is parsed,
+  never executed).

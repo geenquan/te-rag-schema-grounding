@@ -1,0 +1,22 @@
+# Independently optimized track replay: the re-optimized Full configurations
+# and their optimized no* members (frozen selected parameters, no re-search).
+methods:
+  - optimized_full_Q
+  - optimized_Q_noBIndex
+  - optimized_Q_noBHit
+  - optimized_Q_noB
+  - optimized_Q_noTableGraph
+  - optimized_Q_noFieldGraph
+  - optimized_Q_noGraph
+  - optimized_Q_noPattern
+  - optimized_Q_noC
+  - optimized_full_H
+  - optimized_H_noBIndex
+  - optimized_H_noBHit
+  - optimized_H_noB
+  - optimized_H_noTableGraph
+  - optimized_H_noFieldGraph
+  - optimized_H_noGraph
+  - optimized_H_noPattern
+  - optimized_H_noC
+protocols: [question, heldout]

@@ -1,0 +1,33 @@
+table,db,table_desc,field,schema
+relation,sales_in_weather,relation,station_nbr|store_nbr,"CREATE TABLE relation (
+  station_nbr,
+  store_nbr
+);"
+sales_in_weather,sales_in_weather,sales_in_weather,date|item_nbr|store_nbr|units,"CREATE TABLE sales_in_weather (
+  date,
+  item_nbr,
+  store_nbr,
+  units
+);"
+weather,sales_in_weather,weather,avgspeed|codesum|cool|date|depart|dewpoint|heat|preciptotal|resultdir|resultspeed|sealevel|snowfall|station_nbr|stnpressure|sunrise|sunset|tavg|tmax|tmin|wetbulb,"CREATE TABLE weather (
+  avgspeed,
+  codesum,
+  cool,
+  date,
+  depart,
+  dewpoint,
+  heat,
+  preciptotal,
+  resultdir,
+  resultspeed,
+  sealevel,
+  snowfall,
+  station_nbr,
+  stnpressure,
+  sunrise,
+  sunset,
+  tavg,
+  tmax,
+  tmin,
+  wetbulb
+);"

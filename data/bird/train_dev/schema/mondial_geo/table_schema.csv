@@ -1,0 +1,208 @@
+table,db,table_desc,field,schema
+borders,mondial_geo,borders,Country1|Country2|Length,"CREATE TABLE borders (
+  Country1,
+  Country2,
+  Length
+);"
+city,mondial_geo,city,Country|Latitude|Longitude|Name|Population|Province,"CREATE TABLE city (
+  Country,
+  Latitude,
+  Longitude,
+  Name,
+  Population,
+  Province
+);"
+continent,mondial_geo,continent,Area|Name,"CREATE TABLE continent (
+  Area,
+  Name
+);"
+country,mondial_geo,country,Area|Capital|Code|Name|Population|Province,"CREATE TABLE country (
+  Area,
+  Capital,
+  Code,
+  Name,
+  Population,
+  Province
+);"
+desert,mondial_geo,desert,Area|Latitude|Longitude|Name,"CREATE TABLE desert (
+  Area,
+  Latitude,
+  Longitude,
+  Name
+);"
+economy,mondial_geo,economy,Agriculture|Country|GDP|Industry|Inflation|Service,"CREATE TABLE economy (
+  Agriculture,
+  Country,
+  GDP,
+  Industry,
+  Inflation,
+  Service
+);"
+encompasses,mondial_geo,encompasses,Continent|Country|Percentage,"CREATE TABLE encompasses (
+  Continent,
+  Country,
+  Percentage
+);"
+ethnicGroup,mondial_geo,ethnicGroup,Country|Name|Percentage,"CREATE TABLE ethnicGroup (
+  Country,
+  Name,
+  Percentage
+);"
+geo_desert,mondial_geo,geo_desert,Country|Desert|Province,"CREATE TABLE geo_desert (
+  Country,
+  Desert,
+  Province
+);"
+geo_estuary,mondial_geo,geo_estuary,Country|Province|River,"CREATE TABLE geo_estuary (
+  Country,
+  Province,
+  River
+);"
+geo_island,mondial_geo,geo_island,Country|Island|Province,"CREATE TABLE geo_island (
+  Country,
+  Island,
+  Province
+);"
+geo_lake,mondial_geo,geo_lake,Country|Lake|Province,"CREATE TABLE geo_lake (
+  Country,
+  Lake,
+  Province
+);"
+geo_mountain,mondial_geo,geo_mountain,Country|Mountain|Province,"CREATE TABLE geo_mountain (
+  Country,
+  Mountain,
+  Province
+);"
+geo_river,mondial_geo,geo_river,Country|Province|River,"CREATE TABLE geo_river (
+  Country,
+  Province,
+  River
+);"
+geo_sea,mondial_geo,geo_sea,Country|Province|Sea,"CREATE TABLE geo_sea (
+  Country,
+  Province,
+  Sea
+);"
+geo_source,mondial_geo,geo_source,Country|Province|River,"CREATE TABLE geo_source (
+  Country,
+  Province,
+  River
+);"
+isMember,mondial_geo,isMember,Country|Organization|Type,"CREATE TABLE isMember (
+  Country,
+  Organization,
+  Type
+);"
+island,mondial_geo,island,Area|Height|Islands|Latitude|Longitude|Name|Type,"CREATE TABLE island (
+  Area,
+  Height,
+  Islands,
+  Latitude,
+  Longitude,
+  Name,
+  Type
+);"
+islandIn,mondial_geo,islandIn,Island|Lake|River|Sea,"CREATE TABLE islandIn (
+  Island,
+  Lake,
+  River,
+  Sea
+);"
+lake,mondial_geo,lake,Altitude|Area|Depth|Latitude|Longitude|Name|River|Type,"CREATE TABLE lake (
+  Altitude,
+  Area,
+  Depth,
+  Latitude,
+  Longitude,
+  Name,
+  River,
+  Type
+);"
+language,mondial_geo,language,Country|Name|Percentage,"CREATE TABLE language (
+  Country,
+  Name,
+  Percentage
+);"
+located,mondial_geo,located,City|Country|Lake|Province|River|Sea,"CREATE TABLE located (
+  City,
+  Country,
+  Lake,
+  Province,
+  River,
+  Sea
+);"
+locatedOn,mondial_geo,locatedOn,City|Country|Island|Province,"CREATE TABLE locatedOn (
+  City,
+  Country,
+  Island,
+  Province
+);"
+mergesWith,mondial_geo,mergeswith,Sea1|Sea2,"CREATE TABLE mergesWith (
+  Sea1,
+  Sea2
+);"
+mountain,mondial_geo,mountain,Height|Latitude|Longitude|Mountains|Name|Type,"CREATE TABLE mountain (
+  Height,
+  Latitude,
+  Longitude,
+  Mountains,
+  Name,
+  Type
+);"
+mountainOnIsland,mondial_geo,mountainonisland,Island|Mountain,"CREATE TABLE mountainOnIsland (
+  Island,
+  Mountain
+);"
+organization,mondial_geo,organization,Abbreviation|City|Country|Established|Name|Province,"CREATE TABLE organization (
+  Abbreviation,
+  City,
+  Country,
+  Established,
+  Name,
+  Province
+);"
+politics,mondial_geo,politics,Country|Dependent|Government|Independence,"CREATE TABLE politics (
+  Country,
+  Dependent,
+  Government,
+  Independence
+);"
+population,mondial_geo,population,Country|Infant_Mortality|Population_Growth,"CREATE TABLE population (
+  Country,
+  Infant_Mortality,
+  Population_Growth
+);"
+province,mondial_geo,province,Area|CapProv|Capital|Country|Name|Population,"CREATE TABLE province (
+  Area,
+  CapProv,
+  Capital,
+  Country,
+  Name,
+  Population
+);"
+religion,mondial_geo,religion,Country|Name|Percentage,"CREATE TABLE religion (
+  Country,
+  Name,
+  Percentage
+);"
+river,mondial_geo,river,EstuaryLatitude|EstuaryLongitude|Lake|Length|Mountains|Name|River|Sea|SourceAltitude|SourceLatitude|SourceLongitude,"CREATE TABLE river (
+  EstuaryLatitude,
+  EstuaryLongitude,
+  Lake,
+  Length,
+  Mountains,
+  Name,
+  River,
+  Sea,
+  SourceAltitude,
+  SourceLatitude,
+  SourceLongitude
+);"
+sea,mondial_geo,sea,Depth|Name,"CREATE TABLE sea (
+  Depth,
+  Name
+);"
+target,mondial_geo,target,Country|Target,"CREATE TABLE target (
+  Country,
+  Target
+);"

@@ -1,0 +1,4 @@
+# BIRD question-protocol Core run: the original full engine with the frozen
+# DEFAULT parameter vector (paper "TE-RAG core" row, Q protocol).
+methods: [Core]
+protocols: [question]

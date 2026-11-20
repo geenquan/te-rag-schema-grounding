@@ -1,0 +1,54 @@
+table,db,table_desc,field,schema
+Customers,regional_sales,Customers,Customer Names|CustomerID,"CREATE TABLE Customers (
+  Customer Names,
+  CustomerID
+);"
+Products,regional_sales,Products,Product Name|ProductID,"CREATE TABLE Products (
+  Product Name,
+  ProductID
+);"
+Regions,regional_sales,Regions,Region|State|StateCode,"CREATE TABLE Regions (
+  Region,
+  State,
+  StateCode
+);"
+Sales Orders,regional_sales,Sales Orders,CurrencyCode|DeliveryDate|Discount Applied|Order Quantity|OrderDate|OrderNumber|ProcuredDate|Sales Channel|ShipDate|Unit Cost|Unit Price|WarehouseCode|_CustomerID|_ProductID|_SalesTeamID|_StoreID,"CREATE TABLE Sales Orders (
+  CurrencyCode,
+  DeliveryDate,
+  Discount Applied,
+  Order Quantity,
+  OrderDate,
+  OrderNumber,
+  ProcuredDate,
+  Sales Channel,
+  ShipDate,
+  Unit Cost,
+  Unit Price,
+  WarehouseCode,
+  _CustomerID,
+  _ProductID,
+  _SalesTeamID,
+  _StoreID
+);"
+Sales Team,regional_sales,Sales Team,Region|Sales Team|SalesTeamID,"CREATE TABLE Sales Team (
+  Region,
+  Sales Team,
+  SalesTeamID
+);"
+Store Locations,regional_sales,Store Locations,AreaCode|City Name|County|Household Income|Land Area|Latitude|Longitude|Median Income|Population|State|StateCode|StoreID|Time Zone|Type|Water Area,"CREATE TABLE Store Locations (
+  AreaCode,
+  City Name,
+  County,
+  Household Income,
+  Land Area,
+  Latitude,
+  Longitude,
+  Median Income,
+  Population,
+  State,
+  StateCode,
+  StoreID,
+  Time Zone,
+  Type,
+  Water Area
+);"

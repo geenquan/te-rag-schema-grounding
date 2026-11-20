@@ -1,0 +1,7 @@
+table,db,field_name,field_name_desc,field_type
+cites,citeseer,cited_paper_id,cited_paper_id is the ID of the paper being cited [format: text] Value: cited_paper_id is the ID of the paper being cited [primary key],text
+cites,citeseer,citing_paper_id,citing_paper_id stands for the paper which contains the citation [format: text] Value: citing_paper_id stands for the paper which contains the citation [primary key],text
+content,citeseer,paper_id,unique string ID of the paper [format: text] Value: unique string ID of the paper [primary key] [foreign key -> paper.paper_id],text
+content,citeseer,word_cited_id,rtype [format: text] Value: whether each word in the vocabulary is present (indicated by 1) or absent (indicated by 0) in the paper [primary key],text
+paper,citeseer,class_label,[format: text],text
+paper,citeseer,paper_id,unique string ID of the paper [format: text] Value: unique string ID of the paper [primary key],text

@@ -1,0 +1,174 @@
+{
+ "declaration": "Statistical comparison families for the bird_optimization_v2 final Dev evaluation. Declared BEFORE any V2 final-run result exists (no V2 final predictions or metrics had been produced at declaration time; search/SELECTED_Q.json and search/SELECTED_H.json did not exist yet). Family K values are FIXED at declaration: per-family Bonferroni multiplies by K as declared here, never shrunk after seeing results (zero-difference or unavailable members keep their slot; the status column records the taxonomy instead).",
+ "declared_utc": "2026-11-19T06:50:02Z",
+ "pairing": "paired per-question differences on the frozen Dev OOF population (bird_full_v1 five-fold, identical to v1); db-cluster exact sign-flip test (eval/stats_core.py, accepted prior-round implementation, imported verbatim); db-cluster bootstrap CI seed 42 x 10000 (descriptive, unadjusted); zero/cancel taxonomy per stats_core.classify_difference; no shrinkage.",
+ "metrics": [
+  "colf1",
+  "covered@5"
+ ],
+ "roles": {
+  "selected_for": "Each protocol's primary is the V2 config the search agent declared selected for THAT protocol (question <- search/SELECTED_Q.json, heldout <- search/SELECTED_H.json). NO Q/H SPLICING: the two selected configs are separate rows in every table; neither is re-labeled 'Full'.",
+  "original_full": "the original Full configuration's predictions, REUSED from the frozen Dev run (hash-verified).",
+  "v1_post_hoc": "v1 config rows (routeM_mrnd_73 = v1 selected primary; routeP_ref_1_3, routeM_mcomp_direct_match_fix = v1 declared candidates), REUSED from v1's frozen final-run Dev predictions (hash-gated, never re-run). Every comparison involving a v1_post_hoc row is labeled post_hoc_exploratory (v1 tooling-integrity fix d): the v1 configs were chosen after v1's Dev inspection, so V2-vs-v1 comparisons cannot be confirmatory. Their Bonferroni slots stay inside the main family K as declared."
+ },
+ "protocols": {
+  "question": {
+   "main": {
+    "comparison": "selected_for.question - opponent",
+    "opponents": [
+     "BM25",
+     "MetadataMatched",
+     "ExampleRRF",
+     "TFIDF",
+     "Hybrid",
+     "CooccurRRF",
+     "Dense",
+     "DenseDeepSeek",
+     "KaSLA-Adapted",
+     "LinkAlign-SingleDB-Adapted",
+     "ORIGINAL_FULL",
+     "V1:routeM_mrnd_73",
+     "V1:routeP_ref_1_3",
+     "V1:routeM_mcomp_direct_match_fix"
+    ],
+    "post_hoc_opponents": [
+     "V1:routeM_mrnd_73",
+     "V1:routeP_ref_1_3",
+     "V1:routeM_mcomp_direct_match_fix"
+    ],
+    "opponent_note": "10 paper baselines (reused, hash-verified) + the original Full of the Dev run (ORIGINAL_FULL placeholder) + the 3 v1 config rows (V1:<name> placeholders resolved to the freeze's v1_post_hoc methods; all comparisons against them carry label post_hoc_exploratory).",
+    "K": 28
+   },
+   "fixed_ablation": {
+    "track": "T1 fixed-vs-fixed",
+    "comparison": "selected_for.question - fixed ablation (same frozen params, switch off)",
+    "members": [
+     "noBIndex",
+     "noBHit",
+     "noB",
+     "noTableGraph",
+     "noFieldGraph",
+     "noGraph",
+     "noPattern",
+     "noC"
+    ],
+    "member_note": "fixed-config switch-offs of the protocol's selected config (identical frozen params); plus every NEW V2 mechanism off-switch (gating/filter/reranker) appended at FREEZE time as explicit members.",
+    "K": 16,
+    "vnext_extension_slots": "Any V2 mechanism off-switch supplied by the search agent is appended at FREEZE time (still before results); each appended member adds 2 to K. The stock 8 above are final."
+   },
+   "optimized_ablation": {
+    "track": "T2 optimized-vs-optimized",
+    "comparison": "optimized_full - optimized_no<member>",
+    "members": [
+     "noBIndex",
+     "noBHit",
+     "noB",
+     "noTableGraph",
+     "noFieldGraph",
+     "noGraph",
+     "noPattern",
+     "noC"
+    ],
+    "member_note": "REQUIRED direct comparisons (v1 defect b): the optimized Full (re-optimized under identical population/budget/objective/stop rules) against EVERY optimized ablation of the same switch. If the optimized track exists in the freeze, all 8 pairs must be present and computed; a missing optimized member is a REFUSAL, not a silent drop. 8 pairs x 2 metrics = 16 comparisons.",
+    "required": true,
+    "K": 16,
+    "vnext_extension_slots": "same rule as fixed_ablation: mechanism members appended at freeze time add one REQUIRED pair (+2 K) each."
+   },
+   "fixed_vs_optimized_ablation": {
+    "track": "T3 fixed-vs-reoptimized",
+    "label": "EXTRA_EXPLORATORY",
+    "comparison": "fixed ablation - independently-optimized counterpart (same switch)",
+    "members": [
+     "noBIndex",
+     "noBHit",
+     "noB",
+     "noTableGraph",
+     "noFieldGraph",
+     "noGraph",
+     "noPattern",
+     "noC"
+    ],
+    "member_note": "v1's family, retained unchanged but DEMOTED to EXTRA exploratory in V2: a fixed-vs-reoptimized difference mixes module removal with re-optimization and is not a clean module-contribution statement. Computed only if both tracks exist in the freeze; K fixed at declaration regardless.",
+    "K": 16
+   }
+  },
+  "heldout": {
+   "availability_note": "Only 6 of the 10 paper baselines ever ran on the heldout protocol (Dense, DenseDeepSeek, KaSLA-Adapted, LinkAlign-SingleDB-Adapted were question-only runs; availability fact recorded at declaration, not a post-hoc drop). All 3 v1 config rows ran on both protocols in v1's final run.",
+   "main": {
+    "comparison": "selected_for.heldout - opponent",
+    "opponents": [
+     "BM25",
+     "MetadataMatched",
+     "ExampleRRF",
+     "TFIDF",
+     "Hybrid",
+     "CooccurRRF",
+     "ORIGINAL_FULL",
+     "V1:routeM_mrnd_73",
+     "V1:routeP_ref_1_3",
+     "V1:routeM_mcomp_direct_match_fix"
+    ],
+    "post_hoc_opponents": [
+     "V1:routeM_mrnd_73",
+     "V1:routeP_ref_1_3",
+     "V1:routeM_mcomp_direct_match_fix"
+    ],
+    "K": 20
+   },
+   "fixed_ablation": {
+    "track": "T1 fixed-vs-fixed",
+    "comparison": "selected_for.heldout - fixed ablation (same frozen params, switch off)",
+    "members": [
+     "noBIndex",
+     "noBHit",
+     "noB",
+     "noTableGraph",
+     "noFieldGraph",
+     "noGraph",
+     "noPattern",
+     "noC"
+    ],
+    "K": 16,
+    "vnext_extension_slots": "same rule as question protocol"
+   },
+   "optimized_ablation": {
+    "track": "T2 optimized-vs-optimized",
+    "comparison": "optimized_full - optimized_no<member>",
+    "members": [
+     "noBIndex",
+     "noBHit",
+     "noB",
+     "noTableGraph",
+     "noFieldGraph",
+     "noGraph",
+     "noPattern",
+     "noC"
+    ],
+    "required": true,
+    "K": 16,
+    "vnext_extension_slots": "same rule as question protocol"
+   },
+   "fixed_vs_optimized_ablation": {
+    "track": "T3 fixed-vs-reoptimized",
+    "label": "EXTRA_EXPLORATORY",
+    "comparison": "fixed ablation - independently-optimized counterpart (same switch)",
+    "members": [
+     "noBIndex",
+     "noBHit",
+     "noB",
+     "noTableGraph",
+     "noFieldGraph",
+     "noGraph",
+     "noPattern",
+     "noC"
+    ],
+    "K": 16
+   }
+  }
+ },
+ "tradeoff_branch": {
+  "structure": "If (and only if) the pre-registered selection rule sends candidates to the precision-recall trade-off branch (direction-B filter / adaptive variants are SEPARATE rows with real counts, never disguised) and the freeze marks a method with role tradeoff_branch, a SEPARATE family tradeoff_branch_<protocol> is computed: tradeoff_branch - ORIGINAL_FULL x {colf1, covered@5}, K=2 per protocol. Declared now; nothing enters it at result time.",
+  "K": 2
+ },
+ "immutability": "eval/FAMILIES_DECLARED_V2.sha256 holds the sha256 of this file's bytes. eval/stats_v2.py refuses to compute anything if the sidecar is missing or mismatched. The file is never edited after declaration; extensions allowed ONLY at freeze time inside the designated vnext_extension_slots, rehashed into a NEW sidecar before the final run (the old hash is retained in the freeze for audit)."
+}

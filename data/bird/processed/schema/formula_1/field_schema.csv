@@ -1,0 +1,106 @@
+table,db,field_name,field_name_desc,field_type
+circuits,formula_1,alt,[format: integer] Value: not useful,integer
+circuits,formula_1,circuitId,unique identification number of the circuit [format: integer] [primary key],integer
+circuits,formula_1,circuitRef,circuit reference name [format: text],text
+circuits,formula_1,country,country of circuit [format: text],text
+circuits,formula_1,lat,latitude of location of circuit [format: real],real
+circuits,formula_1,lng,"longitude of location of circuit [format: real] Value: commonsense evidence: 
+Location coordinates: (lat, lng)",real
+circuits,formula_1,location,location of circuit [format: text],text
+circuits,formula_1,name,full name of circuit [format: text],text
+circuits,formula_1,url,url [format: text],text
+constructorResults,formula_1,constructorId,constructor id [format: integer] [foreign key -> constructors.constructorId],integer
+constructorResults,formula_1,constructorResultsId,constructor Results Id [format: integer] [primary key],integer
+constructorResults,formula_1,points,points [format: real],real
+constructorResults,formula_1,raceId,race id [format: integer] [foreign key -> races.raceId],integer
+constructorResults,formula_1,status,status [format: text],text
+constructorStandings,formula_1,constructorId,id number identifying which id [format: integer] [foreign key -> constructors.constructorId],integer
+constructorStandings,formula_1,constructorStandingsId,unique identification of the constructor standing records [format: integer] [primary key],integer
+constructorStandings,formula_1,points,how many points acquired in each race,real
+constructorStandings,formula_1,position,position or track of circuits [format: integer],integer
+constructorStandings,formula_1,positionText,"[format: text] Value: same with position, not quite useful",text
+constructorStandings,formula_1,raceId,id number identifying which races [format: integer] [foreign key -> races.raceId],integer
+constructorStandings,formula_1,wins,wins [format: integer],integer
+constructors,formula_1,constructorId,the unique identification number identifying constructors [format: integer] [primary key],integer
+constructors,formula_1,constructorRef,Constructor Reference name [format: text],text
+constructors,formula_1,name,full name of the constructor [format: text],text
+constructors,formula_1,nationality,nationality of the constructor [format: text],text
+constructors,formula_1,url,the introduction website of the constructor [format: text] Value: commonsense evidence: How to find out the detailed introduction of the constructor: through its url,text
+driverStandings,formula_1,driverId,id number identifying which drivers [format: integer] [foreign key -> drivers.driverId],integer
+driverStandings,formula_1,driverStandingsId,the unique identification number identifying driver standing records [format: integer] [primary key],integer
+driverStandings,formula_1,points,how many points acquired in each race [format: real],real
+driverStandings,formula_1,position,position or track of circuits [format: integer],integer
+driverStandings,formula_1,positionText,"[format: text] Value: same with position, not quite useful",text
+driverStandings,formula_1,raceId,id number identifying which races [format: integer] [foreign key -> races.raceId],integer
+driverStandings,formula_1,wins,wins [format: integer],integer
+drivers,formula_1,code,"abbreviated code for drivers [format: text] Value: if ""null"" or empty, it means it doesn't have code",text
+drivers,formula_1,dob,date of birth [format: date],date
+drivers,formula_1,driverId,the unique identification number identifying each driver [format: integer] [primary key],integer
+drivers,formula_1,driverRef,driver reference name [format: text],text
+drivers,formula_1,forename,forename [format: text],text
+drivers,formula_1,nationality,nationality of drivers [format: text],text
+drivers,formula_1,number,number [format: integer],integer
+drivers,formula_1,surname,surname [format: text],text
+drivers,formula_1,url,the introduction website of the drivers [format: text],text
+lapTimes,formula_1,driverId,the identification number identifying each driver [format: integer] [primary key] [foreign key -> drivers.driverId],integer
+lapTimes,formula_1,lap,lap number [format: integer] [primary key],integer
+lapTimes,formula_1,milliseconds,milliseconds [format: integer],integer
+lapTimes,formula_1,position,position or track of circuits [format: integer],integer
+lapTimes,formula_1,raceId,the identification number identifying race [format: integer] [primary key] [foreign key -> races.raceId],integer
+lapTimes,formula_1,time,lap time [format: text] Value: in minutes / seconds / ...,text
+pitStops,formula_1,driverId,the identification number identifying each driver [format: integer] [primary key] [foreign key -> drivers.driverId],integer
+pitStops,formula_1,duration,duration time [format: text] Value: seconds/,text
+pitStops,formula_1,lap,lap number [format: integer],integer
+pitStops,formula_1,milliseconds,milliseconds [format: integer],integer
+pitStops,formula_1,raceId,the identification number identifying race [format: integer] [primary key] [foreign key -> races.raceId],integer
+pitStops,formula_1,stop,stop number [format: integer] [primary key],integer
+pitStops,formula_1,time,time [format: text] Value: exact time,text
+qualifying,formula_1,constructorId,constructor Id [format: integer] [foreign key -> constructors.constructorId],integer
+qualifying,formula_1,driverId,the identification number identifying each driver [format: integer] [foreign key -> drivers.driverId],integer
+qualifying,formula_1,number,number [format: integer],integer
+qualifying,formula_1,position,position or track of circuit [format: integer],integer
+qualifying,formula_1,q1,"time in qualifying 1 [format: text] Value: in minutes / seconds / ... 
+commonsense evidence: 
+Q1 lap times determine pole position and the order of the front 10 positions on the grid. The slowest driver in Q1 starts 10th, the next starts ninth and so on. 
+All 20 F1 drivers participate in the first period, called Q1, with each trying to set the fastest time possible. Those in the top 15 move on to the next period of qualifying, called Q2. The five slowest drivers are eliminated and will start the race in the last five positions on the grid.",text
+qualifying,formula_1,q2,"time in qualifying 2 [format: text] Value: in minutes / seconds / ... 
+commonsense evidence: 
+only top 15 in the q1 has the record of q2 
+Q2 is slightly shorter but follows the same format. Drivers try to put down their best times to move on to Q1 as one of the 10 fastest cars. The five outside of the top 10 are eliminated and start the race from 11th to 15th based on their best lap time.",text
+qualifying,formula_1,q3,"time in qualifying 3 [format: text] Value: in minutes / seconds / ... 
+commonsense evidence: 
+only top 10 in the q2 has the record of q3",text
+qualifying,formula_1,qualifyId,"the unique identification number identifying qualifying [format: integer] Value: How does F1 Sprint qualifying work? Sprint qualifying is essentially a short-form Grand Prix – a race that is one-third the number of laps of the main event on Sunday. However, the drivers are battling for positions on the grid for the start of Sunday's race. [primary key]",integer
+qualifying,formula_1,raceId,the identification number identifying each race [format: integer] [foreign key -> races.raceId],integer
+races,formula_1,circuitId,circuit Id [format: integer] [foreign key -> circuits.circuitId],integer
+races,formula_1,date,duration time [format: date],date
+races,formula_1,name,name of the race [format: text],text
+races,formula_1,raceId,the unique identification number identifying the race [format: integer] [primary key],integer
+races,formula_1,round,round [format: integer],integer
+races,formula_1,time,time of the location [format: text],text
+races,formula_1,url,introduction of races [format: text],text
+races,formula_1,year,year [format: integer] [foreign key -> seasons.year],integer
+results,formula_1,constructorId,the identification number identifying which constructors [format: integer] [foreign key -> constructors.constructorId],integer
+results,formula_1,driverId,the identification number identifying the driver [format: integer] [foreign key -> drivers.driverId],integer
+results,formula_1,fastestLap,fastest lap number [format: integer],integer
+results,formula_1,fastestLapSpeed,fastest Lap Speed [format: text] Value: (km / h),text
+results,formula_1,fastestLapTime,"fastest Lap Time [format: text] Value: faster (smaller in the value) ""fastestLapTime"" leads to higher rank (smaller is higher rank)",text
+results,formula_1,grid,the number identifying the area where cars are set into a grid formation in order to start the race. [format: integer],integer
+results,formula_1,laps,lap number [format: integer],integer
+results,formula_1,milliseconds,the actual finishing time of drivers in milliseconds [format: integer] Value: the actual finishing time of drivers,integer
+results,formula_1,number,number [format: integer],integer
+results,formula_1,points,points [format: real],real
+results,formula_1,position,The finishing position or track of circuits [format: integer],integer
+results,formula_1,positionOrder,the finishing order of positions [format: integer],integer
+results,formula_1,positionText,[format: text] Value: not quite useful,text
+results,formula_1,raceId,the identification number identifying the race [format: integer] [foreign key -> races.raceId],integer
+results,formula_1,rank,starting rank positioned by fastest lap speed [format: integer],integer
+results,formula_1,resultId,the unique identification number identifying race result [format: integer] [primary key],integer
+results,formula_1,statusId,status ID [format: integer] Value: its category description appear in the table status [foreign key -> status.statusId],integer
+results,formula_1,time,"finish time [format: text] Value: commonsense evidence: 
+1. if the value exists, it means the driver finished the race. 
+2. Only the time of the champion shows in the format of ""minutes: seconds.millionsecond"", the time of the other drivers shows as ""seconds.millionsecond"" , which means their actual time is the time of the champion adding the value in this cell.",text
+seasons,formula_1,url,website link of season race introduction [format: text],text
+seasons,formula_1,year,the unique identification number identifying the race [format: integer] [primary key],integer
+status,formula_1,status,full name of status [format: text],text
+status,formula_1,statusId,the unique identification number identifying status [format: integer] [primary key],integer

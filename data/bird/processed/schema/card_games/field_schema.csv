@@ -1,0 +1,135 @@
+table,db,field_name,field_name_desc,field_type
+cards,card_games,artist,The name of the artist that illustrated the card art. [format: text],text
+cards,card_games,asciiName,The ASCII(opens new window) (Basic/128) code formatted card name with no special unicode characters. [format: text],text
+cards,card_games,availability,"A list of the card's available printing types. [format: text] Value: ""arena"", ""dreamcast"", ""mtgo"", ""paper"", ""shandalar""",text
+cards,card_games,borderColor,"The color of the card border. [format: text] Value: ""black"", ""borderless"", ""gold"", ""silver"", ""white""",text
+cards,card_games,cardKingdomFoilId,"card Kingdom Foil Id [format: text] Value: commonsense evidence:
+cardKingdomFoilId, when paired with cardKingdomId that is not Null, is incredibly powerful.",text
+cards,card_games,cardKingdomId,card Kingdom Id [format: text] Value: A list of all the colors in the color indicator,text
+cards,card_games,colorIdentity,"A list of all the colors found in manaCost, colorIndicator, and text [format: text]",text
+cards,card_games,colorIndicator,A list of all the colors in the color indicator (The symbol prefixed to a card's types). [format: text],text
+cards,card_games,colors,"A list of all the colors in manaCost and colorIndicator. [format: text] Value: Some cards may not have values, such as cards with ""Devoid"" in its text.",text
+cards,card_games,convertedManaCost,"The converted mana cost of the card. Use the manaValue property. [format: real] Value: if value is higher, it means that this card cost more converted mana",real
+cards,card_games,duelDeck,The indicator for which duel deck the card is in. [format: text],text
+cards,card_games,edhrecRank,The card rank on EDHRec [format: integer],integer
+cards,card_games,faceConvertedManaCost,"The converted mana cost or mana value for the face for either half or part of the card. [format: real] Value: if value is higher, it means that this card cost more converted mana for the face",real
+cards,card_games,faceName,The name on the face of the card. [format: text],text
+cards,card_games,flavorName,The promotional card name printed above the true card name on special cards that has no game function. [format: text] Value: The promotional card name printed above the true card name on special cards that has no game function.,text
+cards,card_games,flavorText,The italicized text found below the rules text that has no game function. [format: text] Value: The italicized text found below the rules text that has no game function.,text
+cards,card_games,frameEffects,"The visual frame effects. [format: text] Value: ""colorshifted"", ""companion"", ""compasslanddfc"", ""devoid"", ""draft"", ""etched"", ""extendedart"", ""fullart"", ""inverted"", ""legendary"", ""lesson"", ""miracle"", ""mooneldrazidfc"", ""nyxtouched"", ""originpwdfc"", ""showcase"", ""snow"", ""sunmoondfc"", ""textless"", ""tombstone"", ""waxingandwaningmoondfc""",text
+cards,card_games,frameVersion,"The version of the card frame style. [format: text] Value: ""1993"", ""1997"", ""2003"", ""2015"", ""future""",text
+cards,card_games,hand,"The starting maximum hand size total modifier. [format: text] Value: A + or - character precedes an integer. 
+commonsense evidence:
+positive maximum hand size: +1, +2, ....
+negative maximum hand size: -1, ....
+neural maximum hand size: 0....",text
+cards,card_games,hasAlternativeDeckLimit,If the card allows a value other than 4 copies in a deck. [format: integer] Value: 0: disallow 1: allow,integer
+cards,card_games,hasContentWarning,"If the card marked by Wizards of the Coast (opens new window) for having sensitive content. See this official article (opens new window) for more information. [format: integer] Value: 0: doesn't have 1: has sensitve content or Wizards of the Coast
+commonsense evidence:
+Cards with this property may have missing or degraded properties and values.",integer
+cards,card_games,hasFoil,If the card can be found in foil [format: integer] Value: 0: cannot be found 1: can be found,integer
+cards,card_games,hasNonFoil,If the card can be found in non-foil [format: integer] Value: 0: cannot be found 1: can be found,integer
+cards,card_games,id,[format: integer] [primary key],integer
+cards,card_games,isAlternative,If the card is an alternate variation to an original printing [format: integer] Value: 0: is not 1: is,integer
+cards,card_games,isFullArt,"If the card has full artwork. [format: integer] Value: 0: doesn't have, 1: has full artwork",integer
+cards,card_games,isOnlineOnly,If the card is only available in online game variations. [format: integer] Value: 0: is not 1: is,integer
+cards,card_games,isOversized,If the card is oversized. [format: integer] Value: 0: is not 1: is,integer
+cards,card_games,isPromo,If the card is a promotional printing. [format: integer] Value: 0: is not 1: is,integer
+cards,card_games,isReprint,If the card has been reprinted. [format: integer] Value: 0: has not 1: has not been,integer
+cards,card_games,isReserved,"If the card is on the Magic: The Gathering Reserved List (opens new window) [format: integer] Value: If the card is on the Magic, it will appear in The Gathering Reserved List",integer
+cards,card_games,isStarter,If the card is found in a starter deck such as Planeswalker/Brawl decks. [format: integer] Value: 0: is not 1: is,integer
+cards,card_games,isStorySpotlight,If the card is a Story Spotlight card. [format: integer] Value: 0: is not 1: is,integer
+cards,card_games,isTextless,"If the card does not have a text box. [format: integer] Value: commonsense evidence:
+0: has a text box;
+1: doesn't have a text box;",integer
+cards,card_games,isTimeshifted,"If the card is time shifted [format: integer] Value: commonsense evidence:
+If the card is ""timeshifted"", a feature of certain sets where a card will have a different frameVersion.",integer
+cards,card_games,keywords,A list of keywords found on the card. [format: text],text
+cards,card_games,layout,"The type of card layout. For a token card, this will be ""token"" [format: text]",text
+cards,card_games,leadershipSkills,A list of formats the card is legal to be a commander in [format: text],text
+cards,card_games,life,The starting life total modifier. A plus or minus character precedes an integer. [format: text],text
+cards,card_games,loyalty,"The starting loyalty value of the card. [format: text] Value: Used only on cards with ""Planeswalker"" in its types. empty means unkown",text
+cards,card_games,manaCost,"The mana cost of the card wrapped in brackets for each value. [format: text] Value: commonsense evidence:
+manaCost is unconverted mana cost",text
+cards,card_games,mcmId,[format: text] Value: NOT USEFUL,text
+cards,card_games,mcmMetaId,[format: text] Value: NOT USEFUL,text
+cards,card_games,mtgArenaId,[format: text] Value: NOT USEFUL,text
+cards,card_games,mtgjsonV4Id,[format: text] Value: NOT USEFUL,text
+cards,card_games,mtgoFoilId,[format: text] Value: NOT USEFUL,text
+cards,card_games,mtgoId,[format: text] Value: NOT USEFUL,text
+cards,card_games,multiverseId,[format: text] Value: NOT USEFUL,text
+cards,card_games,name,"The name of the card. [format: text] Value: Cards with multiple faces, like ""Split"" and ""Meld"" cards are given a delimiter.",text
+cards,card_games,number,The number of the card [format: text],text
+cards,card_games,originalReleaseDate,"original Release Date [format: text] Value: The original release date in ISO 8601(opens new window) format for a promotional card printed outside of a cycle window, such as Secret Lair Drop promotions.",text
+cards,card_games,originalText,original Text [format: text] Value: The text on the card as originally printed.,text
+cards,card_games,originalType,original Type [format: text] Value: The type of the card as originally printed. Includes any supertypes and subtypes.,text
+cards,card_games,otherFaceIds,"other Face Ids [format: text] Value: A list of card UUID's to this card's counterparts, such as transformed or melded faces.",text
+cards,card_games,power,"The power of the card. [format: text] Value: commonsense evidence:
+∞ means infinite power
+null or * refers to unknown power",text
+cards,card_games,printings,"A list of set printing codes the card was printed in, formatted in uppercase. [format: text]",text
+cards,card_games,promoTypes,"A list of promotional types for a card. [format: text] Value: ""arenaleague"", ""boosterfun"", ""boxtopper"", ""brawldeck"", ""bundle"", ""buyabox"", ""convention"", ""datestamped"", ""draculaseries"", ""draftweekend"", ""duels"", ""event"", ""fnm"", ""gameday"", ""gateway"", ""giftbox"", ""gilded"", ""godzillaseries"", ""instore"", ""intropack"", ""jpwalker"", ""judgegift"", ""league"", ""mediainsert"", ""neonink"", ""openhouse"", ""planeswalkerstamped"", ""playerrewards"", ""playpromo"", ""premiereshop"", ""prerelease"", ""promopack"", ""release"", ""setpromo"", ""stamped"", ""textured"", ""themepack"", ""thick"", ""tourney"", ""wizardsplaynetwork""",text
+cards,card_games,purchaseUrls,Links that navigate to websites where the card can be purchased. [format: text],text
+cards,card_games,rarity,The card printing rarity. [format: text],text
+cards,card_games,scryfallId,[format: text] Value: NOT USEFUL,text
+cards,card_games,scryfallIllustrationId,[format: text] Value: NOT USEFUL,text
+cards,card_games,scryfallOracleId,[format: text] Value: NOT USEFUL,text
+cards,card_games,setCode,The set printing code that the card is from. [format: text],text
+cards,card_games,side,"The identifier of the card side. [format: text] Value: Used on cards with multiple faces on the same card.
+commonsense evidence:
+if this value is empty, then it means this card doesn't have multiple faces on the same card.",text
+cards,card_games,subtypes,A list of card subtypes found after em-dash. [format: text],text
+cards,card_games,supertypes,"A list of card supertypes found before em-dash. [format: text] Value: commonsense evidence:
+list of all types should be the union of subtypes and supertypes",text
+cards,card_games,tcgplayerProductId,[format: text],text
+cards,card_games,text,The rules text of the card. [format: text],text
+cards,card_games,toughness,The toughness of the card. [format: text],text
+cards,card_games,type,"The type of the card as visible, including any supertypes and subtypes. [format: text] Value: ""Artifact"", ""Card"", ""Conspiracy"", ""Creature"", ""Dragon"", ""Dungeon"", ""Eaturecray"", ""Elemental"", ""Elite"", ""Emblem"", ""Enchantment"", ""Ever"", ""Goblin"", ""Hero"", ""Instant"", ""Jaguar"", ""Knights"", ""Land"", ""Phenomenon"", ""Plane"", ""Planeswalker"", ""Scariest"", ""Scheme"", ""See"", ""Sorcery"", ""Sticker"", ""Summon"", ""Token"", ""Tribal"", ""Vanguard"", ""Wolf"", ""You’ll"", ""instant""",text
+cards,card_games,types,"A list of all card types of the card, including Un‑sets and gameplay variants. [format: text]",text
+cards,card_games,uuid,The universal unique identifier (v5) generated by MTGJSON. Each entry is unique. [format: text] Value: NOT USEFUL,text
+cards,card_games,variations,[format: text],text
+cards,card_games,watermark,The name of the watermark on the card. [format: text],text
+foreign_data,card_games,flavorText,The foreign flavor text of the card. [format: text],text
+foreign_data,card_games,id,unique id number identifying this row of data [format: integer] [primary key],integer
+foreign_data,card_games,language,The foreign language of card. [format: text],text
+foreign_data,card_games,multiverseid,The foreign multiverse identifier of the card. [format: integer],integer
+foreign_data,card_games,name,The foreign name of the card. [format: text],text
+foreign_data,card_games,text,The foreign text ruling of the card. [format: text],text
+foreign_data,card_games,type,The foreign type of the card. Includes any supertypes and subtypes. [format: text],text
+foreign_data,card_games,uuid,[format: text] [foreign key -> cards.uuid],text
+legalities,card_games,format,format of play [format: text] Value: each value refers to different rules to play,text
+legalities,card_games,id,unique id identifying this legality [format: integer] [primary key],integer
+legalities,card_games,status,"[format: text] Value: • legal
+• banned
+• restricted",text
+legalities,card_games,uuid,[format: text] [foreign key -> cards.uuid],text
+rulings,card_games,date,date [format: date],date
+rulings,card_games,id,unique id identifying this ruling [format: integer] [primary key],integer
+rulings,card_games,text,description about this ruling [format: text],text
+rulings,card_games,uuid,[format: text] [foreign key -> cards.uuid],text
+set_translations,card_games,id,unique id identifying this set [format: integer] [primary key],integer
+set_translations,card_games,language,language of this card set [format: text],text
+set_translations,card_games,setCode,the set code for this set [format: text] [foreign key -> sets.code],text
+set_translations,card_games,translation,translation of this card set [format: text],text
+sets,card_games,baseSetSize,The number of cards in the set. [format: integer],integer
+sets,card_games,block,The block name the set was in. [format: text],text
+sets,card_games,booster,A breakdown of possibilities and weights of cards in a booster pack. [format: text],text
+sets,card_games,code,The set code for the set. [format: text],text
+sets,card_games,id,unique id identifying this set [format: integer] [primary key],integer
+sets,card_games,isFoilOnly,If the set is only available in foil. [format: integer],integer
+sets,card_games,isForeignOnly,If the set is available only outside the United States of America. [format: integer],integer
+sets,card_games,isNonFoilOnly,If the set is only available in non-foil. [format: integer],integer
+sets,card_games,isOnlineOnly,If the set is only available in online game variations. [format: integer],integer
+sets,card_games,isPartialPreview,If the set is still in preview (spoiled). Preview sets do not have complete data. [format: integer],integer
+sets,card_games,keyruneCode,The matching Keyrune code for set image icons. [format: text],text
+sets,card_games,mcmId,The Magic Card Marketset identifier. [format: integer],integer
+sets,card_games,mcmIdExtras,The split Magic Card Market set identifier if a set is printed in two sets. This identifier represents the second set's identifier. [format: integer],integer
+sets,card_games,mcmName,[format: text],text
+sets,card_games,mtgoCode,"The set code for the set as it appears on Magic: The Gathering Online [format: text] Value: commonsense evidence:
+if the value is null or empty, then it doesn't appear on Magic: The Gathering Online",text
+sets,card_games,name,The name of the set. [format: text],text
+sets,card_games,parentCode,"The parent set code for set variations like promotions, guild kits, etc. [format: text]",text
+sets,card_games,releaseDate,The release date in ISO 8601 format for the set. [format: date],date
+sets,card_games,tcgplayerGroupId,The group identifier of the set on TCGplayer [format: integer],integer
+sets,card_games,totalSetSize,"The total number of cards in the set, including promotional and related supplemental products but excluding Alchemy modifications - however those cards are included in the set itself. [format: integer]",integer
+sets,card_games,type,"The expansion type of the set. [format: text] Value: ""alchemy"", ""archenemy"", ""arsenal"", ""box"", ""commander"", ""core"", ""draft_innovation"", ""duel_deck"", ""expansion"", ""from_the_vault"", ""funny"", ""masterpiece"", ""masters"", ""memorabilia"", ""planechase"", ""premium_deck"", ""promo"", ""spellbook"", ""starter"", ""token"", ""treasure_chest"", ""vanguard""",text

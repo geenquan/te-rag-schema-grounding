@@ -1,0 +1,72 @@
+table,db,field_name,field_name_desc,field_type
+customer,retails,c_acctbal,account balance [format: real] Value: if c_acctbal < 0: this account is in debt,real
+customer,retails,c_address,address of the customer [format: text],text
+customer,retails,c_comment,comment of the customer [format: text],text
+customer,retails,c_custkey,unique id number identifying the customer [format: integer] [primary key],integer
+customer,retails,c_mktsegment,the segment of the customer [format: text],text
+customer,retails,c_name,name of the customer [format: text],text
+customer,retails,c_nationkey,the nation key number of the customer [format: integer] [foreign key -> nation.n_nationkey],integer
+customer,retails,c_phone,phone of the customer [format: text],text
+lineitem,retails,l_comment,comment of line item [format: text],text
+lineitem,retails,l_commitdate,commit date of line item [format: date],date
+lineitem,retails,l_discount,discount of line item [format: real] Value: 0.1: 10% off,real
+lineitem,retails,l_extendedprice,"extended price of line item [format: real] Value: commonsense evidence:
+full price before discount
+discounted price = (l_extendedprice*(1-l_discount))",real
+lineitem,retails,l_linenumber,unique id number identifying the line item [format: integer] [primary key],integer
+lineitem,retails,l_linestatus,line status of line item [format: text] Value: NOT USEFUL,text
+lineitem,retails,l_orderkey,order key number of line item [format: integer] [primary key] [foreign key -> orders.o_orderkey],integer
+lineitem,retails,l_partkey,part key of line item [format: integer] [foreign key -> partsupp.ps_partkey],integer
+lineitem,retails,l_quantity,quantity of line item [format: integer],integer
+lineitem,retails,l_receiptdate,"receipt date of line item [format: date] Value: commonsense evidence:
+freight / shipping / delivery time = l_receiptdate - l_commitdate;
+less shipping / delivery time --> faster shipping speed.",date
+lineitem,retails,l_returnflag,"return flag of line item [format: text] Value: commonsense evidence:
+ R ? returned item
+ A and ""N"": not returned item.",text
+lineitem,retails,l_shipdate,ship date of line item [format: date],date
+lineitem,retails,l_shipinstruct,ship instruct of line item [format: text],text
+lineitem,retails,l_shipmode,ship mode of line item [format: text],text
+lineitem,retails,l_suppkey,suppkey of line item [format: integer] [foreign key -> partsupp.ps_suppkey],integer
+lineitem,retails,l_tax,"tax of line item [format: real] Value: commonsense evidence:
+charge = l_extendedprice * (1- l_discount) * (1+ l_tax)",real
+nation,retails,n_comment,comment description of nation [format: text],text
+nation,retails,n_name,name of the nation [format: text],text
+nation,retails,n_nationkey,unique id number identifying the nation [format: integer] [primary key],integer
+nation,retails,n_regionkey,region key number of the nation [format: integer] [foreign key -> region.r_regionkey],integer
+orders,retails,o_clerk,clerk of order [format: text],text
+orders,retails,o_comment,comment description of order [format: text],text
+orders,retails,o_custkey,customer key of order [format: integer] [foreign key -> customer.c_custkey],integer
+orders,retails,o_orderdate,"date of the order [format: date] Value: commonsense evidence:
+earlier order date --> higher priority in delivery",date
+orders,retails,o_orderkey,unique id number identifying the order [format: integer] [primary key],integer
+orders,retails,o_orderpriority,priority rate of order [format: text] Value: A smaller number means a higher priority: 0-Urgent,text
+orders,retails,o_orderstatus,status of order [format: text] Value: NOT USEFUL,text
+orders,retails,o_shippriority,ship priority of order [format: integer] Value: NOT USEFUL,integer
+orders,retails,o_totalprice,total price of the order [format: real],real
+part,retails,p_brand,brand of part [format: text],text
+part,retails,p_comment,comment description text of part [format: text],text
+part,retails,p_container,container of part [format: text],text
+part,retails,p_mfgr,manufacturer of part [format: text],text
+part,retails,p_name,name of part [format: text],text
+part,retails,p_partkey,unique id number identifying the part [format: integer] [primary key],integer
+part,retails,p_retailprice,retail price of part [format: real],real
+part,retails,p_size,size number of part [format: integer] Value: larger number --> larger part,integer
+part,retails,p_type,type of part [format: text],text
+partsupp,retails,ps_availqty,available quantity of the part supply [format: integer] Value: if ps_availqty < 10 --> closer to OOS (out of stock),integer
+partsupp,retails,ps_comment,comment description of the part supply. [format: text],text
+partsupp,retails,ps_partkey,unique id number identifying the part key [format: integer] [primary key] [foreign key -> part.p_partkey],integer
+partsupp,retails,ps_suppkey,unique id number identifying the supply key [format: integer] [primary key] [foreign key -> supplier.s_suppkey],integer
+partsupp,retails,ps_supplycost,"cost number of the part supply [format: real] Value: commonsense evidence:
+profit = (l_extendedprice*(1-l_discount)) - (ps_supplycost * l_quantity)] l_quantity comes from table lineitem!",real
+region,retails,r_comment,comment description of the region [format: text],text
+region,retails,r_name,name of the region [format: text],text
+region,retails,r_regionkey,unique id number identifying the region [format: integer] [primary key],integer
+supplier,retails,s_acctbal,"account balance of the supplier [format: real] Value: commonsense evidence:
+if c_acctbal < 0: this account is in debt",real
+supplier,retails,s_address,address of the supplier [format: text],text
+supplier,retails,s_comment,comment description of the comment [format: text],text
+supplier,retails,s_name,name of the supplier [format: text],text
+supplier,retails,s_nationkey,nation key of the supply [format: integer] [foreign key -> nation.n_nationkey],integer
+supplier,retails,s_phone,phone number of the supplier [format: text],text
+supplier,retails,s_suppkey,unique id number identifying the supply [format: integer] [primary key],integer

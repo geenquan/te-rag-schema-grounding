@@ -1,0 +1,73 @@
+table,db,field_name,field_name_desc,field_type
+customers,beer_factory,City,the city where the customer lives [format: text],text
+customers,beer_factory,CustomerID,the unique id for the customer [format: integer] [primary key],integer
+customers,beer_factory,Email,the customer's email [format: text],text
+customers,beer_factory,First,the first name of the customer [format: text],text
+customers,beer_factory,FirstPurchaseDate,the first purchase date of the customer [format: date] Value: yyyy-mm-dd,date
+customers,beer_factory,Gender,the customer's gender [format: text],text
+customers,beer_factory,Last,the last name of the customer [format: text],text
+customers,beer_factory,PhoneNumber,the customer's phone number [format: text],text
+customers,beer_factory,State,"the state code [format: text] Value: commonsense evidence: please refer to https://www23.statcan.gc.ca/imdb/p3VD.pl?Function=getVD&TVD=53971
+and mention its corresponding state name in the question. i.e. New York-- NY",text
+customers,beer_factory,StreetAddress,the address of the customer [format: text],text
+customers,beer_factory,SubscribedToEmailList,"whether the customer subscribe to the email list [format: text] Value: commonsense evidence:
+ 'true' means the user permits the company to send regular emails to them.",text
+customers,beer_factory,ZipCode,the zip code [format: integer],integer
+geolocation,beer_factory,Latitude,the latitude of the location [format: real],real
+geolocation,beer_factory,LocationID,the id of the location [format: integer] [primary key] [foreign key -> location.LocationID],integer
+geolocation,beer_factory,Longitude,"the longitude of the location [format: real] Value: commonsense evidence:
+precise location / coordinate = POINT(latitude, longitude)",real
+location,beer_factory,City,the city where the location locates [format: text],text
+location,beer_factory,LocationID,the unique id for the location [format: integer] [primary key] [foreign key -> geolocation.LocationID],integer
+location,beer_factory,LocationName,the name of the location [format: text],text
+location,beer_factory,State,the state code [format: text],text
+location,beer_factory,StreetAddress,the street address [format: text],text
+location,beer_factory,ZipCode,the zip code of the location [format: integer],integer
+rootbeer,beer_factory,BrandID,the brand id [format: integer] [foreign key -> rootbeerbrand.BrandID],integer
+rootbeer,beer_factory,ContainerType,the type of the container [format: text],text
+rootbeer,beer_factory,LocationID,the location id of the selling company [format: integer] [foreign key -> geolocation.LocationID],integer
+rootbeer,beer_factory,PurchaseDate,the purchase date of the root beer [format: date],date
+rootbeer,beer_factory,RootBeerID,the unique id for the root beer [format: integer] [primary key],integer
+rootbeerbrand,beer_factory,Alcoholic,whether the drink is alcoholic [format: text],text
+rootbeerbrand,beer_factory,ArtificialSweetener,"whether the drink contains the artificial sweetener [format: text] Value: commonsense evidence:
+if the beer has artificial sweetener, it means this beer is sweeter or has sweetness",text
+rootbeerbrand,beer_factory,AvailableInBottles,whether the drink is available in bottles [format: text],text
+rootbeerbrand,beer_factory,AvailableInCans,whether the drink is available in cans [format: text],text
+rootbeerbrand,beer_factory,AvailableInKegs,whether the drink is available in kegs [format: text],text
+rootbeerbrand,beer_factory,BrandID,the unique id for the brand [format: integer] [primary key],integer
+rootbeerbrand,beer_factory,BrandName,the brand name [format: text],text
+rootbeerbrand,beer_factory,BreweryName,the brewery name [format: text],text
+rootbeerbrand,beer_factory,Caffeinated,whether the drink is caffeinated [format: text],text
+rootbeerbrand,beer_factory,CaneSugar,whether the drink contains cane sugar [format: text],text
+rootbeerbrand,beer_factory,City,the city where the brewery locates [format: text],text
+rootbeerbrand,beer_factory,CornSyrup,whether the drink contains the corn syrup [format: text],text
+rootbeerbrand,beer_factory,Country,"the country where the brewery locates [format: text] Value: commonsense evidence:
+can find its corresponding continent. e.g., U.S.--> North America",text
+rootbeerbrand,beer_factory,CurrentRetailPrice,"the current retail price [format: real] Value: commonsense evidence:
+The unit profit available to wholesalers = current retail price - wholesale cost",real
+rootbeerbrand,beer_factory,Description,the description of the brand [format: text],text
+rootbeerbrand,beer_factory,FacebookPage,"the facebook page of the brand [format: text] Value: commonsense evidence:
+if not, it means this brand doesn't advertise on facebook",text
+rootbeerbrand,beer_factory,FirstBrewedYear,"the first brewed year of the brand [format: integer] Value: commonsense evidence:
+brand with earlier first brewed year has a much longer brewed history",integer
+rootbeerbrand,beer_factory,Honey,"whether the drink contains the honey [format: text] Value: commonsense evidence:
+if the beer has honey, it means this beer is sweeter or has sweetness",text
+rootbeerbrand,beer_factory,State,the state code [format: text],text
+rootbeerbrand,beer_factory,Twitter,"the twitter of the brand [format: text] Value: commonsense evidence:
+if not, it means this brand doesn't advertise on twitter",text
+rootbeerbrand,beer_factory,Website,the website of the brand [format: text],text
+rootbeerbrand,beer_factory,WholesaleCost,the wholesale cost [format: real],real
+rootbeerreview,beer_factory,BrandID,the id of the brand [format: integer] [primary key] [foreign key -> rootbeerbrand.BrandID],integer
+rootbeerreview,beer_factory,CustomerID,the id of the customer [format: integer] [primary key] [foreign key -> customers.CustomerID],integer
+rootbeerreview,beer_factory,Review,the specific review content [format: text],text
+rootbeerreview,beer_factory,ReviewDate,the review date [format: date] Value: yyyy-mm-dd,date
+rootbeerreview,beer_factory,StarRating,"the star rating of the root beer [format: integer] Value: commonsense evidence:
+root beer with higher star rating has higher market evaluation and acceptance",integer
+transaction,beer_factory,CreditCardNumber,the number of the credit card used for payment [format: integer],integer
+transaction,beer_factory,CreditCardType,the credit card type [format: text],text
+transaction,beer_factory,CustomerID,the customer id [format: integer] [foreign key -> customers.CustomerID],integer
+transaction,beer_factory,LocationID,the location id of the selling company [format: integer] [foreign key -> location.LocationID],integer
+transaction,beer_factory,PurchasePrice,the unit purchase price of the root beer [format: real] Value: us dollars,real
+transaction,beer_factory,RootBeerID,the root beer id [format: integer] [foreign key -> rootbeer.RootBeerID],integer
+transaction,beer_factory,TransactionDate,the transaction date [format: date] Value: yyyy-mm-dd,date
+transaction,beer_factory,TransactionID,the unique id for the transaction [format: integer] [primary key],integer

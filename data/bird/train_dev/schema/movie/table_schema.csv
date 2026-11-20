@@ -1,0 +1,34 @@
+table,db,table_desc,field,schema
+actor,movie,actor,ActorID|Biography|Birth City|Birth Country|Date of Birth|Ethnicity|Gender|Height (Inches)|Name|NetWorth,"CREATE TABLE actor (
+  ActorID,
+  Biography,
+  Birth City,
+  Birth Country,
+  Date of Birth,
+  Ethnicity,
+  Gender,
+  Height (Inches),
+  Name,
+  NetWorth
+);"
+characters,movie,characters,ActorID|Character Name|MovieID|creditOrder|pay|screentime,"CREATE TABLE characters (
+  ActorID,
+  Character Name,
+  MovieID,
+  creditOrder,
+  pay,
+  screentime
+);"
+movie,movie,movie,Budget|Genre|Gross|MPAA Rating|MovieID|Rating|Rating Count|Release Date|Runtime|Summary|Title,"CREATE TABLE movie (
+  Budget,
+  Genre,
+  Gross,
+  MPAA Rating,
+  MovieID,
+  Rating,
+  Rating Count,
+  Release Date,
+  Runtime,
+  Summary,
+  Title
+);"

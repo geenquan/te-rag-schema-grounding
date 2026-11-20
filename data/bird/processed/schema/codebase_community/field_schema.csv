@@ -1,0 +1,81 @@
+table,db,field_name,field_name_desc,field_type
+badges,codebase_community,Date,the date that the user obtained the badge [format: datetime],datetime
+badges,codebase_community,Id,the badge id [format: integer] [primary key],integer
+badges,codebase_community,Name,the badge name the user obtained [format: text],text
+badges,codebase_community,UserId,the unique id of the user [format: integer] [foreign key -> users.Id],integer
+comments,codebase_community,CreationDate,the creation date of the comment [format: datetime],datetime
+comments,codebase_community,Id,the comment Id [format: integer] [primary key],integer
+comments,codebase_community,PostId,the unique id of the post [format: integer] [foreign key -> posts.Id],integer
+comments,codebase_community,Score,"rating score [format: integer] Value: commonsense evidence:
+The score is from 0 to 100. The score more than 60 refers that the comment is a positive comment. The score less than 60 refers that the comment is a negative comment.",integer
+comments,codebase_community,Text,the detailed content of the comment [format: text],text
+comments,codebase_community,UserDisplayName,user's display name [format: text],text
+comments,codebase_community,UserId,the id of the user who post the comment [format: integer] [foreign key -> users.Id],integer
+postHistory,codebase_community,Comment,comments of the post [format: text],text
+postHistory,codebase_community,CreationDate,the creation date of the post [format: datetime],datetime
+postHistory,codebase_community,Id,the post history id [format: integer] [primary key],integer
+postHistory,codebase_community,PostHistoryTypeId,the id of the post history type [format: integer],integer
+postHistory,codebase_community,PostId,the unique id of the post [format: integer] [foreign key -> posts.Id],integer
+postHistory,codebase_community,RevisionGUID,the revision globally unique id of the post [format: integer],text
+postHistory,codebase_community,Text,the detailed content of the post [format: text],text
+postHistory,codebase_community,UserDisplayName,user's display name [format: text],text
+postHistory,codebase_community,UserId,the user who post the post [format: integer] [foreign key -> users.Id],integer
+postLinks,codebase_community,CreationDate,the creation date of the post link [format: datetime],datetime
+postLinks,codebase_community,Id,the post link id [format: integer] [primary key],integer
+postLinks,codebase_community,LinkTypeId,the id of the link type [format: integer],integer
+postLinks,codebase_community,PostId,the post id [format: integer] [foreign key -> posts.Id],integer
+postLinks,codebase_community,RelatedPostId,the id of the related post [format: integer] [foreign key -> posts.Id],integer
+posts,codebase_community,AcceptedAnswerId,the accepted answer id of the post [format: integer],integer
+posts,codebase_community,AnswerCount,the total number of answers of the post [format: integer],integer
+posts,codebase_community,Body,the body of the post [format: text],text
+posts,codebase_community,ClosedDate,"the closed date of the post [format: data_format] Value: commonsense evidence:
+if ClosedDate is null or empty, it means this post is not well-finished
+if CloseDate is not null or empty, it means this post has well-finished.",datetime
+posts,codebase_community,CommentCount,the total number of comments of the post [format: integer],integer
+posts,codebase_community,CommunityOwnedDate,the community owned date [format: datetime],datetime
+posts,codebase_community,CreaionDate,the creation date of the post [format: datetime],datetime
+posts,codebase_community,FavoriteCount,"the total number of favorites of the post [format: integer] Value: commonsense evidence:
+more favorite count refers to more valuable posts.",integer
+posts,codebase_community,Id,the post id [format: integer] [primary key],integer
+posts,codebase_community,LasActivityDate,the last activity date [format: datetime],datetime
+posts,codebase_community,LastEditDate,the last edit date [format: datetime],datetime
+posts,codebase_community,LastEditorDisplayName,the display name of the last editor [format: text],text
+posts,codebase_community,LastEditorUserId,the id of the last editor [format: integer] [foreign key -> users.Id],integer
+posts,codebase_community,OwnerDisplayName,the display name of the post owner [format: text],text
+posts,codebase_community,OwnerUserId,the id of the owner user [format: integer] [foreign key -> users.Id],integer
+posts,codebase_community,ParentId,"the id of the parent post [format: integer] Value: commonsense evidence:
+If the parent id is null, the post is the root post. Otherwise, the post is the child post of other post. [foreign key -> posts.Id]",integer
+posts,codebase_community,PostTypeId,the id of the post type [format: integer],integer
+posts,codebase_community,Score,the score of the post [format: integer],integer
+posts,codebase_community,Tags,the tag of the post [format: text],text
+posts,codebase_community,Title,the title of the post [format: text],text
+posts,codebase_community,ViewCount,"the view count of the post [format: integer] Value: commonsense evidence:
+Higher view count means the post has higher popularity",integer
+tags,codebase_community,Count,the count of posts that contain this tag [format: integer] Value: more counts --> this tag is more popular,integer
+tags,codebase_community,ExcerptPostId,the excerpt post id of the tag [format: integer] [foreign key -> posts.Id],integer
+tags,codebase_community,Id,the tag id [format: integer] [primary key],integer
+tags,codebase_community,TagName,the name of the tag [format: text],text
+tags,codebase_community,WikiPostId,the wiki post id of the tag [format: integer],integer
+users,codebase_community,AboutMe,the self introduction of the user [format: text],text
+users,codebase_community,AccountId,the unique id of the account [format: integer],integer
+users,codebase_community,Age,"user's age [format: integer] Value:  teenager: 13-18
+ adult: 19-65
+ elder: > 65",integer
+users,codebase_community,CreationDate,the creation date of the user account [format: datetime],datetime
+users,codebase_community,DisplayName,the user's display name [format: text],text
+users,codebase_community,DownVotes,the number of downvotes [format: integer],integer
+users,codebase_community,Id,the user id [format: integer] [primary key],integer
+users,codebase_community,LastAccessDate,the last access date of the user account [format: datetime],datetime
+users,codebase_community,Location,user's location [format: text],text
+users,codebase_community,ProfileImageUrl,the profile image url [format: text],text
+users,codebase_community,Reputation,"the user's reputation [format: integer] Value: commonsense evidence:
+The user with higher reputation has more influence.",integer
+users,codebase_community,UpVotes,the number of upvotes [format: integer],integer
+users,codebase_community,Views,the number of views [format: integer],integer
+users,codebase_community,WebsiteUrl,the website url of the user account [format: text],text
+votes,codebase_community,BountyAmount,the amount of bounty [format: integer],integer
+votes,codebase_community,CreationDate,the creation date of the vote [format: datetime],date
+votes,codebase_community,Id,the vote id [format: integer] [primary key],integer
+votes,codebase_community,PostId,the id of the post that is voted [format: integer] [foreign key -> posts.Id],integer
+votes,codebase_community,UserId,the id of the voter [format: integer] [foreign key -> users.Id],integer
+votes,codebase_community,VoteTypeId,the id of the vote type [format: integer],integer

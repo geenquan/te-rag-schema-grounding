@@ -1,0 +1,57 @@
+table,db,field_name,field_name_desc,field_type
+station,bike_share_1,city,[format: text],text
+station,bike_share_1,dock_count,number of bikes the station can hold [format: integer],integer
+station,bike_share_1,id,unique ID for each station [format: integer] [primary key],integer
+station,bike_share_1,installation_date,installation date [format: text],text
+station,bike_share_1,lat,"latitude [format: real] Value: commonsense evidence:
+Can represent the location of the station when combined with longitude.",real
+station,bike_share_1,long,"longitude [format: real] Value: commonsense evidence:
+Can represent the location of the station when combined with 
+latitude.",real
+station,bike_share_1,name,Station name [format: text],text
+status,bike_share_1,bikes_available,"number of available bikes [format: integer] Value: commonsense evidence:
+0 means no bike can be borrowed.",integer
+status,bike_share_1,docks_available,"number of available docks [format: integer] Value: commonsense evidence:
+0 means no bike can be returned to this station.",integer
+status,bike_share_1,station_id,station id [format: integer],integer
+status,bike_share_1,time,[format: text],text
+trip,bike_share_1,bike_id,The ID of the bike [format: integer],integer
+trip,bike_share_1,duration,"The duration of the trip in seconds. [format: integer] Value: commonsense evidence:
+duration = end_date - start_date",integer
+trip,bike_share_1,end_date,end date [format: text],text
+trip,bike_share_1,end_station_id,The ID of the end station [format: integer],integer
+trip,bike_share_1,end_station_name,"The name of the end station [format: text] Value: commonsense evidence:
+It represents the station name the bike returned to.",text
+trip,bike_share_1,id,[format: integer] [primary key],integer
+trip,bike_share_1,start_date,start date [format: text],text
+trip,bike_share_1,start_station_id,The ID of the start station [format: integer],integer
+trip,bike_share_1,start_station_name,"The name of the start station [format: text] Value: commonsense evidence:
+It represents the station name the bike borrowed from.",text
+trip,bike_share_1,subscription_type,"subscription type [format: text] Value: Allowed input: Subscriber, Customer.",text
+trip,bike_share_1,zip_code,zip code [format: integer],integer
+weather,bike_share_1,cloud_cover,cloud cover [format: integer],integer
+weather,bike_share_1,date,[format: text],text
+weather,bike_share_1,events,"[format: text] Value: Allowed input: [null], Rain, other",text
+weather,bike_share_1,max_dew_point_f,max dew point in Fahrenheit degree [format: integer],integer
+weather,bike_share_1,max_gust_speed_mph,max gust Speed in mph [format: integer],integer
+weather,bike_share_1,max_humidity,max humidity [format: integer],integer
+weather,bike_share_1,max_sea_level_pressure_inches,max sea level pressure in inches [format: real],real
+weather,bike_share_1,max_temperature_f,"max temperature in Fahrenheit degree [format: integer] Value: commonsense evidence:
+It represents the hottest temperature.",integer
+weather,bike_share_1,max_visibility_miles,max visibility in miles [format: integer],integer
+weather,bike_share_1,max_wind_Speed_mph,max wind Speed in mph [format: integer],integer
+weather,bike_share_1,mean_dew_point_f,mean dew point in Fahrenheit degree [format: integer],integer
+weather,bike_share_1,mean_humidity,mean humidity [format: integer],integer
+weather,bike_share_1,mean_sea_level_pressure_inches,mean sea level pressure in inches [format: real],real
+weather,bike_share_1,mean_temperature_f,mean temperature in Fahrenheit degree [format: integer],integer
+weather,bike_share_1,mean_visibility_miles,mean visibility in miles [format: integer],integer
+weather,bike_share_1,mean_wind_speed_mph,mean wind Speed in mph [format: integer],integer
+weather,bike_share_1,min_dew_point_f,min dew point in Fahrenheit degree [format: integer],integer
+weather,bike_share_1,min_humidity,min humidity [format: integer],integer
+weather,bike_share_1,min_sea_level_pressure_inches,min sea level pressure in inches [format: real],real
+weather,bike_share_1,min_temperature_f,"min temperature in Fahrenheit degree [format: integer] Value: commonsense evidence:
+It represents the coldest temperature.",integer
+weather,bike_share_1,min_visibility_miles,min visibility in miles [format: integer],integer
+weather,bike_share_1,precipitation_inches,precipitation in inches [format: text],text
+weather,bike_share_1,wind_dir_degrees,wind direction degrees [format: integer],integer
+weather,bike_share_1,zip_code,zip code [format: text],text

@@ -1,0 +1,23 @@
+table,db,field_name,field_name_desc,field_type
+Author,authors,Affiliation,Organization name with which the author is affiliated. [format: text] Value: the name of an organization with which an author can be affiliated,text
+Author,authors,Id,Id of the author [format: integer] [primary key],integer
+Author,authors,Name,Author Name [format: text],text
+Conference,authors,FullName,Full name [format: text],text
+Conference,authors,HomePage,Homepage URL of conference [format: text],text
+Conference,authors,Id,Conference Id [format: integer] [primary key],integer
+Conference,authors,ShortName,Short name [format: text],text
+Journal,authors,FullName,Full name [format: text],text
+Journal,authors,HomePage,Homepage URL of journal [format: text],text
+Journal,authors,Id,Journal Id [format: integer] [primary key],integer
+Journal,authors,ShortName,Short name [format: text],text
+Paper,authors,ConferenceId,Conference Id in which paper was published [format: integer] [foreign key -> Conference.Id],integer
+Paper,authors,Id,Id of the paper [format: integer] [primary key],integer
+Paper,authors,JournalId,"Journal Id in which paper was published [format: integer] Value: commonsense reasoning: If a paper contain ""0"" in both ConferenceID and JournalId, it means this paper is preprint [foreign key -> Journal.Id]",integer
+Paper,authors,Keyword,"Keywords of the paper [format: text] Value: commonsense reasoning: Keywords should contain words and phrases that suggest what the topic is about. 
+Similar keywords represent similar fields or sub-field.",text
+Paper,authors,Title,Title of the paper [format: text],text
+Paper,authors,Year,"Year of the paper [format: integer] Value: commonsense reasoning: if the year is ""0"", it means this paper is preprint, or not published",integer
+PaperAuthor,authors,Affiliation,Author Affiliation (as written on paper) [format: text] Value: the name of an organization with which an author can be affiliated,text
+PaperAuthor,authors,AuthorId,"Author Id [format: integer] Value: commonsense reasoning: A paper can have more than one author. Co-authorship can be derived from (paper ID, author ID) pair. [foreign key -> Author.Id]",integer
+PaperAuthor,authors,Name,Author Name (as written on paper) [format: text],text
+PaperAuthor,authors,PaperId,Paper Id [format: integer] [foreign key -> Paper.Id],integer

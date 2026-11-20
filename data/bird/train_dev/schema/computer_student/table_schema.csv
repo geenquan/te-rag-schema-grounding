@@ -1,0 +1,21 @@
+table,db,table_desc,field,schema
+advisedBy,computer_student,advisedBy,p_id|p_id_dummy,"CREATE TABLE advisedBy (
+  p_id,
+  p_id_dummy
+);"
+course,computer_student,course,courseLevel|course_id,"CREATE TABLE course (
+  courseLevel,
+  course_id
+);"
+person,computer_student,person,hasPosition|inPhase|p_id|professor|student|yearsInProgram,"CREATE TABLE person (
+  hasPosition,
+  inPhase,
+  p_id,
+  professor,
+  student,
+  yearsInProgram
+);"
+taughtBy,computer_student,taughtBy,course_id|p_id,"CREATE TABLE taughtBy (
+  course_id,
+  p_id
+);"

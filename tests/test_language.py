@@ -33,12 +33,25 @@ ALLOWED_DATA_FILES = {
     "tests/test_config.py",         # demo keyword-list values asserted as data
     "tests/test_paper_fold_parity.py",  # paper-helper regexes + synthetic CJK inputs
     "demo/generator.py",            # the synthetic dataset itself
+    # frozen final-paper engine runtime (terag/engines/bird_runtime): the
+    # exported frozen workspace keeps its runtime Chinese dictionaries,
+    # regexes and SQL-dialect literals — they are algorithm INPUT data.
+    "terag/engines/bird_runtime/config.py",
+    "terag/engines/bird_runtime/code_mapper.py",
+    "terag/engines/bird_runtime/index_builder.py",
+    "terag/engines/bird_runtime/terag_retriever_v2.py",
+    "terag/engines/bird_runtime/retrievers/annotation_miner.py",
+    "terag/engines/bird_runtime/retrievers/annotation_transfer.py",
+    # BIRD adaptations carrying Chinese data inherited from the workspace
+    "terag/engines/bird/annotation_transfer_bird.py",
 }
 
-# Pinned third-party snapshots under retrievers/upstream/ (LinkAlign prompts
-# and KaSLA utilities) are kept BYTE-IDENTICAL to the audited upstream
-# versions — including any Chinese prompt text — and are never rewritten.
-UPSTREAM_DIR = "retrievers/upstream"
+# Pinned third-party snapshots (LinkAlign prompts and KaSLA utilities) are
+# kept BYTE-IDENTICAL to the audited upstream versions — including any
+# Chinese prompt text — and are never rewritten. Both copies (the legacy
+# export and the frozen BIRD runtime snapshot) are exempt.
+UPSTREAM_DIRS = ("retrievers/upstream",
+                 "terag/engines/bird_runtime/retrievers/upstream")
 
 import re
 CJK = re.compile(r"[一-鿿]")
@@ -85,7 +98,7 @@ class TestEnglishComments(unittest.TestCase):
         offenders = []
         for path in python_files():
             rel = str(path.relative_to(REPO_ROOT))
-            if rel.startswith(UPSTREAM_DIR):
+            if rel.startswith(UPSTREAM_DIRS):
                 continue  # pinned third-party snapshot, never rewritten
             source = path.read_text(encoding="utf-8")
             for doc in docstring_lines(source):
@@ -100,7 +113,7 @@ class TestEnglishComments(unittest.TestCase):
         offenders = []
         for path in python_files():
             rel = str(path.relative_to(REPO_ROOT))
-            if rel in ALLOWED_DATA_FILES or rel.startswith(UPSTREAM_DIR):
+            if rel in ALLOWED_DATA_FILES or rel.startswith(UPSTREAM_DIRS):
                 continue
             source = path.read_text(encoding="utf-8")
             # crude but effective: any CJK outside comments/docstrings

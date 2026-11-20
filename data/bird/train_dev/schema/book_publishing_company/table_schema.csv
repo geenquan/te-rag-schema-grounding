@@ -1,0 +1,87 @@
+table,db,table_desc,field,schema
+authors,book_publishing_company,authors,address|au_fname|au_id|au_lname|city|contract|phone|state|zip,"CREATE TABLE authors (
+  address,
+  au_fname,
+  au_id,
+  au_lname,
+  city,
+  contract,
+  phone,
+  state,
+  zip
+);"
+discounts,book_publishing_company,discounts,discount|discounttype|highqty|lowqty|stor_id,"CREATE TABLE discounts (
+  discount,
+  discounttype,
+  highqty,
+  lowqty,
+  stor_id
+);"
+employee,book_publishing_company,employee,emp_id|fname|hire_date|job_id|job_lvl|lname|minit|pub_id,"CREATE TABLE employee (
+  emp_id,
+  fname,
+  hire_date,
+  job_id,
+  job_lvl,
+  lname,
+  minit,
+  pub_id
+);"
+jobs,book_publishing_company,jobs,job_desc|job_id|max_lvl|min_lvl,"CREATE TABLE jobs (
+  job_desc,
+  job_id,
+  max_lvl,
+  min_lvl
+);"
+pub_info,book_publishing_company,pub_info,logo|pr_info|pub_id,"CREATE TABLE pub_info (
+  logo,
+  pr_info,
+  pub_id
+);"
+publishers,book_publishing_company,publishers,city|country|pub_id|pub_name|state,"CREATE TABLE publishers (
+  city,
+  country,
+  pub_id,
+  pub_name,
+  state
+);"
+roysched,book_publishing_company,roysched,hirange|lorange|royalty|title_id,"CREATE TABLE roysched (
+  hirange,
+  lorange,
+  royalty,
+  title_id
+);"
+sales,book_publishing_company,sales,ord_date|ord_num|payterms|qty|stor_id|title_id,"CREATE TABLE sales (
+  ord_date,
+  ord_num,
+  payterms,
+  qty,
+  stor_id,
+  title_id
+);"
+stores,book_publishing_company,stores,city|state|stor_address|stor_id|stor_name|zip,"CREATE TABLE stores (
+  city,
+  state,
+  stor_address,
+  stor_id,
+  stor_name,
+  zip
+);"
+titleauthor,book_publishing_company,titleauthor,au_id|au_ord|royaltyper|title_id,"CREATE TABLE titleauthor (
+  au_id,
+  au_ord,
+  royaltyper,
+  title_id
+);"
+titles,book_publishing_company,titles,advance|notes|price|pub_id|pubdate|royalty|title|title_id|type|ytd_sales,"CREATE TABLE titles (
+  advance,
+  notes,
+  price,
+  pub_id,
+  pubdate,
+  royalty,
+  title,
+  title_id,
+  type,
+  ytd_sales
+);"

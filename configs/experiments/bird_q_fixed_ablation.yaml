@@ -1,0 +1,13 @@
+# Fixed-configuration ablation track (Q): the selected Q config plus its
+# nine switch ablations (identical params, one module off).
+methods:
+  - qB_rerank_gate_v1
+  - qB_rerank_gate_v1-noBIndex
+  - qB_rerank_gate_v1-noBHit
+  - qB_rerank_gate_v1-noB
+  - qB_rerank_gate_v1-noTableGraph
+  - qB_rerank_gate_v1-noFieldGraph
+  - qB_rerank_gate_v1-noGraph
+  - qB_rerank_gate_v1-noPattern
+  - qB_rerank_gate_v1-noC
+protocols: [question]

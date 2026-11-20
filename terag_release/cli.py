@@ -10,7 +10,10 @@ build-gold       Derive full gold (AST) from user QA + schema CSVs.
 make-folds       Build the deterministic question/table fold manifest.
 run-demo         Run the offline demo pipeline end to end (no network).
 run-experiments  Run a method x protocol matrix on user data.
+run-bird         Run final-paper BIRD methods on the frozen Dev five-fold.
 evaluate         Offline full-gold evaluation of saved predictions.
+evaluate-bird-reference  Recompute the shipped BIRD reference results.
+bird-statistics  BIRD paired statistics (db-cluster sign-flip/bootstrap).
 statistics       Offline paired statistics (Wilcoxon + cluster bootstrap).
 analyze          Saved-result analyses (saved-prefix budgets, transfer
                  evidence, held-out disagreements, isolation).
@@ -202,6 +205,53 @@ def cmd_run_experiments(args):
         raise SystemExit(1)
 
 
+# ---------------------------------------------------------------- bird
+
+def cmd_run_bird(args):
+    import os
+    from terag_release.bird_runner import run_bird
+    from terag_release.config import load_experiment
+
+    experiment_methods = None
+    if args.experiment and args.experiment != 'none':
+        experiment, _ = load_experiment(args.experiment)
+        experiment_methods = experiment.get('methods')
+        if not experiment_methods:
+            _fail(f'experiment {args.experiment!r} declares no methods')
+        if not args.protocols and experiment.get('protocols'):
+            args.protocols = list(experiment['protocols'])
+    budget = args.budget_cap_cny
+    if budget is None:
+        env = os.environ.get('TERAG_BIRD_BUDGET_CNY', '').strip()
+        budget = float(env) if env else None
+    try:
+        meta = run_bird(methods=args.methods,
+                        experiment_methods=experiment_methods,
+                        protocols=args.protocols, output=args.output,
+                        fold=args.fold, allow_network=args.allow_network,
+                        budget_cap_cny=budget,
+                        minilm_cache_dir=args.minilm_cache_dir)
+    except Exception as e:
+        _fail(str(e))
+    status = meta['run_status']
+    print(f"run '{status}': {args.output}")
+    if status in ('completed_with_failures', 'failed'):
+        raise SystemExit(1)
+
+
+def cmd_evaluate_bird_reference(args):
+    from terag_release.reference_check import check_reference_results
+
+    ok = check_reference_results(output=args.output)
+    raise SystemExit(0 if ok else 1)
+
+
+def cmd_bird_statistics(args):
+    from terag_release.bird_stats import run_statistics
+
+    run_statistics(run_dir=args.run, output=args.output)
+
+
 # ---------------------------------------------------------------- evaluate
 
 def cmd_evaluate(args):
@@ -333,6 +383,50 @@ def build_parser() -> argparse.ArgumentParser:
     r.add_argument("--diagnostics", action="store_true")
     r.add_argument("--output", required=True)
     r.set_defaults(func=cmd_run_experiments)
+
+    rb = sub.add_parser("run-bird", help="run final-paper BIRD methods on "
+                        "the frozen Dev five-fold population (unified "
+                        "entry; new output directory)")
+    rb.add_argument("--experiment", default=None,
+                    help="experiment config name under configs/experiments/ "
+                         "(e.g. bird_q_core); optional when --methods is "
+                         "given")
+    rb.add_argument("--methods", nargs="+",
+                    help="override method list: Core, frozen-config method "
+                         "names, or baselines")
+    rb.add_argument("--protocols", nargs="+",
+                    choices=["question", "heldout"], default=None,
+                    help="protocols to run (default: both)")
+    rb.add_argument("--fold", type=int,
+                    help="run a single fold only (labeled partial run)")
+    rb.add_argument("--allow-network", action="store_true",
+                    help="permit the MiniLM download and/or the DeepSeek API "
+                         "(never default)")
+    rb.add_argument("--budget-cap-cny", type=float, default=None,
+                    help="explicit user budget cap for API methods (CNY); "
+                         "also read from TERAG_BIRD_BUDGET_CNY. The "
+                         "historical research budget is never reused")
+    rb.add_argument("--minilm-cache-dir", default=None,
+                    help="local cache directory for the pinned MiniLM "
+                         "revision (offline reuse)")
+    rb.add_argument("--output", required=True)
+    rb.set_defaults(func=cmd_run_bird)
+
+    ebr = sub.add_parser("evaluate-bird-reference",
+                         help="recompute the shipped BIRD reference "
+                         "predictions' metrics offline and compare them to "
+                         "the shipped metric files")
+    ebr.add_argument("--output", required=True)
+    ebr.set_defaults(func=cmd_evaluate_bird_reference)
+
+    bs = sub.add_parser("bird-statistics",
+                        help="BIRD paired statistics (db-cluster exact "
+                             "sign-flip + bootstrap) over a run's per-"
+                             "question metrics, using the frozen declared "
+                             "families")
+    bs.add_argument("--run", required=True, help="run directory")
+    bs.add_argument("--output", required=True)
+    bs.set_defaults(func=cmd_bird_statistics)
 
     e = sub.add_parser("evaluate", help="offline full-gold evaluation of "
                        "saved predictions")

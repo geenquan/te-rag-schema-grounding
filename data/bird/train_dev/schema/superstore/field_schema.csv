@@ -1,0 +1,105 @@
+table,db,field_name,field_name_desc,field_type
+central_superstore,superstore,Customer ID,the id of the customer [format: text] [foreign key -> people.Customer ID],text
+central_superstore,superstore,Discount,the discount of the product [format: real] Value: commonsense evidence: original price = sales / (1- discount),real
+central_superstore,superstore,Order Date,the date of the order [format: date] Value: yyyy-mm-dd,date
+central_superstore,superstore,Order ID,the unique identifier for the order [format: text],text
+central_superstore,superstore,Product ID,the id of the product [format: text] [foreign key -> product.Product ID],text
+central_superstore,superstore,Profit,"the profit that the company got by selling the product [format: real] Value: commonsense evidence:
+total cost of products =  sales / (1- discount) * quantity - profit
+deficiency: if the value is negative",real
+central_superstore,superstore,Quantity,the quantity of the product [format: integer],integer
+central_superstore,superstore,Region,region of the customer's address [format: text] [foreign key -> people.Region],text
+central_superstore,superstore,Row ID,the unique id for rows [format: integer] [primary key],integer
+central_superstore,superstore,Sales,the sales of the product [format: real],real
+central_superstore,superstore,Ship Date,"the date of the shipment [format: date] Value: yyyy-mm-dd
+commonsense evidence: 
+'shipment time' refers to the time interval between order_date and ship_date.",date
+central_superstore,superstore,Ship Mode,"the ship mode of the order [format: text] Value: First Class / Second Class / Standard Class
+commonsense evidence: Among three ship modes, First Class has the fastest delivery speed, followed by Second Class and the speed of the Standard Class is the slowest.",text
+east_superstore,superstore,Customer ID,the id of the customer [format: text] [foreign key -> people.Customer ID],text
+east_superstore,superstore,Discount,the discount of the product [format: real] Value: commonsense evidence: original price = sales / (1- discount),real
+east_superstore,superstore,Order Date,the date of the order [format: date] Value: yyyy-mm-dd,date
+east_superstore,superstore,Order ID,the unique identifier for the order [format: text],text
+east_superstore,superstore,Product ID,the id of the product [format: text] [foreign key -> product.Product ID],text
+east_superstore,superstore,Profit,"the profit that the company got by selling the product [format: real] Value: commonsense evidence: total cost of products =  sales / (1- discount) * quantity - profit
+deficiency: if the value is negative",real
+east_superstore,superstore,Quantity,the quantity of the product [format: integer],integer
+east_superstore,superstore,Region,region of the customer's address [format: text] [foreign key -> people.Region],text
+east_superstore,superstore,Row ID,the unique id for rows [format: integer] [primary key],integer
+east_superstore,superstore,Sales,the sales of the product [format: real],real
+east_superstore,superstore,Ship Date,"the date of the shipment [format: date] Value: yyyy-mm-dd
+commonsense evidence: 'shipment time' refers to the time interval between order_date and ship_date.",date
+east_superstore,superstore,Ship Mode,"the ship mode of the order [format: text] Value: First Class / Second Class / Standard Class
+commonsense evidence: Among three ship modes, First Class has the fastest delivery speed, followed by Second Class and the speed of the Standard Class is the slowest.",text
+people,superstore,City,the city of people [format: text],text
+people,superstore,Country,the country of people [format: text],text
+people,superstore,Customer ID,the id of the customers [format: text] [primary key],text
+people,superstore,Customer Name,the name of the customers [format: text],text
+people,superstore,Postal Code,the postal code [format: integer],integer
+people,superstore,Region,"the region of people [format: text] Value:  Central: 
+ East: 
+ West: 
+ South: [primary key]",text
+people,superstore,Segment,"the segment that the customers belong to [format: text] Value: commonsense evidence: 
+ consumer 
+ home office: synonym: headquarter. 
+ corporate",text
+people,superstore,State,"the state of people [format: text] Value: commonsense evidence: please mention its full name in the question, by referring to 
+https://www23.statcan.gc.ca/imdb/p3VD.pl?Function=getVD&TVD=53971
+e.g., New York --> NY",text
+product,superstore,Category,"the categories of products [format: text] Value:  Furniture 
+ Office Supplies 
+ Technology",text
+product,superstore,Product ID,the id of products [format: text] [primary key],text
+product,superstore,Product Name,the name of products [format: text],text
+product,superstore,Region,"the region of products [format: text] Value:  Central: 
+ East: 
+ West: 
+ South: [primary key]",text
+product,superstore,Sub-Category,"the sub-categories of products [format: text] Value:  Bookcases 
+ Chairs 
+ Furnishings 
+ Tables 
+ Appliances 
+ Art 
+ Binders 
+ Envelopes 
+ Fasteners 
+ Labels 
+ Paper 
+ Storage 
+ Supplies 
+ Accessories 
+ Copiers 
+ Machines 
+ Phones",text
+south_superstore,superstore,Customer ID,the id of the customer [format: text] [foreign key -> people.Customer ID],text
+south_superstore,superstore,Discount,the discount of the product [format: real] Value: commonsense evidence: original price = sales / (1- discount),real
+south_superstore,superstore,Order Date,the date of the order [format: date] Value: yyyy-mm-dd,date
+south_superstore,superstore,Order ID,the unique identifier for the order [format: text],text
+south_superstore,superstore,Product ID,the id of the product [format: text] [foreign key -> product.Product ID],text
+south_superstore,superstore,Profit,"the profit that the company got by selling the product [format: real] Value: commonsense evidence: total cost of products =  sales / (1- discount) * quantity - profit
+deficiency: if the value is negative",real
+south_superstore,superstore,Quantity,the quantity of the product [format: integer],integer
+south_superstore,superstore,Region,region of the customer's address [format: text] [foreign key -> people.Region],text
+south_superstore,superstore,Row ID,the unique id for rows [format: integer] [primary key],integer
+south_superstore,superstore,Sales,the sales of the product [format: real],real
+south_superstore,superstore,Ship Date,"the date of the shipment [format: date] Value: yyyy-mm-dd 
+commonsense evidence: 'shipment time' refers to the time interval between order_date and ship_date.",date
+south_superstore,superstore,Ship Mode,"the ship mode of the order [format: text] Value: First Class / Second Class / Standard Class
+commonsense evidence: Among three ship modes, First Class has the fastest delivery speed, followed by Second Class and the speed of the Standard Class is the slowest.",text
+west_superstore,superstore,Customer ID,the id of the customer [format: text] [foreign key -> people.Customer ID],text
+west_superstore,superstore,Discount,the discount of the product [format: real] Value: commonsense evidence: original price = sales / (1- discount),real
+west_superstore,superstore,Order Date,the date of the order [format: date] Value: yyyy-mm-dd,date
+west_superstore,superstore,Order ID,the unique identifier for the order [format: text],text
+west_superstore,superstore,Product ID,the id of the product [format: text] [foreign key -> product.Product ID],text
+west_superstore,superstore,Profit,"the profit that the company got by selling the product [format: real] Value: commonsense evidence: total cost of products =  sales / (1- discount) * quantity - profit
+deficiency: if the value is negative",real
+west_superstore,superstore,Quantity,the quantity of the product [format: integer],integer
+west_superstore,superstore,Region,region of the customer's address [format: text] [foreign key -> people.Region],text
+west_superstore,superstore,Row ID,the unique id for rows [format: integer] [primary key],integer
+west_superstore,superstore,Sales,the sales of the product [format: real],real
+west_superstore,superstore,Ship Date,"the date of the shipment [format: date] Value: yyyy-mm-dd
+commonsense evidence: 'shipment time' refers to the time interval between order_date and ship_date.",date
+west_superstore,superstore,Ship Mode,"the ship mode of the order [format: text] Value: First Class / Second Class / Standard Class
+commonsense evidence: Among three ship modes, First Class has the fastest delivery speed, followed by Second Class and the speed of the Standard Class is the slowest.",text

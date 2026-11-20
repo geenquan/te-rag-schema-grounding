@@ -1,0 +1,33 @@
+table,db,field_name,field_name_desc,field_type
+ATT_CLASSES,image_and_language,ATT_CLASS,the corresponding classes for attributes [format: text],text
+ATT_CLASSES,image_and_language,ATT_CLASS_ID,the unique attribute class ids [format: integer] [primary key],integer
+IMG_OBJ,image_and_language,H,"height of the bounding box of the object [format: integer] Value: commonsense evidence:
+
+bounding box of the object: (x, y, W, H)",integer
+IMG_OBJ,image_and_language,IMG_ID,the id representing images [format: integer] [primary key],integer
+IMG_OBJ,image_and_language,OBJ_CLASS_ID,the id indicating class of the objects [format: integer] [foreign key -> OBJ_CLASSES.OBJ_CLASS_ID],integer
+IMG_OBJ,image_and_language,OBJ_SAMPLE_ID,the id of the object sample [format: integer] [primary key],integer
+IMG_OBJ,image_and_language,W,width of the bounding box of the object [format: integer],integer
+IMG_OBJ,image_and_language,X,x coordinate [format: integer],integer
+IMG_OBJ,image_and_language,Y,y coordinate [format: integer],integer
+IMG_OBJ_ATT,image_and_language,ATT_CLASS_ID,"attribute class number for image [format: integer] Value: commonsense evidence:
+
+if one IMG_ID has many ATT_CLASS_ID, it refers to that this image has multiple attributes [primary key] [foreign key -> ATT_CLASSES.ATT_CLASS_ID]",integer
+IMG_OBJ_ATT,image_and_language,IMG_ID,id number of each image [format: integer] [primary key] [foreign key -> IMG_OBJ.IMG_ID],integer
+IMG_OBJ_ATT,image_and_language,OBJ_SAMPLE_ID,"object sample id [format: integer] Value: commonsense evidence:
+
+â¢ if one IMG_ID has many OBJ_SAMPLE_ID, it refers to that this image has multiple objects
+
+â¢ if one ATT_CLASS_ID has many OBJ_SAMPLE_ID, it refers to that this attribute is composed of multiple objects. [primary key] [foreign key -> IMG_OBJ.OBJ_SAMPLE_ID]",integer
+IMG_REL,image_and_language,IMG_ID,the image id [format: integer] [primary key] [foreign key -> IMG_OBJ.IMG_ID],integer
+IMG_REL,image_and_language,OBJ1_SAMPLE_ID,the sample id of the first object [format: integer] [primary key] [foreign key -> IMG_OBJ.OBJ_SAMPLE_ID],integer
+IMG_REL,image_and_language,OBJ2_SAMPLE_ID,"the sample id of the second object [format: integer] Value: commonsense evidence:
+
+if (OBJ1_SAMPLE_ID, OBJ2_SAMPLE_ID) has multiple PRED_CLASS_ID, it means these two objects have multiple relations. [primary key] [foreign key -> IMG_OBJ.OBJ_SAMPLE_ID]",integer
+IMG_REL,image_and_language,PRED_CLASS_ID,"the prediction relationship class between objects [format: integer] Value: commonsense evidence:
+
+if OBJ1_SAMPLE_ID = OBJ2_SAMPLE_ID, this relationship is the self-relation. [primary key] [foreign key -> PRED_CLASSES.PRED_CLASS_ID]",integer
+OBJ_CLASSES,image_and_language,OBJ_CLASS,the explanation about object classes [format: text],text
+OBJ_CLASSES,image_and_language,OBJ_CLASS_ID,unique id number identifying object classes [format: integer] [primary key],integer
+PRED_CLASSES,image_and_language,PRED_CLASS,the caption for the prediction class id [format: text],text
+PRED_CLASSES,image_and_language,PRED_CLASS_ID,the unique prediction id for the class [format: integer] [primary key],integer

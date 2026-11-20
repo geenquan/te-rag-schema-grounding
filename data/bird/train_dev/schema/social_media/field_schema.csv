@@ -1,0 +1,29 @@
+table,db,field_name,field_name_desc,field_type
+location,social_media,City,the city [format: text],text
+location,social_media,Country,the country [format: text],text
+location,social_media,LocationID,unique id of the location [format: integer] [primary key],integer
+location,social_media,State,the state [format: text],text
+location,social_media,StateCode,state code [format: text],text
+twitter,social_media,Day,the day that the tweet has been posted [format: integer],integer
+twitter,social_media,Hour,the hour that the tweet has been posted [format: integer],integer
+twitter,social_media,IsReshare,"whether the tweet is reshared [format: text] Value: commonsense evidence:
+A reshared tweet is when someone reshares or forwards a post to their own Twitter 
+	true: the tweet is reshared
+	false: the tweet isn't reshared",text
+twitter,social_media,Klout,the klout of the tweet [format: integer],integer
+twitter,social_media,Lang,the language of the tweet [format: text],text
+twitter,social_media,Likes,the number of likes [format: integer],integer
+twitter,social_media,LocationID,the location id of the poster [format: integer] [foreign key -> location.LocationID],integer
+twitter,social_media,Reach,"the reach of the tweet [format: integer] Value: commonsense evidence:
+reach counts the number of unique users who have seen your tweet",integer
+twitter,social_media,RetweetCount,the retweet count [format: integer],integer
+twitter,social_media,Sentiment,"the sentiment of the tweet [format: real] Value: commonsense evidence:
+	>0: the sentiment of the tweet is positive. 
+	=0: the sentiment of the tweet is neutral.
+	<0: the sentiment of the tweet is negative.",real
+twitter,social_media,TweetID,the unique id of the tweet [format: text] [primary key],text
+twitter,social_media,UserID,the user id of the poster [format: integer] [foreign key -> user.UserID],text
+twitter,social_media,Weekday,the weekday that the tweet has been posted [format: text],text
+twitter,social_media,text,the text of the tweet [format: text],text
+user,social_media,Gender,user's gender [format: text] Value: Male / Female / Unknown,text
+user,social_media,UserID,the unique id of the user [format: text] [primary key],text

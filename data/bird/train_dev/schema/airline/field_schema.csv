@@ -1,0 +1,63 @@
+table,db,field_name,field_name_desc,field_type
+Air Carriers,airline,Code,the code of the air carriers [format: integer] [primary key],integer
+Air Carriers,airline,Description,the description of air carriers [format: text],text
+Airlines,airline,ACTUAL_ELAPSED_TIME,"actual elapsed time [format: integer] Value: commonsense evidence:
+
+if ACTUAL_ELAPSED_TIME < CRS_ELAPSED_TIME: this flight is faster than scheduled;
+
+if ACTUAL_ELAPSED_TIME > CRS_ELAPSED_TIME: this flight is slower than scheduled",integer
+Airlines,airline,ARR_DELAY,"arrival delay time [format: integer] Value: in minutes
+
+commonsense evidence:
+
+• if this value is positive: it means this flight will arrives late (delay); If the value is negative, this flight arrives earlier than scheduled. (-4)
+
+• if this value <= 0, it means this flight arrives on time",integer
+Airlines,airline,ARR_DELAY_NEW,arrival delay new [format: integer] Value: not useful,integer
+Airlines,airline,ARR_TIME,Flight arrival time. [format: integer],integer
+Airlines,airline,CANCELLATION_CODE,"cancellation code [format: text] Value: commonsense evidence:
+
+C--> A: more serious reasons lead to this cancellation",text
+Airlines,airline,CANCELLED,Flight cancellation indicator. [format: integer],integer
+Airlines,airline,CARRIER_DELAY,carrier delay [format: integer] Value: minutes,integer
+Airlines,airline,CRS_DEP_TIME,[format: integer],integer
+Airlines,airline,CRS_ELAPSED_TIME,scheduled elapsed time [format: integer],integer
+Airlines,airline,DEP_DELAY,"Departure delay indicator [format: integer] Value: in minutes
+
+commonsense evidence:
+
+• if this value is positive: it means this flight delays; if the value is negative, it means this flight departs in advance (-4)
+
+• if this value <= 0, it means this flight departs on time",integer
+Airlines,airline,DEP_DELAY_NEW,departure delay new [format: integer] Value: not useful,integer
+Airlines,airline,DEP_TIME,Flight departure time [format: integer] Value: stored as the integer,integer
+Airlines,airline,DEST,"Destination airport [format: text] Value: commonsense evidence:
+
+• the dest city could be inferred by this code:
+
+you can refer to https://www.iata.org/en/publications/directories/code-search/?airport.search=mia
+
+to quickly check [foreign key -> Airports.Code]",text
+Airlines,airline,DEST_AIRPORT_ID,ID of the destination airport [format: integer],integer
+Airlines,airline,DEST_AIRPORT_SEQ_ID,[format: integer],integer
+Airlines,airline,DEST_CITY_MARKET_ID,[format: integer],integer
+Airlines,airline,FL_DATE,flight date [format: text],text
+Airlines,airline,LATE_AIRCRAFT_DELAY,delay attribute to late aircraft [format: integer] Value: minutes,integer
+Airlines,airline,NAS_DELAY,"delay, in minutes, attributable to the National Aviation System [format: integer] Value: minutes",integer
+Airlines,airline,OP_CARRIER_AIRLINE_ID,operator carrier airline id [format: integer] [foreign key -> Air Carriers.Code],integer
+Airlines,airline,OP_CARRIER_FL_NUM,operator carrier flight number [format: integer],integer
+Airlines,airline,ORIGIN,"airport of origin [format: text] Value: commonsense evidence:
+
+• the origin city could be inferred by this code:
+
+you can refer to https://www.iata.org/en/publications/directories/code-search/?airport.search=mia
+
+to quickly check [foreign key -> Airports.Code]",text
+Airlines,airline,ORIGIN_AIRPORT_ID,origin airport id [format: integer],integer
+Airlines,airline,ORIGIN_AIRPORT_SEQ_ID,origin airport sequence id [format: integer],integer
+Airlines,airline,ORIGIN_CITY_MARKET_ID,origin city market id [format: integer],integer
+Airlines,airline,SECURITY_DELAY,delay attribute to security [format: integer] Value: minutes,integer
+Airlines,airline,TAIL_NUM,plane's tail number [format: text] Value: plane's tail number,text
+Airlines,airline,WEATHER_DELAY,delay caused by the wheather problem [format: integer] Value: minutes,integer
+Airports,airline,Code,IATA code of the air airports [format: text] [primary key],text
+Airports,airline,Description,the description of airports [format: text],text

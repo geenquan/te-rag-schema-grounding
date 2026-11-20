@@ -1,0 +1,15 @@
+table,db,table_desc,field,schema
+Answer,mental_health_survey,Answer,AnswerText|QuestionID|SurveyID|UserID,"CREATE TABLE Answer (
+  AnswerText,
+  QuestionID,
+  SurveyID,
+  UserID
+);"
+Question,mental_health_survey,Question,questionid|questiontext,"CREATE TABLE Question (
+  questionid,
+  questiontext
+);"
+Survey,mental_health_survey,Survey,Description|SurveyID,"CREATE TABLE Survey (
+  Description,
+  SurveyID
+);"

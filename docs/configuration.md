@@ -149,3 +149,38 @@ directory. `run_meta` snapshots: code file hashes, resolved config + SHA256,
 input checksums, dataset/gold populations, split-manifest digest,
 environment versions, per-unit status/fit time/query means, and the timing
 boundary note.
+
+---
+
+## BIRD and final-paper configuration (profile `paper_final_20261120`)
+
+The BIRD commands bypass the legacy YAML layer deliberately: their frozen
+parameters are **files, not YAML mirrors**, and are SHA-verified at every
+run:
+
+* `configs/paper/final_20261120/bird_final_configs.json` — every engine
+  method's `engine` kind (`bird`/`vnext`), predict switch (`engine_variant`)
+  and full parameter vector, including the `field_rerank` and `hg`
+  mechanism namespaces. The runner loads it, refuses duplicate method
+  names, and stamps `params_sha256` per method into run_meta.
+* `configs/paper/final_20261120/bird_families.json` (+ `.sha256` sidecar) —
+  the declared statistical families; the sidecar must match or the
+  statistics command refuses (edited-after-declaration detection).
+* `configs/paper/final_20261120/grid_selected_configurations.csv` — the
+  grid per-fold Q/H frozen parameters replayed by the grid engine.
+* `configs/datasets/bird.yaml` — documents the data tree and populations
+  (the BIRD commands resolve data through `terag_release.bird_data`, which
+  pins raw-file SHA256 identities).
+* `configs/experiments/bird_*.yaml` — method selections for `run-bird`
+  (`methods` + `protocols`; unknown names are hard errors; engine methods
+  run through the unified entry, baselines through the frozen adapters).
+
+API method boundaries (enforced in code, mirrored here): credentials from
+`DEEPSEEK_API_KEY`/`DEEPSEEK_BASE_URL` environment variables only (no file
+fallback exists); the model is `deepseek-flash` with thinking disabled; the
+budget cap is **always user-set** for the current run
+(`--budget-cap-cny` / `TERAG_BIRD_BUDGET_CNY`) — no historical cap is
+reused; evidence, ledger and HTTP cache live under the current run
+directory; the MiniLM encoder is pinned to revision
+`e8f8c211226b894fcb81acc59f3b34ba3efd5f42` with an optional
+`--minilm-cache-dir` and downloads only under `--allow-network`.

@@ -1,0 +1,15 @@
+table,db,table_desc,field,schema
+tags,music_tracker,tags,id|index|tag,"CREATE TABLE tags (
+  id,
+  index,
+  tag
+);"
+torrents,music_tracker,torrents,artist|groupId|groupName|groupYear|id|releaseType|totalSnatched,"CREATE TABLE torrents (
+  artist,
+  groupId,
+  groupName,
+  groupYear,
+  id,
+  releaseType,
+  totalSnatched
+);"

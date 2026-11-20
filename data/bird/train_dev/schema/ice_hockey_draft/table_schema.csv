@@ -1,0 +1,46 @@
+table,db,table_desc,field,schema
+PlayerInfo,ice_hockey_draft,PlayerInfo,CSS_rank|ELITEID|GP_greater_than_0|PlayerName|birthdate|birthday|birthmonth|birthplace|birthyear|draftround|draftyear|height|nation|overall|overallby|position_info|shoots|sum_7yr_GP|sum_7yr_TOI|weight,"CREATE TABLE PlayerInfo (
+  CSS_rank,
+  ELITEID,
+  GP_greater_than_0,
+  PlayerName,
+  birthdate,
+  birthday,
+  birthmonth,
+  birthplace,
+  birthyear,
+  draftround,
+  draftyear,
+  height,
+  nation,
+  overall,
+  overallby,
+  position_info,
+  shoots,
+  sum_7yr_GP,
+  sum_7yr_TOI,
+  weight
+);"
+SeasonStatus,ice_hockey_draft,SeasonStatus,A|ELITEID|G|GAMETYPE|GP|LEAGUE|P|PIM|PLUSMINUS|SEASON|TEAM,"CREATE TABLE SeasonStatus (
+  A,
+  ELITEID,
+  G,
+  GAMETYPE,
+  GP,
+  LEAGUE,
+  P,
+  PIM,
+  PLUSMINUS,
+  SEASON,
+  TEAM
+);"
+height_info,ice_hockey_draft,height_info,height_id|height_in_cm|height_in_inch,"CREATE TABLE height_info (
+  height_id,
+  height_in_cm,
+  height_in_inch
+);"
+weight_info,ice_hockey_draft,weight_info,weight_id|weight_in_kg|weight_in_lbs,"CREATE TABLE weight_info (
+  weight_id,
+  weight_in_kg,
+  weight_in_lbs
+);"

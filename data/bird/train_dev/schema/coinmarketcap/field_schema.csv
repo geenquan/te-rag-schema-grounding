@@ -1,0 +1,48 @@
+table,db,field_name,field_name_desc,field_type
+coins,coinmarketcap,category,"category of coins [format: text] Value: commonsense reasoning:
+• token: 
+• coin:",text
+coins,coinmarketcap,date_added,the added date [format: text],text
+coins,coinmarketcap,date_launched,lanched date [format: text],text
+coins,coinmarketcap,description,description of coins [format: text],text
+coins,coinmarketcap,id,unique id number identifying coins [format: integer] [primary key],integer
+coins,coinmarketcap,name,name of coins [format: text],text
+coins,coinmarketcap,notice,notice if any [format: text],text
+coins,coinmarketcap,platform_id,id number of the platform [format: integer],integer
+coins,coinmarketcap,slug,slug names of coins [format: text],text
+coins,coinmarketcap,status,"status of coins [format: text] Value: commonsense reasoning:
+• active: this coin is active and available for transactions
+• untracked: this coin cannot be tracked
+• inactive: this coin is not available for transactions
+• extinct: this coin has been disappeared",text
+coins,coinmarketcap,subreddit,name of coins on reddit [format: text],text
+coins,coinmarketcap,symbol,symbol of names of coins [format: text],text
+coins,coinmarketcap,tag_names,tag names of coins [format: text],text
+coins,coinmarketcap,tags,tags of coins [format: text],text
+coins,coinmarketcap,website,website introduction of coins [format: text],text
+historical,coinmarketcap,circulating_supply,the best approximation of the number of coins that are circulating in the market and in the general public's hands. [format: real],real
+historical,coinmarketcap,close,"the price at which a cryptocurrency (coin) closes at a time period, for example at the end of the day. [format: real]",real
+historical,coinmarketcap,cmc_rank,CMC rank is a metric used by CoinMarketCap to rank the relative popularity of different cryptocurrencies. [format: integer],integer
+historical,coinmarketcap,coin_id,id number referring to coins [format: integer],integer
+historical,coinmarketcap,date,transaction date [format: date],date
+historical,coinmarketcap,high,highest price [format: real] Value: dollars,real
+historical,coinmarketcap,low,"lowest price [format: real] Value: commonsense reasoning:
+1.	It's the best time to purchase this coin
+2.	users can make the max profit today by computation: high - low",real
+historical,coinmarketcap,market_cap,"Market capitalization refers to how much a coin is worth as determined by the coin market. [format: real] Value: dollars
+market cap (latest trade price x circulating supply).",real
+historical,coinmarketcap,max_supply,"Max Supply is the best approximation of the maximum amount of coins that will ever exist in the lifetime of the cryptocurrency. [format: real] Value: commonsense reasoning:
+the number of coins verifiably burned so far = max_supply - total_supply",real
+historical,coinmarketcap,num_market_pairs,"number of market pairs across all exchanges trading each currency. [format: integer] Value: commonsense reasoning:
+active coins that have gone inactive can easily be identified as having a num_market_pairs of 0",integer
+historical,coinmarketcap,open,"the price at which a cryptocurrency (coin) opens at a time period [format: real] Value: dollars
+commonsense reasoning:
+if null or empty, it means this coins has not opened yet today.",real
+historical,coinmarketcap,percent_change_1h,price percentage change in the first hour [format: real] Value: The change is the difference (in percent) between the price now compared to the price around this time 1 hours ago,real
+historical,coinmarketcap,percent_change_24h,price percentage change in the first 24 hours [format: real] Value: The change is the difference (in percent) between the price now compared to the price around this time 24 hours ago,real
+historical,coinmarketcap,percent_change_7d,price percentage change in the first 7 days [format: real] Value: The change is the difference (in percent) between the price now compared to the price around this time 7 days ago,real
+historical,coinmarketcap,price,how much is a coin [format: real] Value: dollars,real
+historical,coinmarketcap,time_high,the time to achieve highest price [format: text],text
+historical,coinmarketcap,time_low,the time to achieve lowest price [format: text],text
+historical,coinmarketcap,total_supply,the total amount of coins in existence right now [format: real],real
+historical,coinmarketcap,volume_24h,the total value of cryptocurrency coined traded in the past 24 hours. [format: real],real

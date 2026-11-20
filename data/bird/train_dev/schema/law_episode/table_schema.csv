@@ -1,0 +1,54 @@
+table,db,table_desc,field,schema
+Award,law_episode,Award,award|award_category|award_id|episode_id|organization|person_id|result|role|series|year,"CREATE TABLE Award (
+  award,
+  award_category,
+  award_id,
+  episode_id,
+  organization,
+  person_id,
+  result,
+  role,
+  series,
+  year
+);"
+Credit,law_episode,Credit,category|credited|episode_id|person_id|role,"CREATE TABLE Credit (
+  category,
+  credited,
+  episode_id,
+  person_id,
+  role
+);"
+Episode,law_episode,Episode,air_date|episode|episode_id|episode_image|number_in_series|rating|season|series|summary|title|votes,"CREATE TABLE Episode (
+  air_date,
+  episode,
+  episode_id,
+  episode_image,
+  number_in_series,
+  rating,
+  season,
+  series,
+  summary,
+  title,
+  votes
+);"
+Keyword,law_episode,Keyword,episode_id|keyword,"CREATE TABLE Keyword (
+  episode_id,
+  keyword
+);"
+Person,law_episode,Person,birth_country|birth_name|birth_place|birth_region|birthdate|height_meters|name|nickname|person_id,"CREATE TABLE Person (
+  birth_country,
+  birth_name,
+  birth_place,
+  birth_region,
+  birthdate,
+  height_meters,
+  name,
+  nickname,
+  person_id
+);"
+Vote,law_episode,Vote,episode_id|percent|stars|votes,"CREATE TABLE Vote (
+  episode_id,
+  percent,
+  stars,
+  votes
+);"

@@ -1,0 +1,39 @@
+table,db,field_name,field_name_desc,field_type
+cars,trains,id,the unique id number representing the cars [format: integer] [primary key],integer
+cars,trains,len,"length of the cars [format: text] Value: â¢ short 
+â¢ long",text
+cars,trains,load_num,"load number [format: integer] Value: 0-3:
+commonsense evidence:
+â¢ 0: empty load
+â¢ 3: full load",integer
+cars,trains,load_shape,"load shape [format: text] Value: â¢ circle
+â¢ hexagon
+â¢ triangle
+â¢ rectangle 
+â¢ diamond",text
+cars,trains,position,"postion id of cars in the trains [format: integer] Value: 1-4:
+commonsense evidence:
+1: head car
+4: tail car",integer
+cars,trains,roof,"roof of the cars [format: text] Value: commonsense evidence:
+â¢ none: the roof is open
+â¢ peaked
+â¢ flat
+â¢ arc
+â¢ jagged",text
+cars,trains,shape,"shape of the cars [format: text] Value: â¢ rectangle
+â¢ bucket
+â¢ u_shaped
+â¢ hexagon
+â¢ elipse
+commonsense evidence:
+regular shape: 
+rectangle, u_shaped, hexagon",text
+cars,trains,sides,"sides of the cars [format: text] Value: â¢ not_double
+â¢ double",text
+cars,trains,train_id,the counterpart id for trains that the cars belong to [format: integer] [foreign key -> trains.id],integer
+cars,trains,wheels,"wheels of the cars [format: integer] Value: â¢ 2:
+â¢ 3:",integer
+trains,trains,direction,"the direction of trains that are running [format: text] Value: â¢ east;
+â¢ west;",text
+trains,trains,id,the unique id representing the trains [format: integer] [primary key],integer

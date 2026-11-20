@@ -1,0 +1,9 @@
+# The paper's Q three-stage decomposition: Core -> rerank-only -> rerank+gate.
+#   Core                                  = DEFAULT-parameter full engine
+#   qB_rerank_gate_v1-field_filter_gate_off = rerank axes, gate disabled
+#   qB_rerank_gate_v1                     = selected Q config (rerank + gate)
+methods:
+  - Core
+  - qB_rerank_gate_v1-field_filter_gate_off
+  - qB_rerank_gate_v1
+protocols: [question]

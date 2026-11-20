@@ -1,0 +1,61 @@
+table,db,field_name,field_name_desc,field_type
+Ingredient,cookbook,category,the category of the ingredient [format: text],text
+Ingredient,cookbook,ingredient_id,the unique identifier for the ingredient [format: integer] [primary key],integer
+Ingredient,cookbook,name,the name of the ingredient [format: text],text
+Ingredient,cookbook,plural,the plural suffix of the ingredient [format: text],text
+Nutrition,cookbook,alcohol,the alcohol content in the recipe [format: real],real
+Nutrition,cookbook,calories,the calories of the recipe [format: real],real
+Nutrition,cookbook,carbo,the carbo content in the recipe [format: real],real
+Nutrition,cookbook,cholestrl,the cholesterol content in the recipe [format: real],real
+Nutrition,cookbook,fiber,the fiber a content in the recipe [format: real],real
+Nutrition,cookbook,iron,"the iron content in the recipe [format: real] Value: commonsense evidence: if iron > 20mg, it will lead to  
+ constipation 
+ feeling sick 
+ being sick 
+ stomach pain 
+question could mention any of functions listed before.",real
+Nutrition,cookbook,pcnt_cal_carb,percentage of carbo in total nutrient composition [format: real],real
+Nutrition,cookbook,pcnt_cal_fat,percentage of fat in total nutrient composition [format: real],real
+Nutrition,cookbook,pcnt_cal_prot,percentage of protein in total nutrient composition [format: real],real
+Nutrition,cookbook,protein,the protein content in the recipe [format: real],real
+Nutrition,cookbook,recipe_id,the id of the recipe [format: integer] [primary key] [foreign key -> Recipe.recipe_id],integer
+Nutrition,cookbook,sat_fat,the saturated fat content in the recipe [format: real] Value: commonsense evidence: unsaturated fat = total_fat - saturated fat,real
+Nutrition,cookbook,sodium,"the sodium content in the recipe [format: real] Value: commonsense evidence:
+Salt/Sodium-Free - Less than 5 mg of sodium per serving
+Very Low Sodium - 35 mg of sodium or less per serving
+Low Sodium -140 mg of sodium or less per serving
+Reduced Sodium - At least 25% less sodium than the regular product
+Light in Sodium or Lightly Salted - At least 50% less sodium than the regular product
+No-Salt-Added or Unsalted - No salt is added during processing - but these products may not be salt/sodium-free unless stated",real
+Nutrition,cookbook,total_fat,the total fat content in the recipe [format: real] Value: commonsense evidence: higher --> higher possibility to gain weight,real
+Nutrition,cookbook,vitamin_a,"the vitamin a content in the recipe [format: real] Value: commonsense evidence:
+higher --> beneficial to 
+ helping your body's natural defense against illness and infection (the immune system) work properly 
+ helping vision in dim light 
+ keeping skin and the lining of some parts of the body, such as the nose, healthy 
+question could mention any of functions listed before.",real
+Nutrition,cookbook,vitamin_c,"the vitamin c content in the recipe [format: real] Value: commonsense evidence: Vitamin C, also known as ascorbic acid, if the VC is higher, it will:
+ helping to protect cells and keeping them healthy 
+ maintaining healthy skin, blood vessels, bones and cartilage 
+ helping with wound healing 
+question could mention any of functions listed before.",real
+Quantity,cookbook,ingredient_id,the id of the ingredient [format: integer] [foreign key -> Ingredient.ingredient_id],integer
+Quantity,cookbook,max_qty,the max quantity of the ingredient [format: real],real
+Quantity,cookbook,min_qty,"the min quantity of the ingredient [format: real] Value: commonsense evidence: If max_qty equals to min_qty, it means that the ingredient must be rationed.",real
+Quantity,cookbook,optional,whether the ingredient is optional [format: text],text
+Quantity,cookbook,preparation,[format: text] Value: commonsense evidence: 'No data' means the ingredient doesn't need preprocessing.,text
+Quantity,cookbook,quantity_id,the unique identifier for the quantity [format: integer] [primary key],integer
+Quantity,cookbook,recipe_id,the id of the recipe [format: integer] [foreign key -> Recipe.recipe_id],integer
+Quantity,cookbook,unit,the unit of the ingredient [format: text],text
+Recipe,cookbook,cook_min,the cooked minute of the recipe [format: integer],integer
+Recipe,cookbook,directions,the directions of the recipe [format: text],text
+Recipe,cookbook,intro,the introduction of the recipe [format: text],text
+Recipe,cookbook,prep_min,the preparation minute of the recipe [format: integer],integer
+Recipe,cookbook,recipe_id,the unique identifier for the recipe [format: integer] [primary key],integer
+Recipe,cookbook,servings,the number of people the recipe can serve [format: integer],integer
+Recipe,cookbook,source,the source of the recipe [format: text],text
+Recipe,cookbook,stnd_min,"the stand minute of the price [format: integer] Value: commonsense evidence: The stand minute stands for the time to take the dish away from the heat source. 
+the total time of the recipe = prep_min + cook_min + stnd_min",integer
+Recipe,cookbook,subtitle,the subtitle of the recipe [format: text],text
+Recipe,cookbook,title,the title of the recipe [format: text],text
+Recipe,cookbook,yield_unit,the unit of the yield for the recipe [format: text],text

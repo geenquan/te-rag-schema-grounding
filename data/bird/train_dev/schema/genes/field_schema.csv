@@ -1,0 +1,22 @@
+table,db,field_name,field_name_desc,field_type
+Classification,genes,GeneID,unique identifier number of genes [format: text] [primary key],text
+Classification,genes,Localization,location [format: text],text
+Genes,genes,Chromosome,Chromosome [format: text],integer
+Genes,genes,Class,class [format: text],text
+Genes,genes,Complex,Complex [format: text],text
+Genes,genes,Essential,essential [format: text],text
+Genes,genes,Function,Function [format: text],text
+Genes,genes,GeneID,identifier number of genes [format: text] [foreign key -> Classification.GeneID],text
+Genes,genes,Localization,[format: text],text
+Genes,genes,Motif,Motif [format: text],text
+Genes,genes,Phenotype,Phenotype [format: text] Value: ?: means: doesn't exit the phenotype,text
+Interactions,genes,Expression_Corr,"Expression correlation score [format: real] Value: range: (0,1)
+
+if the value is the positive then it's ""positively correlated""
+
+if the value is the negative then it's ""negatively correlated""
+
+if the value is very high positively, it means two genes are highly correlated",real
+Interactions,genes,GeneID1,identifier number of genes [format: text] [primary key] [foreign key -> Classification.GeneID],text
+Interactions,genes,GeneID2,identifier number of genes [format: text] [primary key] [foreign key -> Classification.GeneID],text
+Interactions,genes,Type,Type [format: text],text

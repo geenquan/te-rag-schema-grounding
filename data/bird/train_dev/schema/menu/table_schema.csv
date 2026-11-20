@@ -1,0 +1,54 @@
+table,db,table_desc,field,schema
+Dish,menu,Dish,description|first_appeared|highest_price|id|last_appeared|lowest_price|menus_appeared|name|times_appeared,"CREATE TABLE Dish (
+  description,
+  first_appeared,
+  highest_price,
+  id,
+  last_appeared,
+  lowest_price,
+  menus_appeared,
+  name,
+  times_appeared
+);"
+Menu,menu,Menu,call_number|currency|currency_symbol|date|dish_count|event|id|keywords|language|location|location_type|name|notes|occasion|page_count|physical_description|place|sponsor|status|venue,"CREATE TABLE Menu (
+  call_number,
+  currency,
+  currency_symbol,
+  date,
+  dish_count,
+  event,
+  id,
+  keywords,
+  language,
+  location,
+  location_type,
+  name,
+  notes,
+  occasion,
+  page_count,
+  physical_description,
+  place,
+  sponsor,
+  status,
+  venue
+);"
+MenuItem,menu,MenuItem,created_at|dish_id|high_price|id|menu_page_id|price|updated_at|xpos|ypos,"CREATE TABLE MenuItem (
+  created_at,
+  dish_id,
+  high_price,
+  id,
+  menu_page_id,
+  price,
+  updated_at,
+  xpos,
+  ypos
+);"
+MenuPage,menu,MenuPage,full_height|full_width|id|image_id|menu_id|page_number|uuid,"CREATE TABLE MenuPage (
+  full_height,
+  full_width,
+  id,
+  image_id,
+  menu_id,
+  page_number,
+  uuid
+);"

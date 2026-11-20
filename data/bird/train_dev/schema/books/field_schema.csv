@@ -1,0 +1,79 @@
+table,db,field_name,field_name_desc,field_type
+address,books,address_id,the unique identifier of the address [format: integer] [primary key],integer
+address,books,city,the city where the address belongs [format: text],text
+address,books,country_id,"the id of the country where the address belongs [format: integer] Value: commonsense evidence:
+Maps to the country (country id). The full address of the customer is 'No.street_number street_name, city, country' [foreign key -> country.country_id]",integer
+address,books,street_name,the street name [format: text],text
+address,books,street_number,"the street number of the address [format: text] Value: commonsense evidence:
+The street number is typically used to identify a specific building or residence on a street, with higher numbers generally indicating a location further down the street from the starting point. For example, if a street starts at number 1 and goes up to number 100, a building with the number 50 would be closer to the starting point than a building with the number 75.",text
+address_status,books,address_status,"the status of the address [format: text] Value: commonsense evidence:
+	active: the address is still in use
+	inactive: the address is not in use anymore",text
+address_status,books,status_id,the unique identifier of the status [format: integer] [primary key],integer
+author,books,author_id,the unique identifier of the author [format: integer] [primary key],integer
+author,books,author_name,the name of the author [format: text],text
+book,books,book_id,the unique identifier of the book [format: integer] [primary key],integer
+book,books,isbn13,"the International Standard Book Number of the book [format: text] Value: commonsense evidence:
+An ISBN is a unique 13-digit number assigned to each book to identify it internationally. The ISBN13 of a book is the specific version of the ISBN that uses 13 digits. It is typically displayed on the back cover of a book, along with the barcode and other information.",text
+book,books,language_id,"the id of the book language
+Maps to book_language (language_id) [format: integer] [foreign key -> book_language.language_id]",integer
+book,books,num_pages,the number of the pages [format: integer],integer
+book,books,publication_date,"the publication date of the book [format: date] Value: commonsense evidence:
+The publication date of a book can provide information about when the book was released to the public. This can be useful for understanding the context in which the book was written, as well as for determining how current or outdated the information in the book might be. Additionally, the publication date can provide insight into the age of the book and its potential value as a collectible.",date
+book,books,publisher_id,"the id of the publisher
+Maps to publisher (publisher_id) [format: integer] [foreign key -> publisher.publisher_id]",integer
+book,books,title,the title of the book [format: text],text
+book_author,books,author_id,"the id of the author
+Maps to author(author_id) [format: integer] Value: commonsense evidence:
+Books with the same author id are written by the same author. [primary key] [foreign key -> author.author_id]",integer
+book_author,books,book_id,"the id of the book
+Maps to book(book_id) [format: integer] [primary key] [foreign key -> book.book_id]",integer
+book_language,books,language_code,"the language code [format: text] Value: commonsense evidence:
+A language code is a unique identifier for a specific language. It is typically used to identify a language in computing and other technical contexts. Some common language codes include ""en"" for English, ""fr"" for French, and ""es"" for Spanish. The specific codes used for each language can vary depending on the context and the system in which they are being used.",text
+book_language,books,language_id,the unique identifier of the language [format: integer] [primary key],integer
+book_language,books,language_name,the language name [format: text],text
+country,books,country_id,the unique identifier of the country [format: integer] [primary key],integer
+country,books,country_name,the country name [format: text],text
+cust_order,books,customer_id,"the id of the customer
+Maps to customer(customer_Id) [format: integer] Value: commonsense evidence:
+The number of orders ordered by the customer = the show-up times of the relative customer id in the table",integer
+cust_order,books,dest_address_id,"the id of the destination address
+Maps to address(address_id) [format: integer]",integer
+cust_order,books,order_date,the date of the order [format: datetime],datetime
+cust_order,books,order_id,the unique identifier of the customer order [format: integer] [primary key],integer
+cust_order,books,shipping_method_id,"the id of the shipping method
+Maps to shipping_method(method_id) [format: integer]",integer
+customer,books,customer_id,the unique identifier of the customer [format: integer] [primary key],integer
+customer,books,email,the email of the customer [format: text],text
+customer,books,first_name,the first name of the customer [format: text],text
+customer,books,last_name,"the last name of the customer [format: text] Value: commonsense evidence:
+A person's full name is the first name, middle name (if applicable), and last name.",text
+customer_address,books,address_id,"the id of the address
+Maps to address(address_id) [format: integer] [primary key] [foreign key -> address.address_id]",integer
+customer_address,books,customer_id,"the id of the customer
+Maps to customer(customer_id) [format: integer] [primary key] [foreign key -> customer.customer_id]",integer
+customer_address,books,status_id,"the id of the address status [format: integer] Value: commonsense evidence:
+A customer may have several addresses. If a customer has several addresses, the address that the status_id = 1 is the customer's current address that is in use. The other addresses with 2 as status_id is abandoned addresses.",integer
+order_history,books,history_id,the unique identifier of the order history [format: integer] [primary key],integer
+order_history,books,order_id,"the id of the order
+Maps to cust_order(order_id) [format: integer]",integer
+order_history,books,status_date,the date of the status updated [format: datetime],datetime
+order_history,books,status_id,"the id of the order
+Maps to order_status(status_id) [format: integer] Value: commonsense evidence:
+The order statuses include order received, pending delivery, delivery in progress, delivered, canceled, and returned.",integer
+order_line,books,book_id,"the id of the book
+Maps to book(book_id) [format: integer]",integer
+order_line,books,line_id,the unique identifier of the order line [format: integer] [primary key],integer
+order_line,books,order_id,"the id of the order
+Maps to cust_order(order_id) [format: integer]",integer
+order_line,books,price,"the price of the order [format: real] Value: commonsense evidence:
+Even though the customer ordered the book with the same book id, the price could be different. The price of the order may be influenced by the shipping method, seasonal discount, and the number of books the customer ordered.",real
+order_status,books,status_id,the unique identifier of the order status [format: integer] [primary key],integer
+order_status,books,status_value,"the status value [format: text] Value: commonsense evidence:
+The order statuses include order received, pending delivery, delivery in progress, delivered, canceled, and returned.",text
+publisher,books,publisher_id,the unique identifier of the publisher [format: integer] [primary key],integer
+publisher,books,publisher_name,the name of the publisher [format: text],text
+shipping_method,books,cost,"the cost of the shipping method [format: real] Value: commonsense evidence:
+The main difference between the various shipping methods, such as standard, priority, express, and international, is the speed at which the item is delivered. Standard shipping is the slowest and least expensive option, while express and priority shipping are faster and more expensive. International shipping is for items that are being shipped to a destination outside of the country where they originated.",real
+shipping_method,books,method_id,the unique identifier of the method [format: integer] [primary key],integer
+shipping_method,books,method_name,the method name [format: text],text

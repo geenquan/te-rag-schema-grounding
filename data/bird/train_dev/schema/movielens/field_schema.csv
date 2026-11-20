@@ -1,0 +1,36 @@
+table,db,field_name,field_name_desc,field_type
+actors,movielens,a_gender,"actor gender [format: text] Value: M: male;
+F: female",text
+actors,movielens,a_quality,"actor quality [format: integer] Value: higher is better, lower is the worse",integer
+actors,movielens,actorid,unique identificator number of actors [format: integer] [primary key],integer
+directors,movielens,avg_revenue,"average revenue [format: integer] Value: higher value is the higher, lower is the lower",integer
+directors,movielens,d_quality,"director quality [format: integer] Value: higher value is better, lower is the worse",integer
+directors,movielens,directorid,unique identification number of actors directors [format: integer] [primary key],integer
+movies,movielens,country,country [format: text],text
+movies,movielens,isEnglish,is English [format: text],text
+movies,movielens,movieid,unique identifier number of movies [format: integer] [primary key],integer
+movies,movielens,runningtime,[format: integer],integer
+movies,movielens,year,"year [format: integer] Value: 4: newest;
+
+1: oldest
+
+higher value means newer published date",integer
+movies2actors,movielens,actorid,identifier number of actors [format: integer] [primary key],integer
+movies2actors,movielens,cast_num,cast number [format: integer],integer
+movies2actors,movielens,movieid,identifier number of movies [format: integer] [primary key],integer
+movies2directors,movielens,directorid,identifier number of directors [format: integer] [primary key],integer
+movies2directors,movielens,genre,genre of movies [format: text],text
+movies2directors,movielens,movieid,identifier number of movies [format: integer] [primary key],integer
+u2base,movielens,movieid,identifier number of movie [format: integer] [primary key],integer
+u2base,movielens,rating,"ratings of movies [format: text] Value: higher value refers to higher satisfactory, each value is the rating of movies left by users.",text
+u2base,movielens,userid,identifier number of users [format: integer] [primary key],integer
+users,movielens,age,"age [format: text] Value: 1: 1-18 years old; 
+18: 18-25 years old; 
+25: 25-35 years old; 
+35: 35-45 years old; 
+45: 45-50 years old; 
+50: 50-56 years old; 
+56: over 56 years old",text
+users,movielens,occupation,occupation [format: text],text
+users,movielens,u_gender,user gender [format: text] Value: M / F: Male / Female,text
+users,movielens,userid,unique identifier number of users [format: integer] [primary key],integer

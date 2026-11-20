@@ -117,3 +117,30 @@ dataset with regeneration always targeting a new directory (R6).
 Not verified here (impossible without private assets): numerical
 reproduction of the paper's tables; real model/API methods (Dense encoder
 download, DeepSeek API) — recorded as **not executed**.
+
+---
+
+## Final-paper profile (`paper_final_20261120`, 2026-11-20)
+
+The submitted paper (docs/paper_with_appendix.pdf, SHA256
+`552083ea328ec5adc7e4cef4baeca17af981e91da727f8f35ddabfd5d15d279a`, 21
+pages) supersedes the original paper baseline for the reported experiments.
+Its identities, all present in this repository:
+
+| Identity | Public location | Notes |
+|---|---|---|
+| BIRD frozen engine configs | `configs/paper/final_20261120/bird_final_configs.json` | 41 engine methods (selected Q/H, fixed + optimized ablations, adaptive, candidates); sanitized (logical ids instead of internal paths), parameters unchanged |
+| BIRD statistical families | `configs/paper/final_20261120/bird_families.json` (+ sha sidecar) | semantic copy of the frozen declaration; identity pinned to this file's hash |
+| Grid frozen per-fold parameters | `configs/paper/final_20261120/grid_selected_configurations.csv` | byte copy of the accepted run's selection table |
+| BIRD frozen runtime | `terag/engines/bird_runtime/` | frozen workspace package (re-rooted imports only) |
+| BIRD engines + unified entry | `terag/engines/bird/` | BirdEngine / VnextEngine / field_rerank / study defaults; `Core` = DEFAULT parameter vector (verified equal to the original run's recorded effective params) |
+| H reliability gating | `terag/engines/hgate/gating.py` | the `hg` layer executed by the unified entry |
+| BIRD eval kit | `terag/engines/evalkit/` | metrics core, population, evaluation, statistics core |
+| Grid final engine | `terag/engines/grid/` | accepted scoring core with explicit inputs (private pkl/Job dependencies removed; metadata index rebuilt; frozen-parameter C regeneration with content-addressed caching) |
+| API adapters | `terag/engines/api/` | env-only credentials, user-set budget cap, per-run evidence dirs, pinned-revision MiniLM |
+| BIRD inputs | `data/bird/` | raw + frozen derived inputs, CC BY-SA 4.0, hash-pinned |
+| BIRD reference predictions | `results/reference/bird/` | sanitized historical predictions + per-question metrics + aggregates (104 method-protocol groups) |
+
+Adaptations beyond import re-rooting are marked `# PUBLIC-PORT:` at each
+site. The legacy `paper-dasfaa2027-v1.0` / `transfer_v3_target_cap` mapping
+above remains valid for the synthetic demo and the private-protocol runner.

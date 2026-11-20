@@ -1,0 +1,20 @@
+table,db,table_desc,field,schema
+atom,toxicology,atom,atom_id|element|molecule_id,"CREATE TABLE atom (
+  atom_id,
+  element,
+  molecule_id
+);"
+bond,toxicology,bond,bond_id|bond_type|molecule_id,"CREATE TABLE bond (
+  bond_id,
+  bond_type,
+  molecule_id
+);"
+connected,toxicology,connected,atom_id|atom_id2|bond_id,"CREATE TABLE connected (
+  atom_id,
+  atom_id2,
+  bond_id
+);"
+molecule,toxicology,molecule,label|molecule_id,"CREATE TABLE molecule (
+  label,
+  molecule_id
+);"

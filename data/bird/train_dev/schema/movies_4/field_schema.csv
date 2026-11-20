@@ -1,0 +1,82 @@
+table,db,field_name,field_name_desc,field_type
+country,movies_4,country_id,the unique identifier of the country [format: integer] [primary key],integer
+country,movies_4,country_iso_code,"the ISO code [format: text] Value: commonsense evidence:
+ISO codes are typically used to identify countries and their subdivisions, and there are different types of ISO codes depending on the specific application. Here we use ISO 3166 code to identify countries.",text
+country,movies_4,country_name,the name of the country [format: text],text
+department,movies_4,department_id,the unique identifier of the department [format: integer] [primary key],integer
+department,movies_4,department_name,the name of the department,text
+gender,movies_4,gender,"the gender [format: text] Value: commonsense evidence:
+female/ male/ unspecified",text
+gender,movies_4,gender_id,the unique identifier of the gender [format: integer] [primary key],integer
+genre,movies_4,genre_id,the unique identifier of the genre [format: integer] [primary key],integer
+genre,movies_4,genre_name,the genre [format: text],text
+keyword,movies_4,keyword_id,the unique identifier of the keyword [format: integer] [primary key],integer
+keyword,movies_4,keyword_name,the keyword [format: text],text
+language,movies_4,language_code,"the code of the language [format: text] Value: commonsense evidence:
+Here we use ISO 639 codes to identify the language.",text
+language,movies_4,language_id,the unique identifier of the language [format: integer] [primary key],integer
+language,movies_4,language_name,the language name [format: text],text
+language_role,movies_4,language_role,"the language role [format: text] Value: commonsense evidence:
+In the context of language roles in a movie or other audio-visual production, ""original"" and ""spoken"" refer to the languages in which the movie was originally produced, and the languages spoken by the characters in the movie, respectively.",text
+language_role,movies_4,role_id,the unique identifier of the language id [format: integer] [primary key],integer
+movie,movies_4,budget,"the budget for the movie [format: integer] Value: commonsense evidence:
+If a movie has higher popularity, it means that it is well-liked by a large number of people. This can be determined by looking at the movie's ratings and reviews, as well as the box office performance and overall buzz surrounding the film. Higher popularity often translates to more success for the movie, both financially and critically.",integer
+movie,movies_4,homepage,the homepage of the movie [format: text],text
+movie,movies_4,movie_id,the unique identifier of the movie [format: integer] [primary key],integer
+movie,movies_4,movie_status,"the status of the movie
+The only value of this column is 'Released'. [format: text]",text
+movie,movies_4,overview,the overview of the movie [format: text],text
+movie,movies_4,popularity,"the popularity of the movie [format: real] Value: commonsense evidence:
+If a movie has higher popularity, it means that it is well-liked by a large number of people. This can be determined by looking at the movie's ratings and reviews, as well as the box office performance and overall buzz surrounding the film. Higher popularity often translates to more success for the movie, both financially and critically.",real
+movie,movies_4,release_date,the release date of the movie [format: date],date
+movie,movies_4,revenue,"the revenue of the movie [format: integer] Value: commonsense evidence:
+A higher vote average indicates that a greater proportion of people who have seen the movie have given it positive ratings.",integer
+movie,movies_4,runtime,the runtime of the movie [format: integer],integer
+movie,movies_4,tagline,the tagline of the movie [format: text],text
+movie,movies_4,title,the title of the movie [format: text],text
+movie,movies_4,vote_average,"the average vote for the movie [format: real] Value: commonsense evidence:
+A higher vote average indicates that a greater proportion of people who have seen the movie have given it positive ratings.",real
+movie,movies_4,vote_count,"the vote count for the movie [format: integer] Value: commonsense evidence:
+If a movie has a higher vote average and vote count, it means that it has been well-received by audiences and critics. A higher vote count means that more people have rated the movie, which can indicate a greater level of interest in the film.",integer
+movie_cast,movies_4,cast_order,"the cast order of the cast [format: integer] Value: commonsense evidence:
+The cast order of a movie or television show refers to the sequence in which the actors and actresses are listed in the credits. This order is typically determined by the relative importance of each actor's role in the production, with the main actors and actresses appearing first, followed by the supporting cast and extras.",integer
+movie_cast,movies_4,character_name,the character name [format: text],text
+movie_cast,movies_4,gender_id,"the id of the cast's gender
+Maps to gender(gender_id) [format: integer] [foreign key -> gender.gender_id]",integer
+movie_cast,movies_4,movie_id,"the id of the movie
+Maps to movie(movie_id) [format: integer] [foreign key -> movie.movie_id]",integer
+movie_cast,movies_4,person_id,"the id of the person
+Maps to person(person_id) [format: integer] [foreign key -> person.person_id]",integer
+movie_company,movies_4,company_id,"the id of the company that produced the movie
+Maps to production_company(company_id) [format: integer] Value: commonsense evidence:
+If movies with different movie_id have the same company_id, it means these movies were made by the same company.",integer
+movie_company,movies_4,movie_id,"the id of the movie 
+Maps to movie(movie_id) [format: integer]",integer
+movie_crew,movies_4,department_id,"the id of the crew's department
+Maps to department(department_id) [format: integer] [foreign key -> department.department_id]",integer
+movie_crew,movies_4,job,"the job of the crew [format: text] Value: commonsense evidence:
+A movie may involve several crews with the same job title.",text
+movie_crew,movies_4,movie_id,"the id of the movie that the crew worked for
+Maps to movie(movie_id) [format: integer] [foreign key -> movie.movie_id]",integer
+movie_crew,movies_4,person_id,"the id of the crew
+Maps to person(person_id) [format: integer] [foreign key -> person.person_id]",integer
+movie_genres,movies_4,genre_id,"the id of the movie genre
+Maps to genre(genre_id) [format: integer] [foreign key -> genre.genre_id]",integer
+movie_genres,movies_4,movie_id,"the id of the movie 
+Maps to movie(movie_id) [format: integer] [foreign key -> movie.movie_id]",integer
+movie_keywords,movies_4,keyword_id,"the id of the movie keyword
+Maps to keyword(keyword_id) [format: integer] Value: commonsense evidence:
+A movie may have many keywords. Audience could get the genre of the movie according to the movie keywords.",integer
+movie_keywords,movies_4,movie_id,"the id of the movie 
+Maps to movie(movie_id) [format: integer]",integer
+movie_languages,movies_4,language_id,"the id of the movie language
+Maps to language(language_id) [format: integer] [foreign key -> language.language_id]",integer
+movie_languages,movies_4,language_role_id,the id of the role's language [format: integer] [foreign key -> language_role.role_id],integer
+movie_languages,movies_4,movie_id,"the id of the movie 
+Maps to movie(movie_id) [format: integer] [foreign key -> movie.movie_id]",integer
+person,movies_4,person_id,the unique identifier of the person [format: integer] [primary key],integer
+person,movies_4,person_name,the name of the person [format: text],text
+production_company,movies_4,company_id,the unique identifier of the company [format: integer] [primary key],integer
+production_company,movies_4,company_name,the name of the company [format: text],text
+production_country,movies_4,country_id,the id of the country [format: integer] [foreign key -> country.country_id],integer
+production_country,movies_4,movie_id,the unique identifier of the movie [format: integer] [foreign key -> movie.movie_id],integer

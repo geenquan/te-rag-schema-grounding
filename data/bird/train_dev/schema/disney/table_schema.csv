@@ -1,0 +1,34 @@
+table,db,table_desc,field,schema
+characters,disney,characters,hero|movie_title|release_date|song|villian,"CREATE TABLE characters (
+  hero,
+  movie_title,
+  release_date,
+  song,
+  villian
+);"
+director,disney,director,director|name,"CREATE TABLE director (
+  director,
+  name
+);"
+movies_total_gross,disney,movies_total_gross,MPAA_rating|genre|inflation_adjusted_gross|movie_title|release_date|total_gross,"CREATE TABLE movies_total_gross (
+  MPAA_rating,
+  genre,
+  inflation_adjusted_gross,
+  movie_title,
+  release_date,
+  total_gross
+);"
+revenue,disney,revenue,Disney Consumer Products[NI 2]|Disney Interactive[NI 3][Rev 1]|Disney Media Networks|Studio Entertainment[NI 1]|Total|Walt Disney Parks and Resorts|Year,"CREATE TABLE revenue (
+  Disney Consumer Products[NI 2],
+  Disney Interactive[NI 3][Rev 1],
+  Disney Media Networks,
+  Studio Entertainment[NI 1],
+  Total,
+  Walt Disney Parks and Resorts,
+  Year
+);"
+voice-actors,disney,voice-actors,character|movie|voice-actor,"CREATE TABLE voice-actors (
+  character,
+  movie,
+  voice-actor
+);"

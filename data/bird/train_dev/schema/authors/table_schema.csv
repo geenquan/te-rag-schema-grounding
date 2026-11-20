@@ -1,0 +1,32 @@
+table,db,table_desc,field,schema
+Author,authors,Author,Affiliation|Id|Name,"CREATE TABLE Author (
+  Affiliation,
+  Id,
+  Name
+);"
+Conference,authors,Conference,FullName|HomePage|Id|ShortName,"CREATE TABLE Conference (
+  FullName,
+  HomePage,
+  Id,
+  ShortName
+);"
+Journal,authors,Journal,FullName|HomePage|Id|ShortName,"CREATE TABLE Journal (
+  FullName,
+  HomePage,
+  Id,
+  ShortName
+);"
+Paper,authors,Paper,ConferenceId|Id|JournalId|Keyword|Title|Year,"CREATE TABLE Paper (
+  ConferenceId,
+  Id,
+  JournalId,
+  Keyword,
+  Title,
+  Year
+);"
+PaperAuthor,authors,PaperAuthor,Affiliation|AuthorId|Name|PaperId,"CREATE TABLE PaperAuthor (
+  Affiliation,
+  AuthorId,
+  Name,
+  PaperId
+);"

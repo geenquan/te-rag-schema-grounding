@@ -1,0 +1,20 @@
+table,db,field_name,field_name_desc,field_type
+bool,student_loan,name,[format: text] [primary key],text
+disabled,student_loan,name,the name of the disabled students [format: text] [primary key] [foreign key -> person.name],text
+enlist,student_loan,name,the name of the enlisted students [format: text] [foreign key -> person.name],text
+enlist,student_loan,organ,the organization that the student enlisted in [format: text],text
+enrolled,student_loan,month,[format: integer],integer
+enrolled,student_loan,name,[format: text] [primary key] [foreign key -> person.name],text
+enrolled,student_loan,school,[format: text] [primary key],text
+filed_for_bankrupcy,student_loan,name,[primary key] [foreign key -> person.name],text
+longest_absense_from_school,student_loan,month,"the duration of absence [format: integer] Value: commonsense evidence:
+0 means that the student has never been absent.",integer
+longest_absense_from_school,student_loan,name,student's name [format: text] [primary key] [foreign key -> person.name],text
+male,student_loan,name,"student's name who are male [format: text] Value: commonsense evidence:
+the students who are not in this list are female. [primary key] [foreign key -> person.name]",text
+no_payment_due,student_loan,bool,"whether the student has payment dues [format: text] Value: commonsense evidence:
+	neg: the student doesn't have payment due
+	pos: the student has payment due [foreign key -> bool.name]",text
+no_payment_due,student_loan,name,student's name [format: text] [primary key] [foreign key -> person.name],text
+person,student_loan,name,student's name [format: text] [primary key],text
+unemployed,student_loan,name,student who is unemployed [format: text] [primary key] [foreign key -> person.name],text

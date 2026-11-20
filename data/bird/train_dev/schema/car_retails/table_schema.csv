@@ -1,0 +1,76 @@
+table,db,table_desc,field,schema
+customers,car_retails,customers,addressLine1|addressLine2|city|contactFirstName|contactLastName|country|creditLimit|customerName|customerNumber|phone|postalCode|salesRepEmployeeNumber|state,"CREATE TABLE customers (
+  addressLine1,
+  addressLine2,
+  city,
+  contactFirstName,
+  contactLastName,
+  country,
+  creditLimit,
+  customerName,
+  customerNumber,
+  phone,
+  postalCode,
+  salesRepEmployeeNumber,
+  state
+);"
+employees,car_retails,employees,email|employeeNumber|extension|firstName|jobTitle|lastName|officeCode|reportsTo,"CREATE TABLE employees (
+  email,
+  employeeNumber,
+  extension,
+  firstName,
+  jobTitle,
+  lastName,
+  officeCode,
+  reportsTo
+);"
+offices,car_retails,offices,addressLine1|addressLine2|city|country|officeCode|phone|postalCode|state|territory,"CREATE TABLE offices (
+  addressLine1,
+  addressLine2,
+  city,
+  country,
+  officeCode,
+  phone,
+  postalCode,
+  state,
+  territory
+);"
+orderdetails,car_retails,orderdetails,orderLineNumber|orderNumber|priceEach|productCode|quantityOrdered,"CREATE TABLE orderdetails (
+  orderLineNumber,
+  orderNumber,
+  priceEach,
+  productCode,
+  quantityOrdered
+);"
+orders,car_retails,orders,comments|customerNumber|orderDate|orderNumber|requiredDate|shippedDate|status,"CREATE TABLE orders (
+  comments,
+  customerNumber,
+  orderDate,
+  orderNumber,
+  requiredDate,
+  shippedDate,
+  status
+);"
+payments,car_retails,payments,amount|checkNumber|customerNumber|paymentDate,"CREATE TABLE payments (
+  amount,
+  checkNumber,
+  customerNumber,
+  paymentDate
+);"
+productlines,car_retails,productlines,htmlDescription|image|productLine|textDescription,"CREATE TABLE productlines (
+  htmlDescription,
+  image,
+  productLine,
+  textDescription
+);"
+products,car_retails,products,MSRP|buyPrice|productCode|productDescription|productLine|productName|productScale|productVendor|quantityInStock,"CREATE TABLE products (
+  MSRP,
+  buyPrice,
+  productCode,
+  productDescription,
+  productLine,
+  productName,
+  productScale,
+  productVendor,
+  quantityInStock
+);"

@@ -1,0 +1,81 @@
+table,db,table_desc,field,schema
+address,books,address,address_id|city|country_id|street_name|street_number,"CREATE TABLE address (
+  address_id,
+  city,
+  country_id,
+  street_name,
+  street_number
+);"
+address_status,books,address_status,address_status|status_id,"CREATE TABLE address_status (
+  address_status,
+  status_id
+);"
+author,books,author,author_id|author_name,"CREATE TABLE author (
+  author_id,
+  author_name
+);"
+book,books,book,book_id|isbn13|language_id|num_pages|publication_date|publisher_id|title,"CREATE TABLE book (
+  book_id,
+  isbn13,
+  language_id,
+  num_pages,
+  publication_date,
+  publisher_id,
+  title
+);"
+book_author,books,book_author,author_id|book_id,"CREATE TABLE book_author (
+  author_id,
+  book_id
+);"
+book_language,books,book_language,language_code|language_id|language_name,"CREATE TABLE book_language (
+  language_code,
+  language_id,
+  language_name
+);"
+country,books,country,country_id|country_name,"CREATE TABLE country (
+  country_id,
+  country_name
+);"
+cust_order,books,cust_order,customer_id|dest_address_id|order_date|order_id|shipping_method_id,"CREATE TABLE cust_order (
+  customer_id,
+  dest_address_id,
+  order_date,
+  order_id,
+  shipping_method_id
+);"
+customer,books,customer,customer_id|email|first_name|last_name,"CREATE TABLE customer (
+  customer_id,
+  email,
+  first_name,
+  last_name
+);"
+customer_address,books,customer_address,address_id|customer_id|status_id,"CREATE TABLE customer_address (
+  address_id,
+  customer_id,
+  status_id
+);"
+order_history,books,order_history,history_id|order_id|status_date|status_id,"CREATE TABLE order_history (
+  history_id,
+  order_id,
+  status_date,
+  status_id
+);"
+order_line,books,order_line,book_id|line_id|order_id|price,"CREATE TABLE order_line (
+  book_id,
+  line_id,
+  order_id,
+  price
+);"
+order_status,books,order_status,status_id|status_value,"CREATE TABLE order_status (
+  status_id,
+  status_value
+);"
+publisher,books,publisher,publisher_id|publisher_name,"CREATE TABLE publisher (
+  publisher_id,
+  publisher_name
+);"
+shipping_method,books,shipping_method,cost|method_id|method_name,"CREATE TABLE shipping_method (
+  cost,
+  method_id,
+  method_name
+);"

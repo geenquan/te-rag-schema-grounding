@@ -1,0 +1,25 @@
+table,db,table_desc,field,schema
+country,cars,country,country|origin,"CREATE TABLE country (
+  country,
+  origin
+);"
+data,cars,data,ID|acceleration|car_name|cylinders|displacement|horsepower|model|mpg|weight,"CREATE TABLE data (
+  ID,
+  acceleration,
+  car_name,
+  cylinders,
+  displacement,
+  horsepower,
+  model,
+  mpg,
+  weight
+);"
+price,cars,price,ID|price,"CREATE TABLE price (
+  ID,
+  price
+);"
+production,cars,production,ID|country|model_year,"CREATE TABLE production (
+  ID,
+  country,
+  model_year
+);"

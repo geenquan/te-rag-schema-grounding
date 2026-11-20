@@ -1,0 +1,1 @@
+{"qid": "t1", "question": "q", "sql": "SELECT a FROM t", "db_id": "demo", "gold_tables": ["t"], "gold_fields": [["t", "a"]]}

@@ -1,0 +1,32 @@
+table,db,table_desc,field,schema
+customers,debit_card_specializing,customers,Currency|CustomerID|Segment,"CREATE TABLE customers (
+  Currency,
+  CustomerID,
+  Segment
+);"
+gasstations,debit_card_specializing,gas stations,ChainID|Country|GasStationID|Segment,"CREATE TABLE gasstations (
+  ChainID,
+  Country,
+  GasStationID,
+  Segment
+);"
+products,debit_card_specializing,products,Description|ProductID,"CREATE TABLE products (
+  Description,
+  ProductID
+);"
+transactions_1k,debit_card_specializing,transactions,Amount|CardID|CustomerID|Date|GasStationID|Price|ProductID|Time|TransactionID,"CREATE TABLE transactions_1k (
+  Amount,
+  CardID,
+  CustomerID,
+  Date,
+  GasStationID,
+  Price,
+  ProductID,
+  Time,
+  TransactionID
+);"
+yearmonth,debit_card_specializing,year and month,Consumption|CustomerID|Date,"CREATE TABLE yearmonth (
+  Consumption,
+  CustomerID,
+  Date
+);"

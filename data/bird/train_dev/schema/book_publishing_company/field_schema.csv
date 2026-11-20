@@ -1,0 +1,73 @@
+table,db,field_name,field_name_desc,field_type
+authors,book_publishing_company,address,address [format: text],text
+authors,book_publishing_company,au_fname,author first name [format: text],text
+authors,book_publishing_company,au_id,unique number identifying authors [format: text] [primary key],text
+authors,book_publishing_company,au_lname,author last name [format: text],text
+authors,book_publishing_company,city,city [format: text],text
+authors,book_publishing_company,contract,"contract status [format: text] Value: commonsense evidence:
+0: not on the contract
+1: on the contract",text
+authors,book_publishing_company,phone,phone number [format: text],text
+authors,book_publishing_company,state,state [format: text],text
+authors,book_publishing_company,zip,zip code [format: text],text
+discounts,book_publishing_company,discount,discount [format: real],real
+discounts,book_publishing_company,discounttype,discount type [format: text],text
+discounts,book_publishing_company,highqty,"high quantity (max quantity) [format: integer] Value: commonsense evidence: 
+The maximum quantity to enjoy the discount",integer
+discounts,book_publishing_company,lowqty,"low quantity (quantity floor) [format: integer] Value: commonsense evidence: 
+The minimum quantity to enjoy the discount",integer
+discounts,book_publishing_company,stor_id,store id [format: text] [foreign key -> stores.stor_id],text
+employee,book_publishing_company,emp_id,unique number identifying employees [format: text] [primary key],text
+employee,book_publishing_company,fname,first name of employees [format: text],text
+employee,book_publishing_company,hire_date,hire date [format: datetime],datetime
+employee,book_publishing_company,job_id,number identifying jobs [format: integer] [foreign key -> jobs.job_id],integer
+employee,book_publishing_company,job_lvl,"job level [format: integer] Value: commonsense evidence:
+higher value means job level is higher",integer
+employee,book_publishing_company,lname,last name [format: text],text
+employee,book_publishing_company,minit,middle name [format: text],text
+employee,book_publishing_company,pub_id,id number identifying publishers [format: text] [foreign key -> publishers.pub_id],text
+jobs,book_publishing_company,job_desc,"job description [format: text] Value: commonsense evidence:
+staff should be mentioned",text
+jobs,book_publishing_company,job_id,unique id number identifying the jobs [format: integer] [primary key],integer
+jobs,book_publishing_company,max_lvl,"max job level [format: integer] Value: commonsense evidence:
+level range for jobs mentioned in job_desc is (min_lvl, max_lvl)",integer
+jobs,book_publishing_company,min_lvl,min job level [format: integer],integer
+pub_info,book_publishing_company,logo,logo of publications [format: blob],blob
+pub_info,book_publishing_company,pr_info,publisher's information [format: text],text
+pub_info,book_publishing_company,pub_id,unique id number identifying publications [format: text] [primary key] [foreign key -> publishers.pub_id],text
+publishers,book_publishing_company,city,city [format: text],text
+publishers,book_publishing_company,country,country [format: text],text
+publishers,book_publishing_company,pub_id,unique id number identifying publisher [format: text] [primary key],text
+publishers,book_publishing_company,pub_name,publisher name [format: text],text
+publishers,book_publishing_company,state,state [format: text],text
+roysched,book_publishing_company,hirange,high range [format: integer],integer
+roysched,book_publishing_company,lorange,low range [format: integer],integer
+roysched,book_publishing_company,royalty,royalty [format: integer],integer
+roysched,book_publishing_company,title_id,unique id number identifying title [format: text] [foreign key -> titles.title_id],text
+sales,book_publishing_company,ord_date,the date of the order [format: datetime],datetime
+sales,book_publishing_company,ord_num,id number identifying the orders [format: text] [primary key],text
+sales,book_publishing_company,payterms,payments [format: text],text
+sales,book_publishing_company,qty,quantity of sales [format: integer],integer
+sales,book_publishing_company,stor_id,id number identifying stores [format: text] [primary key] [foreign key -> stores.stor_id],text
+sales,book_publishing_company,title_id,id number identifying titles [format: text] [primary key] [foreign key -> titles.title_id],text
+stores,book_publishing_company,city,city name [format: text],text
+stores,book_publishing_company,state,state code [format: text],text
+stores,book_publishing_company,stor_address,[format: text],text
+stores,book_publishing_company,stor_id,unique id number of stores [format: text] [primary key],text
+stores,book_publishing_company,stor_name,[format: text],text
+stores,book_publishing_company,zip,zip code [format: text],text
+titleauthor,book_publishing_company,au_id,author id [format: text] [primary key] [foreign key -> authors.au_id],text
+titleauthor,book_publishing_company,au_ord,author ordering [format: integer],integer
+titleauthor,book_publishing_company,royaltyper,royaltyper [format: integer],integer
+titleauthor,book_publishing_company,title_id,title id [format: text] [primary key] [foreign key -> titles.title_id],text
+titles,book_publishing_company,advance,pre-paid amount [format: real],real
+titles,book_publishing_company,notes,"notes if any [format: text] Value: commonsense evidence:
+had better understand notes contents and put some of them into questions if any",text
+titles,book_publishing_company,price,price [format: real],real
+titles,book_publishing_company,pub_id,publisher id [format: text] [foreign key -> publishers.pub_id],text
+titles,book_publishing_company,pubdate,publication date [format: datetime],datetime
+titles,book_publishing_company,royalty,royalty [format: integer],integer
+titles,book_publishing_company,title,title [format: text],text
+titles,book_publishing_company,title_id,title id [format: text] [primary key],text
+titles,book_publishing_company,type,type of titles [format: text],text
+titles,book_publishing_company,ytd_sales,year to date sales [format: integer],integer

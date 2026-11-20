@@ -1,0 +1,34 @@
+# BIRD public dataset: the complete retrieval inputs of the paper's BIRD
+# experiments (CC BY-SA 4.0; see data/bird/SOURCES.md and
+# data/bird/LICENSE-BIRD-DATA.txt).
+#
+# The BIRD commands (run-bird / evaluate-bird-reference / bird-statistics)
+# resolve these locations through terag_release.bird_data against the
+# repository root; raw-file identity is pinned by SHA256 there and
+# re-verified on every run.
+name: bird
+
+data:
+  raw_train: data/bird/raw/train          # train.json + train_tables.json
+  raw_dev: data/bird/raw/dev              # dev.json + dev_tables.json
+  processed: data/bird/processed          # frozen Dev five-fold inputs:
+                                          #   gold/, q5_manifest.json,
+                                          #   h5_manifest.json, schema/,
+                                          #   train/ (55+50 cells)
+  train_dev: data/bird/train_dev          # frozen Train development inputs:
+                                          #   opt_gold.json, opt_manifest.json,
+                                          #   schema/ (69 dbs), train_rows/,
+                                          #   h_splits/
+
+population:
+  main_evaluation_questions: 1530   # Dev 1534 raw, 4 unverified excluded
+  train_verified_questions: 9068    # Train 9428 raw, 360 unverified excluded
+  question_cells: 55
+  heldout_cells: 50
+  folds: 5
+
+notes: >-
+  SQLite database archives are intentionally not shipped (the task needs no
+  database rows); official downloads are linked in data/bird/SOURCES.md.
+  Derived inputs (gold, manifests, schema CSVs, train rows) are frozen
+  copies -- the manifests are re-validated at run time and never rebuilt.

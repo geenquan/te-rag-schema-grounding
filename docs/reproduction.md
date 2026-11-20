@@ -8,11 +8,51 @@ what the boundaries are.
 | Level | Meaning | Requires |
 |---|---|---|
 | **Demo execution** | the public code path runs end to end | nothing beyond this repo (offline) |
+| **BIRD numerical reproduction** | the paper's BIRD values re-emerge | nothing beyond this repo (offline; all inputs + frozen configs + reference predictions shipped) |
 | **Experiment reproduction** | the paper's methods/protocols/analyses execute on a dataset | your authorized data in the documented format |
-| **Numerical reproduction** | the paper's reported values re-emerge | the original authorized enterprise dataset + its frozen splits + comparable run conditions |
+| **Grid numerical reproduction** | the paper's power-grid values re-emerge | the original authorized enterprise dataset + its frozen splits + comparable run conditions |
 
 The bundled synthetic demo supports demo execution **only**. Reporting
-synthetic metrics as results misrepresents what was run.
+synthetic metrics as results misrepresents what was run. The BIRD
+experiments support full numerical reproduction offline (below).
+
+## BIRD: full reproduction path (offline)
+
+1. **Verify the shipped inputs** — `python -m unittest tests.test_bird_data`
+   checks the raw-file SHA256 pins, the 55/50 cell counts, the 1530-question
+   verified population (4 unverified dev questions excluded and recorded in
+   the manifests), the 69-database Train development tree, and the absence
+   of regenerable caches.
+2. **Recompute every paper value from the reference predictions** —
+   `python -m terag_release evaluate-bird-reference --output runs/refcheck`
+   (no model, no API; metrics recomputed with the frozen implementation and
+   compared to the shipped per-question and aggregate files; any mismatch
+   fails).
+3. **Re-execute methods from code** — `python -m terag_release run-bird
+   --experiment <name> --output runs/...` (experiments in §"BIRD" of the
+   README: three-stage, H-opt, fixed/optimized ablations, baselines, full
+   matrix). Engines are rebuilt from the frozen inputs (PYTHONHASHSEED=0 is
+   enforced); each question carries execution evidence for the declared
+   mechanisms; a declared-but-not-executed `field_rerank`/`hg` layer is a
+   hard error.
+4. **Statistics** — `python -m terag_release bird-statistics --run RUN
+   --output OUT` recomputes the db-cluster exact sign-flip / bootstrap over
+   the frozen declared families (Bonferroni over the declared K; Delta =
+   Full − Ablation; post-hoc rows labeled).
+5. **Optional online baselines** — Dense (pinned MiniLM revision download)
+   and the three DeepSeek API methods run only with `--allow-network`, your
+   `DEEPSEEK_API_KEY`, and an explicit `--budget-cap-cny`. These are new
+   measurements at your cost; they are not guaranteed to match the
+   historical reference predictions, and no historical budget is reused.
+
+Boundaries kept visible on purpose: the Q gate trades recall/FGCS for
+precision (+1.91pp F1 corrected-significant, ColR −1.11 / FGCS −3.33); the
+independently optimized BIRD Full−noBIndex comparison is negative (−0.51pp,
+p=0.031); C shows no verifiable independent gain; H-opt's edge over the
+metadata baselines does not survive declared correction; empty H folds are
+recorded as empty, never fabricated.
+
+## Grid: what the paper's numbers are tied to
 
 ## What the paper's numbers are tied to
 

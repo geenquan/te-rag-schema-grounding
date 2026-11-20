@@ -1,0 +1,30 @@
+table,db,field_name,field_name_desc,field_type
+biwords,language_corpus,lid,"language id [format: integer] Value: commonsense evidence: 
+lid=1 means it's Catalan language. [primary key] [foreign key -> langs.lid]",integer
+biwords,language_corpus,occurrences,times of this pair appears in this language/page [format: integer],integer
+biwords,language_corpus,w1st,The word id of the first word of the biwords pair. [format: integer] Value: The value is unique. [primary key] [foreign key -> words.wid],integer
+biwords,language_corpus,w2nd,The word id of the second word of the biwords pair. [format: integer] Value: The value is unique. [primary key] [foreign key -> words.wid],integer
+langs,language_corpus,lang,"language name [format: text] Value: commonsense evidence:
+ ca means Catalan language.",text
+langs,language_corpus,lid,"language id [format: integer] Value: commonsense evidence: 
+lid=1 means it's the Catalan language. [primary key]",integer
+langs,language_corpus,locale,The locale of the language [format: text],text
+langs,language_corpus,pages,total pages of Wikipedia in this language [format: integer],integer
+langs,language_corpus,words,total number of words in this pages [format: integer],integer
+langs_words,language_corpus,lid,"language id [format: integer] Value: commonsense evidence: 
+lid=1 means it's Catalan language. [primary key] [foreign key -> langs.lid]",integer
+langs_words,language_corpus,occurrences,repetitions of this word in this language [format: integer] Value: it's INTEGER and DEFAULT is 0.,integer
+langs_words,language_corpus,wid,The word id of the Catalan language [format: integer] [primary key] [foreign key -> words.wid],integer
+pages,language_corpus,lid,"language id [format: integer] Value: commonsense evidence: 
+lid=1 means it's Catalan language [foreign key -> langs.lid]",integer
+pages,language_corpus,page,wikipedia page id [format: integer],integer
+pages,language_corpus,pid,page id of Wikipedia about Catalan language [format: integer] [primary key],integer
+pages,language_corpus,revision,wikipedia revision page id [format: integer],integer
+pages,language_corpus,title,The title of this Catalan language Wikipedia page [format: text],text
+pages,language_corpus,words,number of different words in this page [format: integer],integer
+pages_words,language_corpus,occurrences,times of this word appears into this page [format: integer],integer
+pages_words,language_corpus,pid,page id of Wikipedia about Catalan language [format: integer] [primary key] [foreign key -> pages.pid],integer
+pages_words,language_corpus,wid,The word id of the Catalan language [format: integer] Value: The value is unique. [primary key] [foreign key -> words.wid],integer
+words,language_corpus,occurrences,The occurrences of the specific word [format: integer],integer
+words,language_corpus,wid,The word id of the Catalan language [format: integer] Value: The value is unique. [primary key],integer
+words,language_corpus,word,The word itself [format: text],text

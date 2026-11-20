@@ -1,0 +1,69 @@
+table,db,field_name,field_name_desc,field_type
+Community_Area,chicago_crime,community_area_name,community area name [format: text],text
+Community_Area,chicago_crime,community_area_no,unique community area number [format: integer] [primary key],integer
+Community_Area,chicago_crime,population,population of the community [format: text],text
+Community_Area,chicago_crime,side,district [format: text],text
+Crime,chicago_crime,arrest,A true/false value indicating if an arrest has been made [format: text],text
+Crime,chicago_crime,beat,[format: integer],integer
+Crime,chicago_crime,block,A redacted address indicating in which city block the incident occurred [format: text],text
+Crime,chicago_crime,case_number,"Case number assigned to the reported crime. [format: text] Value: commonsense evidence: 
+
+There is usually one case number for any reported crime except in the case of multiple homicide where a single report will produce one case number for each victim
+
+if case_number appears > 1, it means this is a multiple homicide",text
+Crime,chicago_crime,community_area_no,A number identifying one of 77 geographic areas where the incident occurred [format: integer] [foreign key -> Community_Area.community_area_no],integer
+Crime,chicago_crime,date,Date of the occurrence of the incident being reported [format: text],text
+Crime,chicago_crime,district_no,A number indicating the geographic subdivision of the police district where the incident occurred [format: integer] [foreign key -> District.district_no],integer
+Crime,chicago_crime,domestic,A true/false value indicating if the incident is as case of domestic violence [format: text],text
+Crime,chicago_crime,fbi_code_no,A code identifying the type of crime reported according to the classification scheme used by the FBI. [format: text] [foreign key -> FBI_Code.fbi_code_no],text
+Crime,chicago_crime,iucr_no,Illinois Uniform Crime Reporting code: a four digit code used to classify criminal incidents when taking reports. [format: text] [foreign key -> IUCR.iucr_no],text
+Crime,chicago_crime,latitude,The latitude where incident is reported to have occurred. [format: text],text
+Crime,chicago_crime,location_description,A description of the kind of area where incident occurred [format: text],text
+Crime,chicago_crime,longitude,"The longitude where incident is reported to have occurred. [format: text] Value: commonsense evidence: 
+
+The precise location / coordinate: combines the longitude and latitude for plotting purposes. (latitude, longitude)",text
+Crime,chicago_crime,report_no,unique Numeric identifier of the crime report. [format: integer] [primary key],integer
+Crime,chicago_crime,ward_no,A two digit number identifying the legislative district (ward) where the incident occurred. [format: integer] [foreign key -> Ward.ward_no],integer
+District,chicago_crime,address,Street address of the police district building [format: text],text
+District,chicago_crime,commander,"Name of the district's commanding officer [format: text] Value: commonsense evidence:
+
+the person who should be responsible for the crime case.",text
+District,chicago_crime,district_name,name of the district [format: text],text
+District,chicago_crime,district_no,unique number identifying the district [format: integer] [primary key],integer
+District,chicago_crime,email,Email address to contact district administrators [format: text],text
+District,chicago_crime,fax,Fax number for the district [format: text],text
+District,chicago_crime,phone,Main telephone number for the district [format: text],text
+District,chicago_crime,tty,"Number of the district teletype machine. [format: text] Value: A teletype machine is a device that lets people who are deaf, hard of hearing, or speech-impaired use the telephone to communicate, by allowing them to type text messages.",text
+District,chicago_crime,twitter,"The district twitter handle. [format: text] Value: Twitter is a social networking service on which users post and interact with brief messages known as ""tweets""",text
+District,chicago_crime,zip_code,ZIP code of the police district building [format: integer],integer
+FBI_Code,chicago_crime,crime_against,"States who the crime is against. [format: text] Value: Values are Persons, Property, Society, or ""Persons and Society""",text
+FBI_Code,chicago_crime,description,Detailed description of the kind of crime [format: text],text
+FBI_Code,chicago_crime,fbi_code_no,unique code made by fbi to classify the crime cases [format: text] [primary key],text
+FBI_Code,chicago_crime,title,Short description of the kind of crime [format: text],text
+IUCR,chicago_crime,index_code,"Uses values ""I"" and ""N"" to indicate crimes [format: text] Value: commonsense evidence:
+
+â¢ ""Indexed"" (severe, such as murder, rape, arson, and robbery)
+
+â¢ ""Non-Indexed"" (less severe, such as vandalism, weapons violations, and peace disturbance)",text
+IUCR,chicago_crime,iucr_no,Unique identifier for the incident classification [format: text] [primary key],text
+IUCR,chicago_crime,primary_description,"The general description of the incident classification [format: text] Value: commonsense evidence:
+
+It's the general description",text
+IUCR,chicago_crime,secondary_description,"The specific description of the incident classification [format: text] Value: commonsense evidence:
+
+It's the specific description",text
+Neighborhood,chicago_crime,community_area_no,The community area in which most of the neighborhood is located [format: integer] [foreign key -> Community_Area.community_area_no],integer
+Neighborhood,chicago_crime,neighborhood_name,The neighborhood name as used in everyday communication [format: text] [primary key],text
+Ward,chicago_crime,Population,[format: text],integer
+Ward,chicago_crime,alderman_first_name,[format: text],text
+Ward,chicago_crime,alderman_last_name,[format: text],text
+Ward,chicago_crime,alderman_name_suffix,[format: text],text
+Ward,chicago_crime,city_hall_office_fax,[format: text],text
+Ward,chicago_crime,city_hall_office_phone,[format: text],text
+Ward,chicago_crime,city_hall_office_room,[format: integer],integer
+Ward,chicago_crime,ward_email,[format: text],text
+Ward,chicago_crime,ward_no,[format: integer] [primary key],integer
+Ward,chicago_crime,ward_office_address,[format: text],text
+Ward,chicago_crime,ward_office_fax,[format: text],text
+Ward,chicago_crime,ward_office_phone,[format: text],text
+Ward,chicago_crime,ward_office_zip,[format: text],text

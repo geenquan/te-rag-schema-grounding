@@ -1,0 +1,76 @@
+table,db,table_desc,field,schema
+customers,beer_factory,customers,City|CustomerID|Email|First|FirstPurchaseDate|Gender|Last|PhoneNumber|State|StreetAddress|SubscribedToEmailList|ZipCode,"CREATE TABLE customers (
+  City,
+  CustomerID,
+  Email,
+  First,
+  FirstPurchaseDate,
+  Gender,
+  Last,
+  PhoneNumber,
+  State,
+  StreetAddress,
+  SubscribedToEmailList,
+  ZipCode
+);"
+geolocation,beer_factory,geolocation,Latitude|LocationID|Longitude,"CREATE TABLE geolocation (
+  Latitude,
+  LocationID,
+  Longitude
+);"
+location,beer_factory,location,City|LocationID|LocationName|State|StreetAddress|ZipCode,"CREATE TABLE location (
+  City,
+  LocationID,
+  LocationName,
+  State,
+  StreetAddress,
+  ZipCode
+);"
+rootbeer,beer_factory,rootbeer,BrandID|ContainerType|LocationID|PurchaseDate|RootBeerID,"CREATE TABLE rootbeer (
+  BrandID,
+  ContainerType,
+  LocationID,
+  PurchaseDate,
+  RootBeerID
+);"
+rootbeerbrand,beer_factory,rootbeerbrand,Alcoholic|ArtificialSweetener|AvailableInBottles|AvailableInCans|AvailableInKegs|BrandID|BrandName|BreweryName|Caffeinated|CaneSugar|City|CornSyrup|Country|CurrentRetailPrice|Description|FacebookPage|FirstBrewedYear|Honey|State|Twitter|Website|WholesaleCost,"CREATE TABLE rootbeerbrand (
+  Alcoholic,
+  ArtificialSweetener,
+  AvailableInBottles,
+  AvailableInCans,
+  AvailableInKegs,
+  BrandID,
+  BrandName,
+  BreweryName,
+  Caffeinated,
+  CaneSugar,
+  City,
+  CornSyrup,
+  Country,
+  CurrentRetailPrice,
+  Description,
+  FacebookPage,
+  FirstBrewedYear,
+  Honey,
+  State,
+  Twitter,
+  Website,
+  WholesaleCost
+);"
+rootbeerreview,beer_factory,rootbeerreview,BrandID|CustomerID|Review|ReviewDate|StarRating,"CREATE TABLE rootbeerreview (
+  BrandID,
+  CustomerID,
+  Review,
+  ReviewDate,
+  StarRating
+);"
+transaction,beer_factory,transaction,CreditCardNumber|CreditCardType|CustomerID|LocationID|PurchasePrice|RootBeerID|TransactionDate|TransactionID,"CREATE TABLE transaction (
+  CreditCardNumber,
+  CreditCardType,
+  CustomerID,
+  LocationID,
+  PurchasePrice,
+  RootBeerID,
+  TransactionDate,
+  TransactionID
+);"

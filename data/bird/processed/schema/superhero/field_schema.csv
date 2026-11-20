@@ -1,0 +1,47 @@
+table,db,field_name,field_name_desc,field_type
+alignment,superhero,alignment,"the alignment of the superhero [format: text] Value: commonsense evidence:
+Alignment refers to a character's moral and ethical stance and can be used to describe the overall attitude or behavior of a superhero. Some common alignments for superheroes include:
+Good: These superheroes are typically kind, selfless, and dedicated to protecting others and upholding justice. Examples of good alignments include Superman, Wonder Woman, and Spider-Man.
+Neutral: These superheroes may not always prioritize the greater good, but they are not necessarily evil either. They may act in their own self-interest or make decisions based on their own moral code. Examples of neutral alignments include the Hulk and Deadpool.
+	Bad: These superheroes are typically selfish, manipulative, and willing to harm others in pursuit of their own goals. Examples of evil alignments include Lex Luthor and the Joker.",text
+alignment,superhero,id,the unique identifier of the alignment [format: integer] [primary key],integer
+attribute,superhero,attribute_name,"the attribute [format: text] Value: commonsense evidence:
+A superhero's attribute is a characteristic or quality that defines who they are and what they are capable of. This could be a physical trait, such as superhuman strength or the ability to fly, or a personal trait, such as extraordinary intelligence or exceptional bravery.",text
+attribute,superhero,id,the unique identifier of the attribute [format: integer] [primary key],integer
+colour,superhero,colour,the color of the superhero's skin/eye/hair/etc [format: text],text
+colour,superhero,id,the unique identifier of the color [format: integer] [primary key],integer
+gender,superhero,gender,the gender of the superhero [format: text],text
+gender,superhero,id,the unique identifier of the gender [format: integer] [primary key],integer
+hero_attribute,superhero,attribute_id,"the id of the attribute
+Maps to attribute(id) [foreign key -> attribute.id]",integer
+hero_attribute,superhero,attribute_value,"the attribute value Value: commonsense evidence:
+If a superhero has a higher attribute value on a particular attribute, it means that they are more skilled or powerful in that area compared to other superheroes. For example, if a superhero has a higher attribute value for strength, they may be able to lift heavier objects or deliver more powerful punches than other superheroes.",integer
+hero_attribute,superhero,hero_id,"the id of the hero
+Maps to superhero(id) [foreign key -> superhero.id]",integer
+hero_power,superhero,hero_id,"the id of the hero
+Maps to superhero(id) [format: integer] [foreign key -> superhero.id]",integer
+hero_power,superhero,power_id,"the id of the power
+Maps to superpower(id) [format: integer] Value: commonsense evidence:
+In general, a superhero's attributes provide the foundation for their abilities and help to define who they are, while their powers are the specific abilities that they use to fight crime and protect others. [foreign key -> superpower.id]",integer
+publisher,superhero,id,the unique identifier of the publisher [format: integer] [primary key],integer
+publisher,superhero,publisher_name,the name of the publisher [format: text],text
+race,superhero,id,the unique identifier of the race [format: integer] [primary key],integer
+race,superhero,race,"the race of the superhero [format: text] Value: commonsense evidence:
+In the context of superheroes, a superhero's race would refer to the particular group of people that the superhero belongs to base on these physical characteristics",text
+superhero,superhero,alignment_id,the id of the superhero's alignment [format: integer] [foreign key -> alignment.id],integer
+superhero,superhero,eye_colour_id,the id of the superhero's eye color [format: integer] [foreign key -> colour.id],integer
+superhero,superhero,full_name,"the full name of the superhero [format: text] Value: commonsense evidence:
+The full name of a person typically consists of their given name, also known as their first name or personal name, and their surname, also known as their last name or family name. For example, if someone's given name is ""John"" and their surname is ""Smith,"" their full name would be ""John Smith.""",text
+superhero,superhero,gender_id,the id of the superhero's gender [format: integer] [foreign key -> gender.id],integer
+superhero,superhero,hair_colour_id,the id of the superhero's hair color [format: integer] [foreign key -> colour.id],integer
+superhero,superhero,height_cm,"the height of the superhero [format: integer] Value: commonsense evidence:
+The unit of height is centimeter. If the height_cm is NULL or 0, it means the height of the superhero is missing.",integer
+superhero,superhero,id,the unique identifier of the superhero [format: integer] [primary key],integer
+superhero,superhero,publisher_id,the id of the publisher [format: integer] [foreign key -> publisher.id],integer
+superhero,superhero,race_id,the id of the superhero's race [format: integer] [foreign key -> race.id],integer
+superhero,superhero,skin_colour_id,the id of the superhero's skin color [format: integer] [foreign key -> colour.id],integer
+superhero,superhero,superhero_name,the name of the superhero [format: text],text
+superhero,superhero,weight_kg,"the weight of the superhero [format: integer] Value: commonsense evidence:
+The unit of weight is kilogram. If the weight_kg is NULL or 0, it means the weight of the superhero is missing.",integer
+superpower,superhero,id,the unique identifier of the superpower [format: integer] [primary key],integer
+superpower,superhero,power_name,the superpower name [format: text],text

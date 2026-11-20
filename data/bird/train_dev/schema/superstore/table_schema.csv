@@ -1,0 +1,74 @@
+table,db,table_desc,field,schema
+central_superstore,superstore,central_superstore,Customer ID|Discount|Order Date|Order ID|Product ID|Profit|Quantity|Region|Row ID|Sales|Ship Date|Ship Mode,"CREATE TABLE central_superstore (
+  Customer ID,
+  Discount,
+  Order Date,
+  Order ID,
+  Product ID,
+  Profit,
+  Quantity,
+  Region,
+  Row ID,
+  Sales,
+  Ship Date,
+  Ship Mode
+);"
+east_superstore,superstore,east_superstore,Customer ID|Discount|Order Date|Order ID|Product ID|Profit|Quantity|Region|Row ID|Sales|Ship Date|Ship Mode,"CREATE TABLE east_superstore (
+  Customer ID,
+  Discount,
+  Order Date,
+  Order ID,
+  Product ID,
+  Profit,
+  Quantity,
+  Region,
+  Row ID,
+  Sales,
+  Ship Date,
+  Ship Mode
+);"
+people,superstore,people,City|Country|Customer ID|Customer Name|Postal Code|Region|Segment|State,"CREATE TABLE people (
+  City,
+  Country,
+  Customer ID,
+  Customer Name,
+  Postal Code,
+  Region,
+  Segment,
+  State
+);"
+product,superstore,product,Category|Product ID|Product Name|Region|Sub-Category,"CREATE TABLE product (
+  Category,
+  Product ID,
+  Product Name,
+  Region,
+  Sub-Category
+);"
+south_superstore,superstore,south_superstore,Customer ID|Discount|Order Date|Order ID|Product ID|Profit|Quantity|Region|Row ID|Sales|Ship Date|Ship Mode,"CREATE TABLE south_superstore (
+  Customer ID,
+  Discount,
+  Order Date,
+  Order ID,
+  Product ID,
+  Profit,
+  Quantity,
+  Region,
+  Row ID,
+  Sales,
+  Ship Date,
+  Ship Mode
+);"
+west_superstore,superstore,west_superstore,Customer ID|Discount|Order Date|Order ID|Product ID|Profit|Quantity|Region|Row ID|Sales|Ship Date|Ship Mode,"CREATE TABLE west_superstore (
+  Customer ID,
+  Discount,
+  Order Date,
+  Order ID,
+  Product ID,
+  Profit,
+  Quantity,
+  Region,
+  Row ID,
+  Sales,
+  Ship Date,
+  Ship Mode
+);"

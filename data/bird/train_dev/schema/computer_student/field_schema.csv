@@ -1,0 +1,23 @@
+table,db,field_name,field_name_desc,field_type
+advisedBy,computer_student,p_id,id number identifying each person [format: integer] [primary key] [foreign key -> person.p_id],integer
+advisedBy,computer_student,p_id_dummy,the id number identifying the advisor [format: integer] [primary key] [foreign key -> person.p_id],integer
+course,computer_student,courseLevel,"course level [format: text] Value: commonsense evidence:
+ Level_300: basic or medium undergraduate courses.
+ Level_400: high-level or harder undergraduate course.
+ Level_500: professional or master/graduate courses",text
+course,computer_student,course_id,unique id number identifying courses [format: integer] [primary key],integer
+person,computer_student,hasPosition,"whether the person has a position in the faculty [format: text] Value: 0: the person is not a faculty member
+Common Sense evidence:
+faculty_aff: affiliated faculty
+faculty_eme: faculty employee",text
+person,computer_student,inPhase,the phase of qualification the person is undergoing [format: text] Value: 0: the person is not undergoing the phase of qualification,text
+person,computer_student,p_id,the unique number identifying each person [format: integer] [primary key],integer
+person,computer_student,professor,"whether the person is a professor [format: integer] Value: 0: professor
+1: student",integer
+person,computer_student,student,"whether the person is a student [format: integer] Value: 0: professor
+1: student",integer
+person,computer_student,yearsInProgram,"the year of the program the person is at [format: text] Value: 0: the person is not in any programs
+Common Sense evidence:
+yearX means the person is on the Xth year of the program",text
+taughtBy,computer_student,course_id,the identification number identifying each course [format: integer] [primary key] [foreign key -> course.course_id],integer
+taughtBy,computer_student,p_id,the identification number identifying each person [format: integer] [primary key] [foreign key -> person.p_id],integer

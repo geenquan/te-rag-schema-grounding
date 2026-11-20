@@ -1,0 +1,94 @@
+table,db,field_name,field_name_desc,field_type
+Attributes,public_review_platform,attribute_id,unique number identifying the attribute [format: integer] [primary key],integer
+Attributes,public_review_platform,attribute_name,the name of the attribute [format: text],text
+Business,public_review_platform,active,"whether the business is still actively running until now [format: text] Value: commonsense reasoning:
+� ""True"": the business is still running 
+� ""False"": the business is closed or not running now",text
+Business,public_review_platform,business_id,unique number identifying the business [format: integer] [primary key],integer
+Business,public_review_platform,city,The city where the business is located [format: text],text
+Business,public_review_platform,review_count,"the total number of reviews the users have written for a business [format: text] Value: commonsense evidence: 
+� If a business has a low total review count and a high star rating of >3, it means there is a low veracity of reviews. 
+� higher review count and with high star rating of > 3 means this business is more popular or more appealing to users.",text
+Business,public_review_platform,stars,"ratings of the business [format: real] Value: 5 � Great experience 
+4 � Good experience 
+3 � Average experience 
+2 � Bad experience 
+1 - Terrible experience 
+commonsense evidence: 
+� the rating of >3 stars referring to ""wonderful experience"" or positive comments and vice versa",real
+Business,public_review_platform,state,The state where the business is located [format: text],text
+Business_Attributes,public_review_platform,attribute_id,id number identifying the attribute [format: integer] [primary key],integer
+Business_Attributes,public_review_platform,attribute_value,"sort of the attributes for each business [format: text] Value: commonsense evidence: 
+“None”, “No” or “FALSE” means the business does not have the attribute.",text
+Business_Attributes,public_review_platform,business_id,id number identifying the business [format: integer] [primary key],integer
+Business_Categories,public_review_platform,business_id,id number identifying the business [format: integer] [primary key],integer
+Business_Categories,public_review_platform,category_id,id number identifying the categories [format: integer] [primary key],integer
+Business_Hours,public_review_platform,business_id,id number identifying the business [format: integer] [primary key],integer
+Business_Hours,public_review_platform,closing_time,"closing time of the business [format: text] Value: commonsense evidence: 
+how much time does this business open: closing_time - opening_time",text
+Business_Hours,public_review_platform,day_id,id number identifying each day of the week [format: integer] [primary key],integer
+Business_Hours,public_review_platform,opening_time,opening time of the business [format: text],text
+Categories,public_review_platform,category_id,[format: integer] [primary key],integer
+Categories,public_review_platform,category_name,[format: text],text
+Checkins,public_review_platform,business_id,id number identifying the business [format: integer] [primary key],integer
+Checkins,public_review_platform,day_id,id number identifying each day of the week [format: integer] [primary key],integer
+Checkins,public_review_platform,label_time_0,"indicates times of checkins on a business [format: text] Value: label_time_0: 12:00 a.m. 
+label_time_23: 23:00 p.m. 
+commonsense evidence: If the label_time recorded ""None"" for check-in on one day, then it means the business is closed on that day.",text
+Checkins,public_review_platform,label_time_1,,text
+Checkins,public_review_platform,label_time_10,,text
+Checkins,public_review_platform,label_time_11,,text
+Checkins,public_review_platform,label_time_12,,text
+Checkins,public_review_platform,label_time_13,,text
+Checkins,public_review_platform,label_time_14,,text
+Checkins,public_review_platform,label_time_15,,text
+Checkins,public_review_platform,label_time_16,,text
+Checkins,public_review_platform,label_time_17,,text
+Checkins,public_review_platform,label_time_18,,text
+Checkins,public_review_platform,label_time_19,,text
+Checkins,public_review_platform,label_time_2,,text
+Checkins,public_review_platform,label_time_20,,text
+Checkins,public_review_platform,label_time_21,,text
+Checkins,public_review_platform,label_time_22,,text
+Checkins,public_review_platform,label_time_23,,text
+Checkins,public_review_platform,label_time_3,,text
+Checkins,public_review_platform,label_time_4,,text
+Checkins,public_review_platform,label_time_5,,text
+Checkins,public_review_platform,label_time_6,,text
+Checkins,public_review_platform,label_time_7,,text
+Checkins,public_review_platform,label_time_8,,text
+Checkins,public_review_platform,label_time_9,,text
+Compliments,public_review_platform,compliment_id,[format: integer] [primary key],integer
+Compliments,public_review_platform,compliment_type,[format: text],text
+Days,public_review_platform,day_id,the unique id identifying the day of the week [format: integer] [primary key],integer
+Days,public_review_platform,day_of_week,indicate the day of the week [format: text],text
+Elite,public_review_platform,user_id,id number identifying the users [format: integer] [primary key],integer
+Elite,public_review_platform,year_id,id number identifying the year [format: integer] [primary key],integer
+Reviews,public_review_platform,business_id,the number identifying the business [format: integer] [primary key],integer
+Reviews,public_review_platform,review_length,The length of the review written by the user [format: text],text
+Reviews,public_review_platform,review_stars,"review on this business [format: integer] Value: 5 – Great experience 
+4 – Good experience 
+3 – Average experience 
+2 – Bad experience 
+1 - Terrible experience",integer
+Reviews,public_review_platform,review_votes_cool,how many cool votes that the user received for the review [format: text],text
+Reviews,public_review_platform,review_votes_funny,"the amount of funny votes that the user received for the review [format: text] Value: commonsense evidence: If the reviews receive an “Uber” number of votes for funny, they will also receive an “Uber”, “High” or “Medium” number of votes for “useful” and “cool”.",text
+Reviews,public_review_platform,review_votes_useful,how many useful votes that the user received for the review [format: text],text
+Reviews,public_review_platform,user_id,the number identifying the user who comments on this business [format: integer] [primary key],integer
+Tips,public_review_platform,business_id,the number identifying the business [format: integer] [primary key],integer
+Tips,public_review_platform,likes,how many likes of this tips [format: integer] Value: commonsense evidence: more likes mean this tip is more valuable,integer
+Tips,public_review_platform,tip_length,length of the tip [format: text],text
+Tips,public_review_platform,user_id,the number identifying the user who comments on this business [format: integer] [primary key],integer
+Users,public_review_platform,user_average_stars,the average ratings of all review [format: real],text
+Users,public_review_platform,user_fans,"total number of fans / followers the user has [format: text] Value: commonsense evidence: Users with “Uber” number of fans indicate that they have sent an “Uber” number of ‘cool’, ‘useful’ and ‘funny” votes.",text
+Users,public_review_platform,user_id,the unique id number identifying which user [format: integer] [primary key],integer
+Users,public_review_platform,user_review_count,total number of reviews the user has written [format: text],text
+Users,public_review_platform,user_votes_cool,how many cool votes created by the user [format: text],text
+Users,public_review_platform,user_votes_funny,total number of funny votes sent by the user [format: text],text
+Users,public_review_platform,user_votes_useful,how many useful votes created by the user [format: text],text
+Users,public_review_platform,user_yelping_since_year,the time when the user join Yelp [format: integer],integer
+Users_Compliments,public_review_platform,compliment_id,the id number indicating the compliment [format: integer] [primary key],integer
+Users_Compliments,public_review_platform,number_of_compliments,how many compliments a user has received from other users [format: text] Value: commonsense evidence: more number_of_compliments indicates this user is more welcome or he / she is high-quality user,text
+Users_Compliments,public_review_platform,user_id,the id number indicating the user [format: integer] [primary key],integer
+Years,public_review_platform,actual_year,actual year [format: integer],integer
+Years,public_review_platform,year_id,the unique number identifying the year [format: integer] [primary key],integer

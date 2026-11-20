@@ -1,0 +1,45 @@
+table,db,field_name,field_name_desc,field_type
+Award,law_episode,award,the specific award [format: text],text
+Award,law_episode,award_category,the class of the award [format: text],text
+Award,law_episode,award_id,the unique identifier for the award nomination [format: integer] [primary key],integer
+Award,law_episode,episode_id,the id of the episode that has been nominated [format: text] [foreign key -> Episode.episode_id],text
+Award,law_episode,organization,the name of the organization that grants the award [format: text],text
+Award,law_episode,person_id,the id of the person that has been nominated [format: text] [foreign key -> Person.person_id],text
+Award,law_episode,result,"the nomination result [format: text] Value: Nominee / Winner
+commonsense evidence: 'Winner' means that the award was actually received.",text
+Award,law_episode,role,the role that has been nominated [format: text],text
+Award,law_episode,series,the name of the Law & Order series that has been nominated [format: text],text
+Award,law_episode,year,the year of the nomination for  the award [format: integer],integer
+Credit,law_episode,category,the kind of credit being recognized [format: text],text
+Credit,law_episode,credited,"whether the credit was displayed in the credits at the end of the episode [format: text] Value: commonsense evidence: A person may fill a role in an episode, but not show up in the on-screen credits. In this case, the work is said to be ""uncredited.""",text
+Credit,law_episode,episode_id,the id of the episode to which the credit information pertains [format: text] [primary key] [foreign key -> Episode.episode_id],text
+Credit,law_episode,person_id,the id of the person to which the credit information pertains [format: text] [primary key] [foreign key -> Person.person_id],text
+Credit,law_episode,role,"the role for which the person is being recognized [format: text] Value: If the credit is for an actor, this is the name of the character he or she portrayed (Dan Florek plays Donald Craven). Otherwise, this is the production role (producer, sound editor).",text
+Episode,law_episode,air_date,the date the episode was initially broadcast in the United States [format: date],date
+Episode,law_episode,episode,the sequential number of the episode within a specific season [format: integer],integer
+Episode,law_episode,episode_id,the unique identifier of the episode [format: text] [primary key],text
+Episode,law_episode,episode_image,a link to an image from the episode [format: text],text
+Episode,law_episode,number_in_series,the overall sequence number of episode in the entire series [format: integer],integer
+Episode,law_episode,rating,the weighted average of the votes received for the episode [format: real] Value: commonsense evidence: The higher rating means the episode has more positive viewer comments.,real
+Episode,law_episode,season,a number indicating the season of the episode [format: integer],integer
+Episode,law_episode,series,the name of the series [format: text],text
+Episode,law_episode,summary,a brief description of what happens in the episode [format: text],text
+Episode,law_episode,title,the title of the episode [format: text],text
+Episode,law_episode,votes,the total number of rating votes for the episode [format: integer],integer
+Keyword,law_episode,episode_id,the id of the episode [format: text] [primary key] [foreign key -> Episode.episode_id],text
+Keyword,law_episode,keyword,the keyword that is relevant for the episode [format: text] [primary key],text
+Person,law_episode,birth_country,"the name of the country where the person was born [format: text] Value: commonsense evidence: can ask questions about its corresponding continent: e.g.: 
+USA --> North America",text
+Person,law_episode,birth_name,the name parents gave to the person shortly after birth [format: text],text
+Person,law_episode,birth_place,"the place where a person was born. [format: text] Value: commonsense evidence: the birth place info is integrate if birth_name, birth_place, birth_region don't contain null value
+the full birth place = birth_country +birth_region +birth_place",text
+Person,law_episode,birth_region,the geographical area describing where a person was born that is larger than the birth place [format: text],text
+Person,law_episode,birthdate,"the date the person was born [format: date] Value: if null, it means this birthdate of the person is not available",date
+Person,law_episode,height_meters,how tall the person is in meters [format: real],real
+Person,law_episode,name,the name of the person [format: text],text
+Person,law_episode,nickname,the nickname the person goes by [format: text],text
+Person,law_episode,person_id,the unique identifier for the person [format: text] [primary key],text
+Vote,law_episode,episode_id,the id of the episode [format: text] [foreign key -> Episode.episode_id],text
+Vote,law_episode,percent,"The percent of viewers that gave the specific episode the number of stars indicated in the ""stars"" column [format: real]",real
+Vote,law_episode,stars,"a number between 1 and 10 indicating how much the viewer enjoyed the episode [format: integer] Value: commonsense evidence: The higher the number, the more the episode was enjoyed",integer
+Vote,law_episode,votes,"The total number of viewers that gave the specific episode the number of stars indicated in the ""stars"" column [format: integer]",integer

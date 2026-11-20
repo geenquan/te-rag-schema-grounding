@@ -1,0 +1,66 @@
+table,db,table_desc,field,schema
+lists,movie_platform,lists,list_comments|list_cover_image_url|list_creation_timestamp_utc|list_description|list_first_image_url|list_followers|list_id|list_movie_number|list_second_image_url|list_third_image_url|list_title|list_update_timestamp_utc|list_url|user_id,"CREATE TABLE lists (
+  list_comments,
+  list_cover_image_url,
+  list_creation_timestamp_utc,
+  list_description,
+  list_first_image_url,
+  list_followers,
+  list_id,
+  list_movie_number,
+  list_second_image_url,
+  list_third_image_url,
+  list_title,
+  list_update_timestamp_utc,
+  list_url,
+  user_id
+);"
+lists_users,movie_platform,lists_users,list_creation_date_utc|list_id|list_update_date_utc|user_avatar_image_url|user_cover_image_url|user_eligible_for_trial|user_has_payment_method|user_id|user_subscriber|user_trialist,"CREATE TABLE lists_users (
+  list_creation_date_utc,
+  list_id,
+  list_update_date_utc,
+  user_avatar_image_url,
+  user_cover_image_url,
+  user_eligible_for_trial,
+  user_has_payment_method,
+  user_id,
+  user_subscriber,
+  user_trialist
+);"
+movies,movie_platform,movies,director_id|director_name|director_url|movie_id|movie_image_url|movie_popularity|movie_release_year|movie_title|movie_title_language|movie_url,"CREATE TABLE movies (
+  director_id,
+  director_name,
+  director_url,
+  movie_id,
+  movie_image_url,
+  movie_popularity,
+  movie_release_year,
+  movie_title,
+  movie_title_language,
+  movie_url
+);"
+ratings,movie_platform,ratings,critic|critic_comments|critic_likes|movie_id|rating_id|rating_score|rating_timestamp_utc|rating_url|user_eligible_for_trial|user_has_payment_method|user_id|user_subscriber|user_trialist,"CREATE TABLE ratings (
+  critic,
+  critic_comments,
+  critic_likes,
+  movie_id,
+  rating_id,
+  rating_score,
+  rating_timestamp_utc,
+  rating_url,
+  user_eligible_for_trial,
+  user_has_payment_method,
+  user_id,
+  user_subscriber,
+  user_trialist
+);"
+ratings_users,movie_platform,ratings_users,rating_date_utc|user_avatar_image_url|user_cover_image_url|user_eligible_for_trial|user_has_payment_method|user_id|user_subscriber|user_trialist,"CREATE TABLE ratings_users (
+  rating_date_utc,
+  user_avatar_image_url,
+  user_cover_image_url,
+  user_eligible_for_trial,
+  user_has_payment_method,
+  user_id,
+  user_subscriber,
+  user_trialist
+);"

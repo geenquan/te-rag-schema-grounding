@@ -1,0 +1,67 @@
+table,db,table_desc,field,schema
+Community_Area,chicago_crime,Community_Area,community_area_name|community_area_no|population|side,"CREATE TABLE Community_Area (
+  community_area_name,
+  community_area_no,
+  population,
+  side
+);"
+Crime,chicago_crime,Crime,arrest|beat|block|case_number|community_area_no|date|district_no|domestic|fbi_code_no|iucr_no|latitude|location_description|longitude|report_no|ward_no,"CREATE TABLE Crime (
+  arrest,
+  beat,
+  block,
+  case_number,
+  community_area_no,
+  date,
+  district_no,
+  domestic,
+  fbi_code_no,
+  iucr_no,
+  latitude,
+  location_description,
+  longitude,
+  report_no,
+  ward_no
+);"
+District,chicago_crime,District,address|commander|district_name|district_no|email|fax|phone|tty|twitter|zip_code,"CREATE TABLE District (
+  address,
+  commander,
+  district_name,
+  district_no,
+  email,
+  fax,
+  phone,
+  tty,
+  twitter,
+  zip_code
+);"
+FBI_Code,chicago_crime,FBI_Code,crime_against|description|fbi_code_no|title,"CREATE TABLE FBI_Code (
+  crime_against,
+  description,
+  fbi_code_no,
+  title
+);"
+IUCR,chicago_crime,IUCR,index_code|iucr_no|primary_description|secondary_description,"CREATE TABLE IUCR (
+  index_code,
+  iucr_no,
+  primary_description,
+  secondary_description
+);"
+Neighborhood,chicago_crime,Neighborhood,community_area_no|neighborhood_name,"CREATE TABLE Neighborhood (
+  community_area_no,
+  neighborhood_name
+);"
+Ward,chicago_crime,Ward,Population|alderman_first_name|alderman_last_name|alderman_name_suffix|city_hall_office_fax|city_hall_office_phone|city_hall_office_room|ward_email|ward_no|ward_office_address|ward_office_fax|ward_office_phone|ward_office_zip,"CREATE TABLE Ward (
+  Population,
+  alderman_first_name,
+  alderman_last_name,
+  alderman_name_suffix,
+  city_hall_office_fax,
+  city_hall_office_phone,
+  city_hall_office_room,
+  ward_email,
+  ward_no,
+  ward_office_address,
+  ward_office_fax,
+  ward_office_phone,
+  ward_office_zip
+);"

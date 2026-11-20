@@ -1,0 +1,95 @@
+table,db,field_name,field_name_desc,field_type
+Ball_by_Ball,soccer_2016,Ball_Id,Unique Number which Identifies a ball in an over [format: integer] [primary key],integer
+Ball_by_Ball,soccer_2016,Bowler,Unique Number which Identifies the player who is Bowling that particular ball [format: integer],integer
+Ball_by_Ball,soccer_2016,Innings_No,Unique Number which Identifies an innings in a match [format: integer] [primary key],integer
+Ball_by_Ball,soccer_2016,Match_Id,Unique Number Which Identifies a match [format: integer] [primary key] [foreign key -> Match.Match_Id],integer
+Ball_by_Ball,soccer_2016,Non_Striker,Unique Number which Identifies the player who is Non-striker for that particular ball [format: integer],integer
+Ball_by_Ball,soccer_2016,Over_Id,"Unique Number which Identifies an over in an Innings [format: integer] Value: commonsense evidence:
+The match is made up of two innings and each team takes a turn at batting and bowling. An innings is made up of 50 overs. An over involves six deliveries from the bowler. [primary key]",integer
+Ball_by_Ball,soccer_2016,Striker,Unique Number which Identifies the player who is on strike for that particular ball [format: integer],integer
+Ball_by_Ball,soccer_2016,Striker_Batting_Position,Unique Number which Identifies the position in which player came into bat [format: integer],integer
+Ball_by_Ball,soccer_2016,Team_Batting,Unique Number which Identifies Batting team in a match [format: integer],integer
+Ball_by_Ball,soccer_2016,Team_Bowling,Unique Number which Identifies Bowling team in a match [format: integer],integer
+Batsman_Scored,soccer_2016,Ball_Id,Unique Number which Identifies a ball in an over [format: integer] [primary key],integer
+Batsman_Scored,soccer_2016,Innings_No,Unique Number which Identifies an innings in a match [format: integer] [primary key],integer
+Batsman_Scored,soccer_2016,Match_Id,Unique Number Which Identifies a match [format: integer] [primary key] [foreign key -> Match.Match_Id],integer
+Batsman_Scored,soccer_2016,Over_Id,Unique Number which Identifies an over in an Innings [format: integer] [primary key],integer
+Batsman_Scored,soccer_2016,Runs_Scored,Number of Runs scored by the batsman [format: integer],integer
+Batting_Style,soccer_2016,Batting_Id,unique id for batting hand [format: integer] [primary key],integer
+Batting_Style,soccer_2016,Batting_hand,the batting hand: left or right [format: text],text
+Bowling_Style,soccer_2016,Bowling_Id,unique id for bowling style [format: integer] [primary key],integer
+Bowling_Style,soccer_2016,Bowling_skill,the bowling skill [format: text],text
+City,soccer_2016,City_Id,unique id for city [format: integer] [primary key],integer
+City,soccer_2016,City_Name,city name [format: text],text
+City,soccer_2016,Country_id,id of country [format: integer],integer
+Country,soccer_2016,Country_Id,unique id for country [format: integer] [primary key],integer
+Country,soccer_2016,Country_Name,country name [format: text],text
+Extra_Runs,soccer_2016,Ball_Id,Unique Number which Identifies a ball in an over [format: integer] [primary key],integer
+Extra_Runs,soccer_2016,Extra_Runs,Number of extra runs [format: integer],integer
+Extra_Runs,soccer_2016,Extra_Type_Id,Unique Number which Identifies extra type [format: integer] [foreign key -> Extra_Type.Extra_Id],integer
+Extra_Runs,soccer_2016,Innings_No,Unique Number which Identifies an innings in a match [format: integer] [primary key],integer
+Extra_Runs,soccer_2016,Match_Id,Unique Number Which Identifies a match [format: integer] [primary key],integer
+Extra_Runs,soccer_2016,Over_Id,Unique Number which Identifies an over in an Innings [format: integer] [primary key],integer
+Extra_Type,soccer_2016,Extra_Id,unique id for extra type [format: integer] [primary key],integer
+Extra_Type,soccer_2016,Extra_Name,extra type name [format: text],text
+Match,soccer_2016,Man_of_the_Match,"the id of the man of the match [format: integer] Value: commonsense evidence:
+In team sport, a player of the match or man (or woman) of the match award is often given to the outstanding player in a particular match. [foreign key -> Player.Player_Id]",integer
+Match,soccer_2016,Match_Date,the date of the match [format: date] Value: yyyy-mm-dd,date
+Match,soccer_2016,Match_Id,unique id for match [format: integer] [primary key],integer
+Match,soccer_2016,Match_Winner,the team id of the match winner [format: integer] [foreign key -> Team.Team_Id],integer
+Match,soccer_2016,Outcome_type,the id of the outcome type [format: integer] [foreign key -> Out_Type.Out_Id],integer
+Match,soccer_2016,Season_Id,the id of the season [format: integer] [foreign key -> Season.Season_Id],integer
+Match,soccer_2016,Team_1,the team id of the first team [format: integer] [foreign key -> Team.Team_Id],integer
+Match,soccer_2016,Team_2,the team id for the second team [format: integer] [foreign key -> Team.Team_Id],integer
+Match,soccer_2016,Toss_Decide,"the decision (batting or bowling) made after winning the toss [format: integer] Value: â¢ field 
+â¢ bat [foreign key -> Toss_Decision.Toss_Id]",integer
+Match,soccer_2016,Toss_Winner,"the id of the toss winner [format: integer] Value: commonsense evidence:
+The toss winner is a term used in cricket and is the team that wins the heads or tails toss of coin at the beginning of a match which then enables the team captain to decide whether to bat or bowl first on the pitch. [foreign key -> Team.Team_Id]",integer
+Match,soccer_2016,Venue_Id,the id of the venue where the match held [format: integer] [foreign key -> Venue.Venue_Id],integer
+Match,soccer_2016,Win_Margin,"the points of the winning margin [format: integer] Value: commonsense evidence:
+A winning margin bet is a wager on the final result of a game, within a certain range of points.",integer
+Match,soccer_2016,Win_Type,the id of the winning type [format: integer] [foreign key -> Win_By.Win_Id],integer
+Out_Type,soccer_2016,Out_Id,unique id for out type [format: integer] [primary key],integer
+Out_Type,soccer_2016,Out_Name,out type name [format: text],text
+Outcome,soccer_2016,Outcome_Id,unique id for outcome [format: integer] [primary key],integer
+Outcome,soccer_2016,Outcome_Type,type of the outcome [format: text],text
+Player,soccer_2016,Batting_hand,the id of the batting hand [format: integer] [foreign key -> Batting_Style.Batting_Id],integer
+Player,soccer_2016,Bowling_skill,the id of the bowling skill [format: integer] [foreign key -> Bowling_Style.Bowling_Id],integer
+Player,soccer_2016,Country_Name,the name of the country where the player is from [format: integer] [foreign key -> Country.Country_Id],integer
+Player,soccer_2016,DOB,player's birthday [format: date] Value: yyyy-mm-dd,date
+Player,soccer_2016,Player_Id,the id of the player [format: integer] [primary key],integer
+Player,soccer_2016,Player_Name,the name of the player [format: text],text
+Player_Match,soccer_2016,Match_Id,unique id for match [format: integer] [primary key] [foreign key -> Match.Match_Id],integer
+Player_Match,soccer_2016,Player_Id,the id of the player [format: integer] [primary key] [foreign key -> Player.Player_Id],integer
+Player_Match,soccer_2016,Role_Id,"the id of the play's role in the match [format: integer] Value: commonsense evidence:
+if a player has multiple roles in a match, it means this player is versatile [primary key] [foreign key -> Rolee.Role_Id]",integer
+Player_Match,soccer_2016,Team_Id,the id of player's team [format: integer] [foreign key -> Team.Team_Id],integer
+Rolee,soccer_2016,Role_Desc,the role description [format: text],text
+Rolee,soccer_2016,Role_Id,the unique id for the role [format: integer] [primary key],integer
+Season,soccer_2016,Man_of_the_Series,"the player id of man of the series [format: integer] Value: commonsense evidence:
+In team sport, a player of the series or man (or woman) of the series award is often given to the outstanding player in a particular series.",integer
+Season,soccer_2016,Orange_Cap,"the player id who wins the orange cap [format: integer] Value: commonsense evidence:
+The Orange Cap is a coveted award for a batter who is participating in the Indian Premier League (IPL)",integer
+Season,soccer_2016,Purple_Cap,"the player id who wins the purple cap [format: integer] Value: commonsense evidence:
+The Purple Cap is awarded to the bowler who has emerged as the leading wicket-taker in a particular edition of the high-profile Indian Premier League (IPL)",integer
+Season,soccer_2016,Season_Id,the unique id for season [format: integer] [primary key],integer
+Season,soccer_2016,Season_Year,the year of the season [format: integer],integer
+Team,soccer_2016,Team_Id,the unique id for the team [format: integer] [primary key],integer
+Team,soccer_2016,Team_Name,the team name [format: text],text
+Toss_Decision,soccer_2016,Toss_Id,the unique id for the toss [format: integer] [primary key],integer
+Toss_Decision,soccer_2016,Toss_Name,the toss decision name [format: text],text
+Umpire,soccer_2016,Umpire_Country,the id of the country where the umpire are from [format: integer] [foreign key -> Country.Country_Id],integer
+Umpire,soccer_2016,Umpire_Id,the unique id of the umpire [format: integer] [primary key],integer
+Umpire,soccer_2016,Umpire_Name,umpire's name [format: text],text
+Venue,soccer_2016,City_Id,the city id where the venue is located in [format: integer] [foreign key -> City.City_Id],integer
+Venue,soccer_2016,Venue_Id,the unique id of the venue [format: integer] [primary key],integer
+Venue,soccer_2016,Venue_Name,the name of the venue [format: text],text
+Wicket_Taken,soccer_2016,Ball_Id,the id of the ball in an over [format: integer] [primary key],integer
+Wicket_Taken,soccer_2016,Fielders,the id of fielders [format: integer] [foreign key -> Player.Player_Id],integer
+Wicket_Taken,soccer_2016,Innings_No,number which identifies an innings in a match [format: integer] [primary key],integer
+Wicket_Taken,soccer_2016,Kind_Out,the id that represents the out type [format: integer] [foreign key -> Out_Type.Out_Id],integer
+Wicket_Taken,soccer_2016,Match_Id,the id of the match [format: integer] [primary key] [foreign key -> Match.Match_Id],integer
+Wicket_Taken,soccer_2016,Over_Id,the id of the over in an inning [format: integer] [primary key],integer
+Wicket_Taken,soccer_2016,Player_Out,the player id who got an out [format: integer] [foreign key -> Player.Player_Id],integer
+Win_By,soccer_2016,Win_Id,the unique id for the winning [format: integer] [primary key],integer
+Win_By,soccer_2016,Win_Type,the winning type [format: text],text

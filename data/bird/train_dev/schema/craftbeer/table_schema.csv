@@ -1,0 +1,16 @@
+table,db,table_desc,field,schema
+beers,craftbeer,Beers,abv|brewery_id|ibu|id|name|ounces|style,"CREATE TABLE beers (
+  abv,
+  brewery_id,
+  ibu,
+  id,
+  name,
+  ounces,
+  style
+);"
+breweries,craftbeer,Breweries,city|id|name|state,"CREATE TABLE breweries (
+  city,
+  id,
+  name,
+  state
+);"

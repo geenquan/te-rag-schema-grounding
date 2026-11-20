@@ -1,0 +1,39 @@
+table,db,table_desc,field,schema
+coins,coinmarketcap,Coins,category|date_added|date_launched|description|id|name|notice|platform_id|slug|status|subreddit|symbol|tag_names|tags|website,"CREATE TABLE coins (
+  category,
+  date_added,
+  date_launched,
+  description,
+  id,
+  name,
+  notice,
+  platform_id,
+  slug,
+  status,
+  subreddit,
+  symbol,
+  tag_names,
+  tags,
+  website
+);"
+historical,coinmarketcap,Historical,circulating_supply|close|cmc_rank|coin_id|date|high|low|market_cap|max_supply|num_market_pairs|open|percent_change_1h|percent_change_24h|percent_change_7d|price|time_high|time_low|total_supply|volume_24h,"CREATE TABLE historical (
+  circulating_supply,
+  close,
+  cmc_rank,
+  coin_id,
+  date,
+  high,
+  low,
+  market_cap,
+  max_supply,
+  num_market_pairs,
+  open,
+  percent_change_1h,
+  percent_change_24h,
+  percent_change_7d,
+  price,
+  time_high,
+  time_low,
+  total_supply,
+  volume_24h
+);"

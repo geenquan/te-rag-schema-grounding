@@ -1,0 +1,25 @@
+table,db,table_desc,field,schema
+Customers,sales,Customers,CustomerID|FirstName|LastName|MiddleInitial,"CREATE TABLE Customers (
+  CustomerID,
+  FirstName,
+  LastName,
+  MiddleInitial
+);"
+Employees,sales,Employees,EmployeeID|FirstName|LastName|MiddleInitial,"CREATE TABLE Employees (
+  EmployeeID,
+  FirstName,
+  LastName,
+  MiddleInitial
+);"
+Products,sales,Products,Name|Price|ProductID,"CREATE TABLE Products (
+  Name,
+  Price,
+  ProductID
+);"
+Sales,sales,Sales,CustomerID|ProductID|Quantity|SalesID|SalesPersonID,"CREATE TABLE Sales (
+  CustomerID,
+  ProductID,
+  Quantity,
+  SalesID,
+  SalesPersonID
+);"

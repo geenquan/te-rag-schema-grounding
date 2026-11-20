@@ -1,0 +1,80 @@
+table,db,table_desc,field,schema
+Country,world_development_indicators,Country,Alpha2Code|AlternativeConversionFactor|BalanceOfPaymentsManualInUse|CountryCode|CurrencyUnit|ExternalDebtReportingStatus|GovernmentAccountingConcept|ImfDataDisseminationStandard|IncomeGroup|LatestAgriculturalCensus|LatestHouseholdSurvey|LatestIndustrialData|LatestPopulationCensus|LatestTradeData|LatestWaterWithdrawalData|LendingCategory|LongName|NationalAccountsBaseYear|NationalAccountsReferenceYear|OtherGroups|PppSurveyYear|Region|ShortName|SnaPriceValuation|SourceOfMostRecentIncomeAndExpenditureData|SpecialNotes|SystemOfNationalAccounts|SystemOfTrade|TableName|VitalRegistrationComplete|Wb2Code,"CREATE TABLE Country (
+  Alpha2Code,
+  AlternativeConversionFactor,
+  BalanceOfPaymentsManualInUse,
+  CountryCode,
+  CurrencyUnit,
+  ExternalDebtReportingStatus,
+  GovernmentAccountingConcept,
+  ImfDataDisseminationStandard,
+  IncomeGroup,
+  LatestAgriculturalCensus,
+  LatestHouseholdSurvey,
+  LatestIndustrialData,
+  LatestPopulationCensus,
+  LatestTradeData,
+  LatestWaterWithdrawalData,
+  LendingCategory,
+  LongName,
+  NationalAccountsBaseYear,
+  NationalAccountsReferenceYear,
+  OtherGroups,
+  PppSurveyYear,
+  Region,
+  ShortName,
+  SnaPriceValuation,
+  SourceOfMostRecentIncomeAndExpenditureData,
+  SpecialNotes,
+  SystemOfNationalAccounts,
+  SystemOfTrade,
+  TableName,
+  VitalRegistrationComplete,
+  Wb2Code
+);"
+CountryNotes,world_development_indicators,CountryNotes,Countrycode|Description|Seriescode,"CREATE TABLE CountryNotes (
+  Countrycode,
+  Description,
+  Seriescode
+);"
+Footnotes,world_development_indicators,FootNotes,Countrycode|Description|Seriescode|Year,"CREATE TABLE Footnotes (
+  Countrycode,
+  Description,
+  Seriescode,
+  Year
+);"
+Indicators,world_development_indicators,Indicators,CountryCode|CountryName|IndicatorCode|IndicatorName|Value|Year,"CREATE TABLE Indicators (
+  CountryCode,
+  CountryName,
+  IndicatorCode,
+  IndicatorName,
+  Value,
+  Year
+);"
+Series,world_development_indicators,Series,AggregationMethod|BasePeriod|DevelopmentRelevance|GeneralComments|IndicatorName|LicenseType|LimitationsAndExceptions|LongDefinition|NotesFromOriginalSource|OtherNotes|OtherWebLinks|Periodicity|RelatedIndicators|RelatedSourceLinks|SeriesCode|ShortDefinition|Source|StatisticalConceptAndMethodology|Topic|UnitOfMeasure,"CREATE TABLE Series (
+  AggregationMethod,
+  BasePeriod,
+  DevelopmentRelevance,
+  GeneralComments,
+  IndicatorName,
+  LicenseType,
+  LimitationsAndExceptions,
+  LongDefinition,
+  NotesFromOriginalSource,
+  OtherNotes,
+  OtherWebLinks,
+  Periodicity,
+  RelatedIndicators,
+  RelatedSourceLinks,
+  SeriesCode,
+  ShortDefinition,
+  Source,
+  StatisticalConceptAndMethodology,
+  Topic,
+  UnitOfMeasure
+);"
+SeriesNotes,world_development_indicators,SeriesNotes,Description|Seriescode|Year,"CREATE TABLE SeriesNotes (
+  Description,
+  Seriescode,
+  Year
+);"

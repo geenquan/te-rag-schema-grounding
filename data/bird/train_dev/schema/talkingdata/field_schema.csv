@@ -1,0 +1,54 @@
+table,db,field_name,field_name_desc,field_type
+app_all,talkingdata,app_id,[format: integer] [primary key],integer
+app_events,talkingdata,app_id,the id of app users [format: integer] Value: each app_id represents for an user [primary key],integer
+app_events,talkingdata,event_id,the id of events [format: integer] [primary key] [foreign key -> events.event_id],integer
+app_events,talkingdata,is_active,whether this user is active or not [format: integer],integer
+app_events,talkingdata,is_installed,"whether this app is installed or not [format: integer] Value:  0: no
+ 1: yes: installed",integer
+app_events_relevant,talkingdata,app_id,[format: integer] [primary key] [foreign key -> app_all.app_id],integer
+app_events_relevant,talkingdata,event_id,[format: integer] [primary key] [foreign key -> events_relevant.event_id],integer
+app_events_relevant,talkingdata,is_active,[format: integer],integer
+app_events_relevant,talkingdata,is_installed,[format: integer],integer
+app_labels,talkingdata,app_id,id of the app user [format: integer] [foreign key -> app_all.app_id],integer
+app_labels,talkingdata,label_id,id of labels represents which behavior category that each user belongs to [format: integer] [foreign key -> label_categories.label_id],integer
+events,talkingdata,device_id,id number referring the device [format: integer],integer
+events,talkingdata,event_id,unique id number referring to the event [format: integer] [primary key],integer
+events,talkingdata,latitude,latitude [format: real],real
+events,talkingdata,longitude,"longitude [format: real] Value: commonsense evidence:
+the location / coordinate = (longitude, latitude)",real
+events,talkingdata,timestamp,the time of the event [format: datetime],datetime
+events_relevant,talkingdata,device_id,[format: integer] [foreign key -> gender_age.device_id],integer
+events_relevant,talkingdata,event_id,[format: integer] [primary key],integer
+events_relevant,talkingdata,latitude,[format: real],real
+events_relevant,talkingdata,longitude,[format: real],real
+events_relevant,talkingdata,timestamp,[format: datetime],datetime
+gender_age,talkingdata,age,"age of the user who uses this device [format: integer] Value:  M: male;
+ F: female",integer
+gender_age,talkingdata,device_id,unique number of devices [format: integer] [primary key] [foreign key -> phone_brand_device_model2.device_id],integer
+gender_age,talkingdata,gender,gender of the user who uses this device [format: text],text
+gender_age,talkingdata,group,group of the ages [format: text],text
+gender_age_test,talkingdata,device_id,[format: integer] [primary key],integer
+gender_age_train,talkingdata,age,[format: integer],integer
+gender_age_train,talkingdata,device_id,[format: integer] [primary key],integer
+gender_age_train,talkingdata,gender,[format: text],text
+gender_age_train,talkingdata,group,[format: text],text
+label_categories,talkingdata,category,category of the label [format: text],text
+label_categories,talkingdata,label_id,unique id of label [format: integer] [primary key],integer
+phone_brand_device_model2,talkingdata,device_id,the id number of the device [format: integer] [primary key],integer
+phone_brand_device_model2,talkingdata,device_model,"device model [format: text] Value: commonsense evidence:
+phone_brand has duplicated values since some device models belong to the same brand [primary key]",text
+phone_brand_device_model2,talkingdata,phone_brand,"phone brand [format: text] Value: commonsense evidence:
+phone_brand has duplicated values since some device models belong to the same brand [primary key]",text
+sample_submission,talkingdata,F23-,[format: real],real
+sample_submission,talkingdata,F24-26,[format: real],real
+sample_submission,talkingdata,F27-28,[format: real],real
+sample_submission,talkingdata,F29-32,[format: real],real
+sample_submission,talkingdata,F33-42,[format: real],real
+sample_submission,talkingdata,F43+,[format: real],real
+sample_submission,talkingdata,M22-,[format: real],real
+sample_submission,talkingdata,M23-26,[format: real],real
+sample_submission,talkingdata,M27-28,[format: real],real
+sample_submission,talkingdata,M29-31,[format: real],real
+sample_submission,talkingdata,M32-38,[format: real],real
+sample_submission,talkingdata,M39+,[format: real],real
+sample_submission,talkingdata,device_id,[format: integer] [primary key],integer

@@ -1,0 +1,31 @@
+table,db,table_desc,field,schema
+City,world,City,CountryCode|District|ID|Name|Population,"CREATE TABLE City (
+  CountryCode,
+  District,
+  ID,
+  Name,
+  Population
+);"
+Country,world,Country,Capital|Code|Code2|Continent|GNP|GNPOld|GovernmentForm|HeadOfState|IndepYear|LifeExpectancy|LocalName|Name|Population|Region|SurfaceArea,"CREATE TABLE Country (
+  Capital,
+  Code,
+  Code2,
+  Continent,
+  GNP,
+  GNPOld,
+  GovernmentForm,
+  HeadOfState,
+  IndepYear,
+  LifeExpectancy,
+  LocalName,
+  Name,
+  Population,
+  Region,
+  SurfaceArea
+);"
+CountryLanguage,world,CountryLanguage,CountryCode|IsOfficial|Language|Percentage,"CREATE TABLE CountryLanguage (
+  CountryCode,
+  IsOfficial,
+  Language,
+  Percentage
+);"

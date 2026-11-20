@@ -1,0 +1,39 @@
+table,db,table_desc,field,schema
+RA,cs_semester,RA,capability|prof_id|salary|student_id,"CREATE TABLE RA (
+  capability,
+  prof_id,
+  salary,
+  student_id
+);"
+course,cs_semester,course,course_id|credit|diff|name,"CREATE TABLE course (
+  course_id,
+  credit,
+  diff,
+  name
+);"
+prof,cs_semester,prof,email|first_name|gender|graduate_from|last_name|popularity|prof_id|teachingability,"CREATE TABLE prof (
+  email,
+  first_name,
+  gender,
+  graduate_from,
+  last_name,
+  popularity,
+  prof_id,
+  teachingability
+);"
+registration,cs_semester,registration,course_id|grade|sat|student_id,"CREATE TABLE registration (
+  course_id,
+  grade,
+  sat,
+  student_id
+);"
+student,cs_semester,student,email|f_name|gpa|intelligence|l_name|phone_number|student_id|type,"CREATE TABLE student (
+  email,
+  f_name,
+  gpa,
+  intelligence,
+  l_name,
+  phone_number,
+  student_id,
+  type
+);"

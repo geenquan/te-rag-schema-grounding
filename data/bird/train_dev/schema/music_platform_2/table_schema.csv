@@ -1,0 +1,25 @@
+table,db,table_desc,field,schema
+categories,music_platform_2,categories,category|podcast_id,"CREATE TABLE categories (
+  category,
+  podcast_id
+);"
+podcasts,music_platform_2,podcasts,itunes_id|itunes_url|podcast_id|slug|title,"CREATE TABLE podcasts (
+  itunes_id,
+  itunes_url,
+  podcast_id,
+  slug,
+  title
+);"
+reviews,music_platform_2,reviews,author_id|content|created_at|podcast_id|rating|title,"CREATE TABLE reviews (
+  author_id,
+  content,
+  created_at,
+  podcast_id,
+  rating,
+  title
+);"
+runs,music_platform_2,runs,max_rowid|reviews_added|run_at,"CREATE TABLE runs (
+  max_rowid,
+  reviews_added,
+  run_at
+);"

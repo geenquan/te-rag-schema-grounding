@@ -1,0 +1,39 @@
+table,db,table_desc,field,schema
+actors,movielens,actors,a_gender|a_quality|actorid,"CREATE TABLE actors (
+  a_gender,
+  a_quality,
+  actorid
+);"
+directors,movielens,directors,avg_revenue|d_quality|directorid,"CREATE TABLE directors (
+  avg_revenue,
+  d_quality,
+  directorid
+);"
+movies,movielens,movies,country|isEnglish|movieid|runningtime|year,"CREATE TABLE movies (
+  country,
+  isEnglish,
+  movieid,
+  runningtime,
+  year
+);"
+movies2actors,movielens,movies2actors,actorid|cast_num|movieid,"CREATE TABLE movies2actors (
+  actorid,
+  cast_num,
+  movieid
+);"
+movies2directors,movielens,movies2directors,directorid|genre|movieid,"CREATE TABLE movies2directors (
+  directorid,
+  genre,
+  movieid
+);"
+u2base,movielens,u2base,movieid|rating|userid,"CREATE TABLE u2base (
+  movieid,
+  rating,
+  userid
+);"
+users,movielens,users,age|occupation|u_gender|userid,"CREATE TABLE users (
+  age,
+  occupation,
+  u_gender,
+  userid
+);"

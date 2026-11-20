@@ -1,0 +1,35 @@
+{
+ "protocol": "question",
+ "oof_population": {
+  "question": [
+   "q1",
+   "q2"
+  ]
+ },
+ "per_db": {
+  "demo": {
+   "db_id": "demo",
+   "applicable_folds": [
+    0
+   ],
+   "per_fold": {
+    "0": {
+     "applicable": true,
+     "test_qids": [
+      "q1",
+      "q2"
+     ],
+     "train_qids": [
+      "t1"
+     ],
+     "heldout_tables": []
+    },
+    "1": {
+     "applicable": false,
+     "test_qids": [],
+     "train_qids": []
+    }
+   }
+  }
+ }
+}

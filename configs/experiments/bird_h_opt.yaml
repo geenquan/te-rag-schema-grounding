@@ -1,0 +1,15 @@
+# H protocol: original full engine (H core row) plus the selected H-opt
+# config and its fixed ablations.
+methods:
+  - Core
+  - full_href_1_8
+  - full_href_1_8-hg_gate_off
+  - full_href_1_8-noBIndex
+  - full_href_1_8-noBHit
+  - full_href_1_8-noB
+  - full_href_1_8-noTableGraph
+  - full_href_1_8-noFieldGraph
+  - full_href_1_8-noGraph
+  - full_href_1_8-noPattern
+  - full_href_1_8-noC
+protocols: [heldout]

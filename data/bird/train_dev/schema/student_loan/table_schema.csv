@@ -1,0 +1,36 @@
+table,db,table_desc,field,schema
+bool,student_loan,bool,name,"CREATE TABLE bool (
+  name
+);"
+disabled,student_loan,disabled,name,"CREATE TABLE disabled (
+  name
+);"
+enlist,student_loan,enlist,name|organ,"CREATE TABLE enlist (
+  name,
+  organ
+);"
+enrolled,student_loan,enrolled,month|name|school,"CREATE TABLE enrolled (
+  month,
+  name,
+  school
+);"
+filed_for_bankrupcy,student_loan,filed_for_bankruptcy,name,"CREATE TABLE filed_for_bankrupcy (
+  name
+);"
+longest_absense_from_school,student_loan,longest_absense_from_school,month|name,"CREATE TABLE longest_absense_from_school (
+  month,
+  name
+);"
+male,student_loan,male,name,"CREATE TABLE male (
+  name
+);"
+no_payment_due,student_loan,no_payment_due,bool|name,"CREATE TABLE no_payment_due (
+  bool,
+  name
+);"
+person,student_loan,person,name,"CREATE TABLE person (
+  name
+);"
+unemployed,student_loan,unemployed,name,"CREATE TABLE unemployed (
+  name
+);"

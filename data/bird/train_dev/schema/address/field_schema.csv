@@ -1,0 +1,84 @@
+table,db,field_name,field_name_desc,field_type
+CBSA,address,CBSA,the code of the cbsa officer [format: integer] [primary key],integer
+CBSA,address,CBSA_name,the name and the position of the cbsa officer [format: text],text
+CBSA,address,CBSA_type,the office type of the officer [format: text],text
+alias,address,alias,the alias of the city [format: text],text
+alias,address,zip_code,the zip code of the alias [format: integer] [primary key] [foreign key -> zip_data.zip_code],integer
+area_code,address,area_code,the code of the area [format: integer] [primary key],integer
+area_code,address,zip_code,the zip code of the area [format: integer] [primary key] [foreign key -> zip_data.zip_code],integer
+avoid,address,bad_alias,the bad alias [format: text] [primary key],text
+avoid,address,zip_code,the zip code of the bad alias [format: integer] [primary key] [foreign key -> zip_data.zip_code],integer
+congress,address,CID,the unique identifier for the congress representative [format: text],text
+congress,address,District,"the id of the district that the representative represents [format: integer] Value: commonsense evidence: The state is divided into different districts. The districts under the same state will be numbered uniformly. 
+'NA' means that the state is not divided into districts.",integer
+congress,address,House,the house that the representative is from [format: text],text
+congress,address,abbreviation,the abbreviation of the state [format: text] [foreign key -> state.abbreviation],text
+congress,address,cognress_rep_id,the representative id of congress representatives [format: text] [primary key],text
+congress,address,first_name,the first name of the congress representative [format: text],text
+congress,address,land_area,the land area of the district [format: real],real
+congress,address,last_name,the last name of the congress representative [format: text],text
+congress,address,party,the party of the representative [format: text],text
+congress,address,state,the state that the representative is from [format: text],text
+country,address,county,the country [format: text] [primary key],text
+country,address,state,the state of the country [format: text] [foreign key -> state.abbreviation],text
+country,address,zip_code,the zip code of the state in the country [format: integer] [primary key] [foreign key -> zip_data.zip_code],integer
+state,address,abbreviation,the abbreviation of the state name [format: text] [primary key],text
+state,address,name,the state name [format: text],text
+zip_congress,address,district,the district [format: text] [primary key] [foreign key -> congress.cognress_rep_id],text
+zip_congress,address,zip_code,the zip code of the district [format: integer] [primary key] [foreign key -> zip_data.zip_code],integer
+zip_data,address,1st_quarter_payroll,the total wages reported in the 1st quarter payroll report of the residential area [format: integer],integer
+zip_data,address,CBSA,the code of the cbsa officer [format: integer] [foreign key -> CBSA.CBSA],integer
+zip_data,address,american_indian_population,the population of American Indian people in the residential area [format: integer],integer
+zip_data,address,annual_payroll,the total wages reported in the annual payroll report of the residential area [format: integer],integer
+zip_data,address,asian_population,the population of Asian people in the residential area [format: integer],integer
+zip_data,address,avg_house_value,the average house value in the residential area [format: integer],integer
+zip_data,address,avg_income_per_household,the average income per household in the residential area [format: integer],integer
+zip_data,address,black_population,the population of black people in the residential area [format: integer],integer
+zip_data,address,business_mailboxes,the number of business mailboxes in the residential area [format: integer],integer
+zip_data,address,businesses,the number of businesses in the residential area [format: integer],integer
+zip_data,address,children,the number of children in the residential area [format: integer],integer
+zip_data,address,city,the city where the postal point locates [format: text],text
+zip_data,address,county_fips,country-level FIPS code [format: integer] Value: commonsense evidence: FIPS codes are numbers that uniquely identify geographic areas. The number of digits in FIPS codes varies depending on the level of geography.,integer
+zip_data,address,daylight_savings,"whether the location implements daylight savings [format: text] Value: commonsense evidence: Daylight saving is the practice of advancing clocks (typically by one hour) during warmer months so that darkness falls at a later clock time. As a result, there is one 23-hour day in late winter or early spring and one 25-hour day in autumn.",text
+zip_data,address,disabled_workers,the number of disabled workers in the residential area [format: integer],integer
+zip_data,address,division,the division of the organization [format: text],text
+zip_data,address,elevation,the elevation of the postal point location [format: integer],integer
+zip_data,address,employees,the number of employees in the residential area [format: integer] Value: commonsense evidence: Employers must submit periodic payroll reports to the Internal Revenue Service and state taxing authority. The report is used by employers to report wage information.,integer
+zip_data,address,female_median_age,the female median age in the residential area [format: real],real
+zip_data,address,female_population,the population of females in the residential area [format: integer],integer
+zip_data,address,hawaiian_population,the population of Hawaiian people in the residential area [format: integer],integer
+zip_data,address,hispanic_population,the population of Hispanic people in the residential area [format: integer],integer
+zip_data,address,households,the number of the households in the residential area [format: integer],integer
+zip_data,address,land_area,the land area of the residential area [format: real],real
+zip_data,address,latitude,the latitude of the postal point location [format: real],real
+zip_data,address,longitude,the longitude of the postal point location [format: real],real
+zip_data,address,male_median_age,the male median age in the residential area [format: real],real
+zip_data,address,male_population,the population of males in the residential area [format: integer],integer
+zip_data,address,median_age,the median age of the residential area [format: real] Value: commonsense evidence: gender ratio in the residential area = male_population / female_population if female_population != 0,real
+zip_data,address,monthly_benefits_all,"all benefit payments by month [format: integer] Value: commonsense evidence: no. of over_65 can refer to elders. Higher means more elders
+if the ratio: over_65 / children is higher: the aging is more serious.",integer
+zip_data,address,monthly_benefits_retired_workers,monthly benefit payments for retired workers [format: integer] Value: usd,integer
+zip_data,address,monthly_benefits_widowed,monthly benefit payments for retired workers [format: integer],integer
+zip_data,address,multi_county,whether the country that the city belongs to is multi_country [format: text] Value: commonsense evidence: The meaning of multi_country is consisting of or involving multiple countries.,text
+zip_data,address,multi_family_delivery_units,the number of single-family delivery units in the residential area [format: integer] Value: commonsense evidence: A single-family unit can be described as a single unit that accommodates only one family or tenant at a time on rent.,integer
+zip_data,address,organization,the organization to which the postal point belongs [format: text] Value: commonsense evidence: 'No data' means the postal point is not affiliated with any organization,text
+zip_data,address,other_population,the population of other races in the residential area [format: integer],integer
+zip_data,address,over_65,the number of people whose age is over 65 in the residential area [format: integer],integer
+zip_data,address,parents_and_widowed,the number of parents and widowed in the residential area [format: integer],integer
+zip_data,address,persons_per_household,the number of persons per household residential area [format: real],real
+zip_data,address,population_2010,the population of the residential area in 2010 [format: integer],integer
+zip_data,address,population_2020,the population of the residential area in 2020 [format: integer] Value: commonsense evidence: 'No data' means that the postal point is not affiliated with any organization. Or the organization has no division.,integer
+zip_data,address,region,the region where the postal point locates [format: text],text
+zip_data,address,residential_mailboxes,the number of residential mailboxes in the residential area [format: integer],integer
+zip_data,address,retired_workers,the number of retired workers in the residential area [format: integer],integer
+zip_data,address,single_family_delivery_units,the number of single-family delivery units in the residential area [format: integer],integer
+zip_data,address,spouses,the number of spouses in the residential area [format: integer],integer
+zip_data,address,state,the state of the city [format: text] [foreign key -> state.abbreviation],text
+zip_data,address,state_fips,state-level FIPS code [format: integer],integer
+zip_data,address,time_zone,the time zone of the postal point location [format: text],text
+zip_data,address,total_beneficiaries,the total number of beneficiaries of the postal service [format: integer] Value: commonsense evidence: multi-family units are usually under a greater surface area with the capacity to accommodate more than one tenant or multiple families on rent at the same time,integer
+zip_data,address,total_delivery_receptacles,the total number of delivery receptacles [format: integer],integer
+zip_data,address,type,the type of the postal point [format: text],text
+zip_data,address,water_area,the water area of the residential area [format: real],real
+zip_data,address,white_population,the population of white people in the residential area [format: integer],integer
+zip_data,address,zip_code,the zip code of the postal point [format: integer] [primary key],integer

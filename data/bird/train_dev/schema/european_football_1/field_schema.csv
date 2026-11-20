@@ -1,0 +1,17 @@
+table,db,field_name,field_name_desc,field_type
+divisions,european_football_1,country,country of the division [format: text],text
+divisions,european_football_1,division,division id [format: text] [primary key],text
+divisions,european_football_1,name,name of the division [format: text],text
+matchs,european_football_1,AwayTeam,Name of Away Team [format: text],text
+matchs,european_football_1,Date,Match Date [format: date] Value: YYYY-MM-DD,date
+matchs,european_football_1,Div,Division Id [format: text] [foreign key -> divisions.division],text
+matchs,european_football_1,FTAG,Final-time Away-team Goals [format: integer],integer
+matchs,european_football_1,FTHG,Final-time Home-team Goals [format: integer],integer
+matchs,european_football_1,FTR,"Final-time Results [format: text] Value: commonsense evidence:
+H stands for home victory, which means FTHG is higher than FTAG
+
+A stands for away victory, which means FTAG is higher than FTHG
+
+D stands for draft, which means FTHG equals to FTAG",text
+matchs,european_football_1,HomeTeam,Name of Home Team [format: text],text
+matchs,european_football_1,season,season of the match [format: integer],integer

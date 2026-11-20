@@ -1,0 +1,3 @@
+# The six offline BIRD baselines (both protocols, as the paper ran them).
+methods: [BM25, TFIDF, Hybrid, MetadataMatched, ExampleRRF, CooccurRRF]
+protocols: [question, heldout]

@@ -1,0 +1,106 @@
+table,db,table_desc,field,schema
+Attributes,public_review_platform,Attributes,attribute_id|attribute_name,"CREATE TABLE Attributes (
+  attribute_id,
+  attribute_name
+);"
+Business,public_review_platform,Business,active|business_id|city|review_count|stars|state,"CREATE TABLE Business (
+  active,
+  business_id,
+  city,
+  review_count,
+  stars,
+  state
+);"
+Business_Attributes,public_review_platform,Business_Attributes,attribute_id|attribute_value|business_id,"CREATE TABLE Business_Attributes (
+  attribute_id,
+  attribute_value,
+  business_id
+);"
+Business_Categories,public_review_platform,Business_Categories,business_id|category_id,"CREATE TABLE Business_Categories (
+  business_id,
+  category_id
+);"
+Business_Hours,public_review_platform,Business_Hours,business_id|closing_time|day_id|opening_time,"CREATE TABLE Business_Hours (
+  business_id,
+  closing_time,
+  day_id,
+  opening_time
+);"
+Categories,public_review_platform,Categories,category_id|category_name,"CREATE TABLE Categories (
+  category_id,
+  category_name
+);"
+Checkins,public_review_platform,Checkins,business_id|day_id|label_time_0|label_time_1|label_time_10|label_time_11|label_time_12|label_time_13|label_time_14|label_time_15|label_time_16|label_time_17|label_time_18|label_time_19|label_time_2|label_time_20|label_time_21|label_time_22|label_time_23|label_time_3|label_time_4|label_time_5|label_time_6|label_time_7|label_time_8|label_time_9,"CREATE TABLE Checkins (
+  business_id,
+  day_id,
+  label_time_0,
+  label_time_1,
+  label_time_10,
+  label_time_11,
+  label_time_12,
+  label_time_13,
+  label_time_14,
+  label_time_15,
+  label_time_16,
+  label_time_17,
+  label_time_18,
+  label_time_19,
+  label_time_2,
+  label_time_20,
+  label_time_21,
+  label_time_22,
+  label_time_23,
+  label_time_3,
+  label_time_4,
+  label_time_5,
+  label_time_6,
+  label_time_7,
+  label_time_8,
+  label_time_9
+);"
+Compliments,public_review_platform,Compliments,compliment_id|compliment_type,"CREATE TABLE Compliments (
+  compliment_id,
+  compliment_type
+);"
+Days,public_review_platform,Days,day_id|day_of_week,"CREATE TABLE Days (
+  day_id,
+  day_of_week
+);"
+Elite,public_review_platform,Elite,user_id|year_id,"CREATE TABLE Elite (
+  user_id,
+  year_id
+);"
+Reviews,public_review_platform,Reviews,business_id|review_length|review_stars|review_votes_cool|review_votes_funny|review_votes_useful|user_id,"CREATE TABLE Reviews (
+  business_id,
+  review_length,
+  review_stars,
+  review_votes_cool,
+  review_votes_funny,
+  review_votes_useful,
+  user_id
+);"
+Tips,public_review_platform,Tips,business_id|likes|tip_length|user_id,"CREATE TABLE Tips (
+  business_id,
+  likes,
+  tip_length,
+  user_id
+);"
+Users,public_review_platform,Users,user_average_stars|user_fans|user_id|user_review_count|user_votes_cool|user_votes_funny|user_votes_useful|user_yelping_since_year,"CREATE TABLE Users (
+  user_average_stars,
+  user_fans,
+  user_id,
+  user_review_count,
+  user_votes_cool,
+  user_votes_funny,
+  user_votes_useful,
+  user_yelping_since_year
+);"
+Users_Compliments,public_review_platform,Users_Compliments,compliment_id|number_of_compliments|user_id,"CREATE TABLE Users_Compliments (
+  compliment_id,
+  number_of_compliments,
+  user_id
+);"
+Years,public_review_platform,Years,actual_year|year_id,"CREATE TABLE Years (
+  actual_year,
+  year_id
+);"

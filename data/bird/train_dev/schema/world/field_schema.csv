@@ -1,0 +1,37 @@
+table,db,field_name,field_name_desc,field_type
+City,world,CountryCode,the country code of the country that the city is belonged [format: text] [foreign key -> Country.Code],text
+City,world,District,the district where the city locates [format: text],text
+City,world,ID,the unique id for the city [format: integer] [primary key],integer
+City,world,Name,the name of the city [format: text],text
+City,world,Population,"the number of the population in the area [format: integer] Value: commonsense evidence:
+
+more population --> more crowded",integer
+Country,world,Capital,"The country's capital [format: integer] Value: commonsense evidence:
+
+if the capital is null, it means this country doesn't have a city where a region's government is located",integer
+Country,world,Code,the unique country code of the country [format: text] [primary key],text
+Country,world,Code2,The second country code. [format: text],text
+Country,world,Continent,the continent that the country locates [format: text],text
+Country,world,GNP,"the GNP of the country [format: real] Value: commonsense evidence:
+
+ GNP measures the total monetary value of the output produced by a country's residents.",real
+Country,world,GNPOld,Gross national product - old value. [format: real],real
+Country,world,GovernmentForm,"The country's goverment form. [format: text] Value: commonsense evidence:
+
+Republic: governmentform contains ""Republic""",text
+Country,world,HeadOfState,The head of state full name. [format: text],text
+Country,world,IndepYear,the year that the country declared independence [format: integer],integer
+Country,world,LifeExpectancy,"the life expectancy at birth of the country [format: real] Value: commonsense evidence:
+
+ Life expectancy at birth is defined as how long, on average, a newborn can expect to live if current death rates do not change",real
+Country,world,LocalName,The country's local name [format: text],text
+Country,world,Name,the country name [format: text],text
+Country,world,Population,"the number of the population in the area [format: integer] Value: commonsense evidence:
+
+more population --> more crowded",integer
+Country,world,Region,the region that the country locates [format: text],text
+Country,world,SurfaceArea,the surface area of the country [format: real],real
+CountryLanguage,world,CountryCode,The unique code for country [format: text] [primary key] [foreign key -> Country.Code],text
+CountryLanguage,world,IsOfficial,Information on whether the language is official in a given country [format: text] Value: T / F,text
+CountryLanguage,world,Language,Country language [format: text] [primary key],text
+CountryLanguage,world,Percentage,Percentage of language use [format: real],real

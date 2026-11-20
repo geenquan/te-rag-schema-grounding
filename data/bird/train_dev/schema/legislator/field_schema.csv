@@ -1,0 +1,216 @@
+table,db,field_name,field_name_desc,field_type
+current,legislator,ballotpedia_id,"The ballotpedia.org page name for the person (spaces are given as spaces, not underscores). [format: text] Value: commonsense evidence:
+if this value is null or empty, it means this legislator doesn't have account on ballotpedia.org",text
+current,legislator,bioguide_id,The alphanumeric ID for this legislator [format: text] [primary key],text
+current,legislator,birthday_bio,"The legislator's birthday, [format: date] Value: in YYYY-MM-DD format.",date
+current,legislator,cspan_id,"The numeric ID for this legislator on C-SPAN's video website, [format: real] Value: commonsense evidence:
+if this value is null or empty, it means this legislator doesn't have account on C-SPAN's video website [primary key]",real
+current,legislator,fec_id,"A list of IDs for this legislator in Federal Election Commission data. [format: text] Value: commonsense evidence:
+if this value is null or empty, it means this legislator hasn't not been registered in Federal Election Commission data.",text
+current,legislator,first_name,first name of the legislator [format: text],text
+current,legislator,gender_bio,gender of the legislator [format: text],text
+current,legislator,google_entity_id_id,"google entity id [format: text] Value: commonsense evidence:
+if this value is null or empty, it means this legislator are not google entities",text
+current,legislator,govtrack_id,"The numeric ID for this legislator on GovTrack.us [format: integer] Value: commonsense evidence:
+if this value is null or empty, it means this legislator doesn't have account on GovTrack.us",integer
+current,legislator,house_history_id,"The numeric ID for this legislator on http://history.house.gov/People/Search/ [format: real] Value: commonsense evidence:
+The ID is present only for members who have served in the U.S. House.",real
+current,legislator,icpsr_id,"The numeric ID for this legislator in Keith Poole's VoteView.com website, originally based on an ID system by the Interuniversity Consortium for Political and Social Research (stored as an integer). [format: real] Value: commonsense evidence:
+if this value is null or empty, it means this legislator doesn't have account on VoteView.com",real
+current,legislator,last_name,last name of the legislator [format: text],text
+current,legislator,lis_id,"The alphanumeric ID for this legislator found in Senate roll call votes [format: text] Value: commonsense evidence:
+The ID is present only for members who attended in Senate roll call votes",text
+current,legislator,maplight_id,"The numeric ID for this legislator on maplight.org [format: real] Value: commonsense evidence:
+if this value is null or empty, it means this legislator doesn't have account on maplight.org",real
+current,legislator,middle_name,the middle name of the legislator [format: text],text
+current,legislator,nickname_name,nickname of the legislator [format: text],text
+current,legislator,official_full_name,official full name [format: text],text
+current,legislator,opensecrets_id,"The alphanumeric ID for this legislator on OpenSecrets.org. [format: text] Value: commonsense evidence:
+if this value is null or empty, it means this legislator doesn't have account on OpenSecrets.org.",text
+current,legislator,religion_bio,The legislator's religion. [format: text],text
+current,legislator,suffix_name,suffix name [format: text],text
+current,legislator,thomas_id,"The numeric ID for this legislator on http://thomas.gov and http://beta.congress.gov. [format: integer] Value: commonsense evidence:
+if this value is null or empty, it means this legislator doesn't have account on both http://thomas.gov and http://beta.congress.gov.",integer
+current,legislator,votesmart_id,"The numeric ID for this legislator on VoteSmart.org [format: real] Value: commonsense evidence:
+if this value is null or empty, it means this legislator doesn't have account on VoteSmart.org",real
+current,legislator,wikidata_id,the id for wikidata [format: text],text
+current,legislator,wikipedia_id,"The Wikipedia page name for the person [format: text] Value: commonsense evidence:
+if a legislator has wikipedia id, it means he or she is famous or impact",text
+current-terms,legislator,address,the address of this legislator [format: text],text
+current-terms,legislator,bioguide,The alphanumeric ID for this legislator [format: text] [primary key] [foreign key -> current.bioguide_id],text
+current-terms,legislator,caucus,"caucus [format: text] Value: For independents, the party that the legislator caucuses with, using the same values as the party field. Omitted if the legislator caucuses with the party indicated in the party field. When in doubt about the difference between the party and caucus fields, the party field is what displays after the legislator's name (i.e. ""(D)"") but the caucus field is what normally determines committee seniority. This field was added starting with terms for the 113th Congress.",text
+current-terms,legislator,chamber,"chamber [format: text] Value: â¢ senate
+â¢ house",text
+current-terms,legislator,class,"class [format: real] Value: For senators, their election class (1, 2, or 3). 
+commonsense evidence:
+only senator has class, if the value is null or empty, it means this legislator is not senator.",real
+current-terms,legislator,contact_form,The website URL of the contact page on the legislator's official website [format: text],text
+current-terms,legislator,district,"district [format: real] Value: For representatives, the district number they are serving from. 
+commonsense evidence:
+if null or empty, they are not representatives.",real
+current-terms,legislator,end,"the end of the term [format: text] Value: end: The date the term ended (because the Congress ended or the legislator died or resigned, etc.). End dates follow the Constitutional end of a term. Since 1935, terms begin and end on January 3 at noon in odd-numbered years, and thus a term end date may also be a term start date. Prior to 1935, terms began on March 4 and ended either on March 3 or March 4. The end date is the last date on which the legislator served this term. Unlike the start date, whether Congress was in session or not does not affect the value of this field. [primary key]",text
+current-terms,legislator,fax,"The fax number of the legislator's Washington, D.C. office [format: text] Value: only valid if the term is current",text
+current-terms,legislator,last,the last known number [format: text],text
+current-terms,legislator,name,[format: text] Value: not useful,text
+current-terms,legislator,office,"office [format: text] Value: only valid if the term is current, otherwise the last known office",text
+current-terms,legislator,party,"The political party of the legislator. [format: text] Value: commonsense evidence:
+If the legislator changed parties, this is the most recent party held during the term and party_affiliations will be set. Values are typically ""Democrat"", ""Independent"", or ""Republican"". The value typically matches the political party of the legislator on the ballot in his or her last election, although for state affiliate parties such as ""Democratic Farmer Labor"" we will use the national party name (""Democrat"") instead to keep the values of this field normalized.",text
+current-terms,legislator,party_affiliations,"This field is present if the legislator changed party or caucus affiliation during the term. [format: text] Value: The value is a list of time periods, with start and end dates, each of which has a party field and a caucus field if applicable, with the same meanings as the main party and caucus fields. The time periods cover the entire term, so the first start will match the term start, the last end will match the term end, and the last party (and caucus if present) will match the term party (and caucus).",text
+current-terms,legislator,phone,"The phone number of the legislator's Washington, D.C. office [format: text] Value: only valid if the term is current, otherwise the last known number",text
+current-terms,legislator,relation,[format: text] Value: not useful,text
+current-terms,legislator,rss_url,The URL to the official website's RSS feed [format: text],text
+current-terms,legislator,start,"The date legislative service began: the date the legislator was sworn in, if known, or else the beginning of the legislator's term. [format: text] Value: Since 1935 regularly elected terms begin on January 3 at noon on odd-numbered years, but when Congress does not first meet on January 3, term start dates might reflect that swearing-in occurred on a later date. (Prior to 1935, terms began on March 4 of odd-numbered years, see here.)",text
+current-terms,legislator,state,"state code [format: text] Value: commonsense evidence:
+AK: Alaska 
+AL: Alabama 
+AR: Arkansas 
+AZ: Arizona 
+CA: California 
+CO: Colorado 
+CT: Connecticut 
+DE: Delaware 
+FL: Florida 
+GA: Georgia 
+HI: Hawaii 
+IA: Iowa 
+ID: Idaho 
+IL: Illinois 
+IN: Indiana 
+KS: Kansas 
+KY: Kentucky 
+LA: Louisiana 
+MA: Massachusetts 
+MD: Maryland 
+ME: Maine 
+MI: Michigan 
+MN: Minnesota 
+MO: Missouri 
+MS: Mississippi 
+MT: Montana 
+NC: North Carolina 
+ND: North Dakota 
+NE: Nebraska 
+NH: New Hampshire 
+NJ: New Jersey
+9 divisions of states in us: (please mention)
+https://www2.census.gov/geo/pdfs/maps-data/maps/reference/us_regdiv.pdf",text
+current-terms,legislator,state_rank,"whether they are the ""junior"" or ""senior"" senator [format: text] Value: only valid if the term is current, otherwise the senator's rank at the time the term ended
+commonsense evidence:
+only senator has this value",text
+current-terms,legislator,title,title of the legislator [format: text],text
+current-terms,legislator,type,"The type of the term. [format: text] Value: Either ""sen"" for senators or ""rep"" for representatives and delegates to the House",text
+current-terms,legislator,url,The official website URL of the legislator [format: text] Value: only valid if the term is current,text
+historical,legislator,ballotpedia_id,"The ballotpedia.org page name for the person (spaces are given as spaces, not underscores). [format: text] Value: commonsense evidence:
+if this value is null or empty, it means this legislator doesn't have account on ballotpedia.org",text
+historical,legislator,bioguide_id,The alphanumeric ID for this legislator [format: text] [primary key],text
+historical,legislator,bioguide_previous_id,The previous alphanumeric ID for this legislator [format: text],text
+historical,legislator,birthday_bio,"The legislator's birthday, [format: text] Value: in YYYY-MM-DD format.",text
+historical,legislator,cspan_id,"The numeric ID for this legislator on C-SPAN's video website, [format: text] Value: commonsense evidence:
+if this value is null or empty, it means this legislator doesn't have account on C-SPAN's video website",text
+historical,legislator,fec_id,"A list of IDs for this legislator in Federal Election Commission data. [format: text] Value: commonsense evidence:
+if this value is null or empty, it means this legislator hasn't not been registered in Federal Election Commission data.",text
+historical,legislator,first_name,first name of the legislator [format: text],text
+historical,legislator,gender_bio,gender of the legislator [format: text],text
+historical,legislator,google_entity_id_id,"google entity id [format: text] Value: commonsense evidence:
+if this value is null or empty, it means this legislator are not google entities",text
+historical,legislator,govtrack_id,"The numeric ID for this legislator on GovTrack.us [format: integer] Value: commonsense evidence:
+if this value is null or empty, it means this legislator doesn't have account on GovTrack.us",integer
+historical,legislator,house_history_alternate_id,The alternative numeric ID for this legislator [format: text],text
+historical,legislator,house_history_id,"The numeric ID for this legislator on http://history.house.gov/People/Search/ [format: real] Value: commonsense evidence:
+The ID is present only for members who have served in the U.S. House.",real
+historical,legislator,icpsr_id,"The numeric ID for this legislator in Keith Poole's VoteView.com website, originally based on an ID system by the Interuniversity Consortium for Political and Social Research (stored as an integer). [format: real] Value: commonsense evidence:
+if this value is null or empty, it means this legislator doesn't have account on VoteView.com",real
+historical,legislator,last_name,last name of the legislator [format: text],text
+historical,legislator,lis_id,"The alphanumeric ID for this legislator found in Senate roll call votes [format: text] Value: commonsense evidence:
+The ID is present only for members who attended in Senate roll call votes",text
+historical,legislator,maplight_id,"The numeric ID for this legislator on maplight.org [format: text] Value: commonsense evidence:
+if this value is null or empty, it means this legislator doesn't have account on maplight.org",text
+historical,legislator,middle_name,the middle name of the legislator [format: text],text
+historical,legislator,nickname_name,nickname of the legislator [format: text],text
+historical,legislator,official_full_name,official full name [format: text],text
+historical,legislator,opensecrets_id,"The alphanumeric ID for this legislator on OpenSecrets.org. [format: text] Value: commonsense evidence:
+if this value is null or empty, it means this legislator doesn't have account on OpenSecrets.org.",text
+historical,legislator,religion_bio,The legislator's religion. [format: text],text
+historical,legislator,suffix_name,suffix name [format: text],text
+historical,legislator,thomas_id,"The numeric ID for this legislator on http://thomas.gov and http://beta.congress.gov. [format: text] Value: commonsense evidence:
+if this value is null or empty, it means this legislator doesn't have account on both http://thomas.gov and http://beta.congress.gov.",text
+historical,legislator,votesmart_id,"The numeric ID for this legislator on VoteSmart.org [format: text] Value: commonsense evidence:
+if this value is null or empty, it means this legislator doesn't have account on VoteSmart.org",text
+historical,legislator,wikidata_id,the id for wikidata [format: text],text
+historical,legislator,wikipedia_id,"The Wikipedia page name for the person [format: text] Value: commonsense evidence:
+if a legislator has wikipedia id, it means he or she is famous or impact",text
+historical-terms,legislator,address,the address of this legislator [format: text],text
+historical-terms,legislator,bioguide,The alphanumeric ID for this legislator [format: text] [primary key] [foreign key -> historical.bioguide_id],text
+historical-terms,legislator,chamber,"chamber [format: text] Value: â¢ senate
+â¢ house",text
+historical-terms,legislator,class,"class [format: real] Value: For senators, their election class (1, 2, or 3). 
+commonsense evidence:
+only senator has class, if the value is null or empty, it means this legislator is not senator.",real
+historical-terms,legislator,contact_form,The website URL of the contact page on the legislator's official website [format: text],text
+historical-terms,legislator,district,"district [format: real] Value: For representatives, the district number they are serving from. 
+commonsense evidence:
+if null or empty, they are not representatives.",real
+historical-terms,legislator,end,"the end of the term [format: text] Value: end: The date the term ended (because the Congress ended or the legislator died or resigned, etc.). End dates follow the Constitutional end of a term. Since 1935, terms begin and end on January 3 at noon in odd-numbered years, and thus a term end date may also be a term start date. Prior to 1935, terms began on March 4 and ended either on March 3 or March 4. The end date is the last date on which the legislator served this term. Unlike the start date, whether Congress was in session or not does not affect the value of this field.",text
+historical-terms,legislator,fax,"The fax number of the legislator's Washington, D.C. office [format: text] Value: only valid if the term is current",text
+historical-terms,legislator,last,the last known number [format: text],text
+historical-terms,legislator,middle,[format: text],text
+historical-terms,legislator,name,[format: text] Value: not useful,text
+historical-terms,legislator,office,"office [format: text] Value: only valid if the term is current, otherwise the last known office",text
+historical-terms,legislator,party,"The political party of the legislator. [format: text] Value: commonsense evidence:
+If the legislator changed parties, this is the most recent party held during the term and party_affiliations will be set. Values are typically ""Democrat"", ""Independent"", or ""Republican"". The value typically matches the political party of the legislator on the ballot in his or her last election, although for state affiliate parties such as ""Democratic Farmer Labor"" we will use the national party name (""Democrat"") instead to keep the values of this field normalized.",text
+historical-terms,legislator,party_affiliations,"This field is present if the legislator changed party or caucus affiliation during the term. [format: text] Value: The value is a list of time periods, with start and end dates, each of which has a party field and a caucus field if applicable, with the same meanings as the main party and caucus fields. The time periods cover the entire term, so the first start will match the term start, the last end will match the term end, and the last party (and caucus if present) will match the term party (and caucus).",text
+historical-terms,legislator,phone,"The phone number of the legislator's Washington, D.C. office [format: text] Value: only valid if the term is current, otherwise the last known number",text
+historical-terms,legislator,relation,[format: text] Value: not useful,text
+historical-terms,legislator,rss_url,The URL to the official website's RSS feed [format: text],text
+historical-terms,legislator,start,"The date legislative service began: the date the legislator was sworn in, if known, or else the beginning of the legislator's term. [format: text] Value: Since 1935 regularly elected terms begin on January 3 at noon on odd-numbered years, but when Congress does not first meet on January 3, term start dates might reflect that swearing-in occurred on a later date. (Prior to 1935, terms began on March 4 of odd-numbered years, see here.)",text
+historical-terms,legislator,state,"state code [format: text] Value: commonsense evidence:
+AK: Alaska 
+AL: Alabama 
+AR: Arkansas 
+AZ: Arizona 
+CA: California 
+CO: Colorado 
+CT: Connecticut 
+DE: Delaware 
+FL: Florida 
+GA: Georgia 
+HI: Hawaii 
+IA: Iowa 
+ID: Idaho 
+IL: Illinois 
+IN: Indiana 
+KS: Kansas 
+KY: Kentucky 
+LA: Louisiana 
+MA: Massachusetts 
+MD: Maryland 
+ME: Maine 
+MI: Michigan 
+MN: Minnesota 
+MO: Missouri 
+MS: Mississippi 
+MT: Montana 
+NC: North Carolina 
+ND: North Dakota 
+NE: Nebraska 
+NH: New Hampshire 
+NJ: New Jersey
+9 divisions of states in us: (please mention)
+https://www2.census.gov/geo/pdfs/maps-data/maps/reference/us_regdiv.pdf",text
+historical-terms,legislator,state_rank,"whether they are the ""junior"" or ""senior"" senator [format: text] Value: only valid if the term is current, otherwise the senator's rank at the time the term ended
+commonsense evidence:
+only senator has this value",text
+historical-terms,legislator,title,title of the legislator [format: text],text
+historical-terms,legislator,type,"The type of the term. [format: text] Value: Either ""sen"" for senators or ""rep"" for representatives and delegates to the House",text
+historical-terms,legislator,url,The official website URL of the legislator [format: text] Value: only valid if the term is current,text
+social-media,legislator,bioguide,The unique alphanumeric ID for this legislator [format: text] [primary key] [foreign key -> current.bioguide_id],text
+social-media,legislator,facebook,The username of the current official Facebook presence of the legislator. [format: text],text
+social-media,legislator,facebook_id,The numeric ID of the current official Facebook presence of the legislator. [format: real],real
+social-media,legislator,govtrack,The numeric ID for this legislator on GovTrack.us [format: real],real
+social-media,legislator,instagram,The current official Instagram handle of the legislator. [format: text],text
+social-media,legislator,instagram_id,The numeric ID of the current official Instagram handle of the legislator. [format: real],real
+social-media,legislator,thomas,The numeric ID for this legislator on http://thomas.gov and http://beta.congress.gov. [format: integer],integer
+social-media,legislator,twitter,The current official Twitter handle of the legislator. [format: text],text
+social-media,legislator,twitter_id,The numeric ID of the current official twitter handle of the legislator. [format: real],real
+social-media,legislator,youtube,The current official YouTube username of the legislator. [format: text],text
+social-media,legislator,youtube_id,The current official YouTube channel ID of the legislator. [format: text],text

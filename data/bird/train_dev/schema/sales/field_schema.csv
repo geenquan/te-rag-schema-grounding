@@ -1,0 +1,20 @@
+table,db,field_name,field_name_desc,field_type
+Customers,sales,CustomerID,the unique id of the customer [format: integer] [primary key],integer
+Customers,sales,FirstName,the customer's first name [format: text],text
+Customers,sales,LastName,the customer's last name [format: text],text
+Customers,sales,MiddleInitial,the customer's middle initial [format: text],text
+Employees,sales,EmployeeID,the unique id of the employee [format: integer] [primary key],integer
+Employees,sales,FirstName,the employee's first name [format: text],text
+Employees,sales,LastName,the employee's last name [format: text],text
+Employees,sales,MiddleInitial,the employee's middle initial [format: text],text
+Products,sales,Name,the product name [format: text],text
+Products,sales,Price,"the price of the product [format: real] Value: unit price
+commonsense evidence:
+if the price = 0.0, it means this product is free or a gift",real
+Products,sales,ProductID,the unique id of the product [format: integer] [primary key],integer
+Sales,sales,CustomerID,the unique id of the customer [format: integer] [foreign key -> Customers.CustomerID],integer
+Sales,sales,ProductID,the unique id of the product [format: integer] [foreign key -> Products.ProductID],integer
+Sales,sales,Quantity,"trading quantity [format: integer] Value: commonsense evidence:
+total price = quantity x Products' Price",integer
+Sales,sales,SalesID,the unique id of the sales [format: integer] [primary key],integer
+Sales,sales,SalesPersonID,the unique id of the sale person [format: integer] [foreign key -> Employees.EmployeeID],integer

@@ -1,0 +1,77 @@
+table,db,field_name,field_name_desc,field_type
+Country,world_development_indicators,Alpha2Code,2 digit code of countries [format: text],text
+Country,world_development_indicators,AlternativeConversionFactor,Alternative conversion factor is the underlying annual exchange rate used for the World Bank Atlas method [format: text],text
+Country,world_development_indicators,BalanceOfPaymentsManualInUse,Balance Of Payments Manual In Use [format: text],text
+Country,world_development_indicators,CountryCode,unique code identifying countries [format: text] [primary key],text
+Country,world_development_indicators,CurrencyUnit,Currency Unit used in this country [format: text],text
+Country,world_development_indicators,ExternalDebtReportingStatus,"External Debt Reporting Status [format: text] Value: • Actual
+• Preliminary
+• Estimate
+commonsense reasoning:
+If ExternalDebtReportingStatus='Actual', it means this external debt reporting is real and actual, and finished
+if 'Estimate', it means external debt reporting is finished by estimation.
+if 'preliminary', it means this external debt reporting is not finished",text
+Country,world_development_indicators,GovernmentAccountingConcept,Government Accounting Concept [format: text],text
+Country,world_development_indicators,ImfDataDisseminationStandard,IMF Standards for Data Dissemination [format: text],text
+Country,world_development_indicators,IncomeGroup,income level of countries [format: text],text
+Country,world_development_indicators,LatestAgriculturalCensus,Latest Agricultural Census [format: text],text
+Country,world_development_indicators,LatestHouseholdSurvey,[format: text],text
+Country,world_development_indicators,LatestIndustrialData,Latest Industrial Data [format: integer],integer
+Country,world_development_indicators,LatestPopulationCensus,Latest Population Census [format: text],text
+Country,world_development_indicators,LatestTradeData,Latest Trade Data [format: integer],integer
+Country,world_development_indicators,LatestWaterWithdrawalData,Latest Water Withdrawal Data [format: integer],integer
+Country,world_development_indicators,LendingCategory,"Lending category [format: text] Value: • IDA: International Development Associations: (IDA) is the part of the World Bank that helps the world's poorest countries.
+• IBRD: The International Bank for Reconstruction and Development (IBRD) is a global development cooperative owned by 189 member countries.
+• Blend: Blend is the cloud banking infrastructure powering billions of dollars in financial transactions every day.",text
+Country,world_development_indicators,LongName,long or full name of countries [format: text],text
+Country,world_development_indicators,NationalAccountsBaseYear,the year used as the base period for constant price calculations in the country's national accounts [format: text],text
+Country,world_development_indicators,NationalAccountsReferenceYear,National Accounts Reference Year [format: text],text
+Country,world_development_indicators,OtherGroups,"other groups [format: text] Value: • HIPC: Heavily Indebted Poor Countries
+• Euro Area: The euro area consists of those Member States of the European Union that have adopted the euro as their currency.",text
+Country,world_development_indicators,PppSurveyYear,purchasing power parity survey year [format: text],text
+Country,world_development_indicators,Region,region that country belongs to [format: text],text
+Country,world_development_indicators,ShortName,Short names of countries [format: text],text
+Country,world_development_indicators,SnaPriceValuation,SNA Price Valuation [format: text],text
+Country,world_development_indicators,SourceOfMostRecentIncomeAndExpenditureData,Source Of Most Recent Income And Expenditure Data [format: text],text
+Country,world_development_indicators,SpecialNotes,Special Notes [format: text],text
+Country,world_development_indicators,SystemOfNationalAccounts,System Of National Accounts [format: text],text
+Country,world_development_indicators,SystemOfTrade,System Of Trade [format: text],text
+Country,world_development_indicators,TableName,table names of countries [format: text],text
+Country,world_development_indicators,VitalRegistrationComplete,Vital Registration Complete [format: text],text
+Country,world_development_indicators,Wb2Code,world bank to code [format: text],text
+CountryNotes,world_development_indicators,Countrycode,code identifying unique countries [format: text] [primary key] [foreign key -> Country.CountryCode],text
+CountryNotes,world_development_indicators,Description,description [format: text],text
+CountryNotes,world_development_indicators,Seriescode,Series code of countries [format: text] [primary key] [foreign key -> Series.SeriesCode],text
+Footnotes,world_development_indicators,Countrycode,code identifying unique countries [format: text] [primary key] [foreign key -> Country.CountryCode],text
+Footnotes,world_development_indicators,Description,Description of country footnotes [format: text],text
+Footnotes,world_development_indicators,Seriescode,Series code of countries [format: text] [primary key] [foreign key -> Series.SeriesCode],text
+Footnotes,world_development_indicators,Year,Year [format: text] [primary key],text
+Indicators,world_development_indicators,CountryCode,Series code of countries [format: text] [primary key] [foreign key -> Country.CountryCode],text
+Indicators,world_development_indicators,CountryName,code identifying unique countries [format: text],text
+Indicators,world_development_indicators,IndicatorCode,indicator code [format: text] [primary key],text
+Indicators,world_development_indicators,IndicatorName,indicator name [format: text],text
+Indicators,world_development_indicators,Value,value [format: integer],integer
+Indicators,world_development_indicators,Year,year [format: integer] [primary key],integer
+Series,world_development_indicators,AggregationMethod,Aggregation Method [format: text],text
+Series,world_development_indicators,BasePeriod,"a period of business or economic activity used as a basis or reference point especially for indexing, calculating, estimating, or adjudicating prices, taxes, compensation, income, and production [format: text]",text
+Series,world_development_indicators,DevelopmentRelevance,Development Relevance [format: text],text
+Series,world_development_indicators,GeneralComments,General Comments [format: text],text
+Series,world_development_indicators,IndicatorName,Indicator Name [format: text],text
+Series,world_development_indicators,LicenseType,License Type [format: text],text
+Series,world_development_indicators,LimitationsAndExceptions,Limitations And Exceptions [format: text],text
+Series,world_development_indicators,LongDefinition,Long Definition of series [format: text],text
+Series,world_development_indicators,NotesFromOriginalSource,Notes From Original Source [format: text],text
+Series,world_development_indicators,OtherNotes,Other Notes [format: integer],integer
+Series,world_development_indicators,OtherWebLinks,Other Web Links [format: integer],integer
+Series,world_development_indicators,Periodicity,Periodicity [format: text],text
+Series,world_development_indicators,RelatedIndicators,Related Indicators [format: integer],integer
+Series,world_development_indicators,RelatedSourceLinks,Related Source Links [format: text],text
+Series,world_development_indicators,SeriesCode,unique code identifying series [format: text] [primary key],text
+Series,world_development_indicators,ShortDefinition,Short Definition of series [format: text],text
+Series,world_development_indicators,Source,source of this data [format: text],text
+Series,world_development_indicators,StatisticalConceptAndMethodology,Statistical Concept And Methodology [format: text],text
+Series,world_development_indicators,Topic,topic of series [format: text],text
+Series,world_development_indicators,UnitOfMeasure,Unit Of Measure [format: text],text
+SeriesNotes,world_development_indicators,Description,Description of series [format: text],text
+SeriesNotes,world_development_indicators,Seriescode,code identifying the series [format: text] [primary key] [foreign key -> Series.SeriesCode],text
+SeriesNotes,world_development_indicators,Year,year [format: text] [primary key],text

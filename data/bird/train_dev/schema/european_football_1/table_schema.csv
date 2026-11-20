@@ -1,0 +1,16 @@
+table,db,table_desc,field,schema
+divisions,european_football_1,divisions,country|division|name,"CREATE TABLE divisions (
+  country,
+  division,
+  name
+);"
+matchs,european_football_1,matchs,AwayTeam|Date|Div|FTAG|FTHG|FTR|HomeTeam|season,"CREATE TABLE matchs (
+  AwayTeam,
+  Date,
+  Div,
+  FTAG,
+  FTHG,
+  FTR,
+  HomeTeam,
+  season
+);"

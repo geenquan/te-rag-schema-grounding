@@ -1,0 +1,22 @@
+table,db,table_desc,field,schema
+Classification,genes,Classification,GeneID|Localization,"CREATE TABLE Classification (
+  GeneID,
+  Localization
+);"
+Genes,genes,Genes,Chromosome|Class|Complex|Essential|Function|GeneID|Localization|Motif|Phenotype,"CREATE TABLE Genes (
+  Chromosome,
+  Class,
+  Complex,
+  Essential,
+  Function,
+  GeneID,
+  Localization,
+  Motif,
+  Phenotype
+);"
+Interactions,genes,Interactions,Expression_Corr|GeneID1|GeneID2|Type,"CREATE TABLE Interactions (
+  Expression_Corr,
+  GeneID1,
+  GeneID2,
+  Type
+);"

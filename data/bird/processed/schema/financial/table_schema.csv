@@ -1,0 +1,72 @@
+table,db,table_desc,field,schema
+account,financial,account,account_id|date|district_id|frequency,"CREATE TABLE account (
+  account_id,
+  date,
+  district_id,
+  frequency
+);"
+card,financial,card,card_id|disp_id|issued|type,"CREATE TABLE card (
+  card_id,
+  disp_id,
+  issued,
+  type
+);"
+client,financial,client,birth_date|client_id|district_id|gender,"CREATE TABLE client (
+  birth_date,
+  client_id,
+  district_id,
+  gender
+);"
+disp,financial,disposition,account_id|client_id|disp_id|type,"CREATE TABLE disp (
+  account_id,
+  client_id,
+  disp_id,
+  type
+);"
+district,financial,district,A10|A11|A12|A13|A14|A15|A16|A2|A3|A4|A5|A6|A7|A8|A9|district_id,"CREATE TABLE district (
+  A10,
+  A11,
+  A12,
+  A13,
+  A14,
+  A15,
+  A16,
+  A2,
+  A3,
+  A4,
+  A5,
+  A6,
+  A7,
+  A8,
+  A9,
+  district_id
+);"
+loan,financial,loan,account_id|amount|date|duration|loan_id|payments|status,"CREATE TABLE loan (
+  account_id,
+  amount,
+  date,
+  duration,
+  loan_id,
+  payments,
+  status
+);"
+order,financial,order,account_id|account_to|amount|bank_to|k_symbol|order_id,"CREATE TABLE order (
+  account_id,
+  account_to,
+  amount,
+  bank_to,
+  k_symbol,
+  order_id
+);"
+trans,financial,transaction,account|account_id|amount|balance|bank|date|k_symbol|operation|trans_id|type,"CREATE TABLE trans (
+  account,
+  account_id,
+  amount,
+  balance,
+  bank,
+  date,
+  k_symbol,
+  operation,
+  trans_id,
+  type
+);"

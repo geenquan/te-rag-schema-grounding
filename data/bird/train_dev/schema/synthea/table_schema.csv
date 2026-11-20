@@ -1,0 +1,108 @@
+table,db,table_desc,field,schema
+all_prevalences,synthea,all_prevalences,ITEM|OCCURRENCES|POPULATION COUNT|POPULATION TYPE|PREVALENCE PERCENTAGE|PREVALENCE RATE,"CREATE TABLE all_prevalences (
+  ITEM,
+  OCCURRENCES,
+  POPULATION COUNT,
+  POPULATION TYPE,
+  PREVALENCE PERCENTAGE,
+  PREVALENCE RATE
+);"
+allergies,synthea,allergies,CODE|DESCRIPTION|ENCOUNTER|PATIENT|START|STOP,"CREATE TABLE allergies (
+  CODE,
+  DESCRIPTION,
+  ENCOUNTER,
+  PATIENT,
+  START,
+  STOP
+);"
+careplans,synthea,careplans,CODE|DESCRIPTION|ENCOUNTER|ID|PATIENT|REASONCODE|REASONDESCRIPTION|START|STOP,"CREATE TABLE careplans (
+  CODE,
+  DESCRIPTION,
+  ENCOUNTER,
+  ID,
+  PATIENT,
+  REASONCODE,
+  REASONDESCRIPTION,
+  START,
+  STOP
+);"
+claims,synthea,claims,BILLABLEPERIOD|DIAGNOSIS|ENCOUNTER|ID|ORGANIZATION|PATIENT|TOTAL,"CREATE TABLE claims (
+  BILLABLEPERIOD,
+  DIAGNOSIS,
+  ENCOUNTER,
+  ID,
+  ORGANIZATION,
+  PATIENT,
+  TOTAL
+);"
+conditions,synthea,conditions,CODE|DESCRIPTION|ENCOUNTER|PATIENT|START|STOP,"CREATE TABLE conditions (
+  CODE,
+  DESCRIPTION,
+  ENCOUNTER,
+  PATIENT,
+  START,
+  STOP
+);"
+encounters,synthea,encounters,CODE|DATE|DESCRIPTION|ID|PATIENT|REASONCODE|REASONDESCRIPTION,"CREATE TABLE encounters (
+  CODE,
+  DATE,
+  DESCRIPTION,
+  ID,
+  PATIENT,
+  REASONCODE,
+  REASONDESCRIPTION
+);"
+immunizations,synthea,immunizations,CODE|DATE|DESCRIPTION|ENCOUNTER|PATIENT,"CREATE TABLE immunizations (
+  CODE,
+  DATE,
+  DESCRIPTION,
+  ENCOUNTER,
+  PATIENT
+);"
+medications,synthea,medications,CODE|DESCRIPTION|ENCOUNTER|PATIENT|REASONCODE|REASONDESCRIPTION|START|STOP,"CREATE TABLE medications (
+  CODE,
+  DESCRIPTION,
+  ENCOUNTER,
+  PATIENT,
+  REASONCODE,
+  REASONDESCRIPTION,
+  START,
+  STOP
+);"
+observations,synthea,observations,CODE|DATE|DESCRIPTION|ENCOUNTER|PATIENT|UNITS|VALUE,"CREATE TABLE observations (
+  CODE,
+  DATE,
+  DESCRIPTION,
+  ENCOUNTER,
+  PATIENT,
+  UNITS,
+  VALUE
+);"
+patients,synthea,patients,address|birthdate|birthplace|deathdate|drivers|ethnicity|first|gender|last|maiden|marital|passport|patient|prefix|race|ssn|suffix,"CREATE TABLE patients (
+  address,
+  birthdate,
+  birthplace,
+  deathdate,
+  drivers,
+  ethnicity,
+  first,
+  gender,
+  last,
+  maiden,
+  marital,
+  passport,
+  patient,
+  prefix,
+  race,
+  ssn,
+  suffix
+);"
+procedures,synthea,procedures,CODE|DATE|DESCRIPTION|ENCOUNTER|PATIENT|REASONCODE|REASONDESCRIPTION,"CREATE TABLE procedures (
+  CODE,
+  DATE,
+  DESCRIPTION,
+  ENCOUNTER,
+  PATIENT,
+  REASONCODE,
+  REASONDESCRIPTION
+);"

@@ -1,0 +1,140 @@
+table,db,field_name,field_name_desc,field_type
+institution_details,college_completion,aid_percentile,Institution's percent rank for average amount of student aid going to undergraduate recipients within sector [format: integer] Value: Institution's percent rank for average amount of student aid going to undergraduate recipients within sector,integer
+institution_details,college_completion,aid_value,The average amount of student aid going to undergraduate recipients [format: integer],integer
+institution_details,college_completion,awards_per_natl_value,"Completions per 100 FTE (full-time equivalency) undergraduate students, national sector average [format: real] Value: commonsense evidence:
+ if his institute's completion (or graduation) rate exceeds the average for the nationalin which it belongs:
+awards_per_value > awards_per_natl_value
+ if his institute's completion (or graduation) rate falls below the average for the state and industry in which it belongs:
+awards_per_value < awards_per_natl_value",real
+institution_details,college_completion,awards_per_state_value,"Completions per 100 FTE (full-time equivalency) undergraduate students, state and sector average [format: real] Value: commonsense evidence:
+ if his institute's completion (or graduation) rate exceeds the average for the state and sector in which it belongs:
+awards_per_value > awards_per_state_value
+ if his institute's completion (or graduation) rate falls below the average for the state and sector in which it belongs:
+awards_per_value < awards_per_state_value",real
+institution_details,college_completion,awards_per_value,"Completions per 100 FTE (full-time equivalency) undergraduate students (average 2011, 2012, and 2013) [format: real]",real
+institution_details,college_completion,basic,Carnegie Foundation for the Advancement of Teaching Basic Classification (2010 version) [format: text],text
+institution_details,college_completion,carnegie_ct,,integer
+institution_details,college_completion,chronname,Institution name [format: text],text
+institution_details,college_completion,city,Institution city [format: text],text
+institution_details,college_completion,cohort_size,,integer
+institution_details,college_completion,control,"Control of institution [format: text] Value: Public, 
+Private not-for-profit, 
+Private for-profit",text
+institution_details,college_completion,counted_pct,,text
+institution_details,college_completion,endow_percentile,Institution's percent rank for endowment value per full-time equivalent student within sector [format: text],text
+institution_details,college_completion,endow_value,End-of-year endowment value per full-time equivalent student [format: text],text
+institution_details,college_completion,exp_award_natl_value,"Spending per completion, national sector average [format: integer]",integer
+institution_details,college_completion,exp_award_percentile,,integer
+institution_details,college_completion,exp_award_state_value,"Spending per completion, state and sector average [format: integer]",integer
+institution_details,college_completion,exp_award_value,"Estimated educational spending per academic award in 2013. Includes all certificates and degrees [format: integer] Value: expenses related to instruction, research, public service, student services, academic support, institutional support, operations and maintenance. Includes all certificates and degrees",integer
+institution_details,college_completion,flagship,Denotes Public flagship institutions [format: text],text
+institution_details,college_completion,ft_fac_percentile,Institution's percent rank for full-time faculty share within sector [format: integer],integer
+institution_details,college_completion,ft_fac_value,"Percentage of employees devoted to instruction, research or public service who are full-time and do not work for an associated medical school [format: real]",real
+institution_details,college_completion,ft_pct,Percentage of undergraduates who attend full-time [format: real],real
+institution_details,college_completion,fte_percentile,,integer
+institution_details,college_completion,fte_value,total number of full-time equivalent undergraduates [format: integer],integer
+institution_details,college_completion,grad_100_percentile,Institution's percent rank for completers within 100 percent of normal time within sector [format: integer],integer
+institution_details,college_completion,grad_100_value,"percentage of first-time, full-time, degree-seeking undergraduates who complete a degree or certificate program within 100 percent of expected time (bachelor's-seeking group at 4-year institutions) [format: real] Value: %, 
+commonsense evidence:
+lower means harder to graduate for bachelor",real
+institution_details,college_completion,grad_150_percentile,Institution's percent rank for completers within 150 percent of normal time within sector [format: integer],integer
+institution_details,college_completion,grad_150_value,"percentage of first-time, full-time, degree-seeking undergraduates who complete a degree or certificate program within 150 percent of expected time (bachelor's-seeking group at 4-year institutions) [format: real] Value: %, 
+commonsense evidence:
+lower means harder to graduate for bachelor",real
+institution_details,college_completion,hbcu,Denotes Historically Black College and Universities [format: text],text
+institution_details,college_completion,lat_y,"Institution latitude [format: real] Value: commonsense evidence:
+institute Coordinate",real
+institution_details,college_completion,level,"Level of institution [format: text] Value: commonsense evidence:
+4-year: bachelor's degree
+2-year: associate's degree",text
+institution_details,college_completion,long_x,Institution longitude [format: real],real
+institution_details,college_completion,med_sat_percentile,Institution's percent rank for median SAT value within sector [format: text] Value: Institution's percent rank for median SAT value within sector,text
+institution_details,college_completion,med_sat_value,Median estimated SAT value for incoming students [format: text],text
+institution_details,college_completion,nicknames,,text
+institution_details,college_completion,pell_percentile,Institution's percent rank for undergraduate Pell recipients within sector [format: integer],integer
+institution_details,college_completion,pell_value,percentage of undergraduates receiving a Pell Grant [format: real],real
+institution_details,college_completion,retain_percentile,Institution's percent rank for freshman retention percentage within sector [format: integer],integer
+institution_details,college_completion,retain_value,share of freshman students retained for a second year [format: real],real
+institution_details,college_completion,similar,,text
+institution_details,college_completion,site,Institution Web site address [format: text],text
+institution_details,college_completion,state,Institution state [format: text],text
+institution_details,college_completion,state_sector_ct,,integer
+institution_details,college_completion,student_count,Total number of undergraduates in 2010 [format: integer],integer
+institution_details,college_completion,unitid,unique Education Unit ID number [format: integer] [primary key],integer
+institution_details,college_completion,vsa_enroll_after4_first,"First-time, full-time students who are still enrolled at this institution after four years [format: text]",text
+institution_details,college_completion,vsa_enroll_after4_transfer,Full-time transfer students who are still enrolled at this institution after four years [format: text],text
+institution_details,college_completion,vsa_enroll_after6_first,"First-time, full-time students who are still enrolled at this institution after six years [format: text]",text
+institution_details,college_completion,vsa_enroll_after6_transfer,Full-time transfer students who are still enrolled at this institution after six years [format: text],text
+institution_details,college_completion,vsa_enroll_elsewhere_after4_first,"First-time, full-time students who are enrolled at another institution after four years [format: text]",text
+institution_details,college_completion,vsa_enroll_elsewhere_after4_transfer,Full-time transfer students who are enrolled at another institution after four years [format: text],text
+institution_details,college_completion,vsa_enroll_elsewhere_after6_first,"First-time, full-time students who are enrolled at another institution after six years [format: text]",text
+institution_details,college_completion,vsa_enroll_elsewhere_after6_transfer,Full-time transfer students who are enrolled at another institution after six years [format: text],text
+institution_details,college_completion,vsa_grad_after4_first,"First-time, full-time students who graduated from this institution within four years [format: text]",text
+institution_details,college_completion,vsa_grad_after4_transfer,Full-time transfer students who graduated from this institution within four years [format: text],text
+institution_details,college_completion,vsa_grad_after6_first,"First-time, full-time students who graduated from this institution within six years [format: text] Value: null: not available",text
+institution_details,college_completion,vsa_grad_after6_transfer,Full-time transfer students who graduated from this institution within six years [format: text],text
+institution_details,college_completion,vsa_grad_elsewhere_after4_first,"First-time, full-time students who graduated from another institution within four years [format: text]",text
+institution_details,college_completion,vsa_grad_elsewhere_after4_transfer,Full-time transfer students who graduated from this institution within four years [format: text],text
+institution_details,college_completion,vsa_grad_elsewhere_after6_first,"First-time, full-time students who graduated from another institution within six years [format: text]",text
+institution_details,college_completion,vsa_grad_elsewhere_after6_transfer,Full-time transfer students who graduated from another institution within six years [format: text],text
+institution_details,college_completion,vsa_year,Most recent year of Student Success and Progress Rate data available from the Voluntary System of Accountability [format: text],text
+institution_grads,college_completion,cohort,"degree-seeking cohort type [format: text] Value: commonsense evidence:
+ '4y bach' = Bachelor's/equivalent-seeking cohort at 4-year institutions; 
+ '4y other' = Students seeking another type of degree or certificate at a 4-year institution; 
+ '2y all' = Degree-seeking students at 2-year institutions
+4-year degree is bachelor's degree
+2-year degree is associate's degree",text
+institution_grads,college_completion,gender,gender of students [format: text] Value: 'B' = both genders; 'M' = male; 'F' = female,text
+institution_grads,college_completion,grad_100,Number of students who graduated within 100 percent of normal/expected time [format: text],text
+institution_grads,college_completion,grad_100_rate,Percentage of students who graduated within 100 percent of normal/expected time [format: text],text
+institution_grads,college_completion,grad_150,Number of students who graduated within 150 percent of normal/expected time [format: text],text
+institution_grads,college_completion,grad_150_rate,Percentage of students who graduated within 150 percent of normal/expected time [format: text],text
+institution_grads,college_completion,grad_cohort,"Number of first-time, full-time, degree-seeking students in the cohort being tracked, minus any exclusions [format: text]",text
+institution_grads,college_completion,race,"race/ethnicity of students [format: text] Value: commonsense evidence:
+'X' = all students; 'Ai' = American Indian; 'A' = Asian; 'B' = Black; 'H' = Hispanic; 'W' = White",text
+institution_grads,college_completion,unitid,Education Unit ID number [format: integer] [foreign key -> institution_details.unitid],integer
+institution_grads,college_completion,year,year of data release [format: integer],integer
+state_sector_details,college_completion,awards_per_natl_value,"Completions per 100 FTE (full-time equivalent) undergraduate students, national sector average [format: real]",real
+state_sector_details,college_completion,awards_per_rank,,text
+state_sector_details,college_completion,awards_per_state_value,"Completions per 100 FTE (full-time equivalent) undergraduate students, state and sector average [format: text]",text
+state_sector_details,college_completion,control,"[format: text] Value: Public, 
+Private not-for-profit, 
+Private for-profit [primary key]",text
+state_sector_details,college_completion,counted_pct,"Percentage of students in the entering class (Fall 2007 at 4-year institutions, Fall 2010 at 2-year institutions) who are first-time, full-time, degree-seeking students and generally part of the official graduation rate [format: text]",text
+state_sector_details,college_completion,exp_award_natl_value,"Spending per completion, national sector average [format: integer]",integer
+state_sector_details,college_completion,exp_award_state_value,"Spending per completion, state and sector average [format: text]",text
+state_sector_details,college_completion,grad_rate_rank,,text
+state_sector_details,college_completion,level,"Level of institution [format: text] Value: commonsense evidence:
+4-year: bachelor's degree
+2-year: associate's degree [primary key]",text
+state_sector_details,college_completion,schools_count,,integer
+state_sector_details,college_completion,state,state name [format: text] [foreign key -> institution_details.state],text
+state_sector_details,college_completion,state_appr_rank,,text
+state_sector_details,college_completion,state_appr_value,State appropriations to higher education in fiscal year 2011 per resident [format: text],text
+state_sector_details,college_completion,state_post,,text
+state_sector_details,college_completion,stateid,state FIPS (Federal Information Processing System) code [format: integer] [primary key],integer
+state_sector_grads,college_completion,cohort,"degree-seeking cohort type [format: text] Value: commonsense evidence:
+ '4y bach' = Bachelor's/equivalent-seeking cohort at 4-year institutions; 
+ '4y other' = Students seeking another type of degree or certificate at a 4-year institution; 
+ '2y all' = Degree-seeking students at 2-year institutions
+4-year degree is bachelor's degree
+2-year degree is associate's degree",text
+state_sector_grads,college_completion,control,"[format: text] Value: Public, 
+Private not-for-profit, 
+Private for-profit",text
+state_sector_grads,college_completion,gender,gender of students [format: text] Value: B' = both genders; 'M' = male; 'F' = female,text
+state_sector_grads,college_completion,grad_100,Number of students who graduated within 100 percent of normal/expected time [format: text],text
+state_sector_grads,college_completion,grad_100_rate,Percentage of students who graduated within 100 percent of normal/expected time [format: text],text
+state_sector_grads,college_completion,grad_150,Number of students who graduated within 150 percent of normal/expected time [format: text],text
+state_sector_grads,college_completion,grad_150_rate,Percentage of students who graduated within 150 percent of normal/expected time [format: text],text
+state_sector_grads,college_completion,grad_cohort,"Number of first-time, full-time, degree-seeking students in the cohort being tracked, minus any exclusions [format: text]",text
+state_sector_grads,college_completion,grad_cohort_ct,Number of institutions with data included in the cohort [format: integer],integer
+state_sector_grads,college_completion,level,"Level of institution [format: text] Value: commonsense evidence:
+4-year: bachelor's degree
+2-year: associate's degree",text
+state_sector_grads,college_completion,race,"race/ethnicity of students [format: text] Value: commonsense evidence:
+'X' = all students; 'Ai' = American Indian; 'A' = Asian; 'B' = Black; 'H' = Hispanic; 'W' = White",text
+state_sector_grads,college_completion,state,state name [format: text] [foreign key -> institution_details.state],text
+state_sector_grads,college_completion,state_abbr,,text
+state_sector_grads,college_completion,stateid,state FIPS (Federal Information Processing System) code [format: integer] [foreign key -> state_sector_details.stateid],integer
+state_sector_grads,college_completion,year,year of data release [format: integer],integer

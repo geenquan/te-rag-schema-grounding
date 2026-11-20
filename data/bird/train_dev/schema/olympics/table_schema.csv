@@ -1,0 +1,55 @@
+table,db,table_desc,field,schema
+city,olympics,city,city_name|id,"CREATE TABLE city (
+  city_name,
+  id
+);"
+competitor_event,olympics,competitor_event,competitor_id|event_id|medal_id,"CREATE TABLE competitor_event (
+  competitor_id,
+  event_id,
+  medal_id
+);"
+event,olympics,event,event_name|id|sport_id,"CREATE TABLE event (
+  event_name,
+  id,
+  sport_id
+);"
+games,olympics,games,games_name|games_year|id|season,"CREATE TABLE games (
+  games_name,
+  games_year,
+  id,
+  season
+);"
+games_city,olympics,games_city,city_id|games_id,"CREATE TABLE games_city (
+  city_id,
+  games_id
+);"
+games_competitor,olympics,games_competitor,age|games_id|id|person_id,"CREATE TABLE games_competitor (
+  age,
+  games_id,
+  id,
+  person_id
+);"
+medal,olympics,medal,id|medal_name,"CREATE TABLE medal (
+  id,
+  medal_name
+);"
+noc_region,olympics,noc_region,id|noc|region_name,"CREATE TABLE noc_region (
+  id,
+  noc,
+  region_name
+);"
+person,olympics,person,full_name|gender|height|id|weight,"CREATE TABLE person (
+  full_name,
+  gender,
+  height,
+  id,
+  weight
+);"
+person_region,olympics,person_region,person_id|region_id,"CREATE TABLE person_region (
+  person_id,
+  region_id
+);"
+sport,olympics,sport,id|sport_name,"CREATE TABLE sport (
+  id,
+  sport_name
+);"

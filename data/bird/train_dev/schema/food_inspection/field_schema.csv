@@ -1,0 +1,30 @@
+table,db,field_name,field_name_desc,field_type
+businesses,food_inspection,address,the eatery address [format: text],text
+businesses,food_inspection,application_date,the application date of the eatery [format: date],date
+businesses,food_inspection,business_certificate,the business certificate number [format: integer],integer
+businesses,food_inspection,business_id,the unique id of the business [format: integer] [primary key],integer
+businesses,food_inspection,city,the city where the eatery is located in [format: text],text
+businesses,food_inspection,latitude,the latitude of the position [format: real],real
+businesses,food_inspection,longitude,"the longitude of the position [format: real] Value: commonsense evidence:
+the distance between eatery A and eatery B = \sqrt{(latitude_A-latitude_B)^2 + (longitude_A-longitude_B)^2}",real
+businesses,food_inspection,name,the name of the eatery [format: text],text
+businesses,food_inspection,owner_address,the owner's address [format: text],text
+businesses,food_inspection,owner_city,the city where the owner is located [format: text],text
+businesses,food_inspection,owner_name,the owner's name [format: text],text
+businesses,food_inspection,owner_state,the state where the owner is located [format: text],text
+businesses,food_inspection,owner_zip,the zip code of the owner [format: text],text
+businesses,food_inspection,phone_number,the phone number of the eatery [format: integer],integer
+businesses,food_inspection,postal_code,the postal code of the eatery [format: text],text
+businesses,food_inspection,tax_code,the tax code of the eatery [format: text],text
+inspections,food_inspection,business_id,the unique id of the business [format: integer] [foreign key -> businesses.business_id],integer
+inspections,food_inspection,date,the inspection date [format: date],date
+inspections,food_inspection,score,"the inspection score [format: integer] Value: commonsense evidence:
+The scores range from 1 to 100, where 100 means that the establishment meets all required standards.",integer
+inspections,food_inspection,type,the inspection type [format: text],text
+violations,food_inspection,business_id,the unique id of the business [format: integer] [foreign key -> businesses.business_id],integer
+violations,food_inspection,date,the date of the violation [format: date],date
+violations,food_inspection,description,the description of the violation [format: text],text
+violations,food_inspection,risk_category,"risk category
+High / Moderate / Low risk [format: text] Value: commonsense evidence:
+High risks have more safety and health hazards than low risks",text
+violations,food_inspection,violation_type_id,the unique type id of the violation [format: text],text

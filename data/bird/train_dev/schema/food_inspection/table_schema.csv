@@ -1,0 +1,32 @@
+table,db,table_desc,field,schema
+businesses,food_inspection,businesses,address|application_date|business_certificate|business_id|city|latitude|longitude|name|owner_address|owner_city|owner_name|owner_state|owner_zip|phone_number|postal_code|tax_code,"CREATE TABLE businesses (
+  address,
+  application_date,
+  business_certificate,
+  business_id,
+  city,
+  latitude,
+  longitude,
+  name,
+  owner_address,
+  owner_city,
+  owner_name,
+  owner_state,
+  owner_zip,
+  phone_number,
+  postal_code,
+  tax_code
+);"
+inspections,food_inspection,inspections,business_id|date|score|type,"CREATE TABLE inspections (
+  business_id,
+  date,
+  score,
+  type
+);"
+violations,food_inspection,violations,business_id|date|description|risk_category|violation_type_id,"CREATE TABLE violations (
+  business_id,
+  date,
+  description,
+  risk_category,
+  violation_type_id
+);"

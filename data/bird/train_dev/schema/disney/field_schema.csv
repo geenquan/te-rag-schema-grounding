@@ -1,0 +1,38 @@
+table,db,field_name,field_name_desc,field_type
+characters,disney,hero,"The main character of the movie. [format: text] Value: commonsense evidence:
+
+round role [foreign key -> voice-actors.character]",text
+characters,disney,movie_title,unique title of the movie [format: text] [primary key],text
+characters,disney,release_date,The release date of the movie. [format: text],text
+characters,disney,song,A song associated with the movie. [format: text],text
+characters,disney,villian,The villain of the movie. [format: text] Value: a character whose evil actions or motives are important to the plot.,text
+director,disney,director,"the name of the director [format: text] Value: one director may have multiple movies.
+
+more movies --> this director is more productive",text
+director,disney,name,unique movie name [format: text] [primary key] [foreign key -> characters.movie_title],text
+movies_total_gross,disney,MPAA_rating,"Motion Picture Association of America of the disney movie [format: text] Value: commonsense evidence:
+â¢ G: general audience
+â¢ PG: mature audiences or parental guidance suggested
+â¢ R: restricted: no children under 17 allowed without parents or adult guardians
+â¢ PG-13: PARENTS STRONGLY CAUTIONED. Some material may be inappropriate for children under 13
+movies need accompany with parents: PG, PG-13, PG-17;
+if ""Not rated"" or null, it means this film can show only gets permissions by theatre management
+if the film can show without need of permissions of theatre management, the MPAA_rating should not be ""Not rated"" or null",text
+movies_total_gross,disney,genre,genre of the movie [format: text],text
+movies_total_gross,disney,inflation_adjusted_gross,"The inflation-adjusted gross of the movie. [format: text] Value: commonsense evidence:
+estimated inflation rate = inflation_adjusted_gross / total_gross;
+the current gross = inflation_adjusted_gross",text
+movies_total_gross,disney,movie_title,movie title [format: text] [primary key] [foreign key -> characters.movie_title],text
+movies_total_gross,disney,release_date,release date [format: text] [primary key],text
+movies_total_gross,disney,total_gross,"The total gross of the movie. [format: text] Value: commonsense evidence:
+more total_gross--> more popular movie",text
+revenue,disney,Disney Consumer Products[NI 2],The consumer products segment of the Walt Disney Company. [format: real],real
+revenue,disney,Disney Interactive[NI 3][Rev 1],The interactive segment of the Walt Disney Company. [format: integer],integer
+revenue,disney,Disney Media Networks,The media networks segment of the Walt Disney Company. [format: text],text
+revenue,disney,Studio Entertainment[NI 1],The studio entertainment segment of the Walt Disney Company. [format: real],real
+revenue,disney,Total,The total box office gross for the movie. [format: integer],integer
+revenue,disney,Walt Disney Parks and Resorts,The parks and resorts segment of the Walt Disney Company. [format: real],real
+revenue,disney,Year,The year the movie was released. [format: integer] [primary key],integer
+voice-actors,disney,character,The unique name of the character. [format: text] [primary key],text
+voice-actors,disney,movie,The name of the movie. [format: text] [foreign key -> characters.movie_title],text
+voice-actors,disney,voice-actor,The name of the voice actor. [format: text],text

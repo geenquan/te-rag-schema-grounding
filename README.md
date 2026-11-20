@@ -17,24 +17,39 @@ construction, and isolation auditing only.
 | Item | Value |
 |---|---|
 | Public release | `public-v0.1.x` (see CHANGELOG) |
-| Paper baseline | tag `paper-dasfaa2027-v1.0`, commit `25aa5e807d5cd6f8d5a3911e253ef89424d743e4` |
-| Algorithm identity | `transfer_v3_target_cap` (unchanged; see docs/release_mapping.md) |
-| Relationship | Same algorithm code, exported under an explicit file whitelist with English comments, parameterized paths, a unified CLI, layered configs, a synthetic demo, and offline analyses. Private data, predictions, prompts, and caches are **not** included. |
+| Final-paper profile | `paper_final_20261120` — the frozen identities of the current submission (this README's BIRD paths; see below and docs/release_mapping.md) |
+| Original paper baseline | tag `paper-dasfaa2027-v1.0`, commit `25aa5e807d5cd6f8d5a3911e253ef89424d743e4` |
+| Algorithm identity (grid) | `transfer_v3_target_cap` scoring, final engine identity `graph_casefold_ids_v1+pattern_consumer_casefold_v1` (see docs/release_mapping.md) |
+| BIRD engine identity | per-database frozen engines (`BirdEngine`/`VnextEngine`) executed through a unified entry; implementation ids recorded per run |
+| Relationship | Same algorithm lineage, exported under an explicit file whitelist with English comments, parameterized paths, a unified CLI, layered configs, a synthetic demo, the complete public BIRD inputs, and offline analyses. Private enterprise data, predictions, prompts, and caches are **not** included. |
+
+The paper with appendix is shipped as
+[docs/paper_with_appendix.pdf](docs/paper_with_appendix.pdf)
+(SHA256 `552083ea328ec5adc7e4cef4baeca17af981e91da727f8f35ddabfd5d15d279a`,
+21 pages). No TeX sources, figures, or writing materials are included.
 
 What this repository supports — stated precisely:
 
 * **Demo execution** — the bundled synthetic dataset runs the full pipeline
-  offline. It verifies that the public code path works. **It does not
-  reproduce any paper number.**
-* **Experiment reproduction** — with your own authorized data in the
-  documented format, every reported method, protocol, and analysis can be
-  executed end to end.
-* **Numerical reproduction** — reproducing the paper's *values* additionally
-  requires the original authorized enterprise dataset, its fixed splits, and
-  comparable run conditions. Those inputs are not redistributed here; the
-  denominators (e.g. 88 runs / 76 valid / 65 budget-feasible in the paper)
-  are properties of that dataset and are always **recomputed** from your
-  gold, never hardcoded.
+  offline. It verifies that public code paths work. **It does not reproduce
+  any paper number.**
+* **BIRD reproduction (complete)** — the full public BIRD Train/Dev inputs,
+  frozen five-fold manifests, gold, per-database schemas, and frozen engine
+  configurations are included, so every BIRD table of the paper (overall Q,
+  the Q three-stage Core/Rerank/Gate decomposition, H-opt, fixed and
+  independently-optimized ablations, all offline baselines) can be
+  re-executed end to end offline, and every reported value recomputed from
+  the shipped reference predictions without any model or API.
+* **Experiment reproduction on private data** — with your own authorized
+  data in the documented format, every reported method, protocol, and
+  analysis can be executed end to end (the power-grid final engine is
+  included for exactly this purpose).
+* **Grid numerical reproduction** — reproducing the power-grid *values*
+  additionally requires the original authorized enterprise dataset, its
+  fixed splits, and comparable run conditions. Those inputs are not
+  redistributed here; the denominators (e.g. 88 runs / 76 valid / 65
+  budget-feasible in the paper) are properties of that dataset and are
+  always **recomputed** from your gold, never hardcoded.
 
 ## Method structure
 
@@ -59,17 +74,31 @@ column (≤3 acceptances) and per table (≤8 texts).
 
 ## Supported methods and protocol matrix
 
-Eleven reported methods: **BM25, TF-IDF, Hybrid, MetadataMatched,
-ExampleRRF, CooccurRRF, Dense, DenseDeepSeek, LinkAlign-SingleDB-Adapted,
-KaSLA-Adapted, TE-RAG-Full**; six ablations: **noBC, noC, noAnnIdx, noAnnHit,
-noGraph, noPattern**.
+**Grid/private protocol matrix (original paper baseline).** Eleven reported
+methods: **BM25, TF-IDF, Hybrid, MetadataMatched, ExampleRRF, CooccurRRF,
+Dense, DenseDeepSeek, LinkAlign-SingleDB-Adapted, KaSLA-Adapted,
+TE-RAG-Full**; six legacy ablations: **noBC, noC, noAnnIdx, noAnnHit,
+noGraph, noPattern**; the final-paper grid profile additionally exposes the
+nine independent switch ablations (**noBIndex, noBHit, noB, noTableGraph,
+noFieldGraph, noGraph, noPattern, noC**) with per-fold frozen parameters
+(`configs/paper/final_20261120/grid_selected_configurations.csv`) through
+the final engine `terag.engines.grid.GridEngine`.
 
-Formal protocol matrix (exactly the paper's 25 saved groups):
+Formal protocol matrix (exactly the original paper's 25 saved groups):
 
 | Protocol | Groups |
 |---|---|
 | Question-Level (`question_v1`) | 14 = 11 methods + noBC + noAnnIdx + noAnnHit |
 | Held-Out-Table (`table_v2`) | 11 = BM25/TF-IDF/Hybrid/MetadataMatched/ExampleRRF/CooccurRRF + Full + noBC + noC + noGraph + noPattern |
+
+**BIRD matrix (final paper).** The same ten baselines plus the engine
+methods of `configs/paper/final_20261120/bird_final_configs.json`: `Core`
+(the DEFAULT-parameter full engine), the Q-selected `qB_rerank_gate_v1`
+with its rerank-only and nine fixed-ablation members, the H-selected
+`full_href_1_8` with its gate-off and fixed-ablation members, the
+independently optimized `optimized_full_Q/H` tracks, adaptive variants, and
+candidate rows — 54 question / 50 heldout method groups in total. Dense and
+the three API methods ran the question protocol only, exactly as reported.
 
 Dense, DenseDeepSeek, LinkAlign-SingleDB-Adapted and KaSLA-Adapted were run
 on Question-Level only in the paper; absent groups are never zero-filled.
@@ -192,7 +221,97 @@ success summary is written. Legal empty predictions count as successes. `validat
 `statistics` validate their inputs and write a report/manifest; the full
 run_meta provenance applies to the execution commands.
 
-## Running the full protocol on your own data
+## BIRD — complete reproduction of the paper's BIRD experiments (offline)
+
+The repository ships the **complete public BIRD retrieval inputs**
+(`data/bird/`, CC BY-SA 4.0): the raw Train/Dev questions and table schemas,
+the frozen Dev five-fold population (question 55 / heldout 50 database-fold
+cells; 1530 verified evaluation questions of 1534 raw — the 4 exclusions are
+recorded in the manifests), the derived gold, per-database schema CSVs, the
+Train development partitions (9068 verified of 9428 raw), and the frozen
+engine configurations of the final paper. SQLite database archives are not
+needed for schema grounding and are not shipped (official links in
+`data/bird/SOURCES.md`).
+
+Key identities (percent; see docs/experiment_catalog.md for every table):
+
+| Paper row | protocol / method | Covered@5 | Column F1 | FGCS |
+|---|---|---:|---:|---:|
+| Q Core | question / `Core` | 93.79 | 25.30 | 75.62 |
+| Q Rerank only | question / `qB_rerank_gate_v1-field_filter_gate_off` | 93.79 | 25.97 | 81.24 |
+| Q + Gate | question / `qB_rerank_gate_v1` | 93.79 | 27.87 | 77.91 |
+| H core | heldout / `Core` | 76.54 | 21.99 | 51.70 |
+| H-opt | heldout / `full_href_1_8` | 82.29 | 22.98 | 57.97 |
+
+Recompute them from the shipped reference predictions (no model, no API,
+seconds):
+
+```sh
+python -m terag_release evaluate-bird-reference --output runs/refcheck
+```
+
+Re-execute the methods from code (offline; engines are rebuilt from the
+frozen inputs; `PYTHONHASHSEED=0` is enforced automatically):
+
+```sh
+# 1. question three-stage decomposition (Core / Rerank / Gate)
+python -m terag_release run-bird --experiment bird_q_three_stage --output runs/bird_q3
+
+# 2. H-opt and the fixed H ablations
+python -m terag_release run-bird --experiment bird_h_opt --output runs/bird_h
+
+# 3. fixed Q ablations (nine switch rows) and the optimized-track replay
+python -m terag_release run-bird --experiment bird_q_fixed_ablation --output runs/bird_qabl
+python -m terag_release run-bird --experiment bird_optimized_replay --output runs/bird_opt
+
+# 4. the six offline baselines; the complete offline matrix; Core alone
+python -m terag_release run-bird --experiment bird_baselines_offline --output runs/bird_base
+python -m terag_release run-bird --experiment bird_full_matrix --output runs/bird_all
+python -m terag_release run-bird --methods Core --protocols question --output runs/bird_core
+
+# 5. paired statistics over a run's per-question metrics (db-cluster exact
+#    sign-flip + bootstrap, frozen declared families, Bonferroni over the
+#    declared K; Delta = Full - Ablation)
+python -m terag_release bird-statistics --run runs/bird_q3 --output runs/bird_q3_stats
+```
+
+Every execution command writes a NEW output directory containing per-cell
+predictions, per-question execution evidence (mechanism
+enabled/executed/changed — a declared-but-not-executed `field_rerank`/`hg`
+layer is a hard error, never a silent no-op), per-method recomputed metrics
+with population/budget/db-scope gates, and a `run_meta/run_meta.json`
+provenance block (code hashes, frozen-config SHA256, data identity, planned
+and executed units, statuses, timings). Failed questions become error
+records that stay in the denominator and make the run exit non-zero.
+
+### Optional Dense and API baselines (network, your cost)
+
+```sh
+# Dense: downloads the pinned MiniLM revision on first use
+python -m terag_release run-bird --experiment bird_dense --allow-network \
+    --output runs/bird_dense
+
+# DenseDeepSeek / KaSLA-Adapted / LinkAlign-SingleDB-Adapted (deepseek-flash,
+# thinking disabled): your DEEPSEEK_API_KEY (env-only, never a file), an
+# explicit budget cap, and explicit network opt-in
+export DEEPSEEK_API_KEY=...
+python -m terag_release run-bird --experiment bird_api --allow-network \
+    --budget-cap-cny 5 --output runs/bird_api
+```
+
+The three API methods keep the frozen research call semantics (one
+app-level retry, conservative cross-process budget broker with peak-price
+reservations and unknown-bill accounting, durable HTTP response cache).
+Online model responses are **not** guaranteed to match the historical
+reference predictions bit-for-bit; compare against
+`results/reference/bird/` for the paper's values. The historical runs spent
+≈ CNY 30 in total on the selector API; that budget is never reused — you
+must set your own cap. `LinkAlign-SingleDB-Adapted` and `KaSLA-Adapted`
+remain adapted baselines (declared model/scorer replacements), not
+reproductions of the original checkpoints; `DenseDeepSeek` is an independent
+custom baseline.
+
+## Running the full protocol on your own data (grid/private)
 
 Configuration references accept a **name** (under `configs/<kind>/`) or an
 explicit **file path** — e.g. `--dataset mydata` or
@@ -341,7 +460,7 @@ mean of fold means; offline methods only). Any number it produces is a
 python -m unittest discover -s tests -v
 ```
 
-119 tests cover: deterministic paper-parity fold construction and manifest
+227 tests cover: deterministic paper-parity fold construction and manifest
 re-validation (leaks/duplication/misordering rejected before any fit),
 qid↔question alignment, the 25-group matrix and exact ablation toggles,
 KaSLA full-SQL supervision on the real classifiers, metric
@@ -351,25 +470,46 @@ binding (parameter change → constructor change → hash change; frozen
 parameters rejected under the paper profile), run-status semantics
 (all-fail → non-zero exit + error records; partial labeled), credential
 boundaries (no file fallback, ever), English-comment policy, and
-package-content safety.
+package-content safety — plus the final-paper additions: BIRD input
+identity (raw SHA pins, 55/50 cells, 1530/9068 verified populations),
+ported-engine behavior (switch semantics, unified-entry hard errors on
+declared-but-not-executed mechanisms, budget violations, metric parity on
+crafted records, frozen config values), runner wiring (method resolution,
+API budget/credential guards, families-sidecar tamper detection), grid
+engine identity, frozen profile file identities (paper PDF SHA), and
+reference-results integrity (completeness, sanitization, and the paper's
+key values including the negative boundaries).
 
 ## Limitations and honest boundaries
 
-* The enterprise dataset, gold, folds, saved predictions, prompts/responses,
-  API caches, indexes, graphs, and annotation artifacts of the paper runs
-  are private and not redistributed.
+* The enterprise (power-grid) dataset, its gold, folds, saved predictions,
+  prompts/responses, API caches, indexes, graphs, and annotation artifacts
+  of the paper runs are private and not redistributed; enterprise reference
+  predictions are not published. The grid numbers can therefore be
+  *executed* here only on authorized data — the engine, protocols, and
+  frozen per-fold parameters are complete.
+* BIRD inputs shipped here are the complete public retrieval inputs; the
+  BIRD **SQLite databases** are not shipped (not needed for schema
+  grounding; official links in data/bird/SOURCES.md).
+* The API methods (DenseDeepSeek, KaSLA-Adapted,
+  LinkAlign-SingleDB-Adapted) were **not** re-run online for this release:
+  their historical reference predictions ship as sanitized per-question
+  records (`results/reference/bird/`), and their online entry points are
+  contract-tested offline. An online rerun is a new measurement at your own
+  cost and is not guaranteed to match the historical responses.
 * Historical per-transfer traces and per-query score components of the
-  original runs were never saved; new diagnostic exports are new-computation
-  evidence, not recovered originals.
+  original grid runs were never saved; new diagnostic exports are
+  new-computation evidence, not recovered originals.
 * `noGraph` disables explicit graph **scores**; the graph is still built
   (pattern mining consumes it). `noPattern` disables the independent keyword
-  pattern channel — distinct from TEMPLATE annotations.
-* BIRD results, historical SQL-accuracy numbers, and legacy experimental
-  retrievers (a simulated LLM method, TE-RAG v1, RAT-SQL/RESDSQL/Seq2SQL/
-  IRNet adaptations) are intentionally not shipped.
-* Dense/DeepSeek/adapted methods were not exercised against real models or
-  the API in this release's verification (offline verification only);
-  their entry points are mock-tested.
+  pattern channel — distinct from TEMPLATE annotations. On BIRD the
+  independently optimized Full/noBIndex comparison is **negative**
+  (Full−noBIndex = −0.51pp F1, corrected p=0.031); C shows no verifiable
+  gain; the H-opt advantage over metadata baselines does not survive
+  declared correction. These boundaries are kept visible, not smoothed.
+* Historical SQL-accuracy numbers and legacy experimental retrievers (a
+  simulated LLM method, TE-RAG v1, RAT-SQL/RESDSQL/Seq2SQL/IRNet
+  adaptations) are intentionally not shipped.
 
 ## Documentation
 
@@ -378,16 +518,23 @@ package-content safety.
 * [docs/reproduction.md](docs/reproduction.md) — reproduction guide and
   boundaries
 * [docs/data_format.md](docs/data_format.md) — input contract (CSVs, gold,
-  splits, predictions)
+  splits, predictions; the BIRD data tree)
 * [docs/configuration.md](docs/configuration.md) — configuration reference
   (resolution order, profiles, fixed-parameter enforcement)
 * [docs/release_mapping.md](docs/release_mapping.md) — paper tag ↔ public
-  release mapping (including all v0.1.1 adaptations)
-* [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md) — third-party notices
+  release mapping (including all v0.1.1 adaptations and the final-paper
+  profile)
+* [docs/paper_with_appendix.pdf](docs/paper_with_appendix.pdf) — the
+  submitted paper with appendix (21 pages)
+* [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md) — third-party notices;
+  BIRD data license: `data/bird/LICENSE-BIRD-DATA.txt` (CC BY-SA 4.0)
 
 ## License
 
-TBD — the repository license is pending the owner's decision (deliberately
-not set at v0.1.0/v0.1.1). Until a LICENSE file is present, no reuse rights
-are granted beyond inspection. Third-party components (LinkAlign prompts,
-KaSLA utilities) carry their own MIT licenses (see THIRD_PARTY_LICENSES.md).
+TBD — the repository **code** license is pending the owner's decision
+(deliberately not set at v0.1.0/v0.1.1). Until a LICENSE file is present, no
+reuse rights are granted beyond inspection. Third-party components (LinkAlign
+prompts, KaSLA utilities) carry their own MIT licenses (see
+THIRD_PARTY_LICENSES.md). The BIRD **data** under `data/bird/` is licensed
+CC BY-SA 4.0 from the BIRD benchmark authors — a separate license that
+covers the raw and derived data files, independent of the code license.

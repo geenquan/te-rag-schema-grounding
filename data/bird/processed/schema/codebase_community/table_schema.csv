@@ -1,0 +1,88 @@
+table,db,table_desc,field,schema
+badges,codebase_community,badges,Date|Id|Name|UserId,"CREATE TABLE badges (
+  Date,
+  Id,
+  Name,
+  UserId
+);"
+comments,codebase_community,comments,CreationDate|Id|PostId|Score|Text|UserDisplayName|UserId,"CREATE TABLE comments (
+  CreationDate,
+  Id,
+  PostId,
+  Score,
+  Text,
+  UserDisplayName,
+  UserId
+);"
+postHistory,codebase_community,post History,Comment|CreationDate|Id|PostHistoryTypeId|PostId|RevisionGUID|Text|UserDisplayName|UserId,"CREATE TABLE postHistory (
+  Comment,
+  CreationDate,
+  Id,
+  PostHistoryTypeId,
+  PostId,
+  RevisionGUID,
+  Text,
+  UserDisplayName,
+  UserId
+);"
+postLinks,codebase_community,post Links,CreationDate|Id|LinkTypeId|PostId|RelatedPostId,"CREATE TABLE postLinks (
+  CreationDate,
+  Id,
+  LinkTypeId,
+  PostId,
+  RelatedPostId
+);"
+posts,codebase_community,posts,AcceptedAnswerId|AnswerCount|Body|ClosedDate|CommentCount|CommunityOwnedDate|CreaionDate|FavoriteCount|Id|LasActivityDate|LastEditDate|LastEditorDisplayName|LastEditorUserId|OwnerDisplayName|OwnerUserId|ParentId|PostTypeId|Score|Tags|Title|ViewCount,"CREATE TABLE posts (
+  AcceptedAnswerId,
+  AnswerCount,
+  Body,
+  ClosedDate,
+  CommentCount,
+  CommunityOwnedDate,
+  CreaionDate,
+  FavoriteCount,
+  Id,
+  LasActivityDate,
+  LastEditDate,
+  LastEditorDisplayName,
+  LastEditorUserId,
+  OwnerDisplayName,
+  OwnerUserId,
+  ParentId,
+  PostTypeId,
+  Score,
+  Tags,
+  Title,
+  ViewCount
+);"
+tags,codebase_community,tags,Count|ExcerptPostId|Id|TagName|WikiPostId,"CREATE TABLE tags (
+  Count,
+  ExcerptPostId,
+  Id,
+  TagName,
+  WikiPostId
+);"
+users,codebase_community,users,AboutMe|AccountId|Age|CreationDate|DisplayName|DownVotes|Id|LastAccessDate|Location|ProfileImageUrl|Reputation|UpVotes|Views|WebsiteUrl,"CREATE TABLE users (
+  AboutMe,
+  AccountId,
+  Age,
+  CreationDate,
+  DisplayName,
+  DownVotes,
+  Id,
+  LastAccessDate,
+  Location,
+  ProfileImageUrl,
+  Reputation,
+  UpVotes,
+  Views,
+  WebsiteUrl
+);"
+votes,codebase_community,votes,BountyAmount|CreationDate|Id|PostId|UserId|VoteTypeId,"CREATE TABLE votes (
+  BountyAmount,
+  CreationDate,
+  Id,
+  PostId,
+  UserId,
+  VoteTypeId
+);"

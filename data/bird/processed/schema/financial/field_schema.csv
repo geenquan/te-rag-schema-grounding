@@ -1,0 +1,78 @@
+table,db,field_name,field_name_desc,field_type
+account,financial,account_id,the id of the account [format: integer] [primary key],integer
+account,financial,date,the creation date of the account [format: date] Value: in the form YYMMDD,date
+account,financial,district_id,location of branch [format: integer] [foreign key -> district.district_id],integer
+account,financial,frequency,frequency of the acount [format: text],text
+card,financial,card_id,id number of credit card [format: integer] [primary key],integer
+card,financial,disp_id,disposition id [format: integer] [foreign key -> disp.disp_id],integer
+card,financial,issued,the date when the credit card issued [format: date] Value: in the form YYMMDD,date
+card,financial,type,"type of credit card [format: text] Value: ""junior"": junior class of credit card; 
+""classic"": standard class of credit card; 
+""gold"": high-level credit card",text
+client,financial,birth_date,birth date [format: date],date
+client,financial,client_id,the unique number [format: integer] [primary key],integer
+client,financial,district_id,location of branch [format: integer] [foreign key -> district.district_id],integer
+client,financial,gender,"[format: text] Value: F：female 
+M：male",text
+disp,financial,account_id,id number of account [format: integer] [foreign key -> account.account_id],integer
+disp,financial,client_id,id number of client [format: integer] [foreign key -> client.client_id],integer
+disp,financial,disp_id,unique number of identifying this row of record [format: integer] [primary key],integer
+disp,financial,type,"type of disposition [format: text] Value: ""OWNER"" : ""USER"" : ""DISPONENT""
+commonsense evidence:
+the account can only have the right to issue permanent orders or apply for loans",text
+district,financial,A10,ratio of urban inhabitants [format: real],real
+district,financial,A11,average salary [format: integer],integer
+district,financial,A12,unemployment rate 1995 [format: real],real
+district,financial,A13,unemployment rate 1996 [format: real],real
+district,financial,A14,no. of entrepreneurs per 1000 inhabitants [format: integer],integer
+district,financial,A15,no. of committed crimes 1995 [format: integer],integer
+district,financial,A16,no. of committed crimes 1996 [format: integer],integer
+district,financial,A2,district_name [format: text],text
+district,financial,A3,region [format: text],text
+district,financial,A4,[format: text],text
+district,financial,A5,municipality < district < region [format: text],text
+district,financial,A6,municipality < district < region [format: text],text
+district,financial,A7,municipality < district < region [format: text],text
+district,financial,A8,municipality < district < region [format: integer],integer
+district,financial,A9,[format: integer] Value: not useful,integer
+district,financial,district_id,location of branch [format: integer] [primary key],integer
+loan,financial,account_id,the id number identifying the account [format: integer] [foreign key -> account.account_id],integer
+loan,financial,amount,approved amount [format: integer] Value: unit：US dollar,integer
+loan,financial,date,the date when the loan is approved [format: date],date
+loan,financial,duration,loan duration [format: integer] Value: unit：month,integer
+loan,financial,loan_id,the id number identifying the loan data [format: integer] [primary key],integer
+loan,financial,payments,monthly payments [format: real] Value: unit：month,real
+loan,financial,status,"repayment status [format: text] Value: 'A' stands for contract finished, no problems;
+'B' stands for contract finished, loan not paid;
+'C' stands for running contract, OK so far;
+'D' stands for running contract, client in debt",text
+order,financial,account_id,id number of account [format: integer] [foreign key -> account.account_id],integer
+order,financial,account_to,account of the recipient [format: integer] Value: each bank has unique two-letter code,integer
+order,financial,amount,debited amount [format: real],real
+order,financial,bank_to,bank of the recipient [format: text],text
+order,financial,k_symbol,"purpose of the payment [format: text] Value: ""POJISTNE"" stands for insurance payment
+""SIPO"" stands for household payment
+""LEASING"" stands for leasing
+""UVER"" stands for loan payment",text
+order,financial,order_id,identifying the unique order [format: integer] [primary key],integer
+trans,financial,account,[format: integer],integer
+trans,financial,account_id,[format: integer] [foreign key -> account.account_id],integer
+trans,financial,amount,amount of money [format: integer] Value: Unit：USD,integer
+trans,financial,balance,balance after transaction [format: integer] Value: Unit：USD,integer
+trans,financial,bank,[format: text] Value: each bank has unique two-letter code,text
+trans,financial,date,date of transaction [format: date],date
+trans,financial,k_symbol,"[format: text] Value: ""POJISTNE"": stands for insurrance payment
+""SLUZBY"": stands for payment for statement
+""UROK"": stands for interest credited
+""SANKC. UROK"": sanction interest if negative balance
+""SIPO"": stands for household
+""DUCHOD"": stands for old-age pension
+""UVER"": stands for loan payment",text
+trans,financial,operation,"mode of transaction [format: text] Value: ""VYBER KARTOU"": credit card withdrawal
+""VKLAD"": credit in cash
+""PREVOD Z UCTU"" :collection from another bank
+""VYBER"": withdrawal in cash
+""PREVOD NA UCET"": remittance to another bank",text
+trans,financial,trans_id,transaction id [format: integer] [primary key],integer
+trans,financial,type,"+/- transaction [format: text] Value: ""PRIJEM"" stands for credit
+""VYDAJ"" stands for withdrawal",text

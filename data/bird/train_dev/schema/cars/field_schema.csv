@@ -1,0 +1,18 @@
+table,db,field_name,field_name_desc,field_type
+country,cars,country,the origin country of the car [format: text],text
+country,cars,origin,the unique identifier for the origin country [format: integer] [primary key],integer
+data,cars,ID,unique ID for each car [format: integer] [primary key] [foreign key -> price.ID],integer
+data,cars,acceleration,acceleration of the car in miles per squared hour [format: real],real
+data,cars,car_name,name of the car [format: text],text
+data,cars,cylinders,the number of cylinders present in the car [format: integer],integer
+data,cars,displacement,engine displacement in cubic mm [format: real] Value: commonsense evidence: sweep volume = displacement / no_of cylinders,real
+data,cars,horsepower,"horse power associated with the car [format: integer] Value: commonsense evidence: horse power is the metric used to indicate the power produced by a car's engine - the higher the number, the more power is sent to the wheels and, in theory, the faster it will go.",integer
+data,cars,model,the year when the car model was introduced in the market [format: integer] Value: commonsense evidence: 0 --> 1970,integer
+data,cars,mpg,mileage of the car in miles per gallon [format: real] Value: commonsense evidence: The car with higher mileage is more fuel-efficient.,real
+data,cars,weight,"weight of the car in lbs [format: integer] Value: commonsense evidence: A bigger, heavier vehicle provides better crash protection than a smaller",integer
+price,cars,ID,unique ID for each car [format: integer] [primary key],integer
+price,cars,price,price of the car in USD [format: real],real
+production,cars,ID,the id of the car [format: integer] [primary key] [foreign key -> data.ID],integer
+production,cars,country,"country id to which the car belongs [format: integer] Value: Japan --> Asia 
+USA --> North America [foreign key -> country.origin]",integer
+production,cars,model_year,year when the car model was introduced in the market [format: integer] [primary key],integer

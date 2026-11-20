@@ -1,0 +1,35 @@
+table,db,field_name,field_name_desc,field_type
+Method,codebase_comments,ApiCalls,linearized sequenced of API calls [format: text],text
+Method,codebase_comments,CommentIsXml,"whether the comment is XML format or not [format: integer] Value: commonsense evidence:
+
+0: the comment for this method is not XML format.
+1: the comment for this method is XML format.",integer
+Method,codebase_comments,FullComment,full comment of this method [format: text],text
+Method,codebase_comments,Id,"unique id number
+that identifies methods [format: integer] [primary key]",integer
+Method,codebase_comments,Lang,language code of method [format: text],text
+Method,codebase_comments,Name,"name of methods [format: text] Value: the second part is the task of this method
+delimited by "".""",text
+Method,codebase_comments,NameTokenized,tokenized name [format: text],text
+Method,codebase_comments,SampledAt,the time of sampling [format: integer],integer
+Method,codebase_comments,SolutionId,id number of solutions [format: integer],integer
+Method,codebase_comments,Summary,summary of the method [format: text],text
+MethodParameter,codebase_comments,Id,unique id number identifying method parameters [format: integer] [primary key],integer
+MethodParameter,codebase_comments,MethodId,[format: text],text
+MethodParameter,codebase_comments,Name,"name of the method [format: text] Value: commonsense evidence:
+
+if the name is not a word like ""H"", ""z"", it means this method is not well-discriminative.",text
+MethodParameter,codebase_comments,Type,type of the method [format: text],text
+Repo,codebase_comments,Forks,forks that the repository has received [format: integer],integer
+Repo,codebase_comments,Id,unique id to identify repositories [format: integer] [primary key],integer
+Repo,codebase_comments,ProcessedTime,how much processed time of downloading this repository [format: integer],integer
+Repo,codebase_comments,Stars,stars this repository has received [format: integer],integer
+Repo,codebase_comments,Url,github address of repository [format: text],text
+Repo,codebase_comments,Watchers,how many watchers of this repository [format: integer],integer
+Solution,codebase_comments,Id,unique id to identify this solution [format: integer] [primary key],integer
+Solution,codebase_comments,Path,path of this solution [format: text],text
+Solution,codebase_comments,ProcessedTime,processed time [format: integer],integer
+Solution,codebase_comments,RepoId,id of repository [format: integer],integer
+Solution,codebase_comments,WasCompiled,"whether this solution needs to be compiled or not [format: integer] Value: commonsense evidence:
+0: this solution needs to be compiled if user wants to implement it.
+1: this solution can be implemented without needs of compilation",integer

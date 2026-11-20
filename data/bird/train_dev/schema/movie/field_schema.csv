@@ -1,0 +1,37 @@
+table,db,field_name,field_name_desc,field_type
+actor,movie,ActorID,the unique id for the actor [format: integer] [primary key],integer
+actor,movie,Biography,actor's biography [format: text],text
+actor,movie,Birth City,actor's birth city [format: text],text
+actor,movie,Birth Country,actor's birth country [format: text],text
+actor,movie,Date of Birth,actor's birth date [format: date],date
+actor,movie,Ethnicity,actor's ethnicity [format: text],text
+actor,movie,Gender,actor's gender [format: text],text
+actor,movie,Height (Inches),actor's height [format: integer] Value: the unit is inch,integer
+actor,movie,Name,actor's name [format: text],text
+actor,movie,NetWorth,"actor's networth [format: text] Value: commonsense evidence:
+The actor with more networth is richer.",text
+characters,movie,ActorID,the unique id for the actor [format: integer] [primary key] [foreign key -> actor.ActorID],integer
+characters,movie,Character Name,the name of the character [format: text],text
+characters,movie,MovieID,the unique id for the movie [format: integer] [primary key] [foreign key -> movie.MovieID],integer
+characters,movie,creditOrder,order of the character in the credit list [format: integer],integer
+characters,movie,pay,the salary of the character [format: text],text
+characters,movie,screentime,"the screentime of the character [format: text] Value: commonsense evidence:
+Screentime is directly proportional to the importance of the characters.",text
+movie,movie,Budget,the budget of the movie [format: integer] Value: the unit is dollar,integer
+movie,movie,Genre,the genre of the movie [format: text],text
+movie,movie,Gross,the gross of the movie [format: integer],integer
+movie,movie,MPAA Rating,"MPAA rating of the movie [format: text] Value: commonsense evidence:
+MPAA rating is the movie rating for parents to use as a guide to determine the appropriateness of a film's content for children and teenagers. 
+ rated G: General audiences  All ages admitted
+ rated PG: Parental guidance suggested  Some material may not be suitable for pre-teenagers
+ rated R: Restricted  Under 17 requires accompanying parent or adult guardian
+ rated X: No one under 17 admitted",text
+movie,movie,MovieID,the unique id for the movie [format: integer] [primary key],integer
+movie,movie,Rating,"the rating of the movie [format: real] Value: 0.0 - 10.0
+commonsense evidence:
+Higher ratings mean higher quality and better response.",real
+movie,movie,Rating Count,the number of the ratings [format: integer],integer
+movie,movie,Release Date,release date [format: text] Value: yyyy-mm-dd,text
+movie,movie,Runtime,the runtime of the movie [format: integer],integer
+movie,movie,Summary,the summary of the movie [format: text],text
+movie,movie,Title,the title of the movie [format: text],text

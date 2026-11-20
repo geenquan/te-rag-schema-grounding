@@ -1,0 +1,44 @@
+table,db,field_name,field_name_desc,field_type
+city,shipping,area,"square miles the city covers [format: real] Value: commonsense evidence: 
+population density (land area per capita) = area / population",real
+city,shipping,city_id,unique identifier for the city [format: integer] [primary key],integer
+city,shipping,city_name,name of the city [format: text],text
+city,shipping,population,population of the city [format: integer],integer
+city,shipping,state,state in which the city is [format: text],text
+customer,shipping,address,Physical street address of the customer [format: text],text
+customer,shipping,annual_revenue,Annual revenue of the customer [format: integer],integer
+customer,shipping,city,City of the customer's address [format: text],text
+customer,shipping,cust_id,Unique identifier for the customer [format: integer] [primary key],integer
+customer,shipping,cust_name,Business name of the customer [format: text],text
+customer,shipping,cust_type,Whether the customer is a manufacturer or a wholes [format: text],text
+customer,shipping,phone,Telephone number to reach the customer [format: text],text
+customer,shipping,state,"State of the customer's address [format: text] Value: commonsense evidence: 
+please mention its full name in the question, by referring to 
+https://www23.statcan.gc.ca/imdb/p3VD.pl?Function=getVD&TVD=53971
+e.g., NY --> New York",text
+customer,shipping,zip,Postal code of the customer's address [format: real],real
+driver,shipping,address,Street address of the driver's home [format: text],text
+driver,shipping,city,City the driver lives in [format: text],text
+driver,shipping,driver_id,Unique identifier for the driver [format: integer] [primary key],integer
+driver,shipping,first_name,First given name of the driver [format: text],text
+driver,shipping,last_name,Family name of the driver [format: text] Value: commonsense evidence: full name = first_name + last_name,text
+driver,shipping,phone,telephone number of the driver [format: text],text
+driver,shipping,state,"State the driver lives in [format: text] Value: commonsense evidence: 
+please mention its full name in the question, by referring to 
+https://www23.statcan.gc.ca/imdb/p3VD.pl?Function=getVD&TVD=53971 
+e.g., NY --> New York",text
+driver,shipping,zip_code,postal code of the driver's address [format: integer],integer
+shipment,shipping,city_id,A reference to the city table that indicates the destination of the shipment [format: integer] [foreign key -> city.city_id],integer
+shipment,shipping,cust_id,A reference to the customer table that indicates which customer the shipment is for [format: integer] [foreign key -> customer.cust_id],integer
+shipment,shipping,driver_id,A reference to the driver table that indicates which driver transported the goods in the shipment [format: integer] [foreign key -> driver.driver_id],integer
+shipment,shipping,ship_date,the date the items were received by the driver [format: text] Value: yyyy-mm-dd,text
+shipment,shipping,ship_id,Unique identifier of the shipment [format: integer] [primary key],integer
+shipment,shipping,truck_id,A reference to the truck table that indicates which truck is used in the shipment [format: integer] [foreign key -> truck.truck_id],integer
+shipment,shipping,weight,The number of pounds being transported on the shipment [format: real],real
+truck,shipping,make,"The brand of the truck [format: text] Value: commonsense evidence: 
+ Peterbilt headquarter: Texas (TX) 
+ Mack headquarter: North Carolina (NC) 
+ Kenworth headquarter: Washington (WA) 
+can ask question about headquarters of the truck",text
+truck,shipping,model_year,The year the truck was manufactured [format: integer] Value: commonsense evidence: The truck with earlier model year means this truck is newer.,integer
+truck,shipping,truck_id,Unique identifier of the truck table [format: integer] [primary key],integer

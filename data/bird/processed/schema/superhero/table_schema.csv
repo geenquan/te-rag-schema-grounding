@@ -1,0 +1,52 @@
+table,db,table_desc,field,schema
+alignment,superhero,alignment,alignment|id,"CREATE TABLE alignment (
+  alignment,
+  id
+);"
+attribute,superhero,attribute,attribute_name|id,"CREATE TABLE attribute (
+  attribute_name,
+  id
+);"
+colour,superhero,colour,colour|id,"CREATE TABLE colour (
+  colour,
+  id
+);"
+gender,superhero,gender,gender|id,"CREATE TABLE gender (
+  gender,
+  id
+);"
+hero_attribute,superhero,hero attribute,attribute_id|attribute_value|hero_id,"CREATE TABLE hero_attribute (
+  attribute_id,
+  attribute_value,
+  hero_id
+);"
+hero_power,superhero,hero power,hero_id|power_id,"CREATE TABLE hero_power (
+  hero_id,
+  power_id
+);"
+publisher,superhero,publisher,id|publisher_name,"CREATE TABLE publisher (
+  id,
+  publisher_name
+);"
+race,superhero,race,id|race,"CREATE TABLE race (
+  id,
+  race
+);"
+superhero,superhero,superhero,alignment_id|eye_colour_id|full_name|gender_id|hair_colour_id|height_cm|id|publisher_id|race_id|skin_colour_id|superhero_name|weight_kg,"CREATE TABLE superhero (
+  alignment_id,
+  eye_colour_id,
+  full_name,
+  gender_id,
+  hair_colour_id,
+  height_cm,
+  id,
+  publisher_id,
+  race_id,
+  skin_colour_id,
+  superhero_name,
+  weight_kg
+);"
+superpower,superhero,superpower,id|power_name,"CREATE TABLE superpower (
+  id,
+  power_name
+);"

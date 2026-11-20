@@ -1,0 +1,24 @@
+table,db,field_name,field_name_desc,field_type
+customers,debit_card_specializing,Currency,Currency [format: text],text
+customers,debit_card_specializing,CustomerID,identification of the customer [format: integer] [primary key],integer
+customers,debit_card_specializing,Segment,client segment [format: text],text
+gasstations,debit_card_specializing,ChainID,Chain ID [format: integer],integer
+gasstations,debit_card_specializing,Country,[format: text],text
+gasstations,debit_card_specializing,GasStationID,Gas Station ID [format: integer] [primary key],integer
+gasstations,debit_card_specializing,Segment,chain segment [format: text],text
+products,debit_card_specializing,Description,Description [format: text],text
+products,debit_card_specializing,ProductID,Product ID [format: integer] [primary key],integer
+transactions_1k,debit_card_specializing,Amount,Amount [format: integer],integer
+transactions_1k,debit_card_specializing,CardID,Card ID [format: integer],integer
+transactions_1k,debit_card_specializing,CustomerID,Customer ID [format: integer],integer
+transactions_1k,debit_card_specializing,Date,Date [format: date],date
+transactions_1k,debit_card_specializing,GasStationID,Gas Station ID [format: integer],integer
+transactions_1k,debit_card_specializing,Price,"Price [format: real] Value: commonsense evidence:
+
+total price = Amount x Price",real
+transactions_1k,debit_card_specializing,ProductID,Product ID [format: integer],integer
+transactions_1k,debit_card_specializing,Time,Time [format: text],text
+transactions_1k,debit_card_specializing,TransactionID,Transaction ID [format: integer] [primary key],integer
+yearmonth,debit_card_specializing,Consumption,consumption [format: real],real
+yearmonth,debit_card_specializing,CustomerID,Customer ID [format: integer] [primary key] [foreign key -> customers.CustomerID],integer
+yearmonth,debit_card_specializing,Date,Date [format: text] [primary key],text

@@ -1,0 +1,49 @@
+table,db,table_desc,field,schema
+Customers,software_company,Customers,EDUCATIONNUM|GEOID|ID|MARITAL_STATUS|OCCUPATION|SEX|age,"CREATE TABLE Customers (
+  EDUCATIONNUM,
+  GEOID,
+  ID,
+  MARITAL_STATUS,
+  OCCUPATION,
+  SEX,
+  age
+);"
+Demog,software_company,Demog,A_VAR1|A_VAR10|A_VAR11|A_VAR12|A_VAR13|A_VAR14|A_VAR15|A_VAR16|A_VAR17|A_VAR18|A_VAR2|A_VAR3|A_VAR4|A_VAR5|A_VAR6|A_VAR7|A_VAR8|A_VAR9|GEOID|INCOME_K|INHABITANTS_K,"CREATE TABLE Demog (
+  A_VAR1,
+  A_VAR10,
+  A_VAR11,
+  A_VAR12,
+  A_VAR13,
+  A_VAR14,
+  A_VAR15,
+  A_VAR16,
+  A_VAR17,
+  A_VAR18,
+  A_VAR2,
+  A_VAR3,
+  A_VAR4,
+  A_VAR5,
+  A_VAR6,
+  A_VAR7,
+  A_VAR8,
+  A_VAR9,
+  GEOID,
+  INCOME_K,
+  INHABITANTS_K
+);"
+Mailings1_2,software_company,Mailings1_2,REFID|REF_DATE|RESPONSE,"CREATE TABLE Mailings1_2 (
+  REFID,
+  REF_DATE,
+  RESPONSE
+);"
+Sales,software_company,Sales,AMOUNT|EVENTID|EVENT_DATE|REFID,"CREATE TABLE Sales (
+  AMOUNT,
+  EVENTID,
+  EVENT_DATE,
+  REFID
+);"
+mailings3,software_company,mailings3,REFID|REF_DATE|RESPONSE,"CREATE TABLE mailings3 (
+  REFID,
+  REF_DATE,
+  RESPONSE
+);"

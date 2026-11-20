@@ -1,0 +1,27 @@
+table,db,table_desc,field,schema
+incidents,shooting,Incidents,case_number|date|location|officers|subject_count|subject_statuses|subject_weapon|subjects,"CREATE TABLE incidents (
+  case_number,
+  date,
+  location,
+  officers,
+  subject_count,
+  subject_statuses,
+  subject_weapon,
+  subjects
+);"
+officers,shooting,officers,case_number|first_name|full_name|gender|last_name|race,"CREATE TABLE officers (
+  case_number,
+  first_name,
+  full_name,
+  gender,
+  last_name,
+  race
+);"
+subjects,shooting,subjects,case_number|first_name|full_name|gender|last_name|race,"CREATE TABLE subjects (
+  case_number,
+  first_name,
+  full_name,
+  gender,
+  last_name,
+  race
+);"

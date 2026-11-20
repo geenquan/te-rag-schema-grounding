@@ -1,0 +1,12 @@
+table,db,field_name,field_name_desc,field_type
+Answer,mental_health_survey,AnswerText,The specific and detailed answer text of each question. [format: text] Value: The content is highly depend on the question.,text
+Answer,mental_health_survey,QuestionID,"The id of different questions. [format: integer] Value: commonsense evidence: 
+Some questions can contain multiple answers, thus the same user can appear more than once for that QuestionID. [primary key]",integer
+Answer,mental_health_survey,SurveyID,"The id of each survey. [format: integer] Value: The SurveyID is simply survey year i.e., 2014, 2016, 2017, 2018, 2019.",integer
+Answer,mental_health_survey,UserID,"The id of different user. [format: integer] Value: commonsense evidence: 
+Some questions can contain multiple answers, thus the same user can appear more than once for that QuestionID. [primary key]",integer
+Question,mental_health_survey,questionid,The unique id of the question. [format: integer] Value: Each questiontext can only have one unique questionid [primary key],integer
+Question,mental_health_survey,questiontext,The detailed text of the question. [format: text],text
+Survey,mental_health_survey,Description,The Description of the specific survey. [format: text],text
+Survey,mental_health_survey,SurveyID,"The unique id of each survey [format: integer] Value: commonsense evidence: 
+Each SurveyID is unique. And SurveyID is simply survey year ie 2014, 2016, 2017, 2018, 2019. [primary key]",integer

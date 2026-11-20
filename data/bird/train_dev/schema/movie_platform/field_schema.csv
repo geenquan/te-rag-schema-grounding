@@ -1,0 +1,67 @@
+table,db,field_name,field_name_desc,field_type
+lists,movie_platform,list_comments,Number of comments on the list [format: integer],integer
+lists,movie_platform,list_cover_image_url,,text
+lists,movie_platform,list_creation_timestamp_utc,Creation timestamp for the list [format: text],text
+lists,movie_platform,list_description,List description made by the user [format: text],text
+lists,movie_platform,list_first_image_url,,text
+lists,movie_platform,list_followers,Number of followers on the list [format: integer],integer
+lists,movie_platform,list_id,ID of the list on Mubi [format: integer] [primary key],integer
+lists,movie_platform,list_movie_number,Number of movies added to the list [format: integer],integer
+lists,movie_platform,list_second_image_url,,text
+lists,movie_platform,list_third_image_url,,text
+lists,movie_platform,list_title,Name of the list [format: text],text
+lists,movie_platform,list_update_timestamp_utc,Last update timestamp for the list [format: text],text
+lists,movie_platform,list_url,URL to the list page on Mubi [format: text],text
+lists,movie_platform,user_id,ID related to the user who created the list. [format: integer] [foreign key -> lists_users.user_id],integer
+lists_users,movie_platform,list_creation_date_utc,Creation date for the list [format: text] Value: YYYY-MM-DD,text
+lists_users,movie_platform,list_id,ID of the list on Mubi [format: integer] [primary key] [foreign key -> lists.list_id],integer
+lists_users,movie_platform,list_update_date_utc,Last update date for the list [format: text] Value: YYYY-MM-DD,text
+lists_users,movie_platform,user_avatar_image_url,User profile image URL on Mubi [format: text],text
+lists_users,movie_platform,user_cover_image_url,User profile cover image URL on Mubi [format: text],text
+lists_users,movie_platform,user_eligible_for_trial,"whether the user was eligible for trial when he created the list [format: text] Value: 1 = the user was eligible for trial when he created the list 
+0 = the user was not eligible for trial when he created the list",text
+lists_users,movie_platform,user_has_payment_method,"whether the user was a paying subscriber when he created the list [format: text] Value: 1 = the user was a paying subscriber when he created the list 
+0 = the user was not a paying subscriber when he created the list",text
+lists_users,movie_platform,user_id,ID related to the user who created the list. [format: integer] [primary key] [foreign key -> lists.user_id],integer
+lists_users,movie_platform,user_subscriber,"whether the user was a subscriber when he created the list [format: integer] Value: 1 = the user was a subscriber when he created the list 
+0 = the user was not a subscriber when he created the list",integer
+lists_users,movie_platform,user_trialist,"whether the user was a tralist when he created the list [format: integer] Value: 1 = the user was a trialist when he created the list
+ 0 = the user was not a trialist when he created the list",integer
+movies,movie_platform,director_id,ID related to the movie director on Mubi [format: text],text
+movies,movie_platform,director_name,Full Name of the movie director [format: text],text
+movies,movie_platform,director_url,URL to the movie director page on Mubi [format: text],text
+movies,movie_platform,movie_id,ID related to the movie on Mubi [format: integer] [primary key],integer
+movies,movie_platform,movie_image_url,Image URL to the movie on Mubi [format: text],text
+movies,movie_platform,movie_popularity,Number of Mubi users who love this movie [format: integer],integer
+movies,movie_platform,movie_release_year,Release year of the movie [format: integer],integer
+movies,movie_platform,movie_title,Name of the movie [format: text],text
+movies,movie_platform,movie_title_language,"By default, the title is in English. [format: text] Value: Only contains one value which is 'en'",text
+movies,movie_platform,movie_url,URL to the movie page on Mubi [format: text],text
+ratings,movie_platform,critic,"Critic made by the user rating the movie. [format: text] Value: If value = ""None"", the user did not write a critic when rating the movie.",text
+ratings,movie_platform,critic_comments,Number of comments related to the critic made by the user rating the movie [format: integer],integer
+ratings,movie_platform,critic_likes,Number of likes related to the critic made by the user rating the movie [format: integer],integer
+ratings,movie_platform,movie_id,Movie ID related to the rating [format: integer] [foreign key -> movies.movie_id],integer
+ratings,movie_platform,rating_id,Rating ID on Mubi [format: integer],integer
+ratings,movie_platform,rating_score,"Rating score ranging from 1 (lowest) to 5 (highest) [format: integer] Value: commonsense evidence:
+The score is proportional to the user's liking.
+The higher the score is, the more the user likes the movie",integer
+ratings,movie_platform,rating_timestamp_utc,Timestamp for the movie rating made by the user on Mubi [format: text],text
+ratings,movie_platform,rating_url,URL to the rating on Mubi [format: text],text
+ratings,movie_platform,user_eligible_for_trial,[format: integer],integer
+ratings,movie_platform,user_has_payment_method,[format: integer],integer
+ratings,movie_platform,user_id,ID related to the user rating the movie [format: integer] [foreign key -> lists_users.user_id],integer
+ratings,movie_platform,user_subscriber,[format: integer],integer
+ratings,movie_platform,user_trialist,"whether user was a tralist when he rated the movie [format: integer] Value: 1 = the user was a trialist when he rated the movie 
+0 = the user was not a trialist when he rated the movie",integer
+ratings_users,movie_platform,rating_date_utc,Rating date for the movie rating. [format: text] Value: YYYY-MM-DD,text
+ratings_users,movie_platform,user_avatar_image_url,URL to the user profile image on Mubi [format: text],text
+ratings_users,movie_platform,user_cover_image_url,URL to the user profile cover image on Mubi [format: text],text
+ratings_users,movie_platform,user_eligible_for_trial,"whether the user was eligible for trial when he rated the movie [format: integer] Value: 1 = the user was eligible for trial when he rated the movie
+ 0 = the user was not eligible for trial when he rated the movie",integer
+ratings_users,movie_platform,user_has_payment_method,"whether the user was a paying subscriber when he rated the movie [format: integer] Value: 1 = the user was a paying subscriber when he rated the movie 
+0 = the user was not a paying subscriber when he rated",integer
+ratings_users,movie_platform,user_id,ID related to the user rating the movie [format: integer] [foreign key -> lists_users.user_id],integer
+ratings_users,movie_platform,user_subscriber,"whether the user was a subscriber when he rated the movie [format: integer] Value: 1 = the user was a subscriber when he rated the movie 
+0 = the user was not a subscriber when he rated the movie",integer
+ratings_users,movie_platform,user_trialist,"whether the user was a trialist when he rated the movie [format: integer] Value: 1 = the user was a trialist when he rated the movie
+ 0 = the user was not a trialist when he rated the movie",integer

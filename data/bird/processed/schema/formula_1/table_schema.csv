@@ -1,0 +1,121 @@
+table,db,table_desc,field,schema
+circuits,formula_1,circuits,alt|circuitId|circuitRef|country|lat|lng|location|name|url,"CREATE TABLE circuits (
+  alt,
+  circuitId,
+  circuitRef,
+  country,
+  lat,
+  lng,
+  location,
+  name,
+  url
+);"
+constructorResults,formula_1,constructor results,constructorId|constructorResultsId|points|raceId|status,"CREATE TABLE constructorResults (
+  constructorId,
+  constructorResultsId,
+  points,
+  raceId,
+  status
+);"
+constructorStandings,formula_1,constructor standings,constructorId|constructorStandingsId|points|position|positionText|raceId|wins,"CREATE TABLE constructorStandings (
+  constructorId,
+  constructorStandingsId,
+  points,
+  position,
+  positionText,
+  raceId,
+  wins
+);"
+constructors,formula_1,constructors,constructorId|constructorRef|name|nationality|url,"CREATE TABLE constructors (
+  constructorId,
+  constructorRef,
+  name,
+  nationality,
+  url
+);"
+driverStandings,formula_1,driver standings,driverId|driverStandingsId|points|position|positionText|raceId|wins,"CREATE TABLE driverStandings (
+  driverId,
+  driverStandingsId,
+  points,
+  position,
+  positionText,
+  raceId,
+  wins
+);"
+drivers,formula_1,drivers,code|dob|driverId|driverRef|forename|nationality|number|surname|url,"CREATE TABLE drivers (
+  code,
+  dob,
+  driverId,
+  driverRef,
+  forename,
+  nationality,
+  number,
+  surname,
+  url
+);"
+lapTimes,formula_1,lap times,driverId|lap|milliseconds|position|raceId|time,"CREATE TABLE lapTimes (
+  driverId,
+  lap,
+  milliseconds,
+  position,
+  raceId,
+  time
+);"
+pitStops,formula_1,pit stops,driverId|duration|lap|milliseconds|raceId|stop|time,"CREATE TABLE pitStops (
+  driverId,
+  duration,
+  lap,
+  milliseconds,
+  raceId,
+  stop,
+  time
+);"
+qualifying,formula_1,qualifying,constructorId|driverId|number|position|q1|q2|q3|qualifyId|raceId,"CREATE TABLE qualifying (
+  constructorId,
+  driverId,
+  number,
+  position,
+  q1,
+  q2,
+  q3,
+  qualifyId,
+  raceId
+);"
+races,formula_1,races,circuitId|date|name|raceId|round|time|url|year,"CREATE TABLE races (
+  circuitId,
+  date,
+  name,
+  raceId,
+  round,
+  time,
+  url,
+  year
+);"
+results,formula_1,results,constructorId|driverId|fastestLap|fastestLapSpeed|fastestLapTime|grid|laps|milliseconds|number|points|position|positionOrder|positionText|raceId|rank|resultId|statusId|time,"CREATE TABLE results (
+  constructorId,
+  driverId,
+  fastestLap,
+  fastestLapSpeed,
+  fastestLapTime,
+  grid,
+  laps,
+  milliseconds,
+  number,
+  points,
+  position,
+  positionOrder,
+  positionText,
+  raceId,
+  rank,
+  resultId,
+  statusId,
+  time
+);"
+seasons,formula_1,seasons,url|year,"CREATE TABLE seasons (
+  url,
+  year
+);"
+status,formula_1,status,status|statusId,"CREATE TABLE status (
+  status,
+  statusId
+);"

@@ -1,0 +1,29 @@
+table,db,field_name,field_name_desc,field_type
+game,video_games,game_name,the name of the game [format: text],text
+game,video_games,genre_id,"the id of the game genre [format: integer] Value: commonsense evidence:
+If game A and game B have the same genre, the user who likes game A may also like game B. [foreign key -> genre.id]",integer
+game,video_games,id,the unique identifier of the game [format: integer] [primary key],integer
+game_platform,video_games,game_publisher_id,the id of the game publisher [format: integer] [foreign key -> game_publisher.id],integer
+game_platform,video_games,id,the unique identifier of the record [format: integer] [primary key],integer
+game_platform,video_games,platform_id,the id of the platform [format: integer] [foreign key -> platform.id],integer
+game_platform,video_games,release_year,the release year of the game [format: integer],integer
+game_publisher,video_games,game_id,the id of the game [format: integer] [foreign key -> game.id],integer
+game_publisher,video_games,id,the unique identifier of the game publisher [format: integer] [primary key],integer
+game_publisher,video_games,publisher_id,"the id of the publisher [format: integer] Value: commonsense evidence:
+If game A and game B were published by the same publisher, the user who likes game A may also like game B if the user is a fan of the publisher company. [foreign key -> publisher.id]",integer
+genre,video_games,genre_name,"the game genre [format: text] Value: commonsense evidence:
+The game genre can have a significant effect on the game. The genre refers to the category or type of game, such as action, adventure, strategy, or role-playing. The genre can determine the general style and gameplay of the game, as well as the expectations of the players. The genre can also affect the audience for the game, as different genres may appeal to different groups of players.",text
+genre,video_games,id,the unique identifier of the game genre [format: integer] [primary key],integer
+platform,video_games,id,the unique identifier of the game platform [format: integer] [primary key],integer
+platform,video_games,platform_name,"the name of the platform [format: text] Value: commonsense evidence:
+The game platform, or the platform on which a game is played, can have a significant effect on the game. The platform can determine what hardware and software the game can run on, as well as the technical capabilities of the game. The platform can also affect the audience for the game, as different platforms may attract different groups of players.",text
+publisher,video_games,id,the unique identifier of the game publisher [format: integer] [primary key],integer
+publisher,video_games,publisher_name,"the name of the publisher [format: text] Value: commonsense evidence:
+The publisher is the company or organization that finances, produces, and distributes the game. The publisher can influence the development of the game by providing resources, guidance, and support to the game's development team. The publisher can also affect the marketing and distribution of the game, as they are responsible for promoting the game and making it available to players.",text
+region,video_games,id,the unique identifier of the region [format: integer] [primary key],integer
+region,video_games,region_name,the region name [format: text],text
+region_sales,video_games,game_platform_id,the id of the game platform [format: integer] [foreign key -> game_platform.id],integer
+region_sales,video_games,num_sales,"the number of sales in this region [format: real] Value: commonsense evidence:
+The number of games sold in the region = num_sales * 100000.
+The game platform with higher num_sales is more popular in the region.",real
+region_sales,video_games,region_id,the id of the region [format: integer] [foreign key -> region.id],integer

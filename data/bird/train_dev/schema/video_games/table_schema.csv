@@ -1,0 +1,38 @@
+table,db,table_desc,field,schema
+game,video_games,game,game_name|genre_id|id,"CREATE TABLE game (
+  game_name,
+  genre_id,
+  id
+);"
+game_platform,video_games,game_platform,game_publisher_id|id|platform_id|release_year,"CREATE TABLE game_platform (
+  game_publisher_id,
+  id,
+  platform_id,
+  release_year
+);"
+game_publisher,video_games,game_publisher,game_id|id|publisher_id,"CREATE TABLE game_publisher (
+  game_id,
+  id,
+  publisher_id
+);"
+genre,video_games,genre,genre_name|id,"CREATE TABLE genre (
+  genre_name,
+  id
+);"
+platform,video_games,platform,id|platform_name,"CREATE TABLE platform (
+  id,
+  platform_name
+);"
+publisher,video_games,publisher,id|publisher_name,"CREATE TABLE publisher (
+  id,
+  publisher_name
+);"
+region,video_games,region,id|region_name,"CREATE TABLE region (
+  id,
+  region_name
+);"
+region_sales,video_games,region_sales,game_platform_id|num_sales|region_id,"CREATE TABLE region_sales (
+  game_platform_id,
+  num_sales,
+  region_id
+);"

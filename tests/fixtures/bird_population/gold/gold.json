@@ -1,0 +1,28 @@
+{
+ "q1": {
+  "db_id": "demo",
+  "gold_tables": [
+   "t"
+  ],
+  "gold_columns": [
+   [
+    "t",
+    "a"
+   ]
+  ],
+  "question": "q"
+ },
+ "q2": {
+  "db_id": "demo",
+  "gold_tables": [
+   "t"
+  ],
+  "gold_columns": [
+   [
+    "t",
+    "a"
+   ]
+  ],
+  "question": "q"
+ }
+}

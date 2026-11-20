@@ -1,0 +1,586 @@
+table,db,table_desc,field,schema
+Address,works_cycles,Address,AddressID|AddressLine1|AddressLine2|City|ModifiedDate|PostalCode|SpatialLocation|StateProvinceID|rowguid,"CREATE TABLE Address (
+  AddressID,
+  AddressLine1,
+  AddressLine2,
+  City,
+  ModifiedDate,
+  PostalCode,
+  SpatialLocation,
+  StateProvinceID,
+  rowguid
+);"
+AddressType,works_cycles,AddressType,AddressTypeID|ModifiedDate|Name|rowguid,"CREATE TABLE AddressType (
+  AddressTypeID,
+  ModifiedDate,
+  Name,
+  rowguid
+);"
+BillOfMaterials,works_cycles,BillOfMaterials,BOMLevel|BillOfMaterialsID|ComponentID|EndDate|ModifiedDate|PerAssemblyQty|ProductAssemblyID|StartDate|UnitMeasureCode,"CREATE TABLE BillOfMaterials (
+  BOMLevel,
+  BillOfMaterialsID,
+  ComponentID,
+  EndDate,
+  ModifiedDate,
+  PerAssemblyQty,
+  ProductAssemblyID,
+  StartDate,
+  UnitMeasureCode
+);"
+BusinessEntity,works_cycles,BusinessEntity,BusinessEntityID|ModifiedDate|rowguid,"CREATE TABLE BusinessEntity (
+  BusinessEntityID,
+  ModifiedDate,
+  rowguid
+);"
+BusinessEntityAddress,works_cycles,BusinessEntityAddress,AddressID|AddressTypeID|BusinessEntityID|ModifiedDate|rowguid,"CREATE TABLE BusinessEntityAddress (
+  AddressID,
+  AddressTypeID,
+  BusinessEntityID,
+  ModifiedDate,
+  rowguid
+);"
+BusinessEntityContact,works_cycles,BusinessEntityContact,BusinessEntityID|ContactTypeID|ModifiedDate|PersonID|rowguid,"CREATE TABLE BusinessEntityContact (
+  BusinessEntityID,
+  ContactTypeID,
+  ModifiedDate,
+  PersonID,
+  rowguid
+);"
+ContactType,works_cycles,ContactType,ContactTypeID|ModifiedDate|Name,"CREATE TABLE ContactType (
+  ContactTypeID,
+  ModifiedDate,
+  Name
+);"
+CountryRegion,works_cycles,CountryRegion,CountryRegionCode|ModifiedDate|Name,"CREATE TABLE CountryRegion (
+  CountryRegionCode,
+  ModifiedDate,
+  Name
+);"
+CountryRegionCurrency,works_cycles,CountryRegionCurrency,CountryRegionCode|CurrencyCode|ModifiedDate,"CREATE TABLE CountryRegionCurrency (
+  CountryRegionCode,
+  CurrencyCode,
+  ModifiedDate
+);"
+CreditCard,works_cycles,CreditCard,CardNumber|CardType|CreditCardID|ExpMonth|ExpYear|ModifiedDate,"CREATE TABLE CreditCard (
+  CardNumber,
+  CardType,
+  CreditCardID,
+  ExpMonth,
+  ExpYear,
+  ModifiedDate
+);"
+Culture,works_cycles,Culture,CultureID|ModifiedDate|Name,"CREATE TABLE Culture (
+  CultureID,
+  ModifiedDate,
+  Name
+);"
+Currency,works_cycles,Currency,CurrencyCode|ModifiedDate|Name,"CREATE TABLE Currency (
+  CurrencyCode,
+  ModifiedDate,
+  Name
+);"
+CurrencyRate,works_cycles,CurrencyRate,AverageRate|CurrencyRateDate|CurrencyRateID|EndOfDayRate|FromCurrencyCode|ModifiedDate|ToCurrencyCode,"CREATE TABLE CurrencyRate (
+  AverageRate,
+  CurrencyRateDate,
+  CurrencyRateID,
+  EndOfDayRate,
+  FromCurrencyCode,
+  ModifiedDate,
+  ToCurrencyCode
+);"
+Customer,works_cycles,Customer,AccountNumber|CustomerID|ModifiedDate|PersonID|StoreID|TerritoryID|rowguid,"CREATE TABLE Customer (
+  AccountNumber,
+  CustomerID,
+  ModifiedDate,
+  PersonID,
+  StoreID,
+  TerritoryID,
+  rowguid
+);"
+Department,works_cycles,Department,DepartmentID|GroupName|ModifiedDate|Name,"CREATE TABLE Department (
+  DepartmentID,
+  GroupName,
+  ModifiedDate,
+  Name
+);"
+Document,works_cycles,Document,ChangeNumber|Document|DocumentLevel|DocumentNode|DocumentSummary|FileExtension|FileName|FolderFlag|ModifiedDate|Owner|Revision|Status|Title|rowguid,"CREATE TABLE Document (
+  ChangeNumber,
+  Document,
+  DocumentLevel,
+  DocumentNode,
+  DocumentSummary,
+  FileExtension,
+  FileName,
+  FolderFlag,
+  ModifiedDate,
+  Owner,
+  Revision,
+  Status,
+  Title,
+  rowguid
+);"
+EmailAddress,works_cycles,EmailAddress,BusinessEntityID|EmailAddress|EmailAddressID|ModifiedDate|rowguid,"CREATE TABLE EmailAddress (
+  BusinessEntityID,
+  EmailAddress,
+  EmailAddressID,
+  ModifiedDate,
+  rowguid
+);"
+Employee,works_cycles,Employee,BirthDate|BusinessEntityID|CurrentFlag|Gender|HireDate|JobTitle|LoginID|MaritalStatus|ModifiedDate|NationalIDNumber|OrganizationLevel|OrganizationNode|SalariedFlag|SickLeaveHours|VacationHours|rowguid,"CREATE TABLE Employee (
+  BirthDate,
+  BusinessEntityID,
+  CurrentFlag,
+  Gender,
+  HireDate,
+  JobTitle,
+  LoginID,
+  MaritalStatus,
+  ModifiedDate,
+  NationalIDNumber,
+  OrganizationLevel,
+  OrganizationNode,
+  SalariedFlag,
+  SickLeaveHours,
+  VacationHours,
+  rowguid
+);"
+EmployeeDepartmentHistory,works_cycles,EmployeeDepartmentHistory,BusinessEntityID|DepartmentID|EndDate|ModifiedDate|ShiftID|StartDate,"CREATE TABLE EmployeeDepartmentHistory (
+  BusinessEntityID,
+  DepartmentID,
+  EndDate,
+  ModifiedDate,
+  ShiftID,
+  StartDate
+);"
+EmployeePayHistory,works_cycles,EmployeePayHistory,BusinessEntityID|ModifiedDate|PayFrequency|Rate|RateChangeDate,"CREATE TABLE EmployeePayHistory (
+  BusinessEntityID,
+  ModifiedDate,
+  PayFrequency,
+  Rate,
+  RateChangeDate
+);"
+JobCandidate,works_cycles,JobCandidate,BusinessEntityID|JobCandidateID|ModifiedDate|Resume,"CREATE TABLE JobCandidate (
+  BusinessEntityID,
+  JobCandidateID,
+  ModifiedDate,
+  Resume
+);"
+Location,works_cycles,Location,Availability|CostRate|LocationID|ModifiedDate|Name,"CREATE TABLE Location (
+  Availability,
+  CostRate,
+  LocationID,
+  ModifiedDate,
+  Name
+);"
+Password,works_cycles,Password,BusinessEntityID|ModifiedDate|PasswordHash|PasswordSalt|rowguid,"CREATE TABLE Password (
+  BusinessEntityID,
+  ModifiedDate,
+  PasswordHash,
+  PasswordSalt,
+  rowguid
+);"
+Person,works_cycles,Person,AdditionalContactInfo|BusinessEntityID|Demographics|EmailPromotion|FirstName|LastName|MiddleName|ModifiedDate|NameStyle|PersonType|Suffix|Title|rowguid,"CREATE TABLE Person (
+  AdditionalContactInfo,
+  BusinessEntityID,
+  Demographics,
+  EmailPromotion,
+  FirstName,
+  LastName,
+  MiddleName,
+  ModifiedDate,
+  NameStyle,
+  PersonType,
+  Suffix,
+  Title,
+  rowguid
+);"
+PersonCreditCard,works_cycles,PersonCreditCard,BusinessEntityID|CreditCardID|ModifiedDate,"CREATE TABLE PersonCreditCard (
+  BusinessEntityID,
+  CreditCardID,
+  ModifiedDate
+);"
+PhoneNumberType,works_cycles,PhoneNumberType,ModifiedDate|Name|PhoneNumberTypeID,"CREATE TABLE PhoneNumberType (
+  ModifiedDate,
+  Name,
+  PhoneNumberTypeID
+);"
+Product,works_cycles,Product,Class|Color|DaysToManufacture|DiscontinuedDate|FinishedGoodsFlag|ListPrice|MakeFlag|ModifiedDate|Name|ProductID|ProductLine|ProductModelID|ProductNumber|ProductSubcategoryID|ReorderPoint|SafetyStockLevel|SellEndDate|SellStartDate|Size|SizeUnitMeasureCode|StandardCost|Style|Weight|WeightUnitMeasureCode|rowguid,"CREATE TABLE Product (
+  Class,
+  Color,
+  DaysToManufacture,
+  DiscontinuedDate,
+  FinishedGoodsFlag,
+  ListPrice,
+  MakeFlag,
+  ModifiedDate,
+  Name,
+  ProductID,
+  ProductLine,
+  ProductModelID,
+  ProductNumber,
+  ProductSubcategoryID,
+  ReorderPoint,
+  SafetyStockLevel,
+  SellEndDate,
+  SellStartDate,
+  Size,
+  SizeUnitMeasureCode,
+  StandardCost,
+  Style,
+  Weight,
+  WeightUnitMeasureCode,
+  rowguid
+);"
+ProductCategory,works_cycles,ProductCategory,ModifiedDate|Name|ProductCategoryID|rowguid,"CREATE TABLE ProductCategory (
+  ModifiedDate,
+  Name,
+  ProductCategoryID,
+  rowguid
+);"
+ProductCostHistory,works_cycles,ProductCostHistory,EndDate|ModifiedDate|ProductID|StandardCost|StartDate,"CREATE TABLE ProductCostHistory (
+  EndDate,
+  ModifiedDate,
+  ProductID,
+  StandardCost,
+  StartDate
+);"
+ProductDescription,works_cycles,ProductDescription,Description|ModifiedDate|ProductDescriptionID|rowguid,"CREATE TABLE ProductDescription (
+  Description,
+  ModifiedDate,
+  ProductDescriptionID,
+  rowguid
+);"
+ProductDocument,works_cycles,ProductDocument,DocumentNode|ModifiedDate|ProductID,"CREATE TABLE ProductDocument (
+  DocumentNode,
+  ModifiedDate,
+  ProductID
+);"
+ProductInventory,works_cycles,ProductInventory,Bin|LocationID|ModifiedDate|ProductID|Quantity|Shelf|rowguid,"CREATE TABLE ProductInventory (
+  Bin,
+  LocationID,
+  ModifiedDate,
+  ProductID,
+  Quantity,
+  Shelf,
+  rowguid
+);"
+ProductListPriceHistory,works_cycles,ProductListPriceHistory,EndDate|ListPrice|ModifiedDate|ProductID|StartDate,"CREATE TABLE ProductListPriceHistory (
+  EndDate,
+  ListPrice,
+  ModifiedDate,
+  ProductID,
+  StartDate
+);"
+ProductModel,works_cycles,ProductModel,CatalogDescription|Instructions|ModifiedDate|Name|ProductModelID|rowguid,"CREATE TABLE ProductModel (
+  CatalogDescription,
+  Instructions,
+  ModifiedDate,
+  Name,
+  ProductModelID,
+  rowguid
+);"
+ProductModelProductDescriptionCulture,works_cycles,ProductModelProductDescriptionCulture,CultureID|ModifiedDate|ProductDescriptionID|ProductModelID,"CREATE TABLE ProductModelProductDescriptionCulture (
+  CultureID,
+  ModifiedDate,
+  ProductDescriptionID,
+  ProductModelID
+);"
+ProductPhoto,works_cycles,ProductPhoto,LargePhoto|LargePhotoFileName|ModifiedDate|ProductPhotoID|ThumbNailPhoto|ThumbnailPhotoFileName,"CREATE TABLE ProductPhoto (
+  LargePhoto,
+  LargePhotoFileName,
+  ModifiedDate,
+  ProductPhotoID,
+  ThumbNailPhoto,
+  ThumbnailPhotoFileName
+);"
+ProductProductPhoto,works_cycles,ProductProductPhoto,ModifiedDate|Primary|ProductID|ProductPhotoID,"CREATE TABLE ProductProductPhoto (
+  ModifiedDate,
+  Primary,
+  ProductID,
+  ProductPhotoID
+);"
+ProductReview,works_cycles,ProductReview,Comments|EmailAddress|ModifiedDate|ProductID|ProductReviewID|Rating|ReviewDate|ReviewerName,"CREATE TABLE ProductReview (
+  Comments,
+  EmailAddress,
+  ModifiedDate,
+  ProductID,
+  ProductReviewID,
+  Rating,
+  ReviewDate,
+  ReviewerName
+);"
+ProductSubcategory,works_cycles,ProductSubcategory,ModifiedDate|Name|ProductCategoryID|ProductSubcategoryID|rowguid,"CREATE TABLE ProductSubcategory (
+  ModifiedDate,
+  Name,
+  ProductCategoryID,
+  ProductSubcategoryID,
+  rowguid
+);"
+ProductVendor,works_cycles,ProductVendor,AverageLeadTime|BusinessEntityID|LastReceiptCost|LastReceiptDate|MaxOrderQty|MinOrderQty|ModifiedDate|OnOrderQty|ProductID|StandardPrice|UnitMeasureCode,"CREATE TABLE ProductVendor (
+  AverageLeadTime,
+  BusinessEntityID,
+  LastReceiptCost,
+  LastReceiptDate,
+  MaxOrderQty,
+  MinOrderQty,
+  ModifiedDate,
+  OnOrderQty,
+  ProductID,
+  StandardPrice,
+  UnitMeasureCode
+);"
+PurchaseOrderDetail,works_cycles,PurchaseOrderDetail,DueDate|LineTotal|ModifiedDate|OrderQty|ProductID|PurchaseOrderDetailID|PurchaseOrderID|ReceivedQty|RejectedQty|StockedQty|UnitPrice,"CREATE TABLE PurchaseOrderDetail (
+  DueDate,
+  LineTotal,
+  ModifiedDate,
+  OrderQty,
+  ProductID,
+  PurchaseOrderDetailID,
+  PurchaseOrderID,
+  ReceivedQty,
+  RejectedQty,
+  StockedQty,
+  UnitPrice
+);"
+PurchaseOrderHeader,works_cycles,PurchaseOrderHeader,EmployeeID|Freight|ModifiedDate|OrderDate|PurchaseOrderID|RevisionNumber|ShipDate|ShipMethodID|Status|SubTotal|TaxAmt|TotalDue|VendorID,"CREATE TABLE PurchaseOrderHeader (
+  EmployeeID,
+  Freight,
+  ModifiedDate,
+  OrderDate,
+  PurchaseOrderID,
+  RevisionNumber,
+  ShipDate,
+  ShipMethodID,
+  Status,
+  SubTotal,
+  TaxAmt,
+  TotalDue,
+  VendorID
+);"
+SalesOrderDetail,works_cycles,SalesOrderDetail,CarrierTrackingNumber|LineTotal|ModifiedDate|OrderQty|ProductID|SalesOrderDetailID|SalesOrderID|SpecialOfferID|UnitPrice|UnitPriceDiscount|rowguid,"CREATE TABLE SalesOrderDetail (
+  CarrierTrackingNumber,
+  LineTotal,
+  ModifiedDate,
+  OrderQty,
+  ProductID,
+  SalesOrderDetailID,
+  SalesOrderID,
+  SpecialOfferID,
+  UnitPrice,
+  UnitPriceDiscount,
+  rowguid
+);"
+SalesOrderHeader,works_cycles,SalesOrderHeader,AccountNumber|BillToAddressID|Comment|CreditCardApprovalCode|CreditCardID|CurrencyRateID|CustomerID|DueDate|Freight|ModifiedDate|OnlineOrderFlag|OrderDate|PurchaseOrderNumber|RevisionNumber|SalesOrderID|SalesOrderNumber|SalesPersonID|ShipDate|ShipMethodID|ShipToAddressID|Status|SubTotal|TaxAmt|TerritoryID|TotalDue|rowguid,"CREATE TABLE SalesOrderHeader (
+  AccountNumber,
+  BillToAddressID,
+  Comment,
+  CreditCardApprovalCode,
+  CreditCardID,
+  CurrencyRateID,
+  CustomerID,
+  DueDate,
+  Freight,
+  ModifiedDate,
+  OnlineOrderFlag,
+  OrderDate,
+  PurchaseOrderNumber,
+  RevisionNumber,
+  SalesOrderID,
+  SalesOrderNumber,
+  SalesPersonID,
+  ShipDate,
+  ShipMethodID,
+  ShipToAddressID,
+  Status,
+  SubTotal,
+  TaxAmt,
+  TerritoryID,
+  TotalDue,
+  rowguid
+);"
+SalesOrderHeaderSalesReason,works_cycles,SalesOrderHeaderSalesReason,ModifiedDate|SalesOrderID|SalesReasonID,"CREATE TABLE SalesOrderHeaderSalesReason (
+  ModifiedDate,
+  SalesOrderID,
+  SalesReasonID
+);"
+SalesPerson,works_cycles,SalesPerson,Bonus|BusinessEntityID|CommissionPct|ModifiedDate|SalesLastYear|SalesQuota|SalesYTD|TerritoryID|rowguid,"CREATE TABLE SalesPerson (
+  Bonus,
+  BusinessEntityID,
+  CommissionPct,
+  ModifiedDate,
+  SalesLastYear,
+  SalesQuota,
+  SalesYTD,
+  TerritoryID,
+  rowguid
+);"
+SalesPersonQuotaHistory,works_cycles,SalesPersonQuotaHistory,BusinessEntityID|ModifiedDate|QuotaDate|SalesQuota|rowguid,"CREATE TABLE SalesPersonQuotaHistory (
+  BusinessEntityID,
+  ModifiedDate,
+  QuotaDate,
+  SalesQuota,
+  rowguid
+);"
+SalesReason,works_cycles,SalesReason,ModifiedDate|Name|ReasonType|SalesReasonID,"CREATE TABLE SalesReason (
+  ModifiedDate,
+  Name,
+  ReasonType,
+  SalesReasonID
+);"
+SalesTaxRate,works_cycles,SalesTaxRate,ModifiedDate|Name|SalesTaxRateID|StateProvinceID|TaxRate|TaxType|rowguid,"CREATE TABLE SalesTaxRate (
+  ModifiedDate,
+  Name,
+  SalesTaxRateID,
+  StateProvinceID,
+  TaxRate,
+  TaxType,
+  rowguid
+);"
+SalesTerritory,works_cycles,SalesTerritory,CostLastYear|CostYTD|CountryRegionCode|Group|ModifiedDate|Name|SalesLastYear|SalesYTD|TerritoryID|rowguid,"CREATE TABLE SalesTerritory (
+  CostLastYear,
+  CostYTD,
+  CountryRegionCode,
+  Group,
+  ModifiedDate,
+  Name,
+  SalesLastYear,
+  SalesYTD,
+  TerritoryID,
+  rowguid
+);"
+SalesTerritoryHistory,works_cycles,SalesTerritoryHistory,BusinessEntityID|EndDate|ModifiedDate|StartDate|TerritoryID|rowguid,"CREATE TABLE SalesTerritoryHistory (
+  BusinessEntityID,
+  EndDate,
+  ModifiedDate,
+  StartDate,
+  TerritoryID,
+  rowguid
+);"
+ScrapReason,works_cycles,ScrapReason,ModifiedDate|Name|ScrapReasonID,"CREATE TABLE ScrapReason (
+  ModifiedDate,
+  Name,
+  ScrapReasonID
+);"
+Shift,works_cycles,Shift,EndTime|ModifiedDate|Name|ShiftID|StartTime,"CREATE TABLE Shift (
+  EndTime,
+  ModifiedDate,
+  Name,
+  ShiftID,
+  StartTime
+);"
+ShipMethod,works_cycles,ShipMethod,ModifiedDate|Name|ShipBase|ShipMethodID|ShipRate|rowguid,"CREATE TABLE ShipMethod (
+  ModifiedDate,
+  Name,
+  ShipBase,
+  ShipMethodID,
+  ShipRate,
+  rowguid
+);"
+ShoppingCartItem,works_cycles,ShoppingCartItem,DateCreated|ModifiedDate|ProductID|Quantity|ShoppingCartID|ShoppingCartItemID,"CREATE TABLE ShoppingCartItem (
+  DateCreated,
+  ModifiedDate,
+  ProductID,
+  Quantity,
+  ShoppingCartID,
+  ShoppingCartItemID
+);"
+SpecialOffer,works_cycles,SpecialOffer,Category|Description|DiscountPct|EndDate|MaxQty|MinQty|ModifiedDate|SpecialOfferID|StartDate|Type|rowguid,"CREATE TABLE SpecialOffer (
+  Category,
+  Description,
+  DiscountPct,
+  EndDate,
+  MaxQty,
+  MinQty,
+  ModifiedDate,
+  SpecialOfferID,
+  StartDate,
+  Type,
+  rowguid
+);"
+SpecialOfferProduct,works_cycles,SpecialOfferProduct,ModifiedDate|ProductID|SpecialOfferID|rowguid,"CREATE TABLE SpecialOfferProduct (
+  ModifiedDate,
+  ProductID,
+  SpecialOfferID,
+  rowguid
+);"
+StateProvince,works_cycles,StateProvince,CountryRegionCode|IsOnlyStateProvinceFlag|ModifiedDate|Name|StateProvinceCode|StateProvinceID|TerritoryID|rowguid,"CREATE TABLE StateProvince (
+  CountryRegionCode,
+  IsOnlyStateProvinceFlag,
+  ModifiedDate,
+  Name,
+  StateProvinceCode,
+  StateProvinceID,
+  TerritoryID,
+  rowguid
+);"
+Store,works_cycles,Store,BusinessEntityID|Demographics|ModifiedDate|Name|SalesPersonID|rowguid,"CREATE TABLE Store (
+  BusinessEntityID,
+  Demographics,
+  ModifiedDate,
+  Name,
+  SalesPersonID,
+  rowguid
+);"
+TransactionHistory,works_cycles,TransactionHistory,ActualCost|ModifiedDate|ProductID|Quantity|ReferenceOrderID|ReferenceOrderLineID|TransactionDate|TransactionID|TransactionType,"CREATE TABLE TransactionHistory (
+  ActualCost,
+  ModifiedDate,
+  ProductID,
+  Quantity,
+  ReferenceOrderID,
+  ReferenceOrderLineID,
+  TransactionDate,
+  TransactionID,
+  TransactionType
+);"
+TransactionHistoryArchive,works_cycles,TransactionHistoryArchive,ActualCost|ModifiedDate|ProductID|Quantity|ReferenceOrderID|ReferenceOrderLineID|TransactionDate|TransactionID|TransactionType,"CREATE TABLE TransactionHistoryArchive (
+  ActualCost,
+  ModifiedDate,
+  ProductID,
+  Quantity,
+  ReferenceOrderID,
+  ReferenceOrderLineID,
+  TransactionDate,
+  TransactionID,
+  TransactionType
+);"
+UnitMeasure,works_cycles,UnitMeasure,ModifiedDate|Name|UnitMeasureCode,"CREATE TABLE UnitMeasure (
+  ModifiedDate,
+  Name,
+  UnitMeasureCode
+);"
+Vendor,works_cycles,Vendor,AccountNumber|ActiveFlag|BusinessEntityID|CreditRating|ModifiedDate|Name|PreferredVendorStatus|PurchasingWebServiceURL,"CREATE TABLE Vendor (
+  AccountNumber,
+  ActiveFlag,
+  BusinessEntityID,
+  CreditRating,
+  ModifiedDate,
+  Name,
+  PreferredVendorStatus,
+  PurchasingWebServiceURL
+);"
+WorkOrder,works_cycles,WorkOrder,DueDate|EndDate|ModifiedDate|OrderQty|ProductID|ScrapReasonID|ScrappedQty|StartDate|StockedQty|WorkOrderID,"CREATE TABLE WorkOrder (
+  DueDate,
+  EndDate,
+  ModifiedDate,
+  OrderQty,
+  ProductID,
+  ScrapReasonID,
+  ScrappedQty,
+  StartDate,
+  StockedQty,
+  WorkOrderID
+);"
+WorkOrderRouting,works_cycles,WorkOrderRouting,ActualCost|ActualEndDate|ActualResourceHrs|ActualStartDate|LocationID|ModifiedDate|OperationSequence|PlannedCost|ProductID|ScheduledEndDate|ScheduledStartDate|WorkOrderID,"CREATE TABLE WorkOrderRouting (
+  ActualCost,
+  ActualEndDate,
+  ActualResourceHrs,
+  ActualStartDate,
+  LocationID,
+  ModifiedDate,
+  OperationSequence,
+  PlannedCost,
+  ProductID,
+  ScheduledEndDate,
+  ScheduledStartDate,
+  WorkOrderID
+);"

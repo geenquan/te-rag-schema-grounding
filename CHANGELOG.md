@@ -1,5 +1,42 @@
 # Changelog
 
+## unreleased (2026-11-20): final-paper reproduction with BIRD (profile `paper_final_20261120`)
+
+Complete reproduction package for the submitted paper's experiments; the
+v0.1.1 demo/private-protocol surface is unchanged and remains supported.
+
+* **BIRD inputs shipped in full** — raw Train/Dev questions + table schemas,
+  the frozen Dev five-fold population (gold, 55/50 cell manifests, per-db
+  schema CSVs, per-cell supervised train rows), the frozen Train development
+  partitions (9068 verified questions, 69 databases, H dev splits), CC BY-SA
+  4.0 license + provenance with pinned SHA256 identities
+  (`data/bird/`, `terag_release/bird_data.py`).
+* **Frozen final engines ported** — `terag/engines/`: the frozen BIRD
+  workspace runtime, `BirdEngine`/`VnextEngine` with the unified execution
+  entry (core → H-reliability gating → Q field rerank/gate → budget → final
+  metrics; declared-but-not-executed mechanisms are hard errors), the
+  evaluation/statistics kit (db-cluster exact sign-flip + bootstrap), the
+  power-grid final engine with explicit inputs (private pkl/Job dependencies
+  removed; frozen-parameter C regeneration), and the API adapters with
+  env-only credentials, user-set budget caps and a pinned-revision MiniLM.
+* **New commands** — `run-bird` (frozen-config engine methods + offline
+  baselines on the frozen population; PYTHONHASHSEED=0 enforced; per-question
+  execution evidence; run_meta provenance),
+  `evaluate-bird-reference` (offline recomputation of every shipped
+  reference value), `bird-statistics` (declared families, Bonferroni over
+  the declared K, Delta = Full − Ablation).
+* **Reference results** — `results/reference/bird/`: sanitized historical
+  predictions + per-question metrics + aggregates for all 104 method×
+  protocol groups of the final evaluation (no prompts, response ids, API
+  ledgers, or machine paths).
+* **Frozen paper identities** — `configs/paper/final_20261120/` (BIRD engine
+  configs, statistical families + sha sidecar, grid per-fold selected
+  parameters) and `docs/paper_with_appendix.pdf` (21 pages, SHA256
+  `552083ea328ec5adc7e4cef4baeca17af981e91da727f8f35ddabfd5d15d279a`).
+* Docs rewritten for the BIRD reproduction path; experiment catalog maps
+  every current-paper table/figure/appendix to a command; limitations
+  section keeps the negative/boundary findings visible.
+
 ## public-v0.1.1 (2026-11-17)
 
 Fixes from the independent review of v0.1.0; no algorithm change

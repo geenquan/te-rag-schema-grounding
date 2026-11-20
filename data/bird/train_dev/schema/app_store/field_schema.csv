@@ -1,0 +1,16 @@
+table,db,field_name,field_name_desc,field_type
+playstore,app_store,App,,text
+playstore,app_store,Category,,text
+playstore,app_store,Content Rating,,text
+playstore,app_store,Genres,,text
+playstore,app_store,Installs,,text
+playstore,app_store,Price,,text
+playstore,app_store,Rating,,real
+playstore,app_store,Reviews,,integer
+playstore,app_store,Size,,text
+playstore,app_store,Type,,text
+user_reviews,app_store,App,[foreign key -> playstore.App],text
+user_reviews,app_store,Sentiment,,text
+user_reviews,app_store,Sentiment_Polarity,Sentiment Polarity,text
+user_reviews,app_store,Sentiment_Subjectivity,Sentiment Subjectivity,text
+user_reviews,app_store,Translated_Review,,text

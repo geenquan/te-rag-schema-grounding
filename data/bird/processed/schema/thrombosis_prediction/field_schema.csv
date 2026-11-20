@@ -1,0 +1,146 @@
+table,db,field_name,field_name_desc,field_type
+Examination,thrombosis_prediction,ANA,anti-nucleus antibody concentration [format: integer],integer
+Examination,thrombosis_prediction,ANA Pattern,pattern observed in the sheet of ANA examination [format: text],text
+Examination,thrombosis_prediction,Diagnosis,disease names [format: text],text
+Examination,thrombosis_prediction,Examination Date,Examination Date [format: date],date
+Examination,thrombosis_prediction,ID,identification of the patient [format: integer] [foreign key -> Patient.ID],integer
+Examination,thrombosis_prediction,KCT,"measure of degree of coagulation [format: text] Value: +: positive
+
+-: negative",text
+Examination,thrombosis_prediction,LAC,"measure of degree of coagulation [format: text] Value: +: positive
+
+-: negative",text
+Examination,thrombosis_prediction,RVVT,"measure of degree of coagulation [format: text] Value: +: positive
+
+-: negative",text
+Examination,thrombosis_prediction,Symptoms,other symptoms observed [format: text],text
+Examination,thrombosis_prediction,Thrombosis,"degree of thrombosis [format: integer] Value: 0: negative (no thrombosis)
+1: positive (the most serious)
+2: positive (severe)3: positive (mild)",integer
+Examination,thrombosis_prediction,aCL IgA,anti-Cardiolipin antibody (IgA) concentration [format: integer],integer
+Examination,thrombosis_prediction,aCL IgG,anti-Cardiolipin antibody (IgG) concentration [format: real],real
+Examination,thrombosis_prediction,aCL IgM,anti-Cardiolipin antibody (IgM) concentration [format: real],real
+Laboratory,thrombosis_prediction,ALB,"albumin [format: real] Value: Commonsense evidence:
+
+Normal range: 3.5 < N < 5.5",real
+Laboratory,thrombosis_prediction,ALP,"alkaliphophatase [format: integer] Value: Commonsense evidence:
+
+Normal range: N < 300",integer
+Laboratory,thrombosis_prediction,APTT,"activated partial prothrombin time [format: integer] Value: Commonsense evidence:
+
+Normal range: N < 45",integer
+Laboratory,thrombosis_prediction,C3,"complement 3 [format: integer] Value: Commonsense evidence:
+
+Normal range: N > 35",integer
+Laboratory,thrombosis_prediction,C4,"complement 4 [format: integer] Value: Commonsense evidence:
+
+Normal range: N > 10",integer
+Laboratory,thrombosis_prediction,CENTROMEA,"anti-centromere [format: text] Value: Commonsense evidence:
+
+Normal range: N= -, +-",text
+Laboratory,thrombosis_prediction,CPK,"creatinine phosphokinase [format: integer] Value: Commonsense evidence:
+Normal range: N < 250",integer
+Laboratory,thrombosis_prediction,CRE,"creatinine [format: real] Value: Commonsense evidence:
+
+Normal range: N < 1.5",real
+Laboratory,thrombosis_prediction,CRP,"C-reactive protein [format: text] Value: Commonsense evidence:
+
+Normal range: N= -, +-, or N < 1.0",text
+Laboratory,thrombosis_prediction,DNA,"anti-DNA [format: text] Value: Commonsense evidence:
+
+Normal range: N < 8",text
+Laboratory,thrombosis_prediction,DNA-II,"anti-DNA [format: integer] Value: Commonsense evidence:
+
+Normal range: N < 8",integer
+Laboratory,thrombosis_prediction,Date,Date of the laboratory tests (YYMMDD) [format: date] [primary key],date
+Laboratory,thrombosis_prediction,FG,"fibrinogen [format: real] Value: Commonsense evidence:
+
+Normal range: 150 < N < 450",real
+Laboratory,thrombosis_prediction,GLU,"blood glucose [format: integer] Value: Commonsense evidence:
+Normal range: N < 180",integer
+Laboratory,thrombosis_prediction,GOT,"AST glutamic oxaloacetic transaminase [format: integer] Value: Commonsense evidence:
+
+Normal range: N < 60",integer
+Laboratory,thrombosis_prediction,GPT,"ALT glutamic pyruvic transaminase [format: integer] Value: Commonsense evidence:
+
+Normal range: N < 60",integer
+Laboratory,thrombosis_prediction,HCT,"Hematoclit [format: real] Value: Commonsense evidence:
+Normal range: 29 < N < 52",real
+Laboratory,thrombosis_prediction,HGB,"Hemoglobin [format: real] Value: Commonsense evidence:
+
+Normal range: 10 < N < 17",real
+Laboratory,thrombosis_prediction,ID,identification of the patient [format: integer] [primary key] [foreign key -> Patient.ID],integer
+Laboratory,thrombosis_prediction,IGA,"Ig A [format: integer] Value: Commonsense evidence:
+
+Normal range: 80 < N < 500",integer
+Laboratory,thrombosis_prediction,IGG,"Ig G [format: integer] Value: Commonsense evidence:
+
+Normal range: 900 < N < 2000",integer
+Laboratory,thrombosis_prediction,IGM,"Ig M [format: integer] Value: Commonsense evidence:
+
+Normal range: 40 < N < 400",integer
+Laboratory,thrombosis_prediction,LDH,"lactate dehydrogenase [format: integer] Value: Commonsense evidence:
+
+Normal range: N < 500",integer
+Laboratory,thrombosis_prediction,PIC,,integer
+Laboratory,thrombosis_prediction,PLT,"platelet [format: integer] Value: Commonsense evidence:
+
+Normal range: 100 < N < 400",integer
+Laboratory,thrombosis_prediction,PT,"prothrombin time [format: real] Value: Commonsense evidence:
+
+Normal range: N < 14",real
+Laboratory,thrombosis_prediction,RA,"Rhuematoid Factor [format: text] Value: Commonsense evidence:
+
+Normal range: N= -, +-",text
+Laboratory,thrombosis_prediction,RBC,"Red blood cell [format: real] Value: Commonsense evidence:
+
+Normal range: 3.5 < N < 6.0",real
+Laboratory,thrombosis_prediction,RF,"RAHA [format: text] Value: Commonsense evidence:
+
+Normal range: N < 20",text
+Laboratory,thrombosis_prediction,RNP,"anti-ribonuclear protein [format: text] Value: Commonsense evidence:
+
+Normal range: N= -, +-",text
+Laboratory,thrombosis_prediction,SC170,"anti-scl70 [format: text] Value: Commonsense evidence:
+
+Normal range: N= -, +-",text
+Laboratory,thrombosis_prediction,SM,"anti-SM [format: text] Value: Commonsense evidence:
+
+Normal range: N= -, +-",text
+Laboratory,thrombosis_prediction,SSA,"anti-SSA [format: text] Value: Commonsense evidence:
+
+Normal range: N= -, +-",text
+Laboratory,thrombosis_prediction,SSB,"anti-SSB [format: text] Value: Commonsense evidence:
+
+Normal range: N= -, +-",text
+Laboratory,thrombosis_prediction,T-BIL,"total bilirubin [format: real] Value: Commonsense evidence:
+
+Normal range: N < 2.0",real
+Laboratory,thrombosis_prediction,T-CHO,"total cholesterol [format: integer] Value: Commonsense evidence:
+Normal range: N < 250",integer
+Laboratory,thrombosis_prediction,TAT,,integer
+Laboratory,thrombosis_prediction,TAT2,,integer
+Laboratory,thrombosis_prediction,TG,"triglyceride [format: integer] Value: Commonsense evidence:
+
+Normal range: N < 200",integer
+Laboratory,thrombosis_prediction,TP,"total protein [format: real] Value: Commonsense evidence:
+
+Normal range: 6.0 < N < 8.5",real
+Laboratory,thrombosis_prediction,U-PRO,"proteinuria [format: text] Value: Commonsense evidence:
+
+Normal range: 0 < N < 30",text
+Laboratory,thrombosis_prediction,UA,"uric acid [format: real] Value: Commonsense evidence:
+
+Normal range: N > 8.0 (Male)N > 6.5 (Female)",real
+Laboratory,thrombosis_prediction,UN,"urea nitrogen [format: integer] Value: Commonsense evidence:
+
+Normal range: N < 30",integer
+Laboratory,thrombosis_prediction,WBC,"White blood cell [format: real] Value: Commonsense evidence:
+Normal range: 3.5 < N < 9.0",real
+Patient,thrombosis_prediction,Admission,patient was admitted to the hospital (+) or followed at the outpatient clinic (-) [format: text] Value: patient was admitted to the hospital (+) or followed at the outpatient clinic (-),text
+Patient,thrombosis_prediction,Birthday,Birthday [format: date],date
+Patient,thrombosis_prediction,Description,the first date when a patient data was recorded [format: date] Value: null or empty: not recorded,date
+Patient,thrombosis_prediction,Diagnosis,disease names [format: text],text
+Patient,thrombosis_prediction,First Date,the date when a patient came to the hospital [format: date],date
+Patient,thrombosis_prediction,ID,identification of the patient [format: integer] [primary key],integer
+Patient,thrombosis_prediction,SEX,Sex [format: text] Value: F: female; M: male,text

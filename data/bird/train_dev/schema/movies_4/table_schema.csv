@@ -1,0 +1,88 @@
+table,db,table_desc,field,schema
+country,movies_4,country,country_id|country_iso_code|country_name,"CREATE TABLE country (
+  country_id,
+  country_iso_code,
+  country_name
+);"
+department,movies_4,department,department_id|department_name,"CREATE TABLE department (
+  department_id,
+  department_name
+);"
+gender,movies_4,gender,gender|gender_id,"CREATE TABLE gender (
+  gender,
+  gender_id
+);"
+genre,movies_4,genre,genre_id|genre_name,"CREATE TABLE genre (
+  genre_id,
+  genre_name
+);"
+keyword,movies_4,keyword,keyword_id|keyword_name,"CREATE TABLE keyword (
+  keyword_id,
+  keyword_name
+);"
+language,movies_4,language,language_code|language_id|language_name,"CREATE TABLE language (
+  language_code,
+  language_id,
+  language_name
+);"
+language_role,movies_4,language_role,language_role|role_id,"CREATE TABLE language_role (
+  language_role,
+  role_id
+);"
+movie,movies_4,movie,budget|homepage|movie_id|movie_status|overview|popularity|release_date|revenue|runtime|tagline|title|vote_average|vote_count,"CREATE TABLE movie (
+  budget,
+  homepage,
+  movie_id,
+  movie_status,
+  overview,
+  popularity,
+  release_date,
+  revenue,
+  runtime,
+  tagline,
+  title,
+  vote_average,
+  vote_count
+);"
+movie_cast,movies_4,movie_cast,cast_order|character_name|gender_id|movie_id|person_id,"CREATE TABLE movie_cast (
+  cast_order,
+  character_name,
+  gender_id,
+  movie_id,
+  person_id
+);"
+movie_company,movies_4,movie_company,company_id|movie_id,"CREATE TABLE movie_company (
+  company_id,
+  movie_id
+);"
+movie_crew,movies_4,movie_crew,department_id|job|movie_id|person_id,"CREATE TABLE movie_crew (
+  department_id,
+  job,
+  movie_id,
+  person_id
+);"
+movie_genres,movies_4,movie_genres,genre_id|movie_id,"CREATE TABLE movie_genres (
+  genre_id,
+  movie_id
+);"
+movie_keywords,movies_4,movie_keywords,keyword_id|movie_id,"CREATE TABLE movie_keywords (
+  keyword_id,
+  movie_id
+);"
+movie_languages,movies_4,movie_languages,language_id|language_role_id|movie_id,"CREATE TABLE movie_languages (
+  language_id,
+  language_role_id,
+  movie_id
+);"
+person,movies_4,person,person_id|person_name,"CREATE TABLE person (
+  person_id,
+  person_name
+);"
+production_company,movies_4,production_company,company_id|company_name,"CREATE TABLE production_company (
+  company_id,
+  company_name
+);"
+production_country,movies_4,production_country,country_id|movie_id,"CREATE TABLE production_country (
+  country_id,
+  movie_id
+);"

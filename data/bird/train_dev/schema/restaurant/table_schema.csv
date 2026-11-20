@@ -1,0 +1,19 @@
+table,db,table_desc,field,schema
+generalinfo,restaurant,generalinfo,city|food_type|id_restaurant|label|review,"CREATE TABLE generalinfo (
+  city,
+  food_type,
+  id_restaurant,
+  label,
+  review
+);"
+geographic,restaurant,geographic,city|county|region,"CREATE TABLE geographic (
+  city,
+  county,
+  region
+);"
+location,restaurant,location,city|id_restaurant|street_name|street_num,"CREATE TABLE location (
+  city,
+  id_restaurant,
+  street_name,
+  street_num
+);"

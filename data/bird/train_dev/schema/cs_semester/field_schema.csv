@@ -1,0 +1,53 @@
+table,db,field_name,field_name_desc,field_type
+RA,cs_semester,capability,"the capability of student on research
+(Evaluated by the professor) [format: integer] Value: higher --> higher research ability / capability",integer
+RA,cs_semester,prof_id,"professor who advises this student [format: integer] Value: this value may be repetitive since one professor may advise many students in this semester
+commonsense evidence:
+if a professor advise > 2 students in this semester, it means this professor's research work is heavy
+or: this professor's popularity on research is higher [primary key] [foreign key -> prof.prof_id]",integer
+RA,cs_semester,salary,"the salary of this student. [format: text] Value: med: average salary
+high: higher salary than others
+low: lower salary
+free: unpaid RA",text
+RA,cs_semester,student_id,the id numbe representing each student [format: integer] [primary key] [foreign key -> student.student_id],integer
+course,cs_semester,course_id,unique id representing the course [format: integer] [primary key],integer
+course,cs_semester,credit,"credit of the course [format: integer] Value: commonsense evidence:
+higher means more important",integer
+course,cs_semester,diff,"difficulty of the course [format: integer] Value: commonsense evidence:
+higher --> more difficult
+smaller --> less difficult",integer
+course,cs_semester,name,name of the course [format: text],text
+prof,cs_semester,email,email of the professor [format: text],text
+prof,cs_semester,first_name,the first name of the professor [format: text],text
+prof,cs_semester,gender,gender of the professor [format: text],text
+prof,cs_semester,graduate_from,the school where the professor graduated from [format: text],text
+prof,cs_semester,last_name,"the last name of the professor [format: text] Value: commonsense evidence:
+full name: first name, last name",text
+prof,cs_semester,popularity,"popularity of the professor [format: integer] Value: commonsense evidence:
+higher --> more popular",integer
+prof,cs_semester,prof_id,unique id for professors [format: integer] [primary key],integer
+prof,cs_semester,teachingability,"the teaching ability of the professor [format: integer] Value: commonsense evidence:
+higher --> more teaching ability, his / her lectures may have better quality",integer
+registration,cs_semester,course_id,the id of courses [format: integer] [primary key] [foreign key -> course.course_id],integer
+registration,cs_semester,grade,"the grades that the students acquire in this course [format: text] Value: commonsense evidence:
+ A: excellent -- 4
+ B: good -- 3
+ C: fair -- 2
+ D: poorly pass -- 1
+ null or empty: this student fails to pass this course
+ gpa of students for this semester = sum (credits x grade) / sum (credits)",text
+registration,cs_semester,sat,student satisfaction with the course [format: integer],integer
+registration,cs_semester,student_id,the id of students [format: integer] [primary key] [foreign key -> student.student_id],integer
+student,cs_semester,email,email [format: text],text
+student,cs_semester,f_name,the first name of the student [format: text],text
+student,cs_semester,gpa,gpa [format: real],real
+student,cs_semester,intelligence,intelligence of the student [format: integer] Value: higher --> more intelligent,integer
+student,cs_semester,l_name,"the last name of the student [format: text] Value: commonsense evidence:
+full name: f_name, l_name",text
+student,cs_semester,phone_number,phone number [format: text],text
+student,cs_semester,student_id,the unique id to identify students [format: integer] [primary key],integer
+student,cs_semester,type,"type of the student [format: text] Value:  TPG: taught postgraduate student(master)
+ RPG: research postgraduate student (master)
+ UG: undergraduate student(bachelor)
+commonsense evidence:
+both TPG and RPG are students pursuing a masters degree; UG are students pursuing the bachelor degree",text

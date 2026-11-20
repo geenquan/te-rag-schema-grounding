@@ -1,0 +1,54 @@
+table,db,field_name,field_name_desc,field_type
+city,olympics,city_name,the name of the city [format: text],text
+city,olympics,id,the unique identifier of the city [format: integer] [primary key],integer
+competitor_event,olympics,competitor_id,"the id of the competitor
+Maps to games_competitor(id) [format: integer] Value: commonsense evidence:
+The number of competitors who participated in a specific event could be calculated by grouping by event_id. [foreign key -> games_competitor.id]",integer
+competitor_event,olympics,event_id,"the id of the event
+Maps to event(id) [format: integer] [foreign key -> event.id]",integer
+competitor_event,olympics,medal_id,"the id of the medal
+Maps to medal(id) [format: integer] Value: commonsense evidence:
+For a specific event, the competitor whose medal_id = 1 is the champion, the competitor whose medal_id = 2 is the runner-up, and the competitor whose medal_id = 3 got third place. [foreign key -> medal.id]",integer
+event,olympics,event_name,the name of the event [format: text],text
+event,olympics,id,the unique identifier of the event [format: integer] [primary key],integer
+event,olympics,sport_id,"the id of the sport
+Maps to sport(id) [format: integer] Value: commonsense evidence:
+There may be different events for the same sport in Olympics. [foreign key -> sport.id]",integer
+games,olympics,games_name,"the name of the game [format: text] Value: commonsense evidence:
+games_name is 'games_year season'",text
+games,olympics,games_year,the year of the game [format: integer],integer
+games,olympics,id,the unique identifier of the game [format: integer] [primary key],integer
+games,olympics,season,"the season of the game [format: text] Value: commonsense evidence:
+The Olympics are held every four years and include both summer and winter games. The summer games include a wide range of sports, such as athletics, swimming, and gymnastics, while the winter games feature sports that are played on ice or snow, such as ice hockey, figure skating, and skiing.",text
+games_city,olympics,city_id,"the id of the city that held the game
+Maps to city(id) [format: integer] [foreign key -> city.id]",integer
+games_city,olympics,games_id,"the id of the game
+Maps to games(id) [format: integer] [foreign key -> games.id]",integer
+games_competitor,olympics,age,"the age of the person when he/she participated in the game [format: integer] Value: commonsense evidence:
+If person A's age was 22 when he participated in game A and his age was 24 when he participated in game B, it means that game A was held two years earlier than game B.",integer
+games_competitor,olympics,games_id,"the id of the game
+Maps to games(id) [format: integer] [foreign key -> games.id]",integer
+games_competitor,olympics,id,the unique identifier of the record [primary key],integer
+games_competitor,olympics,person_id,"the id of the person
+Maps to person(id) [format: integer] Value: commonsense evidence:
+The times a person participated in the Olympics games could be calculated by grouping by person_id. [foreign key -> person.id]",integer
+medal,olympics,id,the unique identifier of the metal [format: integer] [primary key],integer
+medal,olympics,medal_name,the name of the medal [format: text],text
+noc_region,olympics,id,the unique identifier of the noc region [format: integer] [primary key],integer
+noc_region,olympics,noc,"the NOC code of the region [format: text] Value: commonsense evidence:
+A NOC code is a number used by the International Olympic Committee (IOC) to identify each of the national Olympic committees (NOCs) from around the world.",text
+noc_region,olympics,region_name,the name of the region [format: text],text
+person,olympics,full_name,"the full name of the person [format: text] Value: commonsense evidence:
+A person's full name is the complete name that they are known by, which typically includes their first name, middle name (if applicable), and last name.",text
+person,olympics,gender,"the gender of the person [format: text] Value: commonsense evidence:
+M stands for male and F stands for female.",text
+person,olympics,height,the height of the person [format: integer],integer
+person,olympics,id,the unique identifier of the person [format: integer] [primary key],integer
+person,olympics,weight,"the weight of the person [format: integer] Value: commonsense evidence:
+The unit of height is cm, and the unit of weight is kg. If the height or the weight of the person is 0, it means his/her height or weight is missing.",integer
+person_region,olympics,person_id,"the id of the person
+Maps to person(id) [format: integer] [foreign key -> person.id]",integer
+person_region,olympics,region_id,"the id of the noc region
+Maps to noc_region(id) [format: integer] [foreign key -> noc_region.id]",integer
+sport,olympics,id,the unique identifier of the sport [format: integer] [primary key],integer
+sport,olympics,sport_name,the name of the sport [format: text],text

@@ -1,0 +1,28 @@
+table,db,table_desc,field,schema
+chapters,shakespeare,chapters,Act|Description|Scene|id|work_id,"CREATE TABLE chapters (
+  Act,
+  Description,
+  Scene,
+  id,
+  work_id
+);"
+characters,shakespeare,characters,Abbrev|CharName|Description|id,"CREATE TABLE characters (
+  Abbrev,
+  CharName,
+  Description,
+  id
+);"
+paragraphs,shakespeare,paragraphs,ParagraphNum|PlainText|chapter_id|character_id|id,"CREATE TABLE paragraphs (
+  ParagraphNum,
+  PlainText,
+  chapter_id,
+  character_id,
+  id
+);"
+works,shakespeare,works,Date|GenreType|LongTitle|Title|id,"CREATE TABLE works (
+  Date,
+  GenreType,
+  LongTitle,
+  Title,
+  id
+);"

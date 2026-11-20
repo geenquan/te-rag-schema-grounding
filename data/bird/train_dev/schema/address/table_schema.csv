@@ -1,0 +1,100 @@
+table,db,table_desc,field,schema
+CBSA,address,CBSA,CBSA|CBSA_name|CBSA_type,"CREATE TABLE CBSA (
+  CBSA,
+  CBSA_name,
+  CBSA_type
+);"
+alias,address,alias,alias|zip_code,"CREATE TABLE alias (
+  alias,
+  zip_code
+);"
+area_code,address,area_code,area_code|zip_code,"CREATE TABLE area_code (
+  area_code,
+  zip_code
+);"
+avoid,address,avoid,bad_alias|zip_code,"CREATE TABLE avoid (
+  bad_alias,
+  zip_code
+);"
+congress,address,congress,CID|District|House|abbreviation|cognress_rep_id|first_name|land_area|last_name|party|state,"CREATE TABLE congress (
+  CID,
+  District,
+  House,
+  abbreviation,
+  cognress_rep_id,
+  first_name,
+  land_area,
+  last_name,
+  party,
+  state
+);"
+country,address,country,county|state|zip_code,"CREATE TABLE country (
+  county,
+  state,
+  zip_code
+);"
+state,address,state,abbreviation|name,"CREATE TABLE state (
+  abbreviation,
+  name
+);"
+zip_congress,address,zip_congress,district|zip_code,"CREATE TABLE zip_congress (
+  district,
+  zip_code
+);"
+zip_data,address,zip_data,1st_quarter_payroll|CBSA|american_indian_population|annual_payroll|asian_population|avg_house_value|avg_income_per_household|black_population|business_mailboxes|businesses|children|city|county_fips|daylight_savings|disabled_workers|division|elevation|employees|female_median_age|female_population|hawaiian_population|hispanic_population|households|land_area|latitude|longitude|male_median_age|male_population|median_age|monthly_benefits_all|monthly_benefits_retired_workers|monthly_benefits_widowed|multi_county|multi_family_delivery_units|organization|other_population|over_65|parents_and_widowed|persons_per_household|population_2010|population_2020|region|residential_mailboxes|retired_workers|single_family_delivery_units|spouses|state|state_fips|time_zone|total_beneficiaries|total_delivery_receptacles|type|water_area|white_population|zip_code,"CREATE TABLE zip_data (
+  1st_quarter_payroll,
+  CBSA,
+  american_indian_population,
+  annual_payroll,
+  asian_population,
+  avg_house_value,
+  avg_income_per_household,
+  black_population,
+  business_mailboxes,
+  businesses,
+  children,
+  city,
+  county_fips,
+  daylight_savings,
+  disabled_workers,
+  division,
+  elevation,
+  employees,
+  female_median_age,
+  female_population,
+  hawaiian_population,
+  hispanic_population,
+  households,
+  land_area,
+  latitude,
+  longitude,
+  male_median_age,
+  male_population,
+  median_age,
+  monthly_benefits_all,
+  monthly_benefits_retired_workers,
+  monthly_benefits_widowed,
+  multi_county,
+  multi_family_delivery_units,
+  organization,
+  other_population,
+  over_65,
+  parents_and_widowed,
+  persons_per_household,
+  population_2010,
+  population_2020,
+  region,
+  residential_mailboxes,
+  retired_workers,
+  single_family_delivery_units,
+  spouses,
+  state,
+  state_fips,
+  time_zone,
+  total_beneficiaries,
+  total_delivery_receptacles,
+  type,
+  water_area,
+  white_population,
+  zip_code
+);"

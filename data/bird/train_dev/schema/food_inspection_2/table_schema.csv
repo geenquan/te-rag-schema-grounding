@@ -1,0 +1,51 @@
+table,db,table_desc,field,schema
+employee,food_inspection_2,employee,address|city|employee_id|first_name|last_name|phone|salary|state|supervisor|title|zip,"CREATE TABLE employee (
+  address,
+  city,
+  employee_id,
+  first_name,
+  last_name,
+  phone,
+  salary,
+  state,
+  supervisor,
+  title,
+  zip
+);"
+establishment,food_inspection_2,establishment,address|aka_name|city|dba_name|facility_type|latitude|license_no|longitude|risk_level|state|ward|zip,"CREATE TABLE establishment (
+  address,
+  aka_name,
+  city,
+  dba_name,
+  facility_type,
+  latitude,
+  license_no,
+  longitude,
+  risk_level,
+  state,
+  ward,
+  zip
+);"
+inspection,food_inspection_2,inspection,employee_id|followup_to|inspection_date|inspection_id|inspection_type|license_no|results,"CREATE TABLE inspection (
+  employee_id,
+  followup_to,
+  inspection_date,
+  inspection_id,
+  inspection_type,
+  license_no,
+  results
+);"
+inspection_point,food_inspection_2,inspection_point,Description|category|code|fine|point_id|point_level,"CREATE TABLE inspection_point (
+  Description,
+  category,
+  code,
+  fine,
+  point_id,
+  point_level
+);"
+violation,food_inspection_2,violation,fine|inspection_id|inspector_comment|point_id,"CREATE TABLE violation (
+  fine,
+  inspection_id,
+  inspector_comment,
+  point_id
+);"

@@ -1,0 +1,98 @@
+table,db,field_name,field_name_desc,field_type
+all_prevalences,synthea,ITEM,the prevalent disease [format: text] [primary key],text
+all_prevalences,synthea,OCCURRENCES,the number of occurrences [format: integer],integer
+all_prevalences,synthea,POPULATION COUNT,the number of the counted populations [format: integer],integer
+all_prevalences,synthea,POPULATION TYPE,the population type - LIVING [format: text],text
+all_prevalences,synthea,PREVALENCE PERCENTAGE,the prevalence percentage [format: real] Value: commonsense evidence: prevalence rate = occurrences / population_count * 100,real
+all_prevalences,synthea,PREVALENCE RATE,the prevalence rate [format: real] Value: commonsense evidence: prevalence rate = occurrences / population_count,real
+allergies,synthea,CODE,the code of the allergy [format: integer] [primary key],integer
+allergies,synthea,DESCRIPTION,the description of the allergy [format: text],text
+allergies,synthea,ENCOUNTER,the medical encounter id [format: text] [primary key] [foreign key -> encounters.ID],text
+allergies,synthea,PATIENT,the patient id [format: text] [primary key] [foreign key -> patients.patient],text
+allergies,synthea,START,the start date of the allergy [format: text] Value: mm/dd/yy,text
+allergies,synthea,STOP,"the stop date of the allergy [format: text] Value: mm/dd/yy
+commonsense evidence: allergy period = stop - start",text
+careplans,synthea,CODE,the code of the care plan [format: real],real
+careplans,synthea,DESCRIPTION,the description of the care plan [format: text],text
+careplans,synthea,ENCOUNTER,the medical encounter id [format: text] [foreign key -> encounters.ID],text
+careplans,synthea,ID,the unique id of the care plan [format: text],text
+careplans,synthea,PATIENT,the patient id [format: text] [foreign key -> patients.patient],text
+careplans,synthea,REASONCODE,the reason code [format: integer],integer
+careplans,synthea,REASONDESCRIPTION,the description of the reason why the patient needs the care plan [format: text],text
+careplans,synthea,START,the start date of the care plan [format: date] Value: yyyy-mm-dd,date
+careplans,synthea,STOP,"the stop date of the care plan [format: date] Value: yyyy-mm-dd
+commonsense evidence: care plan period:
+stop - start",date
+claims,synthea,BILLABLEPERIOD,the start date of the billable [format: date] Value: yyyy-mm-dd,date
+claims,synthea,DIAGNOSIS,the diagnosis [format: text],text
+claims,synthea,ENCOUNTER,the medical encounter id [format: text],text
+claims,synthea,ID,the unique id of the claim [format: text] [primary key],text
+claims,synthea,ORGANIZATION,the claim organization [format: text],text
+claims,synthea,PATIENT,the patient id [format: text],text
+claims,synthea,TOTAL,the length of the billable period [format: integer],integer
+conditions,synthea,CODE,the code of the condition [format: integer],integer
+conditions,synthea,DESCRIPTION,the description of the patient condition [format: text] [foreign key -> all_prevalences.ITEM],text
+conditions,synthea,ENCOUNTER,the medical encounter id [format: text] [foreign key -> encounters.ID],text
+conditions,synthea,PATIENT,the patient id [format: text] [foreign key -> patients.patient],text
+conditions,synthea,START,the start date of the allergy [format: date] Value: mm/dd/yy,date
+conditions,synthea,STOP,the stop date of the allergy [format: date] Value: mm/dd/yy,date
+encounters,synthea,CODE,the code of the care plan [format: integer],integer
+encounters,synthea,DATE,the date of the encounter [format: date] Value: yyyy-mm-dd,date
+encounters,synthea,DESCRIPTION,the description of the care plan [format: text],text
+encounters,synthea,ID,the unique id of the encounter [format: text] [primary key],text
+encounters,synthea,PATIENT,the patient id [format: text] [foreign key -> patients.patient],text
+encounters,synthea,REASONCODE,the reason code [format: integer],integer
+encounters,synthea,REASONDESCRIPTION,the description of the reason why the patient needs the care plan [format: text],text
+immunizations,synthea,CODE,the code of the immunization [format: integer] [primary key],integer
+immunizations,synthea,DATE,the date of the immunization [format: date] Value: yyyy-mm-dd [primary key],date
+immunizations,synthea,DESCRIPTION,the description of the immunization [format: text],text
+immunizations,synthea,ENCOUNTER,the medical encounter id [format: text] [primary key] [foreign key -> encounters.ID],text
+immunizations,synthea,PATIENT,the patient id [format: text] [primary key] [foreign key -> patients.patient],text
+medications,synthea,CODE,the code of the medication [format: integer] [primary key],integer
+medications,synthea,DESCRIPTION,the description of the medication [format: text],text
+medications,synthea,ENCOUNTER,the medical encounter id [format: text] [primary key] [foreign key -> encounters.ID],text
+medications,synthea,PATIENT,the patient id [format: text] [primary key] [foreign key -> patients.patient],text
+medications,synthea,REASONCODE,the reason code [format: integer],integer
+medications,synthea,REASONDESCRIPTION,the description of the reason why the patient take the medication [format: text],text
+medications,synthea,START,the start date of the care plan [format: date] Value: yyyy-mm-dd [primary key],date
+medications,synthea,STOP,"the stop date of the care plan [format: date] Value: yyyy-mm-dd
+commonsense evidence: Time of taking medicine",date
+observations,synthea,CODE,the code of the observation type [format: text],text
+observations,synthea,DATE,the date of the observation [format: date] Value: yyyy-mm-dd,date
+observations,synthea,DESCRIPTION,the description of the observation [format: text],text
+observations,synthea,ENCOUNTER,the medical encounter id [format: text] [foreign key -> encounters.ID],text
+observations,synthea,PATIENT,the patient id [format: text] [foreign key -> patients.patient],text
+observations,synthea,UNITS,"the units of the observation value [format: text] Value: commonsense evidence: DESCRIPTION + VALUE + UNITS could be a fact:
+e.g.: body height of patient xxx is 166.03 cm:
+body height is in DESCRIPTION 
+166.03 is in VALUE 
+cm is in UNITS",text
+observations,synthea,VALUE,the observation value [format: real],real
+patients,synthea,address,the specific address [format: text],text
+patients,synthea,birthdate,the birth date of the patient [format: date],date
+patients,synthea,birthplace,the birth place [format: text],text
+patients,synthea,deathdate,"the death date of the patient [format: date] Value: commonsense evidence: 
+ the age of the patient = death year - birth year 
+ if null, it means this patient is still alive",date
+patients,synthea,drivers,"the driver number of the patient [format: text] Value: commonsense evidence: if not, this patient doesn't have driving license",text
+patients,synthea,ethnicity,the ethnicity of the patient [format: text],text
+patients,synthea,first,the first name [format: text],text
+patients,synthea,gender,the gender of the patient [format: text],text
+patients,synthea,last,the last name [format: text] Value: commonsense evidence: full name = first + last,text
+patients,synthea,maiden,the maiden name of the patient [format: text] Value: commonsense evidence: Only married women have the maiden name,text
+patients,synthea,marital,"the marital status of the patient [format: text] Value: commonsense evidence: 
+ M: married 
+ S: single",text
+patients,synthea,passport,"the passport number [format: text] Value: commonsense evidence: if not, this patient cannot go abroad, vice versa",text
+patients,synthea,patient,the unique id for the patient [format: text] [primary key],text
+patients,synthea,prefix,the prefix [format: text],text
+patients,synthea,race,the race of the patient [format: text],text
+patients,synthea,ssn,the social security number of the patient [format: text],text
+patients,synthea,suffix,"the suffix of the patient [format: text] Value: commonsense evidence: if suffix = PhD, JD, MD, it means this patient has doctoral degree. Otherwise, this patient is not.",text
+procedures,synthea,CODE,the code of the procedure [format: integer],integer
+procedures,synthea,DATE,the date of the procedure [format: date] Value: yyyy-mm-dd,date
+procedures,synthea,DESCRIPTION,the description of the procedure [format: text],text
+procedures,synthea,ENCOUNTER,the medical encounter id [format: text] [foreign key -> encounters.ID],text
+procedures,synthea,PATIENT,the patient id [format: text] [foreign key -> patients.patient],text
+procedures,synthea,REASONCODE,the code of the reason [format: integer],integer
+procedures,synthea,REASONDESCRIPTION,the description of the reason why the patient take the procedure [format: text],text

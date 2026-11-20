@@ -1,0 +1,9 @@
+# The three API baselines (question protocol). Requires --allow-network,
+# DEEPSEEK_API_KEY in the environment, and an explicit --budget-cap-cny;
+# online responses are NOT guaranteed to match the historical reference
+# predictions bit-for-bit (see docs/reproduction.md).
+methods:
+  - DenseDeepSeek
+  - KaSLA-Adapted
+  - LinkAlign-SingleDB-Adapted
+protocols: [question]

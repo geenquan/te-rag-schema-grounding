@@ -1,0 +1,27 @@
+table,db,table_desc,field,schema
+employee,human_resources,employee,firstname|gender|hiredate|lastname|locationID|performance|positionID|salary|ssn,"CREATE TABLE employee (
+  firstname,
+  gender,
+  hiredate,
+  lastname,
+  locationID,
+  performance,
+  positionID,
+  salary,
+  ssn
+);"
+location,human_resources,location,address|locationID|locationcity|officephone|state|zipcode,"CREATE TABLE location (
+  address,
+  locationID,
+  locationcity,
+  officephone,
+  state,
+  zipcode
+);"
+position,human_resources,position,educationrequired|maxsalary|minsalary|positionID|positiontitle,"CREATE TABLE position (
+  educationrequired,
+  maxsalary,
+  minsalary,
+  positionID,
+  positiontitle
+);"

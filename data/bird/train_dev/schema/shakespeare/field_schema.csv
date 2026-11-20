@@ -1,0 +1,23 @@
+table,db,field_name,field_name_desc,field_type
+chapters,shakespeare,Act,"An act is a major division of a theatre work, including a play, film, opera, or musical theatre [format: integer] Value: commonsense evidence:
+An act can consist of one or more scenes",integer
+chapters,shakespeare,Description,textual description of the chapter. [format: text],text
+chapters,shakespeare,Scene,"A scene is a dramatic part of a story, at a specific time and place, between specific characters. [format: integer]",integer
+chapters,shakespeare,id,unique id number identifying the chapter [format: integer auto_increment] [primary key],integer
+chapters,shakespeare,work_id,id number identifying the work [format: integer],integer
+characters,shakespeare,Abbrev,abbreviation. An abbreviation is a shortened form of a word or phrase. [format: text],text
+characters,shakespeare,CharName,character name [format: text],text
+characters,shakespeare,Description,description of the character. [format: text],text
+characters,shakespeare,id,unique id number identifying the characters [format: integer] [primary key],integer
+paragraphs,shakespeare,ParagraphNum,unique id number identifying the paragraph number [format: integer],integer
+paragraphs,shakespeare,PlainText,main content of the paragraphs [format: text],text
+paragraphs,shakespeare,chapter_id,"unique id number identifying the related chapter [format: integer] Value: commonsense evidence:
+if number of the paragraphs is > 150, then it means this is a long chapter",integer
+paragraphs,shakespeare,character_id,unique id number identifying the mentioned character [format: integer],integer
+paragraphs,shakespeare,id,unique id number identifying the paragraphs [format: integer] [primary key],integer
+works,shakespeare,Date,date of the work [format: integer],integer
+works,shakespeare,GenreType,the type of the genere [format: text],text
+works,shakespeare,LongTitle,full title of the work [format: text],text
+works,shakespeare,Title,"title of the work [format: text] Value: commonsense evidence:
+the short title or abbreviated title",text
+works,shakespeare,id,unique id number identifying the work [format: integer] [primary key],integer

@@ -1,0 +1,128 @@
+table,db,table_desc,field,schema
+Ball_by_Ball,soccer_2016,Ball_by_Ball,Ball_Id|Bowler|Innings_No|Match_Id|Non_Striker|Over_Id|Striker|Striker_Batting_Position|Team_Batting|Team_Bowling,"CREATE TABLE Ball_by_Ball (
+  Ball_Id,
+  Bowler,
+  Innings_No,
+  Match_Id,
+  Non_Striker,
+  Over_Id,
+  Striker,
+  Striker_Batting_Position,
+  Team_Batting,
+  Team_Bowling
+);"
+Batsman_Scored,soccer_2016,Batsman_Scored,Ball_Id|Innings_No|Match_Id|Over_Id|Runs_Scored,"CREATE TABLE Batsman_Scored (
+  Ball_Id,
+  Innings_No,
+  Match_Id,
+  Over_Id,
+  Runs_Scored
+);"
+Batting_Style,soccer_2016,Batting_Style,Batting_Id|Batting_hand,"CREATE TABLE Batting_Style (
+  Batting_Id,
+  Batting_hand
+);"
+Bowling_Style,soccer_2016,Bowling_Style,Bowling_Id|Bowling_skill,"CREATE TABLE Bowling_Style (
+  Bowling_Id,
+  Bowling_skill
+);"
+City,soccer_2016,City,City_Id|City_Name|Country_id,"CREATE TABLE City (
+  City_Id,
+  City_Name,
+  Country_id
+);"
+Country,soccer_2016,Country,Country_Id|Country_Name,"CREATE TABLE Country (
+  Country_Id,
+  Country_Name
+);"
+Extra_Runs,soccer_2016,Extra_Runs,Ball_Id|Extra_Runs|Extra_Type_Id|Innings_No|Match_Id|Over_Id,"CREATE TABLE Extra_Runs (
+  Ball_Id,
+  Extra_Runs,
+  Extra_Type_Id,
+  Innings_No,
+  Match_Id,
+  Over_Id
+);"
+Extra_Type,soccer_2016,Extra_Type,Extra_Id|Extra_Name,"CREATE TABLE Extra_Type (
+  Extra_Id,
+  Extra_Name
+);"
+Match,soccer_2016,Match,Man_of_the_Match|Match_Date|Match_Id|Match_Winner|Outcome_type|Season_Id|Team_1|Team_2|Toss_Decide|Toss_Winner|Venue_Id|Win_Margin|Win_Type,"CREATE TABLE Match (
+  Man_of_the_Match,
+  Match_Date,
+  Match_Id,
+  Match_Winner,
+  Outcome_type,
+  Season_Id,
+  Team_1,
+  Team_2,
+  Toss_Decide,
+  Toss_Winner,
+  Venue_Id,
+  Win_Margin,
+  Win_Type
+);"
+Out_Type,soccer_2016,Out_Type,Out_Id|Out_Name,"CREATE TABLE Out_Type (
+  Out_Id,
+  Out_Name
+);"
+Outcome,soccer_2016,Outcome,Outcome_Id|Outcome_Type,"CREATE TABLE Outcome (
+  Outcome_Id,
+  Outcome_Type
+);"
+Player,soccer_2016,Player,Batting_hand|Bowling_skill|Country_Name|DOB|Player_Id|Player_Name,"CREATE TABLE Player (
+  Batting_hand,
+  Bowling_skill,
+  Country_Name,
+  DOB,
+  Player_Id,
+  Player_Name
+);"
+Player_Match,soccer_2016,Player_Match,Match_Id|Player_Id|Role_Id|Team_Id,"CREATE TABLE Player_Match (
+  Match_Id,
+  Player_Id,
+  Role_Id,
+  Team_Id
+);"
+Rolee,soccer_2016,Rolee,Role_Desc|Role_Id,"CREATE TABLE Rolee (
+  Role_Desc,
+  Role_Id
+);"
+Season,soccer_2016,Season,Man_of_the_Series|Orange_Cap|Purple_Cap|Season_Id|Season_Year,"CREATE TABLE Season (
+  Man_of_the_Series,
+  Orange_Cap,
+  Purple_Cap,
+  Season_Id,
+  Season_Year
+);"
+Team,soccer_2016,Team,Team_Id|Team_Name,"CREATE TABLE Team (
+  Team_Id,
+  Team_Name
+);"
+Toss_Decision,soccer_2016,Toss_Decision,Toss_Id|Toss_Name,"CREATE TABLE Toss_Decision (
+  Toss_Id,
+  Toss_Name
+);"
+Umpire,soccer_2016,Umpire,Umpire_Country|Umpire_Id|Umpire_Name,"CREATE TABLE Umpire (
+  Umpire_Country,
+  Umpire_Id,
+  Umpire_Name
+);"
+Venue,soccer_2016,Venue,City_Id|Venue_Id|Venue_Name,"CREATE TABLE Venue (
+  City_Id,
+  Venue_Id,
+  Venue_Name
+);"
+Wicket_Taken,soccer_2016,Wicket_Taken,Ball_Id|Fielders|Innings_No|Kind_Out|Match_Id|Over_Id|Player_Out,"CREATE TABLE Wicket_Taken (
+  Ball_Id,
+  Fielders,
+  Innings_No,
+  Kind_Out,
+  Match_Id,
+  Over_Id,
+  Player_Out
+);"
+Win_By,soccer_2016,Win_By,Win_Id|Win_Type,"CREATE TABLE Win_By (
+  Win_Id,
+  Win_Type
+);"

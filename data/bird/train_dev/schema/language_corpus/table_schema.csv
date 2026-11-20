@@ -1,0 +1,37 @@
+table,db,table_desc,field,schema
+biwords,language_corpus,biwords,lid|occurrences|w1st|w2nd,"CREATE TABLE biwords (
+  lid,
+  occurrences,
+  w1st,
+  w2nd
+);"
+langs,language_corpus,langs,lang|lid|locale|pages|words,"CREATE TABLE langs (
+  lang,
+  lid,
+  locale,
+  pages,
+  words
+);"
+langs_words,language_corpus,langs_words,lid|occurrences|wid,"CREATE TABLE langs_words (
+  lid,
+  occurrences,
+  wid
+);"
+pages,language_corpus,pages,lid|page|pid|revision|title|words,"CREATE TABLE pages (
+  lid,
+  page,
+  pid,
+  revision,
+  title,
+  words
+);"
+pages_words,language_corpus,pages_words,occurrences|pid|wid,"CREATE TABLE pages_words (
+  occurrences,
+  pid,
+  wid
+);"
+words,language_corpus,words,occurrences|wid|word,"CREATE TABLE words (
+  occurrences,
+  wid,
+  word
+);"

@@ -1,0 +1,43 @@
+table,db,table_desc,field,schema
+city,shipping,city,area|city_id|city_name|population|state,"CREATE TABLE city (
+  area,
+  city_id,
+  city_name,
+  population,
+  state
+);"
+customer,shipping,customer,address|annual_revenue|city|cust_id|cust_name|cust_type|phone|state|zip,"CREATE TABLE customer (
+  address,
+  annual_revenue,
+  city,
+  cust_id,
+  cust_name,
+  cust_type,
+  phone,
+  state,
+  zip
+);"
+driver,shipping,driver,address|city|driver_id|first_name|last_name|phone|state|zip_code,"CREATE TABLE driver (
+  address,
+  city,
+  driver_id,
+  first_name,
+  last_name,
+  phone,
+  state,
+  zip_code
+);"
+shipment,shipping,shipment,city_id|cust_id|driver_id|ship_date|ship_id|truck_id|weight,"CREATE TABLE shipment (
+  city_id,
+  cust_id,
+  driver_id,
+  ship_date,
+  ship_id,
+  truck_id,
+  weight
+);"
+truck,shipping,truck,make|model_year|truck_id,"CREATE TABLE truck (
+  make,
+  model_year,
+  truck_id
+);"

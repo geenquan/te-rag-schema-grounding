@@ -1,0 +1,122 @@
+table,db,table_desc,field,schema
+actor,movie_3,actor,actor_id|first_name|last_name|last_update,"CREATE TABLE actor (
+  actor_id,
+  first_name,
+  last_name,
+  last_update
+);"
+address,movie_3,address,address|address2|address_id|city_id|district|last_update|phone|postal_code,"CREATE TABLE address (
+  address,
+  address2,
+  address_id,
+  city_id,
+  district,
+  last_update,
+  phone,
+  postal_code
+);"
+category,movie_3,category,category_id|last_update|name,"CREATE TABLE category (
+  category_id,
+  last_update,
+  name
+);"
+city,movie_3,city,city|city_id|country_id|last_update,"CREATE TABLE city (
+  city,
+  city_id,
+  country_id,
+  last_update
+);"
+country,movie_3,country,country|country_id|last_update,"CREATE TABLE country (
+  country,
+  country_id,
+  last_update
+);"
+customer,movie_3,customer,active|address_id|create_date|customer_id|email|first_name|last_name|last_update|store_id,"CREATE TABLE customer (
+  active,
+  address_id,
+  create_date,
+  customer_id,
+  email,
+  first_name,
+  last_name,
+  last_update,
+  store_id
+);"
+film,movie_3,film,description|film_id|language_id|last_update|length|original_language_id|rating|release_year|rental_duration|rental_rate|replacement_cost|special_features|title,"CREATE TABLE film (
+  description,
+  film_id,
+  language_id,
+  last_update,
+  length,
+  original_language_id,
+  rating,
+  release_year,
+  rental_duration,
+  rental_rate,
+  replacement_cost,
+  special_features,
+  title
+);"
+film_actor,movie_3,film_actor,actor_id|film_id|last_update,"CREATE TABLE film_actor (
+  actor_id,
+  film_id,
+  last_update
+);"
+film_category,movie_3,film_category,category_id|film_id|last_update,"CREATE TABLE film_category (
+  category_id,
+  film_id,
+  last_update
+);"
+film_text,movie_3,film_text,description|film_id|title,"CREATE TABLE film_text (
+  description,
+  film_id,
+  title
+);"
+inventory,movie_3,inventory,film_id|inventory_id|last_update|store_id,"CREATE TABLE inventory (
+  film_id,
+  inventory_id,
+  last_update,
+  store_id
+);"
+language,movie_3,language,language_id|last_update|name,"CREATE TABLE language (
+  language_id,
+  last_update,
+  name
+);"
+payment,movie_3,payment,amount|customer_id|last_update|payment_date|payment_id|rental_id|staff_id,"CREATE TABLE payment (
+  amount,
+  customer_id,
+  last_update,
+  payment_date,
+  payment_id,
+  rental_id,
+  staff_id
+);"
+rental,movie_3,rental,customer_id|inventory_id|last_update|rental_date|rental_id|return_date|staff_id,"CREATE TABLE rental (
+  customer_id,
+  inventory_id,
+  last_update,
+  rental_date,
+  rental_id,
+  return_date,
+  staff_id
+);"
+staff,movie_3,staff,active|address_id|email|first_name|last_name|last_update|password|picture|staff_id|store_id|username,"CREATE TABLE staff (
+  active,
+  address_id,
+  email,
+  first_name,
+  last_name,
+  last_update,
+  password,
+  picture,
+  staff_id,
+  store_id,
+  username
+);"
+store,movie_3,store,address_id|last_update|manager_staff_id|store_id,"CREATE TABLE store (
+  address_id,
+  last_update,
+  manager_staff_id,
+  store_id
+);"

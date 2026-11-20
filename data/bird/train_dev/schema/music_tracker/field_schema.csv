@@ -1,0 +1,11 @@
+table,db,field_name,field_name_desc,field_type
+tags,music_tracker,id,release identifier which can be matched with id field in the torrents table [format: integer],integer
+tags,music_tracker,index,index [format: integer] [primary key],integer
+tags,music_tracker,tag,tag [format: text],text
+torrents,music_tracker,artist,artist / group name [format: text],text
+torrents,music_tracker,groupId,Unique release identifier from What.CD. Used to ensure no releases are duplicates. [format: integer],integer
+torrents,music_tracker,groupName,release title [format: text],text
+torrents,music_tracker,groupYear,release year [format: integer],integer
+torrents,music_tracker,id,unique identifier (essentially an index) [format: integer] [primary key],integer
+torrents,music_tracker,releaseType,"release type (e.g., album, single, mixtape) [format: text]",text
+torrents,music_tracker,totalSnatched,number of times the release has been downloaded [format: integer],integer

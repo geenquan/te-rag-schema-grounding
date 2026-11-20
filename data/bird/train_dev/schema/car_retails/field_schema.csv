@@ -1,0 +1,65 @@
+table,db,field_name,field_name_desc,field_type
+customers,car_retails,addressLine1,addressLine1 [format: text],text
+customers,car_retails,addressLine2,"addressLine2 [format: text] Value: commonsense evidence: 
+addressLine1 + addressLine2 = entire address",text
+customers,car_retails,city,city [format: text],text
+customers,car_retails,contactFirstName,contact first name [format: text],text
+customers,car_retails,contactLastName,contact last name [format: text],text
+customers,car_retails,country,country [format: text],text
+customers,car_retails,creditLimit,credit limit [format: real],real
+customers,car_retails,customerName,the name when the customer registered [format: text],text
+customers,car_retails,customerNumber,unique id number of customer [format: integer] [primary key],integer
+customers,car_retails,phone,phone [format: text],text
+customers,car_retails,postalCode,postalCode [format: text],text
+customers,car_retails,salesRepEmployeeNumber,sales representative employee number [format: integer] [foreign key -> employees.employeeNumber],integer
+customers,car_retails,state,state [format: text],text
+employees,car_retails,email,email [format: text],text
+employees,car_retails,employeeNumber,unique string ID of the employees [format: integer] [primary key],integer
+employees,car_retails,extension,extension number [format: text],text
+employees,car_retails,firstName,first name of employees [format: text],text
+employees,car_retails,jobTitle,job title [format: text],text
+employees,car_retails,lastName,last name of employees [format: text],text
+employees,car_retails,officeCode,office code of the employees [format: text] [foreign key -> offices.officeCode],text
+employees,car_retails,reportsTo,"represents for organization structure such as who reports to whom [format: integer] Value: commonsense evidence: 
+""reportsTO"" is the leader of the ""employeeNumber"" [foreign key -> employees.employeeNumber]",integer
+offices,car_retails,addressLine1,addressLine1 [format: text],text
+offices,car_retails,addressLine2,"addressLine2 [format: text] Value: commonsense evidence: 
+addressLine1 + addressLine2 = entire address",text
+offices,car_retails,city,[format: text],text
+offices,car_retails,country,country [format: text],text
+offices,car_retails,officeCode,unique ID of the office [format: text] Value: unique ID of the office [primary key],text
+offices,car_retails,phone,phone number [format: text],text
+offices,car_retails,postalCode,postalCode [format: text],text
+offices,car_retails,state,[format: text],text
+offices,car_retails,territory,territory [format: text],text
+orderdetails,car_retails,orderLineNumber,order Line Number [format: integer],integer
+orderdetails,car_retails,orderNumber,order number [format: integer] [primary key],integer
+orderdetails,car_retails,priceEach,"price for each [format: real] Value: commonsense evidence: 
+total price = quantityOrdered x priceEach",real
+orderdetails,car_retails,productCode,product code [format: text] [primary key],text
+orderdetails,car_retails,quantityOrdered,quantity ordered [format: integer],integer
+orders,car_retails,comments,comments [format: text],text
+orders,car_retails,customerNumber,customer number [format: integer] [foreign key -> customers.customerNumber],integer
+orders,car_retails,orderDate,order date [format: date],date
+orders,car_retails,orderNumber,unique order number [format: integer] Value: unique order number [primary key],integer
+orders,car_retails,requiredDate,required Date [format: date],date
+orders,car_retails,shippedDate,shipped Date [format: date],date
+orders,car_retails,status,status [format: text],text
+payments,car_retails,amount,amount [format: real],real
+payments,car_retails,checkNumber,check Number [format: text] [primary key],text
+payments,car_retails,customerNumber,customer number [format: integer] [primary key] [foreign key -> customers.customerNumber],integer
+payments,car_retails,paymentDate,payment Date [format: date],date
+productlines,car_retails,htmlDescription,html description [format: text],text
+productlines,car_retails,image,image [format: blob],blob
+productlines,car_retails,productLine,unique product line name [format: text] [primary key],text
+productlines,car_retails,textDescription,text description [format: text],text
+products,car_retails,MSRP,"Manufacturer Suggested Retail Price [format: real] Value: commonsense evidence: 
+expected profits: msrp - buyPrice",real
+products,car_retails,buyPrice,buy price from vendors [format: real],real
+products,car_retails,productCode,unique product code [format: text] [primary key],text
+products,car_retails,productDescription,product description [format: text],text
+products,car_retails,productLine,product line name [format: text] [foreign key -> productlines.productLine],text
+products,car_retails,productName,product name [format: text],text
+products,car_retails,productScale,product scale [format: text],text
+products,car_retails,productVendor,product vendor [format: text],text
+products,car_retails,quantityInStock,quantity in stock [format: integer],integer

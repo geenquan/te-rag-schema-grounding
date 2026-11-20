@@ -1,0 +1,2 @@
+table,db,table_desc,field,schema
+t,demo,demo table,a,"CREATE TABLE t"

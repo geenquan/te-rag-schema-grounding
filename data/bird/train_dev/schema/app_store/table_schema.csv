@@ -1,0 +1,20 @@
+table,db,table_desc,field,schema
+playstore,app_store,googleplaystore,App|Category|Content Rating|Genres|Installs|Price|Rating|Reviews|Size|Type,"CREATE TABLE playstore (
+  App,
+  Category,
+  Content Rating,
+  Genres,
+  Installs,
+  Price,
+  Rating,
+  Reviews,
+  Size,
+  Type
+);"
+user_reviews,app_store,googleplaystore_user_reviews,App|Sentiment|Sentiment_Polarity|Sentiment_Subjectivity|Translated_Review,"CREATE TABLE user_reviews (
+  App,
+  Sentiment,
+  Sentiment_Polarity,
+  Sentiment_Subjectivity,
+  Translated_Review
+);"

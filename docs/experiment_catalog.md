@@ -25,6 +25,49 @@ those denominators**: every population is recomputed from the supplied gold
 
 ---
 
+## 0. Final-paper experiment map (profile `paper_final_20261120`)
+
+The submitted paper (docs/paper_with_appendix.pdf) reports the experiments
+below. Every BIRD value is reproducible offline here; grid values need the
+authorized enterprise dataset (engine + protocols + frozen parameters are
+complete).
+
+| Paper item | What it is | Reproduce with |
+|---|---|---|
+| Table 1 (datasets) | Power-grid / BIRD population counts | grid: private data (documented); BIRD: `data/bird/` counts verified by `tests/test_bird_data.py` |
+| Table 2 `tab:qoverall` — Q overall (both datasets) | 11 power-grid methods + 12 BIRD methods, Covered@5/ColP/ColR/ColF1/FGCS | BIRD: `run-bird --experiment bird_full_matrix` (+ `bird_dense`/`bird_api` for the last three baselines, or read `results/reference/bird/aggregates/question_summary.csv`); grid: baselines via `run-experiments` on authorized data, Full via the grid engine replay |
+| Figure 3 `fig:overall-performance` | Covered@5 vs column F1 scatter, 23 points (11 grid + 12 BIRD) | computed from the same aggregate files (no experiments run by the figure) |
+| Table 3 `tab:qfixed` — Q fixed-config ablations | Grid fixed ablations (per-fold params) + BIRD `qB_rerank_gate_v1-no*` nine rows | BIRD: `run-bird --experiment bird_q_fixed_ablation`; grid: grid engine with `grid_selected_configurations.csv` |
+| Figure 4 `fig:ablation-heatmap` | 8 ablations × 3 metrics × 2 datasets, direction **Ablation − Full** (opposite of the statistics convention) | same inputs as Table 3 |
+| Table 4 `tab:gate` — BIRD Q field decomposition | Core / Rerank only / Gate (P/R/F1, FGCS, Avg. columns) | `run-bird --experiment bird_q_three_stage` |
+| A1 `tab:qoverallpr` | Q overall P/R detail | `aggregates/question_summary.csv` (colp/colrec columns) |
+| A2 `tab:qfixedpr` | Q fixed ablation P/R detail | `metrics/question/<method>_per_question.csv` |
+| A3 `tab:qindependent` | Independently optimized Full and no* tracks (BIRD 29.02/29.53 identity) | `run-bird --experiment bird_optimized_replay` |
+| A4 `tab:hall` | H overall (core 76.54/21.99/51.70; H-opt 82.29/22.98/57.97) | `run-bird --experiment bird_h_opt` (Core + `full_href_1_8`) |
+| A5 `tab:hfixed` | H fixed ablations | same experiment, `full_href_1_8-no*` rows |
+| A6 `tab:hindependent` | H independently optimized track | `bird_optimized_replay` (optimized_full_H / optimized_H_no*) |
+| Efficiency table | original-run timings | `benchmark` produces NEW measurements only |
+| Selector API cost (≈ CNY 30) | historical spend | documented boundary; never reused — online reruns use your own cap |
+
+Statistical statements (Q gate +1.91pp F1 corrected p=0.0352; optimized
+Full−noBIndex = −0.51pp p=0.031; noFieldGraph +0.59pp p=0.035) come from the
+db-cluster exact sign-flip / bootstrap over the frozen declared families
+(`configs/paper/final_20261120/bird_families.json`):
+`python -m terag_release bird-statistics --run RUN --output OUT`. The
+declared-family Bonferroni K is never shrunk; zero/cancel members keep
+their slot; comparisons against `route*` rows are labeled post-hoc
+exploratory. Direction convention: **Delta = Full − Ablation**; Figure 4's
+heatmap is the opposite direction (Ablation − Full) and is labeled so in the
+paper.
+
+BIRD reference predictions (`results/reference/bird/`) allow every value
+above to be recomputed without running anything:
+`python -m terag_release evaluate-bird-reference --output runs/refcheck`.
+
+---
+
+---
+
 ## 1. Methods (11 reported in main/appendix tables)
 
 | Paper method | Registry name | Implementation | Method config |
@@ -49,9 +92,16 @@ Notes carried over from the paper:
   the original checkpoints. They were run on Question-Level only; the paper
   reports no Held-Out-Table numbers for them and none may be imputed.
 * `DenseDeepSeek` is an independent custom baseline, not LinkAlign.
-* Historical names `LLM`, `TE-RAG` (v1), `Vector-as-dense`, SQL-accuracy and
-  BIRD results are **not** part of this paper's experiment matrix and are not
+* Historical names `LLM`, `TE-RAG` (v1), `Vector-as-dense` and SQL-accuracy
+  results are **not** part of the paper's experiment matrix and are not
   shipped as reported methods.
+* **BIRD (final paper)** runs the same ten baseline names through the frozen
+  BIRD workspace retrievers (`terag/engines/bird_runtime/retrievers/`, wired
+  in `terag/engines/bird/baselines.py`) — these differ from the legacy grid
+  retrievers above, and the BIRD numbers come from them. The engine methods
+  (`Core`, selected/fixed/optimized/adaptive rows) run through the frozen
+  BIRD engines (`terag/engines/bird/`) and the unified entry
+  (`terag/engines/bird/unified_entry.py`).
 
 ## 2. Formal protocol matrix (25 saved method/protocol groups)
 
@@ -244,8 +294,10 @@ conforming run directory and are not numerical reproductions.
 ## What is explicitly *not* in this repository
 
 * The enterprise dataset, gold, folds, predictions, prompts/responses, API
-  caches, indexes/graphs/annotation artifacts of the paper runs.
-* BIRD benchmark adapters/results (not part of this paper's matrix).
+  caches, indexes/graphs/annotation artifacts of the paper runs — including
+  enterprise reference predictions.
+* The BIRD SQLite database archives (schema grounding needs no database
+  rows; official downloads linked in `data/bird/SOURCES.md`).
 * Historical SQL-accuracy execution evaluation (`eval/sql_eval.py`); SQL
   generation/execution is out of scope for the paper. SQL is parsed (AST) for
   supervision/gold/isolation only — `SQL AST parsing is not database

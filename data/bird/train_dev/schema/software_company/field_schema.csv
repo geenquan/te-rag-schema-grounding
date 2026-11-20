@@ -1,0 +1,55 @@
+table,db,field_name,field_name_desc,field_type
+Customers,software_company,EDUCATIONNUM,the level of education [format: integer] Value: commonsense evidence: higher education number refers to higher education,integer
+Customers,software_company,GEOID,geographic identifier [format: integer],integer
+Customers,software_company,ID,the unique number identifying the customer [format: integer] [primary key],integer
+Customers,software_company,MARITAL_STATUS,"[format: text] Value: � Never-married
+� Married-civ-spouse
+� Divorced
+� Widowed
+� Other
+commonsense evidence: ""Married-civ-spouse"", ""Divorced"", ""Widowed"" mean customer has been married.",text
+Customers,software_company,OCCUPATION,occupation of customers [format: text],text
+Customers,software_company,SEX,the sex of the customer [format: text],text
+Customers,software_company,age,"age of customers [format: integer] Value: commonsense evidence: � teenager: 13-19 years old.
+� elder: people aged over 65",integer
+Demog,software_company,A_VAR1,,real
+Demog,software_company,A_VAR10,,real
+Demog,software_company,A_VAR11,,real
+Demog,software_company,A_VAR12,,real
+Demog,software_company,A_VAR13,,real
+Demog,software_company,A_VAR14,,real
+Demog,software_company,A_VAR15,,real
+Demog,software_company,A_VAR16,,real
+Demog,software_company,A_VAR17,,real
+Demog,software_company,A_VAR18,,real
+Demog,software_company,A_VAR2,,real
+Demog,software_company,A_VAR3,,real
+Demog,software_company,A_VAR4,,real
+Demog,software_company,A_VAR5,,real
+Demog,software_company,A_VAR6,,real
+Demog,software_company,A_VAR7,,real
+Demog,software_company,A_VAR8,,real
+Demog,software_company,A_VAR9,,real
+Demog,software_company,GEOID,unique geographic identifier [format: integer] [primary key],integer
+Demog,software_company,INCOME_K,"average income per inhabitant per month [format: real] Value: the unit is dollar, it indicates the average income per inhabitant per month.
+commonsense evidence:
+some computation like: total income per year = INHABITANTS_K x INCOME_K x 12",real
+Demog,software_company,INHABITANTS_K,number of inhabitants [format: real] Value: the unit is K (thousands),real
+Mailings1_2,software_company,REFID,unique id number identifying the customer [format: integer] [primary key],integer
+Mailings1_2,software_company,REF_DATE,indicating the date when the mailing was sent [format: datetime],datetime
+Mailings1_2,software_company,RESPONSE,"Response to the incentive mailing that marketing department sent [format: text] Value: • True
+• False 
+commonsense evidence: 
+1. any person who has not responded to a mailing within two months is considered to have responded negatively.
+2. true respond to the mailing, otherwise, no",text
+Sales,software_company,AMOUNT,amount of sales [format: real],real
+Sales,software_company,EVENTID,unique id of event (sales) [format: integer] [primary key],integer
+Sales,software_company,EVENT_DATE,date of sales [format: datetime],datetime
+Sales,software_company,REFID,Reference to customer ID [format: integer],integer
+mailings3,software_company,REFID,unique id number identifying the customer [format: integer] [primary key],integer
+mailings3,software_company,REF_DATE,indicating the date when the mailing was sent [format: datetime],datetime
+mailings3,software_company,RESPONSE,"Actual response to the marketing incentive email [format: text] Value: • True
+• False 
+commonsense evidence: 
+1. any person who has not responded to a mailing within two months is considered to have responded negatively.
+2. true respond to the mailing, otherwise, no",text

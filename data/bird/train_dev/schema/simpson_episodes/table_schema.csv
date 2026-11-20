@@ -1,0 +1,57 @@
+table,db,table_desc,field,schema
+Award,simpson_episodes,Award,award|award_category|award_id|episode_id|organization|person|result|role|season|song|year,"CREATE TABLE Award (
+  award,
+  award_category,
+  award_id,
+  episode_id,
+  organization,
+  person,
+  result,
+  role,
+  season,
+  song,
+  year
+);"
+Character_Award,simpson_episodes,Character_Award,award_id|character,"CREATE TABLE Character_Award (
+  award_id,
+  character
+);"
+Credit,simpson_episodes,Credit,category|credited|episode_id|person|role,"CREATE TABLE Credit (
+  category,
+  credited,
+  episode_id,
+  person,
+  role
+);"
+Episode,simpson_episodes,Episode,air_date|episode|episode_id|episode_image|number_in_series|rating|season|summary|title|votes,"CREATE TABLE Episode (
+  air_date,
+  episode,
+  episode_id,
+  episode_image,
+  number_in_series,
+  rating,
+  season,
+  summary,
+  title,
+  votes
+);"
+Keyword,simpson_episodes,Keyword,episode_id|keyword,"CREATE TABLE Keyword (
+  episode_id,
+  keyword
+);"
+Person,simpson_episodes,Person,birth_country|birth_name|birth_place|birth_region|birthdate|height_meters|name|nickname,"CREATE TABLE Person (
+  birth_country,
+  birth_name,
+  birth_place,
+  birth_region,
+  birthdate,
+  height_meters,
+  name,
+  nickname
+);"
+Vote,simpson_episodes,Vote,episode_id|percent|stars|votes,"CREATE TABLE Vote (
+  episode_id,
+  percent,
+  stars,
+  votes
+);"

@@ -1,0 +1,28 @@
+table,db,table_desc,field,schema
+location,social_media,location,City|Country|LocationID|State|StateCode,"CREATE TABLE location (
+  City,
+  Country,
+  LocationID,
+  State,
+  StateCode
+);"
+twitter,social_media,twitter,Day|Hour|IsReshare|Klout|Lang|Likes|LocationID|Reach|RetweetCount|Sentiment|TweetID|UserID|Weekday|text,"CREATE TABLE twitter (
+  Day,
+  Hour,
+  IsReshare,
+  Klout,
+  Lang,
+  Likes,
+  LocationID,
+  Reach,
+  RetweetCount,
+  Sentiment,
+  TweetID,
+  UserID,
+  Weekday,
+  text
+);"
+user,social_media,user,Gender|UserID,"CREATE TABLE user (
+  Gender,
+  UserID
+);"

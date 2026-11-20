@@ -1,0 +1,15 @@
+table,db,field_name,field_name_desc,field_type
+generalinfo,restaurant,city,the city where the restaurant is located in [format: text] [foreign key -> geographic.city],text
+generalinfo,restaurant,food_type,the food type [format: text],text
+generalinfo,restaurant,id_restaurant,the unique id for the restaurant [format: integer] [primary key],integer
+generalinfo,restaurant,label,the label of the restaurant [format: text],text
+generalinfo,restaurant,review,"the review of the restaurant [format: real] Value: commonsense evidence:
+the review rating is from 0.0 to 5.0
+The high review rating is positively correlated with the overall level of the restaurant. The restaurant with higher review rating is usually more popular among diners.",real
+geographic,restaurant,city,the city [format: text] [primary key],text
+geographic,restaurant,county,the country the city belongs to [format: text],text
+geographic,restaurant,region,corresponding regions [format: text],text
+location,restaurant,city,the city where the restaurant is located in [format: text] [foreign key -> geographic.city],text
+location,restaurant,id_restaurant,the unique id for the restaurant [format: integer] [primary key] [foreign key -> generalinfo.id_restaurant],integer
+location,restaurant,street_name,the street name of the restaurant [format: text],text
+location,restaurant,street_num,the street number of the restaurant [format: integer],integer

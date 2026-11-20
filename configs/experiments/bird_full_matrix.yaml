@@ -1,0 +1,53 @@
+# The complete offline BIRD matrix: Core, every frozen-config engine method
+# (selected Q/H, fixed + optimized ablations, adaptive variants, candidates)
+# and the six offline baselines, on both protocols. No network needed.
+methods:
+  - Core
+  - BM25
+  - TFIDF
+  - Hybrid
+  - MetadataMatched
+  - ExampleRRF
+  - CooccurRRF
+  - qB_rerank_gate_v1
+  - qB_rerank_gate_v1-field_filter_gate_off
+  - qB_rerank_gate_v1-noBIndex
+  - qB_rerank_gate_v1-noBHit
+  - qB_rerank_gate_v1-noB
+  - qB_rerank_gate_v1-noTableGraph
+  - qB_rerank_gate_v1-noFieldGraph
+  - qB_rerank_gate_v1-noGraph
+  - qB_rerank_gate_v1-noPattern
+  - qB_rerank_gate_v1-noC
+  - qB_rerank_ratio_gate_v1
+  - qB_rerank_axes_only
+  - qB_field_filter_alone
+  - full_href_1_8
+  - full_href_1_8-hg_gate_off
+  - full_href_1_8-noBIndex
+  - full_href_1_8-noBHit
+  - full_href_1_8-noB
+  - full_href_1_8-noTableGraph
+  - full_href_1_8-noFieldGraph
+  - full_href_1_8-noGraph
+  - full_href_1_8-noPattern
+  - full_href_1_8-noC
+  - optimized_full_Q
+  - optimized_Q_noBIndex
+  - optimized_Q_noBHit
+  - optimized_Q_noB
+  - optimized_Q_noTableGraph
+  - optimized_Q_noFieldGraph
+  - optimized_Q_noGraph
+  - optimized_Q_noPattern
+  - optimized_Q_noC
+  - optimized_full_H
+  - optimized_H_noBIndex
+  - optimized_H_noBHit
+  - optimized_H_noB
+  - optimized_H_noTableGraph
+  - optimized_H_noFieldGraph
+  - optimized_H_noGraph
+  - optimized_H_noPattern
+  - optimized_H_noC
+protocols: [question, heldout]

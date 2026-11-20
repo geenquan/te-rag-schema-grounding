@@ -1,0 +1,48 @@
+table,db,table_desc,field,schema
+Ingredient,cookbook,Ingredient,category|ingredient_id|name|plural,"CREATE TABLE Ingredient (
+  category,
+  ingredient_id,
+  name,
+  plural
+);"
+Nutrition,cookbook,Nutrition,alcohol|calories|carbo|cholestrl|fiber|iron|pcnt_cal_carb|pcnt_cal_fat|pcnt_cal_prot|protein|recipe_id|sat_fat|sodium|total_fat|vitamin_a|vitamin_c,"CREATE TABLE Nutrition (
+  alcohol,
+  calories,
+  carbo,
+  cholestrl,
+  fiber,
+  iron,
+  pcnt_cal_carb,
+  pcnt_cal_fat,
+  pcnt_cal_prot,
+  protein,
+  recipe_id,
+  sat_fat,
+  sodium,
+  total_fat,
+  vitamin_a,
+  vitamin_c
+);"
+Quantity,cookbook,Quantity,ingredient_id|max_qty|min_qty|optional|preparation|quantity_id|recipe_id|unit,"CREATE TABLE Quantity (
+  ingredient_id,
+  max_qty,
+  min_qty,
+  optional,
+  preparation,
+  quantity_id,
+  recipe_id,
+  unit
+);"
+Recipe,cookbook,Recipe,cook_min|directions|intro|prep_min|recipe_id|servings|source|stnd_min|subtitle|title|yield_unit,"CREATE TABLE Recipe (
+  cook_min,
+  directions,
+  intro,
+  prep_min,
+  recipe_id,
+  servings,
+  source,
+  stnd_min,
+  subtitle,
+  title,
+  yield_unit
+);"

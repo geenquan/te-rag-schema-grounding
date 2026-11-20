@@ -1,0 +1,33 @@
+table,db,table_desc,field,schema
+country,university,country,country_name|id,"CREATE TABLE country (
+  country_name,
+  id
+);"
+ranking_criteria,university,ranking_criteria,criteria_name|id|ranking_system_id,"CREATE TABLE ranking_criteria (
+  criteria_name,
+  id,
+  ranking_system_id
+);"
+ranking_system,university,ranking_system,id|system_name,"CREATE TABLE ranking_system (
+  id,
+  system_name
+);"
+university,university,university,country_id|id|university_name,"CREATE TABLE university (
+  country_id,
+  id,
+  university_name
+);"
+university_ranking_year,university,university_ranking_year,ranking_criteria_id|score|university_id|year,"CREATE TABLE university_ranking_year (
+  ranking_criteria_id,
+  score,
+  university_id,
+  year
+);"
+university_year,university,university_year,num_students|pct_female_students|pct_international_students|student_staff_ratio|university_id|year,"CREATE TABLE university_year (
+  num_students,
+  pct_female_students,
+  pct_international_students,
+  student_staff_ratio,
+  university_id,
+  year
+);"
