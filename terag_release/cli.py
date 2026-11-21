@@ -277,7 +277,11 @@ def cmd_run_grid_replay(args):
         _fail(str(e))
     status = meta['run_status']
     print(f"run '{status}': {args.output}")
-    if status in ('completed_with_failures', 'failed'):
+    # exit 0 only for a fully executed clean plan ('completed') or a
+    # legitimately narrowed clean run ('partial' / 'completed_partial');
+    # failures, missing planned units ('incomplete'), and unknown statuses
+    # exit non-zero — a zero-unit or degraded run is never a success.
+    if status not in ('completed', 'partial', 'completed_partial'):
         raise SystemExit(1)
 
 
@@ -473,7 +477,10 @@ def build_parser() -> argparse.ArgumentParser:
                     choices=["question_v1", "table_v2"], default=None,
                     help="settings to run (default: both)")
     rg.add_argument("--fold", type=int,
-                    help="run a single fold only (labeled partial run)")
+                    help="run a single fold only (validated against the "
+                         "accepted manifest; labeled as a partial run — "
+                         "invalid folds are hard errors, never an empty "
+                         "success)")
     rg.add_argument("--qid-prefix", default="q",
                     help="positional qid prefix when the QA csv carries no "
                          "qid column (documented default: q)")

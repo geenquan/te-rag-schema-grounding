@@ -63,8 +63,14 @@ run-grid-replay` (tracks `full` / `fixed --member <switch>` / `optimized
 replaying the frozen per-fold parameters of
 `configs/paper/final_20261120/grid_selected_configurations.csv` — see the
 README section "Final grid engine replay" for the full commands. The
+manifest is fully re-accepted on the current QA/gold BEFORE any engine is
+constructed; invalid folds and empty execution plans are hard errors; a
+clean narrowed run (e.g. `--fold N`) is explicitly labeled `partial`. The
 legacy 25-group `run-experiments` path remains the historical profile and
-is never presented as the final engine.
+is never presented as the final engine. Verification attribution: the
+underlying engine's exact-output parity on authorized research inputs and
+the CLI's synthetic-fixture wiring verification are separate, both
+documented in the README grid section.
 
 ## Grid: what the paper's numbers are tied to
 

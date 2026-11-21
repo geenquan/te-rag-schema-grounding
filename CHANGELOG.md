@@ -1,5 +1,34 @@
 # Changelog
 
+## unreleased (2026-11-21b): grid replay manifest acceptance + execution plans
+
+Small repair round on the run-grid-replay entry (independent review
+a675e9b); no algorithm change, no experiment scope change.
+
+* **Manifest re-acceptance before any engine construction** — the raw
+  make-folds manifest is now fully re-validated on the current QA/gold/
+  qids via the existing `terag_release.protocols.validate_manifest`
+  (fold completeness/exclusivity/coverage, duplicate groups never crossing
+  folds, train/test disjointness, held-out target membership, AST isolation
+  recomputed from the current gold, conservative unparseable-SQL
+  exclusions); the cached `checks` block is never trusted and the
+  load_splits format conversion never replaces the acceptance. A tampered
+  manifest (train/test overlap, held-out-target training leak, missing
+  rows) is a hard error raised BEFORE any GridEngine is constructed, and
+  leaves no run artifacts.
+* **Execution plans instead of empty successes** — settings/fold are
+  validated against the accepted manifest up front (fold 99 / negative /
+  unknown setting / empty plan are hard errors; the output directory is
+  only created after the plan is valid and non-empty). Statuses:
+  `completed` (full two-setting five-fold clean plan), `partial` (clean
+  narrowed run such as `--fold N`, real outputs kept and labeled),
+  `completed_with_failures[_partial]` / `failed` (CLI exits non-zero),
+  `incomplete` (planned units missing — never reported as success).
+* **Docs** — verification attribution corrected: the underlying
+  GridEngine's exact parity on authorized research inputs (10/10 folds,
+  1584 comparisons) is distinguished from the CLI's synthetic-fixture
+  wiring verification; no full grid experiment was re-run for the entry.
+
 ## unreleased (2026-11-21): hardening + final grid replay wiring
 
 Limited repair round on top of the migration commit (independent review

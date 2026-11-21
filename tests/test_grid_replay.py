@@ -6,6 +6,12 @@ bundled synthetic demo dataset in the documented private-data format — no
 enterprise input is used or copied. The fixture parameter table carries
 Full and noBIndex rows so all three tracks (full / fixed / optimized) and
 the fixed-uses-Full-params rule are exercised.
+
+Guard regressions (independent-review probes): the raw manifest is fully
+re-accepted BEFORE any engine is constructed (train/test overlap and
+held-out-target leaks are rejected pre-fit), and invalid folds / empty
+execution plans can never produce a success status — a legal single fold
+is explicitly 'partial'.
 """
 
 import json
@@ -70,46 +76,54 @@ def write_params_csv(path):
             w.writerow(r)
 
 
+def build_fixture(root):
+    """Create a complete synthetic grid-replay fixture under ``root``.
+
+    Returns (dataset_yaml, manifest, params_csv, data_dir, gold_path).
+    Both test classes build their OWN fixture (temporary directories are
+    cleaned per class, so a shared class attribute would dangle).
+    """
+    data = root / 'data'
+    data.mkdir(parents=True, exist_ok=True)
+    for name in ('field_schema.csv', 'table_schema.csv', 'qa_data.csv'):
+        shutil.copy(DEMO / name, data / name)
+    gold_path = data / 'full_gold_v2.jsonl'
+    shutil.copy(DEMO / 'full_gold_v2.jsonl', gold_path)
+    # frozen splits manifest via the documented make-folds path
+    from terag_release import protocols
+    from terag_release.runner import load_gold, load_rows
+    rows = load_rows(str(data / 'qa_data.csv'), qid_prefix='q')
+    gold = load_gold(str(gold_path))
+    q_folds = protocols.build_question_folds(rows)
+    t_v1 = protocols.build_table_folds(rows)
+    ast_folds, exclusions = protocols.apply_ast_exclusion(
+        t_v1, gold, rows['qid'].tolist())
+    checks = protocols.verify_splits(rows, q_folds, t_v1)
+    manifest_dict = protocols.build_manifest(rows, q_folds, t_v1, ast_folds,
+                                             exclusions, checks)
+    manifest = root / 'splits_manifest.json'
+    manifest.write_text(json.dumps(manifest_dict, ensure_ascii=False),
+                        encoding='utf-8')
+    params_csv = root / 'selected_configurations.csv'
+    write_params_csv(params_csv)
+    dataset_yaml = root / 'fixture_dataset.yaml'
+    dataset_yaml.write_text(
+        'name: grid_fixture\n\ndata:\n'
+        f'  field_csv: {data / "field_schema.csv"}\n'
+        f'  table_csv: {data / "table_schema.csv"}\n'
+        f'  qa_csv: {data / "qa_data.csv"}\n'
+        f'  gold: {gold_path}\n', encoding='utf-8')
+    return dataset_yaml, manifest, params_csv, data, gold_path
+
+
 class TestGridReplayEndToEnd(unittest.TestCase):
     run_counter = 0
 
     @classmethod
     def setUpClass(cls):
         cls.tmp = tempfile.TemporaryDirectory(prefix='grid_replay_test_')
-        root = Path(cls.tmp.name)
-        # synthetic private-format inputs = the bundled demo dataset
-        cls.data = root / 'data'
-        cls.data.mkdir()
-        for name in ('field_schema.csv', 'table_schema.csv', 'qa_data.csv'):
-            shutil.copy(DEMO / name, cls.data / name)
-        cls.gold = cls.data / 'full_gold_v2.jsonl'
-        shutil.copy(DEMO / 'full_gold_v2.jsonl', cls.gold)
-        # frozen splits manifest via the documented make-folds path
-        from terag_release import protocols
-        from terag_release.runner import load_gold, load_rows
-        rows = load_rows(str(cls.data / 'qa_data.csv'), qid_prefix='q')
-        gold = load_gold(str(cls.gold))
-        q_folds = protocols.build_question_folds(rows)
-        t_v1 = protocols.build_table_folds(rows)
-        ast_folds, exclusions = protocols.apply_ast_exclusion(
-            t_v1, gold, rows['qid'].tolist())
-        checks = protocols.verify_splits(rows, q_folds, t_v1)
-        manifest = protocols.build_manifest(rows, q_folds, t_v1, ast_folds,
-                                            exclusions, checks)
-        cls.manifest = root / 'splits_manifest.json'
-        cls.manifest.write_text(json.dumps(manifest, ensure_ascii=False),
-                                encoding='utf-8')
-        # fixture frozen parameter table
-        cls.params_csv = root / 'selected_configurations.csv'
-        write_params_csv(cls.params_csv)
-        # dataset config pointing at the fixture data
-        cls.dataset_yaml = root / 'fixture_dataset.yaml'
-        cls.dataset_yaml.write_text(
-            'name: grid_fixture\n\ndata:\n'
-            f'  field_csv: {cls.data / "field_schema.csv"}\n'
-            f'  table_csv: {cls.data / "table_schema.csv"}\n'
-            f'  qa_csv: {cls.data / "qa_data.csv"}\n'
-            f'  gold: {cls.gold}\n', encoding='utf-8')
+        (cls.dataset_yaml, cls.manifest, cls.params_csv, cls.data,
+         cls.gold) = build_fixture(Path(cls.tmp.name))
 
     @classmethod
     def tearDownClass(cls):
@@ -130,7 +144,15 @@ class TestGridReplayEndToEnd(unittest.TestCase):
 
     def test_full_track_runs_engine_predicts_and_evaluates(self):
         meta, out = self._run('full')
-        self.assertEqual(meta['run_status'], 'completed')
+        # single-fold request: a legitimately narrowed run, explicitly
+        # labeled partial — never presented as the full five-fold run
+        self.assertEqual(meta['run_status'], 'partial')
+        self.assertTrue(meta['is_partial'])
+        self.assertEqual(meta['n_planned_units'], 1)
+        self.assertEqual(meta['n_executed_units'], 1)
+        self.assertEqual(meta['missing_units'], [])
+        self.assertEqual(meta['execution_plan'],
+                         [{'setting': 'question_v1', 'fold': 0}])
         cell = out / 'question_v1' / 'fold0' / 'Full'
         records = [json.loads(l) for l in
                    (cell / 'predictions.jsonl').read_text().splitlines()
@@ -195,3 +217,213 @@ class TestGridReplayEndToEnd(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class TestGridReplayGuards(unittest.TestCase):
+    """Manifest re-acceptance + execution-plan guards (synthetic inputs).
+
+    Every rejection test asserts BOTH the specific error and that the
+    GridEngine constructor was never reached (the guard fires before any
+    engine construction, not after a failed fit).
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        cls.tmp = tempfile.TemporaryDirectory(prefix='grid_guard_test_')
+        cls.root = Path(cls.tmp.name)
+        (cls.dataset_yaml, cls.manifest, cls.params_csv, cls.data,
+         cls.gold) = build_fixture(cls.root)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.tmp.cleanup()
+
+    # ---- data accessors (fixture loading mirrors the runner's) ----
+    @classmethod
+    def _loaded_rows(cls):
+        import pandas as pd
+        rows = pd.read_csv(cls.data / 'qa_data.csv')
+        if 'qid' not in rows.columns:
+            rows['qid'] = [f'q{i:03d}' for i in range(len(rows))]
+        rows['qid'] = rows['qid'].astype(str)
+        return rows
+
+    @classmethod
+    def _gold(cls):
+        gold = {}
+        for line in cls.gold.read_text(encoding='utf-8').splitlines():
+            if line.strip():
+                rec = json.loads(line)
+                gold[str(rec['qid'])] = rec
+        return gold
+
+    @classmethod
+    def _qids(cls):
+        return cls._loaded_rows()['qid'].tolist()
+
+    def _patch_engine(self):
+        """Patch GridEngine so tests can assert it was never constructed."""
+        import unittest.mock as mock
+        return mock.patch('terag.engines.grid.GridEngine')
+
+    # ------------------------------------------------ acceptance of manifest
+    def test_valid_manifest_passes_validation(self):
+        from terag_release.grid_runner import validate_manifest_full
+        manifest = validate_manifest_full(
+            self.manifest, self._loaded_rows(), self._gold(),
+            self._qids())
+        self.assertIn('question_folds', manifest)
+
+    def test_train_test_overlap_rejected_before_engine(self):
+        from terag_release import protocols
+        from terag_release.grid_runner import validate_manifest_full
+        manifest = json.loads(
+            Path(self.manifest).read_text(encoding='utf-8'))
+        test_qid = manifest['ast_refined_table_folds']['0']['test'][0]
+        manifest['ast_refined_table_folds']['0']['train'].append(test_qid)
+        tampered = self.root / 'overlap_manifest.json'
+        tampered.write_text(json.dumps(manifest, ensure_ascii=False),
+                            encoding='utf-8')
+        with self._patch_engine() as engine_cls:
+            with self.assertRaises(protocols.ManifestValidationError) as ctx:
+                validate_manifest_full(tampered, self._loaded_rows(),
+                                       self._gold(), self._qids())
+            self.assertIn('train/test overlap', str(ctx.exception))
+            engine_cls.assert_not_called()
+
+    def test_train_sql_referencing_heldout_target_rejected(self):
+        from terag_release import protocols
+        from terag_release.grid_runner import validate_manifest_full
+        manifest = json.loads(
+            Path(self.manifest).read_text(encoding='utf-8'))
+        # move a fold-1 TEST question (whose gold references fold-1's
+        # held-out target table) into fold-1's TRAIN side: a direct
+        # held-out-target training leak
+        fd = manifest['ast_refined_table_folds']['1']
+        leak_qid = fd['test'][0]
+        fd['test'] = [q for q in fd['test'] if q != leak_qid]
+        fd['train'].append(leak_qid)
+        tampered = self.root / 'leak_manifest.json'
+        tampered.write_text(json.dumps(manifest, ensure_ascii=False),
+                            encoding='utf-8')
+        with self._patch_engine() as engine_cls:
+            with self.assertRaises(protocols.ManifestValidationError) as ctx:
+                validate_manifest_full(tampered, self._loaded_rows(),
+                                       self._gold(), self._qids())
+            self.assertIn('references held-out target table',
+                          str(ctx.exception))
+            engine_cls.assert_not_called()
+
+    def test_missing_question_row_rejected(self):
+        from terag_release import protocols
+        from terag_release.grid_runner import validate_manifest_full
+        manifest = json.loads(
+            Path(self.manifest).read_text(encoding='utf-8'))
+        manifest['question_folds']['0'] = manifest['question_folds']['0'][:-1]
+        tampered = self.root / 'holed_manifest.json'
+        tampered.write_text(json.dumps(manifest, ensure_ascii=False),
+                            encoding='utf-8')
+        with self._patch_engine() as engine_cls:
+            with self.assertRaises(protocols.ManifestValidationError):
+                validate_manifest_full(tampered, self._loaded_rows(),
+                                       self._gold(), self._qids())
+            engine_cls.assert_not_called()
+
+    # ------------------------------------------------ execution-plan guards
+    def test_invalid_fold_99_rejected_before_any_run(self):
+        out = self.root / 'never_fold99'
+        with self._patch_engine() as engine_cls:
+            with self.assertRaises(ValueError) as ctx:
+                grid_runner.run_grid_replay(
+                    dataset=str(self.dataset_yaml),
+                    splits_manifest=str(self.manifest),
+                    track='full', settings=['question_v1'], fold=99,
+                    output=str(out), params_csv=str(self.params_csv),
+                    qid_prefix='q')
+            self.assertIn('invalid fold 99', str(ctx.exception))
+            engine_cls.assert_not_called()
+        self.assertFalse(out.exists())   # no success artifacts written
+
+    def test_negative_fold_rejected(self):
+        with self._patch_engine() as engine_cls:
+            with self.assertRaises(ValueError) as ctx:
+                grid_runner.run_grid_replay(
+                    dataset=str(self.dataset_yaml),
+                    splits_manifest=str(self.manifest),
+                    track='full', settings=['question_v1'], fold=-1,
+                    output=str(self.root / 'never_neg'),
+                    params_csv=str(self.params_csv), qid_prefix='q')
+            self.assertIn('non-negative', str(ctx.exception))
+            engine_cls.assert_not_called()
+
+    def test_empty_execution_plan_rejected(self):
+        with self._patch_engine() as engine_cls:
+            with self.assertRaises(ValueError) as ctx:
+                grid_runner.run_grid_replay(
+                    dataset=str(self.dataset_yaml),
+                    splits_manifest=str(self.manifest),
+                    track='full', settings=[], fold=None,
+                    output=str(self.root / 'never_empty'),
+                    params_csv=str(self.params_csv), qid_prefix='q')
+            self.assertIn('empty', str(ctx.exception).lower())
+            engine_cls.assert_not_called()
+
+    def test_unknown_setting_rejected(self):
+        with self._patch_engine() as engine_cls:
+            with self.assertRaises(ValueError) as ctx:
+                grid_runner.run_grid_replay(
+                    dataset=str(self.dataset_yaml),
+                    splits_manifest=str(self.manifest),
+                    track='full', settings=['question_v9'], fold=None,
+                    output=str(self.root / 'never_unknown'),
+                    params_csv=str(self.params_csv), qid_prefix='q')
+            self.assertIn('unknown settings', str(ctx.exception))
+            engine_cls.assert_not_called()
+
+    # ------------------------------------------------ status semantics
+    def test_full_plan_completes_as_completed(self):
+        out = self.root / 'run_full_plan'
+        meta = grid_runner.run_grid_replay(
+            dataset=str(self.dataset_yaml),
+            splits_manifest=str(self.manifest),
+            track='full', settings=None, fold=None,   # the FULL plan
+            output=str(out), params_csv=str(self.params_csv),
+            qid_prefix='q')
+        self.assertEqual(meta['run_status'], 'completed')
+        self.assertFalse(meta['is_partial'])
+        self.assertEqual(meta['n_executed_units'], 10)  # 2 settings x 5
+        self.assertEqual(meta['n_planned_units'], 10)
+        # real outputs on disk for every planned unit
+        for setting in ('question_v1', 'table_v2'):
+            for f in range(5):
+                self.assertTrue((out / setting / f'fold{f}' / 'Full'
+                                 / 'predictions.jsonl').is_file())
+
+    def test_failed_units_exit_nonzero_at_cli(self):
+        """A run whose units fail must exit non-zero (never a success)."""
+        from terag_release import cli
+        import unittest.mock as mock
+        fake_meta = {'run_status': 'failed'}
+        with mock.patch('terag_release.grid_runner.run_grid_replay',
+                        return_value=fake_meta):
+            with self.assertRaises(SystemExit) as ctx:
+                cli.main(['run-grid-replay', '--dataset', 'x',
+                          '--splits-manifest', 'm.json', '--track', 'full',
+                          '--output', '/tmp/never'])
+            self.assertEqual(ctx.exception.code, 1)
+
+    def test_partial_run_exits_zero_at_cli(self):
+        """A clean partial run succeeds (exit 0) and is labeled partial."""
+        from terag_release import cli
+        import unittest.mock as mock
+        import contextlib, io
+        fake_meta = {'run_status': 'partial'}
+        with mock.patch('terag_release.grid_runner.run_grid_replay',
+                        return_value=fake_meta):
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf):
+                cli.main(['run-grid-replay', '--dataset', 'x',
+                          '--splits-manifest', 'm.json', '--track', 'full',
+                          '--output', '/tmp/never2'])
+            # no SystemExit raised, and the status is reported as partial
+            self.assertIn("run 'partial'", buf.getvalue())

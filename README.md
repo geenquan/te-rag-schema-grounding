@@ -433,15 +433,30 @@ retrieved_column_keys/retrieved_columns_detail), per-cell
 `per_question_metrics.json` recomputed from the final records against your
 gold, `cell.json` with the effective parameters and their source (the
 frozen table's `chosen` config id), and `run_meta/run_meta.json` provenance
-(parameter-table SHA256, manifest SHA256, input checksums, statuses,
-timings). `--settings question_v1` / `--settings table_v2` and `--fold N`
+(parameter-table SHA256, manifest SHA256, input checksums, execution plan,
+statuses, timings). Before ANY engine is constructed, the raw manifest is
+fully re-accepted on your current QA/gold/qids (`validate-data` semantics:
+fold completeness/exclusivity, duplicate groups, train/test disjointness,
+held-out target membership, AST isolation recomputed from your gold — the
+manifest's cached checks are never trusted); tampered manifests are hard
+errors and leave no run artifacts. Run statuses: `completed` (the full
+two-setting five-fold plan, clean), `partial` (a legitimately narrowed
+clean run such as `--fold N` — real outputs kept, explicitly labeled),
+`completed_with_failures[_partial]` / `failed` (non-zero exit), and
+`incomplete` (planned units missing — never reported as success). Invalid
+folds (e.g. 99), unknown settings, and empty execution plans are rejected
+up front instead of writing an empty success. `--settings question_v1` / `--settings table_v2` and `--fold N`
 narrow the replay. `--qid-prefix` sets the positional qid prefix when the
 QA csv has no qid column (documented default `q`).
 
-Numerical identity note: against the authorized research inputs, this
-entry reproduced the frozen accepted outer predictions EXACTLY (10/10
-folds, 1584 question-level comparisons, tables and columns identical — see
-docs/release_mapping.md). The enterprise inputs themselves are not
+Verification attribution (kept precise): the UNDERLYING GridEngine was
+verified against the authorized research inputs in an earlier round —
+10/10 folds, 1584 question-level comparisons, retrieved tables and columns
+EXACTLY identical (see docs/release_mapping.md). This CLI entry itself was
+verified end-to-end on the bundled SYNTHETIC fixture (construction, fit,
+predict, per-cell evaluation, all three parameter-selection tracks, and
+manifest/execution-plan guards); no full grid experiment was re-executed
+for the entry's own wiring. The enterprise inputs themselves are not
 redistributed, so grid numbers on public data do not exist; the legacy
 25-group commands above remain the historical profile and are never
 presented as the final engine.

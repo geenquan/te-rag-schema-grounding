@@ -27,14 +27,36 @@ Tracks
                  in that fold (independent-optimization replay; no search
                  is executed, the recorded ``chosen`` config is replayed).
 
+Acceptance and execution-plan semantics
+---------------------------------------
+* The raw manifest is FULLY re-accepted on the current QA/gold/qids via
+  ``terag_release.protocols.validate_manifest`` BEFORE any engine is
+  constructed (row/qid identity and order, five-fold completeness/
+  exclusivity/coverage, duplicate groups never crossing folds, train/
+  test disjointness, held-out target membership, AST isolation recomputed
+  from the CURRENT gold, conservative unparseable-SQL exclusions). The
+  cached ``checks`` block inside the manifest is never trusted, and the
+  format conversion in ``load_splits`` never replaces this acceptance.
+* An execution plan is built up front from the ACCEPTED manifest; an
+  invalid fold (out of the manifest's folds, or negative), an unknown
+  setting, or an empty plan is a hard error — a zero-unit run can never
+  be written out as a success.
+* Run statuses: ``completed`` (the full plan, both settings × all folds,
+  no question-level errors), ``partial`` (a legitimately narrowed clean
+  run — e.g. ``--fold N`` — whose whole non-empty plan executed; the real
+  outputs are kept and clearly labeled), ``completed_with_failures`` /
+  ``completed_with_failures_partial`` / ``failed`` (question/cell
+  failures; the CLI exits non-zero), ``incomplete`` (planned units
+  missing — never downgraded to a success wording).
+
 Every run writes a NEW output directory with per-cell predictions (the
 same record shape as the other runners: qid/setting/fold/method/variant/
 status/retrieved_tables/retrieved_column_keys/retrieved_columns_detail),
 per-cell metrics recomputed from the final records against the dataset
 gold, effective parameters + their source (row ``chosen`` id) per cell,
 and a run_meta provenance block (code hashes, parameter-table SHA256,
-manifest SHA256, input checksums, statuses, timings). Failed questions
-become error records that stay in the denominator.
+manifest SHA256, input checksums, execution plan, statuses, timings).
+Failed questions become error records that stay in the denominator.
 """
 import csv
 import hashlib
@@ -115,16 +137,20 @@ def resolve_track_params(track, member, setting, fold, table):
     raise ValueError(f'unknown track {track!r} (full|fixed|optimized)')
 
 
-def load_splits(manifest_path, ordered_qids):
-    """{setting: {fold: {'train': [...], 'test': [...]}}} from a make-folds
-    manifest (question_folds / ast_refined_table_folds).
+def load_splits(manifest, ordered_qids):
+    """{setting: {fold: {'train': [...], 'test': [...]}}} from an
+    ALREADY-VALIDATED make-folds manifest dict (question_folds /
+    ast_refined_table_folds).
 
-    ``question_folds`` entries are 0-BASED ROW INDICES over the ordered qid
-    list (the manifest's documented semantics); ``ast_refined_table_folds``
-    entries already carry qid lists. The training side of a question fold is
-    the union of the other folds (each question is tested exactly once).
+    This is a pure FORMAT conversion on top of a manifest that has passed
+    ``terag_release.protocols.validate_manifest`` (the caller's job — the
+    conversion never replaces or weakens that acceptance), so the fold
+    membership is trusted exactly as validated. ``question_folds`` entries
+    are 0-BASED ROW INDICES over the ordered qid list (the manifest's
+    documented semantics); ``ast_refined_table_folds`` entries already
+    carry qid lists. The training side of a question fold is the union of
+    the other folds (each question is tested exactly once).
     """
-    manifest = json.loads(Path(manifest_path).read_text(encoding='utf-8'))
     splits = {}
     q = manifest.get('question_folds') or {}
     splits['question_v1'] = {}
@@ -141,9 +167,26 @@ def load_splits(manifest_path, ordered_qids):
                           for k, v in t.items()}
     for setting in SETTINGS:
         if not splits.get(setting):
-            raise ValueError(f'manifest has no folds for {setting}: '
-                             f'{manifest_path}')
+            raise ValueError(f'manifest has no folds for {setting}')
     return splits
+
+
+def validate_manifest_full(manifest_path, rows, gold, qids):
+    """Re-acceptance of the raw manifest on the CURRENT data, BEFORE any
+    engine is constructed: the existing framework check
+    (``terag_release.protocols.validate_manifest``), never trusting the
+    manifest's cached ``checks`` block. Covers QA row count, qid identity
+    and order, five-fold completeness/exclusivity/coverage, duplicate
+    question groups never crossing folds, train/test disjointness,
+    held-out target-table vs test membership, AST isolation recomputed
+    from the current gold, and the conservative unparseable-train-SQL
+    exclusion. Returns the validated manifest dict (raises
+    ManifestValidationError on any tampering).
+    """
+    from terag_release import protocols
+    manifest = json.loads(Path(manifest_path).read_text(encoding='utf-8'))
+    protocols.validate_manifest(manifest, rows, gold, list(qids))
+    return manifest
 
 
 def run_grid_replay(dataset, splits_manifest, track, member=None,
@@ -163,10 +206,9 @@ def run_grid_replay(dataset, splits_manifest, track, member=None,
     if not gold_path.is_file():
         raise FileNotFoundError(f'dataset gold: {gold_path}')
 
-    run_dir = reporting.require_new_directory(Path(output))
     params_csv = Path(params_csv) if params_csv else PARAMS_CSV
     table = load_selected_params(params_csv)
-    settings = list(settings) if settings else list(SETTINGS)
+    settings = list(SETTINGS) if settings is None else list(settings)
 
     rows = pd.read_csv(data['qa_csv'])
     if 'qid' not in rows.columns:
@@ -176,7 +218,6 @@ def run_grid_replay(dataset, splits_manifest, track, member=None,
         rows['qid'] = [f'{qid_prefix}{i:03d}' for i in range(len(rows))]
     rows['qid'] = rows['qid'].astype(str)
     question_text = dict(zip(rows.qid, rows.question.astype(str)))
-    splits = load_splits(splits_manifest, rows.qid.tolist())
     gold = {}
     if gold_path.suffix == '.jsonl':
         for line in gold_path.read_text(encoding='utf-8').splitlines():
@@ -189,128 +230,197 @@ def run_grid_replay(dataset, splits_manifest, track, member=None,
     if set(question_text) != set(gold):
         raise ValueError('QA qids and gold qids differ — refusing to run')
 
+    # ---- FULL manifest re-acceptance on the CURRENT data, BEFORE any
+    # engine is constructed (train/test overlap, leak tampering, fold
+    # integrity, AST isolation recomputed from this gold — the cached
+    # ``checks`` block inside the manifest is never trusted) ----
+    manifest = validate_manifest_full(splits_manifest, rows, gold,
+                                      rows.qid.tolist())
+    splits = load_splits(manifest, rows.qid.tolist())
+
+    # ---- execution plan: validate settings/fold against the ACCEPTED
+    # manifest and require a non-empty plan before anything executes ----
+    if not settings:
+        raise ValueError('no settings requested — the execution plan is '
+                         'empty; refusing to report an empty run')
+    unknown = [s for s in settings if s not in SETTINGS]
+    if unknown:
+        raise ValueError(f'unknown settings {unknown} (legal: '
+                         f'{list(SETTINGS)})')
+    available_folds = sorted({f for s in settings for f in splits[s]})
+    if fold is not None:
+        if fold < 0:
+            raise ValueError(f'invalid fold {fold}: folds are 0-based '
+                             'non-negative integers')
+        if fold not in available_folds:
+            raise ValueError(f'invalid fold {fold}: not present in the '
+                             f'accepted manifest (available folds: '
+                             f'{available_folds})')
+    plan = [(setting, f) for setting in settings
+            for f in sorted(splits[setting])
+            if fold is None or f == fold]
+    if not plan:
+        raise ValueError('empty execution plan: no (setting, fold) unit '
+                         'matches the request — refusing to write a '
+                         'success status for a zero-unit run')
+
+    # only NOW is the output directory created: an invalid request (bad
+    # manifest, invalid fold, empty plan) leaves no artifacts behind
+    run_dir = reporting.require_new_directory(Path(output))
+
     from terag.engines.grid import GridEngine, make_grid_config
 
     statuses = []
     t0 = time.perf_counter()
-    for setting in settings:
-        for f in sorted(splits[setting]):
-            if fold is not None and f != fold:
-                continue
-            spec = splits[setting][f]
-            variant, params, source = resolve_track_params(
-                track, member, setting, f, table)
-            cell_dir = run_dir / setting / f'fold{f}' / variant
-            cell_dir.mkdir(parents=True, exist_ok=True)
-            t_cell = time.perf_counter()
-            records, n_err = [], 0
-            fit_stats = None
-            try:
-                train = inject_supervision(
-                    rows[rows.qid.astype(str).isin(spec['train'])]
-                    .reset_index(drop=True), gold, 'full_sql')
-                cache = run_dir / 'engine_cache' / f'{setting}_fold{f}'
-                cache.mkdir(parents=True, exist_ok=True)
-                cfg = make_grid_config(
-                    field_csv=data['field_csv'],
-                    table_csv=data['table_csv'],
-                    artifacts_dir=cache)
-                gold_local = {q: gold[q] for q in spec['test']}
-                engine = GridEngine(cfg, setting, f, train, gold_local,
-                                    question_text, cache_dir=cache)
-                fit_stats = engine.fit_stats()
-                for q in spec['test']:
-                    t1 = time.perf_counter()
-                    try:
-                        rec, _metric, _trace = engine.predict(
-                            q, params, variant)
-                        rec['setting'] = setting
-                        rec['fold'] = f
-                        rec['method'] = variant
-                        rec['query_time'] = time.perf_counter() - t1
-                        records.append(rec)
-                    except Exception as exc:  # per-question isolation
-                        n_err += 1
-                        records.append(
-                            {'qid': q, 'setting': setting, 'fold': f,
-                             'method': variant, 'variant': variant,
-                             'status': 'error',
-                             'error': str(exc)[:300],
-                             'retrieved_tables': [],
-                             'retrieved_column_keys': [],
-                             'retrieved_columns_detail': [],
-                             'query_time': time.perf_counter() - t1})
-            except Exception as exc:  # construction failure -> error records
-                n_err += len(spec['test'])
-                records = [{'qid': q, 'setting': setting, 'fold': f,
-                            'method': variant, 'variant': variant,
-                            'status': 'error', 'error': str(exc)[:300],
-                            'retrieved_tables': [],
-                            'retrieved_column_keys': [],
-                            'retrieved_columns_detail': [],
-                            'query_time': 0.0}
-                           for q in spec['test']]
-            with (cell_dir / 'predictions.jsonl').open('w',
-                                                       encoding='utf-8') as fh:
-                for r in records:
-                    fh.write(json.dumps(r, ensure_ascii=False,
-                                        default=str) + '\n')
-            # per-cell metrics recomputed from the FINAL records
-            from eval.full_gold import full_gold_metrics
-            per_q = []
+    for setting, f in plan:
+        spec = splits[setting][f]
+        variant, params, source = resolve_track_params(
+            track, member, setting, f, table)
+        cell_dir = run_dir / setting / f'fold{f}' / variant
+        cell_dir.mkdir(parents=True, exist_ok=True)
+        t_cell = time.perf_counter()
+        records, n_err = [], 0
+        fit_stats = None
+        try:
+            train = inject_supervision(
+                rows[rows.qid.astype(str).isin(spec['train'])]
+                .reset_index(drop=True), gold, 'full_sql')
+            cache = run_dir / 'engine_cache' / f'{setting}_fold{f}'
+            cache.mkdir(parents=True, exist_ok=True)
+            cfg = make_grid_config(
+                field_csv=data['field_csv'],
+                table_csv=data['table_csv'],
+                artifacts_dir=cache)
+            gold_local = {q: gold[q] for q in spec['test']}
+            engine = GridEngine(cfg, setting, f, train, gold_local,
+                                question_text, cache_dir=cache)
+            fit_stats = engine.fit_stats()
+            for q in spec['test']:
+                t1 = time.perf_counter()
+                try:
+                    rec, _metric, _trace = engine.predict(
+                        q, params, variant)
+                    rec['setting'] = setting
+                    rec['fold'] = f
+                    rec['method'] = variant
+                    rec['query_time'] = time.perf_counter() - t1
+                    records.append(rec)
+                except Exception as exc:  # per-question isolation
+                    n_err += 1
+                    records.append(
+                        {'qid': q, 'setting': setting, 'fold': f,
+                         'method': variant, 'variant': variant,
+                         'status': 'error',
+                         'error': str(exc)[:300],
+                         'retrieved_tables': [],
+                         'retrieved_column_keys': [],
+                         'retrieved_columns_detail': [],
+                         'query_time': time.perf_counter() - t1})
+        except Exception as exc:  # construction failure -> error records
+            n_err += len(spec['test'])
+            records = [{'qid': q, 'setting': setting, 'fold': f,
+                        'method': variant, 'variant': variant,
+                        'status': 'error', 'error': str(exc)[:300],
+                        'retrieved_tables': [],
+                        'retrieved_column_keys': [],
+                        'retrieved_columns_detail': [],
+                        'query_time': 0.0}
+                       for q in spec['test']]
+        with (cell_dir / 'predictions.jsonl').open('w',
+                                                   encoding='utf-8') as fh:
             for r in records:
-                m = full_gold_metrics(r, gold)
-                per_q.append({'qid': r['qid'],
-                              'status': r.get('status'),
-                              'covered@5': float(m[1]),
-                              'tr@1': float(m[0][1]),
-                              'tr@5': float(m[0][5]),
-                              'colp': float(m[2]), 'colrec': float(m[3]),
-                              'colf1': float(m[4]), 'fgcs': float(m[5])})
-            summary = {'setting': setting, 'fold': f, 'variant': variant,
-                       'track': track, 'n': len(records),
-                       'n_error': n_err,
-                       'covered@5': (sum(p['covered@5'] for p in per_q)
-                                     / len(per_q)) if per_q else 0.0,
-                       'colf1': (sum(p['colf1'] for p in per_q)
+                fh.write(json.dumps(r, ensure_ascii=False,
+                                    default=str) + '\n')
+        # per-cell metrics recomputed from the FINAL records
+        from eval.full_gold import full_gold_metrics
+        per_q = []
+        for r in records:
+            m = full_gold_metrics(r, gold)
+            per_q.append({'qid': r['qid'],
+                          'status': r.get('status'),
+                          'covered@5': float(m[1]),
+                          'tr@1': float(m[0][1]),
+                          'tr@5': float(m[0][5]),
+                          'colp': float(m[2]), 'colrec': float(m[3]),
+                          'colf1': float(m[4]), 'fgcs': float(m[5])})
+        summary = {'setting': setting, 'fold': f, 'variant': variant,
+                   'track': track, 'n': len(records),
+                   'n_error': n_err,
+                   'covered@5': (sum(p['covered@5'] for p in per_q)
                                  / len(per_q)) if per_q else 0.0,
-                       'fgcs': (sum(p['fgcs'] for p in per_q)
-                                / len(per_q)) if per_q else 0.0}
-            cell_meta = {'setting': setting, 'fold': f, 'method': variant,
-                         'track': track,
-                         'status': ('failed' if n_err == len(records)
-                                    else 'completed_with_errors'
-                                    if n_err else 'ok'),
-                         'n': len(records), 'n_error': n_err,
-                         'params_source': source,
-                         'params_sha256': digest(params),
-                         'effective_params': params,
-                         'wall_seconds': time.perf_counter() - t_cell,
-                         'fit_stats': fit_stats}
-            (cell_dir / 'cell.json').write_text(
-                json.dumps(cell_meta, ensure_ascii=False, indent=1,
-                           default=str) + '\n', encoding='utf-8')
-            (cell_dir / 'per_question_metrics.json').write_text(
-                json.dumps(per_q, ensure_ascii=False, indent=1) + '\n',
-                encoding='utf-8')
-            statuses.append(cell_meta)
-            print(f'{setting} f{f} {variant} ({track}): n={len(records)} '
-                  f'err={n_err}', flush=True)
+                   'colf1': (sum(p['colf1'] for p in per_q)
+                             / len(per_q)) if per_q else 0.0,
+                   'fgcs': (sum(p['fgcs'] for p in per_q)
+                            / len(per_q)) if per_q else 0.0}
+        cell_meta = {'setting': setting, 'fold': f, 'method': variant,
+                     'track': track,
+                     'status': ('failed' if n_err == len(records)
+                                else 'completed_with_errors'
+                                if n_err else 'ok'),
+                     'n': len(records), 'n_error': n_err,
+                     'params_source': source,
+                     'params_sha256': digest(params),
+                     'effective_params': params,
+                     'wall_seconds': time.perf_counter() - t_cell,
+                     'fit_stats': fit_stats}
+        (cell_dir / 'cell.json').write_text(
+            json.dumps(cell_meta, ensure_ascii=False, indent=1,
+                       default=str) + '\n', encoding='utf-8')
+        (cell_dir / 'per_question_metrics.json').write_text(
+            json.dumps(per_q, ensure_ascii=False, indent=1) + '\n',
+            encoding='utf-8')
+        statuses.append(cell_meta)
+        print(f'{setting} f{f} {variant} ({track}): n={len(records)} '
+              f'err={n_err}', flush=True)
 
-    run_status = 'completed'
-    if any(s['status'] != 'ok' for s in statuses):
-        run_status = ('failed' if statuses and all(s['status'] == 'failed'
-                                                   for s in statuses)
+    # ---- run status: an EMPTY or INCOMPLETE execution is never "completed"
+    # ----
+    # partial: a legitimately narrowed run (single fold via --fold or a
+    #   subset of settings) that executed its whole non-empty plan — the
+    #   real outputs are kept and clearly labeled, never presented as the
+    #   full five-fold run;
+    # completed: every unit of the FULL plan (both settings, all folds)
+    #   executed without question-level errors;
+    # completed_with_failures / failed: question/cell failures occurred
+    #   (non-zero exit at the CLI);
+    # incomplete: planned units are missing from the executed set — never
+    #   downgraded to a success wording.
+    planned_keys = [(s, f) for s, f in plan]
+    executed_keys = [(s['setting'], s['fold']) for s in statuses]
+    missing_units = [k for k in planned_keys if k not in executed_keys]
+    full_plan = [(s, f) for s in SETTINGS for f in sorted(splits[s])]
+    is_narrowed = sorted(planned_keys) != sorted(full_plan)
+    if missing_units:
+        run_status = 'incomplete'
+    elif not statuses:
+        run_status = 'incomplete'
+    elif all(s['status'] == 'failed' for s in statuses):
+        run_status = 'failed'
+    elif any(s['status'] != 'ok' for s in statuses):
+        run_status = ('completed_with_failures_partial' if is_narrowed
                       else 'completed_with_failures')
+    elif is_narrowed:
+        run_status = 'partial'
+    else:
+        run_status = 'completed'
     meta = {'run_kind': 'grid_replay', 'run_status': run_status,
             'track': track, 'member': member,
             'dataset': {k: str(v) for k, v in data.items()},
             'params_table': {'path': str(params_csv),
                              'sha256': sha256_file(params_csv)},
             'splits_manifest': {'path': str(splits_manifest),
-                                'sha256': sha256_file(splits_manifest)},
+                                'sha256': sha256_file(splits_manifest),
+                                'revalidated': True},
             'input_sha256': {k: sha256_file(Path(v))
                              for k, v in data.items()},
+            'execution_plan': [{'setting': s, 'fold': f}
+                               for s, f in planned_keys],
+            'n_planned_units': len(planned_keys),
+            'n_executed_units': len(executed_keys),
+            'missing_units': [{'setting': s, 'fold': f}
+                              for s, f in missing_units],
+            'full_plan_units': len(full_plan),
+            'is_partial': is_narrowed,
             'cells': statuses, 'wall_seconds': time.perf_counter() - t0}
     (run_dir / 'run_meta').mkdir(parents=True, exist_ok=True)
     reporting.write_json_exclusive(run_dir / 'run_meta' / 'run_meta.json',
