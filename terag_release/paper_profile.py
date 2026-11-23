@@ -258,8 +258,8 @@ PAPER_FINAL_FILES = {
 }
 
 # The paper-with-appendix PDF shipped for review (docs/paper_with_appendix.pdf).
-PAPER_FINAL_PDF_SHA256 = ("552083ea328ec5adc7e4cef4baeca17af981e91da727f8f3"
-                          "5ddabfd5d15d279a")
+PAPER_FINAL_PDF_SHA256 = ("c426ba6a178456304396f043c2b5f2e7f9c3cd52d0bea656"
+                          "9c467e3081021c46")
 
 PAPER_FINAL_SUMMARY = {
     "grid": ("final engine terag.engines.grid.GridEngine (accepted scoring "

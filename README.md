@@ -25,7 +25,7 @@ construction, and isolation auditing only.
 
 The paper with appendix is shipped as
 [docs/paper_with_appendix.pdf](docs/paper_with_appendix.pdf)
-(SHA256 `552083ea328ec5adc7e4cef4baeca17af981e91da727f8f35ddabfd5d15d279a`,
+(SHA256 `c426ba6a178456304396f043c2b5f2e7f9c3cd52d0bea6569c467e3081021c46`,
 21 pages). No TeX sources, figures, or writing materials are included.
 
 What this repository supports — stated precisely:

@@ -1,5 +1,17 @@
 # Changelog
 
+## unreleased (2026-11-23): paper PDF refreshed to writing round 5
+
+The shipped paper-with-appendix PDF (docs/paper_with_appendix.pdf) is
+replaced by the latest round-5 revision (writing_round5_20261123 build,
+`main_with_appendix.pdf`). No code, configuration, or frozen-identity
+change: the new PDF is 21 pages, SHA256
+`c426ba6a178456304396f043c2b5f2e7f9c3cd52d0bea6569c467e3081021c46`
+(previous: `552083ea328ec5adc7e4cef4baeca17af981e91da727f8f35ddabfd5d15d279a`,
+also 21 pages). README.md, docs/release_mapping.md, and
+terag_release/paper_profile.py (`PAPER_FINAL_PDF_SHA256`) now pin the new
+hash; tests/test_paper_final_profile.py re-run green.
+
 ## unreleased (2026-11-21b): grid replay manifest acceptance + execution plans
 
 Small repair round on the run-grid-replay entry (independent review

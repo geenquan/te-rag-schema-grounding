@@ -123,7 +123,7 @@ download, DeepSeek API) — recorded as **not executed**.
 ## Final-paper profile (`paper_final_20261120`, 2026-11-20)
 
 The submitted paper (docs/paper_with_appendix.pdf, SHA256
-`552083ea328ec5adc7e4cef4baeca17af981e91da727f8f35ddabfd5d15d279a`, 21
+`c426ba6a178456304396f043c2b5f2e7f9c3cd52d0bea6569c467e3081021c46`, 21
 pages) supersedes the original paper baseline for the reported experiments.
 Its identities, all present in this repository:
 
